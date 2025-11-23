@@ -39,7 +39,7 @@ val minecraftDir = when {
 }
 
 tasks.register<JavaExec>("RunClient") {
-    group = "GradleMCP"
+    group = "RadiantMCP"
     description = "Starts the Minecraft client."
 
     dependsOn("ExtractLwjglNatives")
@@ -63,7 +63,7 @@ tasks.register<JavaExec>("RunClient") {
 }
 
 tasks.register<JavaExec>("RunClientNativeAgent") {
-    group = "GradleMCP"
+    group = "RadiantMCP"
     description = "Starts the Minecraft client with the native image tracing agent attached. This won't work if ran in debug mode."
 
     dependsOn("ExtractLwjglNatives")
@@ -93,7 +93,7 @@ tasks.register<JavaExec>("RunClientNativeAgent") {
 }
 
 tasks.register<Copy>("ExtractLwjglNatives") {
-    group = "GradleMCP"
+    group = "RadiantMCP"
     description = "Extracts LWJGL native libraries"
 
     from(lwjglExtract.resolve()
