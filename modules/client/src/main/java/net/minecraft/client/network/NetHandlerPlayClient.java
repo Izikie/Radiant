@@ -893,7 +893,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             // TODO: Implement system to pervent abuse through spammed win packets
             case 4 -> this.gameController.displayGuiScreen(new GuiWinGame());
             // BUGFIX: Removed demo screen to prevent abuse
-            case 6 -> this.clientWorldController.playSound(entityplayer.posX, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ, "random.successful_hit", 0.18F, 0.45F, false);
+            case 6 ->
+                    this.clientWorldController.playSound(entityplayer.posX, entityplayer.posY + entityplayer.getEyeHeight(), entityplayer.posZ, "random.successful_hit", 0.18F, 0.45F, false);
             // BUGFIX: Clamp value to pervent lag/crash and abuse of color/brightness effects, leave leniency for servers
             case 7 -> this.clientWorldController.setRainStrength(Math.clamp(f, -4.0F, 4F));
             case 8 -> this.clientWorldController.setThunderStrength(f);

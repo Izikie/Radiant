@@ -27,7 +27,8 @@ public class PlayerProfileCache {
     private final MinecraftServer mcServer;
     protected final Gson gson = new GsonBuilder()
             .registerTypeHierarchyAdapter(ProfileEntry.class, new Serializer())
-            .create();;
+            .create();
+    ;
     private final File usercacheFile;
     private static final ParameterizedType TYPE = new ParameterizedType() {
         @Override

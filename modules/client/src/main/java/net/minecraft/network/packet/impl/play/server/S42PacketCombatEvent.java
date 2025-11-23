@@ -18,7 +18,7 @@ public class S42PacketCombatEvent implements Packet<INetHandlerPlayClient> {
     public S42PacketCombatEvent() {
     }
 
-    
+
     public S42PacketCombatEvent(CombatTracker combatTrackerIn, Event combatEventType) {
         this.eventType = combatEventType;
         EntityLivingBase entitylivingbase = combatTrackerIn.func_94550_c();

@@ -166,7 +166,7 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
         this.adjacentChestChecked = false;
     }
 
-    
+
     private void func_174910_a(TileEntityChest chestTe, Direction side) {
         if (chestTe.isInvalid()) {
             this.adjacentChestChecked = false;

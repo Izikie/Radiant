@@ -56,7 +56,7 @@ public class BlockNewLog extends BlockLog {
         return iblockstate;
     }
 
-    
+
     @Override
     public int getMetaFromState(IBlockState state) {
         int i = 0;

@@ -326,7 +326,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         }
     }
 
-    
+
     protected void func_180460_a(BlockPos p_180460_1_, IBlockState p_180460_2_) {
         this.fallDistance = 0.0F;
         Vec3 vec3 = this.func_70489_a(this.posX, this.posY, this.posZ);

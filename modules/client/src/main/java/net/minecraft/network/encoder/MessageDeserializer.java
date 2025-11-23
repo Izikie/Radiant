@@ -55,7 +55,7 @@ public class MessageDeserializer extends ByteToMessageDecoder {
         if (buffer.isReadable()) {
             throw new IOException(
                     "Packet " + state.getId() + "/" + packetId + " (" + packet.getClass().getSimpleName() +
-                    ") has " + buffer.readableBytes() + " unexpected extra bytes"
+                            ") has " + buffer.readableBytes() + " unexpected extra bytes"
             );
         }
 

@@ -48,21 +48,21 @@ public class ServerStatusResponse {
 
     public record MinecraftProtocolVersionIdentifier(String name, int protocol) {
         public static class Serializer implements JsonDeserializer<MinecraftProtocolVersionIdentifier>, JsonSerializer<MinecraftProtocolVersionIdentifier> {
-                @Override
-                public MinecraftProtocolVersionIdentifier deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
-                    JsonObject jsonObject = JsonUtils.getJsonObject(jsonElement, "version");
-                    return new MinecraftProtocolVersionIdentifier(JsonUtils.getString(jsonObject, "name"), JsonUtils.getInt(jsonObject, "protocol"));
-                }
+            @Override
+            public MinecraftProtocolVersionIdentifier deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {
+                JsonObject jsonObject = JsonUtils.getJsonObject(jsonElement, "version");
+                return new MinecraftProtocolVersionIdentifier(JsonUtils.getString(jsonObject, "name"), JsonUtils.getInt(jsonObject, "protocol"));
+            }
 
-                @Override
-                public JsonElement serialize(MinecraftProtocolVersionIdentifier versionIdentifier, Type type, JsonSerializationContext ctx) {
-                    JsonObject jsonObject = new JsonObject();
-                    jsonObject.addProperty("name", versionIdentifier.name());
-                    jsonObject.addProperty("protocol", versionIdentifier.protocol());
-                    return jsonObject;
-                }
+            @Override
+            public JsonElement serialize(MinecraftProtocolVersionIdentifier versionIdentifier, Type type, JsonSerializationContext ctx) {
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("name", versionIdentifier.name());
+                jsonObject.addProperty("protocol", versionIdentifier.protocol());
+                return jsonObject;
             }
         }
+    }
 
     public static class PlayerCountData {
         private final int maxPlayers;

@@ -21,9 +21,9 @@ public class HttpUtil {
             MoreExecutors.listeningDecorator(
                     Executors.newCachedThreadPool(
                             new ThreadFactoryBuilder()
-                                .setDaemon(true)
-                                .setNameFormat("Downloader %d")
-                                .build()
+                                    .setDaemon(true)
+                                    .setNameFormat("Downloader %d")
+                                    .build()
                     )
             );
     private static final Logger LOGGER = LoggerFactory.getLogger(HttpUtil.class);

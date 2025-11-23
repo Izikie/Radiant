@@ -169,7 +169,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 
     private void readGlyphSizes() {
 
-        try (InputStream inputstream  = this.getResourceInputStream(new ResourceLocation("font/glyph_sizes.bin"))) {
+        try (InputStream inputstream = this.getResourceInputStream(new ResourceLocation("font/glyph_sizes.bin"))) {
             int _ = inputstream.read(this.glyphWidth);
         } catch (IOException exception) {
             throw new RuntimeException(exception);

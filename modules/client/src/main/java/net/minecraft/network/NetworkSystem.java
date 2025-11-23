@@ -62,7 +62,7 @@ public class NetworkSystem {
         synchronized (this.endpoints) {
             Class<? extends ServerSocketChannel> oclass = NioServerSocketChannel.class;
 
-	        this.endpoints.add((new ServerBootstrap()).channel(oclass).childHandler(new ChannelInitializer<>() {
+            this.endpoints.add((new ServerBootstrap()).channel(oclass).childHandler(new ChannelInitializer<>() {
                 @Override
                 protected void initChannel(Channel channel) {
                     try {

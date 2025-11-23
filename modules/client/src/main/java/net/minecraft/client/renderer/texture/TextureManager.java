@@ -26,7 +26,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
     private final Map<String, Integer> mapTextureCounters = new HashMap<>();
     private final IResourceManager theResourceManager;
 
-	public TextureManager(IResourceManager resourceManager) {
+    public TextureManager(IResourceManager resourceManager) {
         this.theResourceManager = resourceManager;
     }
 
@@ -150,13 +150,13 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
         EmissiveTextures.update();
 
         for (Entry<ResourceLocation, ITextureObject> o : new HashSet<>(this.mapTextureObjects.entrySet())) {
-	        this.loadTexture(o.getKey(), o.getValue());
+            this.loadTexture(o.getKey(), o.getValue());
         }
     }
 
     public void reloadBannerTextures() {
         for (Entry<ResourceLocation, ITextureObject> o : new HashSet<>(this.mapTextureObjects.entrySet())) {
-	        ResourceLocation resourcelocation = o.getKey();
+            ResourceLocation resourcelocation = o.getKey();
             ITextureObject itextureobject = o.getValue();
 
             if (itextureobject instanceof LayeredColorMaskTexture) {

@@ -1052,7 +1052,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         return l;
     }
 
-    
+
     private void renderBlockLayer(RenderLayer blockLayerIn) {
         this.mc.entityRenderer.enableLightmap();
 

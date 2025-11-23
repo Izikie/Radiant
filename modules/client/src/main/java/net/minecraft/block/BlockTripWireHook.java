@@ -212,7 +212,7 @@ public class BlockTripWireHook extends Block {
         }
     }
 
-    
+
     @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         float f = 0.1875F;

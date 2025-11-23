@@ -29,10 +29,10 @@ public interface IChatComponent extends Iterable<IChatComponent> {
 
     class Serializer implements JsonDeserializer<IChatComponent>, JsonSerializer<IChatComponent> {
         private static final Gson GSON = new GsonBuilder()
-                    .registerTypeHierarchyAdapter(IChatComponent.class, new Serializer())
-                    .registerTypeHierarchyAdapter(ChatStyle.class, new ChatStyle.Serializer())
-                    .registerTypeAdapterFactory(new EnumTypeAdapterFactory())
-                    .create();
+                .registerTypeHierarchyAdapter(IChatComponent.class, new Serializer())
+                .registerTypeHierarchyAdapter(ChatStyle.class, new ChatStyle.Serializer())
+                .registerTypeAdapterFactory(new EnumTypeAdapterFactory())
+                .create();
 
         @Override
         public IChatComponent deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext ctx) throws JsonParseException {

@@ -141,6 +141,4 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
     }
 
 
-
-
 }

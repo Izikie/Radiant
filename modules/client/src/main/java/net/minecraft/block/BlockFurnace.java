@@ -64,7 +64,7 @@ public class BlockFurnace extends BlockContainer {
         }
     }
 
-    
+
     @Override
     public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         if (this.isBurning) {

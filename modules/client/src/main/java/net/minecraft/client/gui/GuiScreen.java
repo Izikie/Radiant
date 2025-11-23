@@ -231,7 +231,8 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                     }
                 }
             }
-            case SHOW_TEXT -> this.drawHoveringText(NEWLINE_SPLITTER.splitToList(hoverEvent.getValue().getFormattedText()), x, y);
+            case SHOW_TEXT ->
+                    this.drawHoveringText(NEWLINE_SPLITTER.splitToList(hoverEvent.getValue().getFormattedText()), x, y);
             case SHOW_ACHIEVEMENT -> {
                 StatBase stat = StatList.getOneShotStat(hoverEvent.getValue().getUnformattedText());
 

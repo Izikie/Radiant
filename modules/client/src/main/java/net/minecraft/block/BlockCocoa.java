@@ -69,7 +69,7 @@ public class BlockCocoa extends BlockDirectional implements IGrowable {
         return super.getSelectedBoundingBox(worldIn, pos);
     }
 
-    
+
     @Override
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
         IBlockState iblockstate = worldIn.getBlockState(pos);

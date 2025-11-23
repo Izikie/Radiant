@@ -117,7 +117,7 @@ public class BlockState {
             return this.block;
         }
 
-	    public int hashCode() {
+        public int hashCode() {
             return this.properties.hashCode();
         }
 

@@ -21,7 +21,7 @@ public class ItemHoe extends Item {
         this.setCreativeTab(CreativeTabs.TAB_TOOLS);
     }
 
-    
+
     @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
         if (!playerIn.canPlayerEdit(pos.offset(side), side, stack)) {
