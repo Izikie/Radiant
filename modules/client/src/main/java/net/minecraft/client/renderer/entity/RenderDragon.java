@@ -12,6 +12,7 @@ import net.minecraft.entity.boss.BossStatus;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 public class RenderDragon extends RenderLiving<EntityDragon> {
     private static final ResourceLocation ENDER_DRAGON_CRYSTAL_BEAM_TEXTURES = new ResourceLocation("textures/entity/endercrystal/endercrystal_beam.png");
@@ -50,20 +51,20 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
     protected void renderModel(EntityDragon entitylivingbaseIn, float p_77036_2_, float p_77036_3_, float p_77036_4_, float p_77036_5_, float p_77036_6_, float scaleFactor) {
         if (entitylivingbaseIn.deathTicks > 0) {
             float f = entitylivingbaseIn.deathTicks / 200.0F;
-            GlStateManager.depthFunc(515);
+            GlStateManager.depthFunc(GL11.GL_LEQUAL);
             GlStateManager.enableAlpha();
             GlStateManager.alphaFunc(516, f);
             this.bindTexture(ENDER_DRAGON_EXPLODING_TEXTURES);
             this.mainModel.render(entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, scaleFactor);
             GlStateManager.alphaFunc(516, 0.1F);
-            GlStateManager.depthFunc(514);
+            GlStateManager.depthFunc(GL11.GL_EQUAL);
         }
 
         this.bindEntityTexture(entitylivingbaseIn);
         this.mainModel.render(entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, scaleFactor);
 
         if (entitylivingbaseIn.hurtTime > 0) {
-            GlStateManager.depthFunc(514);
+            GlStateManager.depthFunc(GL11.GL_EQUAL);
             GlStateManager.disableTexture2D();
             GlStateManager.enableBlend();
             GlStateManager.blendFunc(770, 771);
@@ -71,7 +72,7 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
             this.mainModel.render(entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, scaleFactor);
             GlStateManager.enableTexture2D();
             GlStateManager.disableBlend();
-            GlStateManager.depthFunc(515);
+            GlStateManager.depthFunc(GL11.GL_LEQUAL);
         }
     }
 

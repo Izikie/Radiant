@@ -20,6 +20,7 @@ import net.minecraft.util.chat.ChatComponentTranslation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.radiant.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
 import java.util.Random;
@@ -217,7 +218,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
         int i1 = k + 16;
         int j1 = l + 17;
         this.zLevel = 0.0F;
-        GlStateManager.depthFunc(518);
+        GlStateManager.depthFunc(GL11.GL_GEQUAL);
         GlStateManager.pushMatrix();
         GlStateManager.translate(i1, j1, -200.0F);
         GlStateManager.scale(1.0F / this.field_146570_r, 1.0F / this.field_146570_r, 0.0F);
@@ -274,7 +275,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
         }
 
         GlStateManager.enableDepth();
-        GlStateManager.depthFunc(515);
+        GlStateManager.depthFunc(GL11.GL_LEQUAL);
         this.mc.getTextureManager().bindTexture(ACHIEVEMENT_BACKGROUND);
 
         for (int j5 = 0; j5 < AchievementList.ACHIEVEMENT_LIST.size(); ++j5) {
@@ -390,7 +391,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
         this.mc.getTextureManager().bindTexture(ACHIEVEMENT_BACKGROUND);
         this.drawTexturedModalRect(k, l, 0, 0, this.field_146555_f, this.field_146557_g);
         this.zLevel = 0.0F;
-        GlStateManager.depthFunc(515);
+        GlStateManager.depthFunc(GL11.GL_LEQUAL);
         GlStateManager.disableDepth();
         GlStateManager.enableTexture2D();
         super.drawScreen(p_146552_1_, p_146552_2_, p_146552_3_);

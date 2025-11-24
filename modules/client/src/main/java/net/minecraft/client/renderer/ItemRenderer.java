@@ -430,7 +430,7 @@ public class ItemRenderer {
         Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 0.9F);
-        GlStateManager.depthFunc(519);
+        GlStateManager.depthFunc(GL11.GL_ALWAYS);
         GlStateManager.depthMask(false);
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
@@ -464,7 +464,7 @@ public class ItemRenderer {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.disableBlend();
         GlStateManager.depthMask(true);
-        GlStateManager.depthFunc(515);
+        GlStateManager.depthFunc(GL11.GL_LEQUAL);
     }
 
     public void updateEquippedItem() {

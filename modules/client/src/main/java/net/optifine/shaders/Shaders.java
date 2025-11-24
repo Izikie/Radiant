@@ -3638,7 +3638,7 @@ public class Shaders {
             GlStateManager.disableAlpha();
             GlStateManager.disableBlend();
             GlStateManager.enableDepth();
-            GlStateManager.depthFunc(519);
+            GlStateManager.depthFunc(GL11.GL_ALWAYS);
             GlStateManager.depthMask(false);
             GlStateManager.disableLighting();
 
@@ -3733,7 +3733,7 @@ public class Shaders {
             GlStateManager.enableTexture2D();
             GlStateManager.enableAlpha();
             GlStateManager.enableBlend();
-            GlStateManager.depthFunc(515);
+            GlStateManager.depthFunc(GL11.GL_LEQUAL);
             GlStateManager.depthMask(true);
             GL11.glPopMatrix();
             GL11.glMatrixMode(GL11.GL_MODELVIEW);
@@ -3776,7 +3776,7 @@ public class Shaders {
         GlStateManager.disableAlpha();
         GlStateManager.disableBlend();
         GlStateManager.enableDepth();
-        GlStateManager.depthFunc(519);
+        GlStateManager.depthFunc(GL11.GL_ALWAYS);
         GlStateManager.depthMask(false);
         checkGLError("pre-final");
         useProgram(PROGRAM_FINAL);

@@ -113,7 +113,7 @@ public class ShadersRender {
         GlStateManager.depthMask(true);
 
         if (renderTranslucent) {
-            GlStateManager.depthFunc(519);
+            GlStateManager.depthFunc(GL11.GL_ALWAYS);
             GL11.glPushMatrix();
             IntBuffer intbuffer = Shaders.activeDrawBuffers;
             Shaders.setDrawBuffers(Shaders.DRAW_BUFFERS_NONE);
@@ -124,7 +124,7 @@ public class ShadersRender {
             GL11.glPopMatrix();
         }
 
-        GlStateManager.depthFunc(515);
+        GlStateManager.depthFunc(GL11.GL_LEQUAL);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         itemRenderer.renderItemInFirstPerson(par1);
         Shaders.setRenderingFirstPersonHand(false);
@@ -198,7 +198,7 @@ public class ShadersRender {
             frustum.setPosition(xPos, yPos, zPos);
             GlStateManager.shadeModel(7425);
             GlStateManager.enableDepth();
-            GlStateManager.depthFunc(515);
+            GlStateManager.depthFunc(GL11.GL_LEQUAL);
             GlStateManager.depthMask(true);
             GlStateManager.colorMask(true, true, true, true);
             GlStateManager.disableCull();

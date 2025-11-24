@@ -33,7 +33,7 @@ public class TileEntityChestRenderer extends TileEntitySpecialRenderer<TileEntit
     @Override
     public void renderTileEntityAt(TileEntityChest te, double x, double y, double z, float partialTicks, int destroyStage) {
         GlStateManager.enableDepth();
-        GlStateManager.depthFunc(515);
+        GlStateManager.depthFunc(GL11.GL_LEQUAL);
         GlStateManager.depthMask(true);
         int i;
 

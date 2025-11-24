@@ -7,6 +7,7 @@ import net.minecraft.entity.boss.EntityDragon;
 import net.optifine.Config;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.shaders.Shaders;
+import org.lwjgl.opengl.GL11;
 
 public class LayerEnderDragonEyes implements LayerRenderer<EntityDragon> {
     private static final ResourceLocation TEXTURE = new ResourceLocation("textures/entity/enderdragon/dragon_eyes.png");
@@ -23,7 +24,7 @@ public class LayerEnderDragonEyes implements LayerRenderer<EntityDragon> {
         GlStateManager.disableAlpha();
         GlStateManager.blendFunc(1, 1);
         GlStateManager.disableLighting();
-        GlStateManager.depthFunc(514);
+        GlStateManager.depthFunc(GL11.GL_EQUAL);
         int i = 61680;
         int j = i % 65536;
         int k = i / 65536;
@@ -46,7 +47,7 @@ public class LayerEnderDragonEyes implements LayerRenderer<EntityDragon> {
         this.dragonRenderer.setLightmap(entitylivingbaseIn, partialTicks);
         GlStateManager.disableBlend();
         GlStateManager.enableAlpha();
-        GlStateManager.depthFunc(515);
+        GlStateManager.depthFunc(GL11.GL_LEQUAL);
     }
 
     @Override

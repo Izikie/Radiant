@@ -675,7 +675,7 @@ public class CustomItems {
                                     if (!flag) {
                                         flag = true;
                                         GlStateManager.depthMask(false);
-                                        GlStateManager.depthFunc(514);
+                                        GlStateManager.depthFunc(GL11.GL_EQUAL);
                                         GlStateManager.disableLighting();
                                         GlStateManager.matrixMode(GL11.GL_TEXTURE);
                                     }
@@ -701,7 +701,7 @@ public class CustomItems {
                     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                     GlStateManager.matrixMode(GL11.GL_MODELVIEW);
                     GlStateManager.enableLighting();
-                    GlStateManager.depthFunc(515);
+                    GlStateManager.depthFunc(GL11.GL_LEQUAL);
                     GlStateManager.depthMask(true);
                     texturemanager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
                 }
@@ -752,7 +752,7 @@ public class CustomItems {
                                         }
 
                                         GlStateManager.enableBlend();
-                                        GlStateManager.depthFunc(514);
+                                        GlStateManager.depthFunc(GL11.GL_EQUAL);
                                         GlStateManager.depthMask(false);
                                     }
 
@@ -783,7 +783,7 @@ public class CustomItems {
                     GlStateManager.matrixMode(GL11.GL_MODELVIEW);
                     GlStateManager.enableLighting();
                     GlStateManager.depthMask(true);
-                    GlStateManager.depthFunc(515);
+                    GlStateManager.depthFunc(GL11.GL_LEQUAL);
                     GlStateManager.disableBlend();
 
                     if (Config.isShaders()) {

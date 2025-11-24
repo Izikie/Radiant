@@ -333,7 +333,7 @@ public class Minecraft implements IThreadListener {
         GlStateManager.shadeModel(7425);
         GlStateManager.clearDepth(1.0D);
         GlStateManager.enableDepth();
-        GlStateManager.depthFunc(515);
+        GlStateManager.depthFunc(GL11.GL_LEQUAL);
         GlStateManager.enableAlpha();
         GlStateManager.alphaFunc(516, 0.1F);
         GlStateManager.cullFace(1029);

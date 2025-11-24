@@ -526,7 +526,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
 
             if (this.isRenderEntityOutlines()) {
-                GlStateManager.depthFunc(519);
+                GlStateManager.depthFunc(GL11.GL_ALWAYS);
                 GlStateManager.disableFog();
                 this.entityOutlineFramebuffer.framebufferClear();
                 this.entityOutlineFramebuffer.bindFramebuffer(false);
@@ -552,7 +552,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 GlStateManager.enableFog();
                 GlStateManager.enableBlend();
                 GlStateManager.enableColorMaterial();
-                GlStateManager.depthFunc(515);
+                GlStateManager.depthFunc(GL11.GL_LEQUAL);
                 GlStateManager.enableDepth();
                 GlStateManager.enableAlpha();
             }

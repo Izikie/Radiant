@@ -110,7 +110,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
             }
 
             GlStateManager.enableBlend();
-            GlStateManager.depthFunc(514);
+            GlStateManager.depthFunc(GL11.GL_EQUAL);
             GlStateManager.depthMask(false);
             float f1 = 0.5F;
             GlStateManager.color(f1, f1, f1, 1.0F);
@@ -135,7 +135,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
             GlStateManager.matrixMode(GL11.GL_MODELVIEW);
             GlStateManager.enableLighting();
             GlStateManager.depthMask(true);
-            GlStateManager.depthFunc(515);
+            GlStateManager.depthFunc(GL11.GL_LEQUAL);
             GlStateManager.disableBlend();
 
             if (Config.isShaders()) {

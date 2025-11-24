@@ -157,7 +157,7 @@ public class RenderItem implements IResourceManagerReloadListener {
         if (!Config.isCustomItems() || CustomItems.isUseGlint()) {
             if (!Config.isShaders() || !Shaders.isShadowPass) {
                 GlStateManager.depthMask(false);
-                GlStateManager.depthFunc(514);
+                GlStateManager.depthFunc(GL11.GL_EQUAL);
                 GlStateManager.disableLighting();
                 GlStateManager.blendFunc(768, 1);
                 this.textureManager.bindTexture(RES_ITEM_GLINT);
@@ -184,7 +184,7 @@ public class RenderItem implements IResourceManagerReloadListener {
                 GlStateManager.matrixMode(GL11.GL_MODELVIEW);
                 GlStateManager.blendFunc(770, 771);
                 GlStateManager.enableLighting();
-                GlStateManager.depthFunc(515);
+                GlStateManager.depthFunc(GL11.GL_LEQUAL);
                 GlStateManager.depthMask(true);
                 this.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
