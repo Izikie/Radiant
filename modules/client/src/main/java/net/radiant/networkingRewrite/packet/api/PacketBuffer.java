@@ -1,4 +1,4 @@
-package net.radiant.networkingRewrite;
+package net.radiant.networkingRewrite.packet.api;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
