@@ -217,7 +217,7 @@ public class EffectRenderer {
         EntityFX.interpPosZ = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * partialTicks;
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770, 771);
-        GlStateManager.alphaFunc(516, 0.003921569F);
+        GlStateManager.alphaFunc(GL11.GL_GREATER, 0.003921569F);
         Block block = ActiveRenderInfo.getBlockAtEntityViewpoint(this.worldObj, entityIn, partialTicks);
         boolean flag = block.getMaterial() == Material.WATER;
 
@@ -279,7 +279,7 @@ public class EffectRenderer {
 
         GlStateManager.depthMask(true);
         GlStateManager.disableBlend();
-        GlStateManager.alphaFunc(516, 0.1F);
+        GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
     }
 
     public void renderLitParticles(Entity entityIn, float partialTick) {

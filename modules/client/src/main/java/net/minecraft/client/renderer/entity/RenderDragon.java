@@ -53,10 +53,10 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
             float f = entitylivingbaseIn.deathTicks / 200.0F;
             GlStateManager.depthFunc(GL11.GL_LEQUAL);
             GlStateManager.enableAlpha();
-            GlStateManager.alphaFunc(516, f);
+            GlStateManager.alphaFunc(GL11.GL_GREATER, f);
             this.bindTexture(ENDER_DRAGON_EXPLODING_TEXTURES);
             this.mainModel.render(entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, scaleFactor);
-            GlStateManager.alphaFunc(516, 0.1F);
+            GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
             GlStateManager.depthFunc(GL11.GL_EQUAL);
         }
 

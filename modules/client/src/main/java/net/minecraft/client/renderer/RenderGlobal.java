@@ -1765,7 +1765,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             GlStateManager.color(f, f1, f2, (float) d1);
             GlStateManager.doPolygonOffset(-3.0F, -3.0F);
             GlStateManager.enablePolygonOffset();
-            GlStateManager.alphaFunc(516, 0.1F);
+            GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
             GlStateManager.enableAlpha();
             GlStateManager.disableCull();
             float f3 = (Minecraft.getSystemTime() % 3000L) / 3000.0F;
@@ -1858,7 +1858,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         GlStateManager.color(1.0F, 1.0F, 1.0F, 0.5F);
         GlStateManager.doPolygonOffset(-1.0F, -10.0F); // TODO: PATCHER Seems to change second value to -1.0F
         GlStateManager.enablePolygonOffset();
-        GlStateManager.alphaFunc(516, 0.1F);
+        GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
         GlStateManager.enableAlpha();
         GlStateManager.pushMatrix();
 

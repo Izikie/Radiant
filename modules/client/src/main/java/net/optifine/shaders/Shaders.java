@@ -3959,7 +3959,7 @@ public class Shaders {
         if (isRenderingWorld && PROGRAM_SPIDER_EYES.getId() != PROGRAM_NONE.getId()) {
             useProgram(PROGRAM_SPIDER_EYES);
             GlStateManager.enableAlpha();
-            GlStateManager.alphaFunc(516, 0.0F);
+            GlStateManager.alphaFunc(GL11.GL_GREATER, 0.0F);
             GlStateManager.blendFunc(770, 771);
         }
     }

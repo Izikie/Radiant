@@ -220,7 +220,7 @@ public class ShadersRender {
             Shaders.checkGLError("shadow terrain cutout");
             minecraft.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
             GlStateManager.shadeModel(7424);
-            GlStateManager.alphaFunc(516, 0.1F);
+            GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
             GlStateManager.matrixMode(GL11.GL_MODELVIEW);
             GlStateManager.popMatrix();
             GlStateManager.pushMatrix();
@@ -233,7 +233,7 @@ public class ShadersRender {
             GlStateManager.disableBlend();
             GlStateManager.enableCull();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-            GlStateManager.alphaFunc(516, 0.1F);
+            GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
 
             if (Shaders.usedShadowDepthBuffers >= 2) {
                 GlStateManager.setActiveTexture(33989);

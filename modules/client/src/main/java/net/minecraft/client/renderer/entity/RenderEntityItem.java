@@ -82,7 +82,7 @@ public class RenderEntityItem extends Render<EntityItem> {
         }
 
         GlStateManager.enableRescaleNormal();
-        GlStateManager.alphaFunc(516, 0.1F);
+        GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
         GlStateManager.pushMatrix();

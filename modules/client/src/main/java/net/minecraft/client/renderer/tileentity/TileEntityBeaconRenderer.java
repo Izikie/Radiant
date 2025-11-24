@@ -25,7 +25,7 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
                 Shaders.beginBeacon();
             }
 
-            GlStateManager.alphaFunc(516, 0.1F);
+            GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
 
             if (f > 0.0F) {
                 Tessellator tessellator = Tessellator.get();

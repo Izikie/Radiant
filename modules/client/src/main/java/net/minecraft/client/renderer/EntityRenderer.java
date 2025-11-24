@@ -1020,7 +1020,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 this.renderEndNanoTime = System.nanoTime();
 
                 if (!this.mc.gameSettings.hideGUI || this.mc.currentScreen != null) {
-                    GlStateManager.alphaFunc(516, 0.1F);
+                    GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
                     this.mc.ingameGUI.renderGameOverlay(partialTicks);
 
                     if (this.mc.gameSettings.ofShowFps && !this.mc.gameSettings.showDebugInfo) {
@@ -1126,7 +1126,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         GlStateManager.enableDepth();
         GlStateManager.enableAlpha();
-        GlStateManager.alphaFunc(516, 0.1F);
+        GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
 
         this.renderWorldPass(2, partialTicks, finishTimeNano);
     }
@@ -1280,7 +1280,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         }
 
         GlStateManager.shadeModel(7424);
-        GlStateManager.alphaFunc(516, 0.1F);
+        GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
 
         if (!this.debugView) {
             GlStateManager.matrixMode(GL11.GL_MODELVIEW);
@@ -1383,7 +1383,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         GlStateManager.disableBlend();
         GlStateManager.enableCull();
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-        GlStateManager.alphaFunc(516, 0.1F);
+        GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
         this.setupFog(0, partialTicks);
         GlStateManager.enableBlend();
         GlStateManager.depthMask(false);
@@ -1554,7 +1554,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GL11.glNormal3f(0.0F, 1.0F, 0.0F);
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-            GlStateManager.alphaFunc(516, 0.1F);
+            GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
             double xPos = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
             double yPos = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
             double zPos = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
@@ -1666,7 +1666,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             worldrenderer.setTranslation(0.0D, 0.0D, 0.0D);
             GlStateManager.enableCull();
             GlStateManager.disableBlend();
-            GlStateManager.alphaFunc(516, 0.1F);
+            GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
             this.disableLightmap();
         }
     }
