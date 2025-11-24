@@ -1,17 +1,14 @@
 package net.minecraft.client.renderer;
 
 import net.optifine.Config;
-import net.optifine.Log;
 import net.optifine.SmartAnimations;
 import net.optifine.render.GlAlphaState;
 import net.optifine.render.GlBlendState;
 import net.optifine.shaders.Shaders;
 import net.optifine.util.LockCounter;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL14;
 
-import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
@@ -28,7 +25,6 @@ public class GlStateManager {
     private static final ColorLogicState colorLogicState = new ColorLogicState();
     private static final TexGenState texGenState = new TexGenState();
     private static final ClearState clearState = new ClearState();
-    private static final StencilState stencilState = new StencilState();
     private static final BooleanState normalizeState = new BooleanState(2977);
     private static int activeTextureUnit = 0;
     private static final TextureState[] textureState = new TextureState[32];
@@ -41,7 +37,6 @@ public class GlStateManager {
     private static final GlAlphaState ALPHA_LOCK_STATE = new GlAlphaState();
     private static final LockCounter BLEND_LOCK = new LockCounter();
     private static final GlBlendState BLEND_LOCK_STATE = new GlBlendState();
-    private static boolean creatingDisplayList = false;
 
     public static void pushAttrib() {
         GL11.glPushAttrib(8256);
@@ -119,17 +114,17 @@ public class GlStateManager {
         depthState.depthTest.setEnabled();
     }
 
-    public static void depthFunc(int depthFunc) {
-        if (depthFunc != depthState.depthFunc) {
-            depthState.depthFunc = depthFunc;
-            GL11.glDepthFunc(depthFunc);
+    public static void depthFunc(int func) {
+        if (func != depthState.depthFunc) {
+            depthState.depthFunc = func;
+            GL11.glDepthFunc(func);
         }
     }
 
-    public static void depthMask(boolean flagIn) {
-        if (flagIn != depthState.maskEnabled) {
-            depthState.maskEnabled = flagIn;
-            GL11.glDepthMask(flagIn);
+    public static void depthMask(boolean flag) {
+        if (flag != depthState.maskEnabled) {
+            depthState.maskEnabled = flag;
+            GL11.glDepthMask(flag);
         }
     }
 
@@ -235,14 +230,6 @@ public class GlStateManager {
         }
     }
 
-    public static void glFog(int p_glFog_0_, FloatBuffer p_glFog_1_) {
-        GL11.glFogfv(p_glFog_0_, p_glFog_1_);
-    }
-
-    public static void glFogi(int p_glFogi_0_, int p_glFogi_1_) {
-        GL11.glFogi(p_glFogi_0_, p_glFogi_1_);
-    }
-
     public static void enableCull() {
         cullState.cullFace.setEnabled();
     }
@@ -316,7 +303,6 @@ public class GlStateManager {
             case T -> texGenState.t;
             case R -> texGenState.r;
             case Q -> texGenState.q;
-            default -> texGenState.s;
         };
     }
 
@@ -488,32 +474,8 @@ public class GlStateManager {
         colorState.red = colorState.green = colorState.blue = colorState.alpha = -1.0F;
     }
 
-    public static void glNormalPointer(int p_glNormalPointer_0_, int p_glNormalPointer_1_, ByteBuffer p_glNormalPointer_2_) {
-        GL11.glNormalPointer(p_glNormalPointer_0_, p_glNormalPointer_1_, p_glNormalPointer_2_);
-    }
-
-    public static void glTexCoordPointer(int p_glTexCoordPointer_0_, int p_glTexCoordPointer_1_, int p_glTexCoordPointer_2_, int p_glTexCoordPointer_3_) {
-        GL11.glTexCoordPointer(p_glTexCoordPointer_0_, p_glTexCoordPointer_1_, p_glTexCoordPointer_2_, p_glTexCoordPointer_3_);
-    }
-
-    public static void glTexCoordPointer(int p_glTexCoordPointer_0_, int p_glTexCoordPointer_1_, int p_glTexCoordPointer_2_, ByteBuffer p_glTexCoordPointer_3_) {
-        GL11.glTexCoordPointer(p_glTexCoordPointer_0_, p_glTexCoordPointer_1_, p_glTexCoordPointer_2_, p_glTexCoordPointer_3_);
-    }
-
     public static void glVertexPointer(int p_glVertexPointer_0_, int p_glVertexPointer_1_, int p_glVertexPointer_2_, int p_glVertexPointer_3_) {
         GL11.glVertexPointer(p_glVertexPointer_0_, p_glVertexPointer_1_, p_glVertexPointer_2_, p_glVertexPointer_3_);
-    }
-
-    public static void glVertexPointer(int p_glVertexPointer_0_, int p_glVertexPointer_1_, int p_glVertexPointer_2_, ByteBuffer p_glVertexPointer_3_) {
-        GL11.glVertexPointer(p_glVertexPointer_0_, p_glVertexPointer_1_, p_glVertexPointer_2_, p_glVertexPointer_3_);
-    }
-
-    public static void glColorPointer(int p_glColorPointer_0_, int p_glColorPointer_1_, int p_glColorPointer_2_, int p_glColorPointer_3_) {
-        GL11.glColorPointer(p_glColorPointer_0_, p_glColorPointer_1_, p_glColorPointer_2_, p_glColorPointer_3_);
-    }
-
-    public static void glColorPointer(int p_glColorPointer_0_, int p_glColorPointer_1_, int p_glColorPointer_2_, ByteBuffer p_glColorPointer_3_) {
-        GL11.glColorPointer(p_glColorPointer_0_, p_glColorPointer_1_, p_glColorPointer_2_, p_glColorPointer_3_);
     }
 
     public static void glDisableClientState(int p_glDisableClientState_0_) {
@@ -524,18 +486,10 @@ public class GlStateManager {
         GL11.glEnableClientState(p_glEnableClientState_0_);
     }
 
-    public static void glBegin(int p_glBegin_0_) {
-        GL11.glBegin(p_glBegin_0_);
-    }
-
-    public static void glEnd() {
-        GL11.glEnd();
-    }
-
     public static void glDrawArrays(int p_glDrawArrays_0_, int p_glDrawArrays_1_, int p_glDrawArrays_2_) {
         GL11.glDrawArrays(p_glDrawArrays_0_, p_glDrawArrays_1_, p_glDrawArrays_2_);
 
-        if (Config.isShaders() && !creatingDisplayList) {
+        if (Config.isShaders()) {
             int i = Shaders.activeProgram.getCountInstances();
 
             if (i > 1) {
@@ -552,7 +506,7 @@ public class GlStateManager {
     public static void callList(int list) {
         GL11.glCallList(list);
 
-        if (Config.isShaders() && !creatingDisplayList) {
+        if (Config.isShaders()) {
             int i = Shaders.activeProgram.getCountInstances();
 
             if (i > 1) {
@@ -569,7 +523,7 @@ public class GlStateManager {
     public static void callLists(IntBuffer p_callLists_0_) {
         GL11.glCallLists(p_callLists_0_);
 
-        if (Config.isShaders() && !creatingDisplayList) {
+        if (Config.isShaders()) {
             int i = Shaders.activeProgram.getCountInstances();
 
             if (i > 1) {
@@ -583,46 +537,12 @@ public class GlStateManager {
         }
     }
 
-    public static void glDeleteLists(int p_glDeleteLists_0_, int p_glDeleteLists_1_) {
-        GL11.glDeleteLists(p_glDeleteLists_0_, p_glDeleteLists_1_);
-    }
-
-    public static void glNewList(int p_glNewList_0_, int p_glNewList_1_) {
-        GL11.glNewList(p_glNewList_0_, p_glNewList_1_);
-        creatingDisplayList = true;
-    }
-
-    public static void glEndList() {
-        GL11.glEndList();
-        creatingDisplayList = false;
-    }
-
     public static int glGetError() {
         return GL11.glGetError();
     }
 
     public static void glTexImage2D(int p_glTexImage2D_0_, int p_glTexImage2D_1_, int p_glTexImage2D_2_, int p_glTexImage2D_3_, int p_glTexImage2D_4_, int p_glTexImage2D_5_, int p_glTexImage2D_6_, int p_glTexImage2D_7_, IntBuffer p_glTexImage2D_8_) {
         GL11.glTexImage2D(p_glTexImage2D_0_, p_glTexImage2D_1_, p_glTexImage2D_2_, p_glTexImage2D_3_, p_glTexImage2D_4_, p_glTexImage2D_5_, p_glTexImage2D_6_, p_glTexImage2D_7_, p_glTexImage2D_8_);
-    }
-
-    public static void glTexSubImage2D(int p_glTexSubImage2D_0_, int p_glTexSubImage2D_1_, int p_glTexSubImage2D_2_, int p_glTexSubImage2D_3_, int p_glTexSubImage2D_4_, int p_glTexSubImage2D_5_, int p_glTexSubImage2D_6_, int p_glTexSubImage2D_7_, IntBuffer p_glTexSubImage2D_8_) {
-        GL11.glTexSubImage2D(p_glTexSubImage2D_0_, p_glTexSubImage2D_1_, p_glTexSubImage2D_2_, p_glTexSubImage2D_3_, p_glTexSubImage2D_4_, p_glTexSubImage2D_5_, p_glTexSubImage2D_6_, p_glTexSubImage2D_7_, p_glTexSubImage2D_8_);
-    }
-
-    public static void glCopyTexSubImage2D(int p_glCopyTexSubImage2D_0_, int p_glCopyTexSubImage2D_1_, int p_glCopyTexSubImage2D_2_, int p_glCopyTexSubImage2D_3_, int p_glCopyTexSubImage2D_4_, int p_glCopyTexSubImage2D_5_, int p_glCopyTexSubImage2D_6_, int p_glCopyTexSubImage2D_7_) {
-        GL11.glCopyTexSubImage2D(p_glCopyTexSubImage2D_0_, p_glCopyTexSubImage2D_1_, p_glCopyTexSubImage2D_2_, p_glCopyTexSubImage2D_3_, p_glCopyTexSubImage2D_4_, p_glCopyTexSubImage2D_5_, p_glCopyTexSubImage2D_6_, p_glCopyTexSubImage2D_7_);
-    }
-
-    public static void glGetTexImage(int p_glGetTexImage_0_, int p_glGetTexImage_1_, int p_glGetTexImage_2_, int p_glGetTexImage_3_, IntBuffer p_glGetTexImage_4_) {
-        GL11.glGetTexImage(p_glGetTexImage_0_, p_glGetTexImage_1_, p_glGetTexImage_2_, p_glGetTexImage_3_, p_glGetTexImage_4_);
-    }
-
-    public static void glTexParameterf(int p_glTexParameterf_0_, int p_glTexParameterf_1_, float p_glTexParameterf_2_) {
-        GL11.glTexParameterf(p_glTexParameterf_0_, p_glTexParameterf_1_, p_glTexParameterf_2_);
-    }
-
-    public static void glTexParameteri(int p_glTexParameteri_0_, int p_glTexParameteri_1_, int p_glTexParameteri_2_) {
-        GL11.glTexParameteri(p_glTexParameteri_0_, p_glTexParameteri_1_, p_glTexParameteri_2_);
     }
 
     public static int glGetTexLevelParameteri(int p_glGetTexLevelParameteri_0_, int p_glGetTexLevelParameteri_1_, int p_glGetTexLevelParameteri_2_) {
@@ -641,21 +561,6 @@ public class GlStateManager {
         return textureState[activeTextureUnit].textureName;
     }
 
-    public static void checkBoundTexture() {
-        if (Config.isMinecraftThread()) {
-            int i = GL11.glGetInteger(GL13.GL_ACTIVE_TEXTURE);
-            int j = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
-            int k = getActiveTextureUnit();
-            int l = getBoundTexture();
-
-            if (l > 0) {
-                if (i != k || j != l) {
-                    Log.info("checkTexture: act: " + k + ", glAct: " + i + ", tex: " + l + ", glTex: " + j);
-                }
-            }
-        }
-    }
-
     public static void deleteTextures(IntBuffer p_deleteTextures_0_) {
         p_deleteTextures_0_.rewind();
 
@@ -665,14 +570,6 @@ public class GlStateManager {
         }
 
         p_deleteTextures_0_.rewind();
-    }
-
-    public static boolean isFogEnabled() {
-        return fogState.fog.currentState;
-    }
-
-    public static void setFogEnabled(boolean p_setFogEnabled_0_) {
-        fogState.fog.setState(p_setFogEnabled_0_);
     }
 
     public static void lockAlpha(GlAlphaState p_lockAlpha_0_) {
@@ -742,16 +639,16 @@ public class GlStateManager {
         }
     }
 
-    public static void glMultiDrawArrays(int p_glMultiDrawArrays_0_, IntBuffer p_glMultiDrawArrays_1_, IntBuffer p_glMultiDrawArrays_2_) {
-        GL14.glMultiDrawArrays(p_glMultiDrawArrays_0_, p_glMultiDrawArrays_1_, p_glMultiDrawArrays_2_);
+    public static void glMultiDrawArrays(int mode, IntBuffer first, IntBuffer count) {
+        GL14.glMultiDrawArrays(mode, first, count);
 
-        if (Config.isShaders() && !creatingDisplayList) {
+        if (Config.isShaders()) {
             int i = Shaders.activeProgram.getCountInstances();
 
             if (i > 1) {
                 for (int j = 1; j < i; ++j) {
                     Shaders.UNIFORM_INSTANCE_ID.setValue(j);
-                    GL14.glMultiDrawArrays(p_glMultiDrawArrays_0_, p_glMultiDrawArrays_1_, p_glMultiDrawArrays_2_);
+                    GL14.glMultiDrawArrays(mode, first, count);
                 }
 
                 Shaders.UNIFORM_INSTANCE_ID.setValue(0);
@@ -940,34 +837,6 @@ public class GlStateManager {
             this.polygonOffsetLine = new BooleanState(10754);
             this.factor = 0.0F;
             this.units = 0.0F;
-        }
-    }
-
-    static class StencilFunc {
-        public final int field_179081_a;
-        public final int field_179079_b;
-        public final int field_179080_c;
-
-        private StencilFunc() {
-            this.field_179081_a = 519;
-            this.field_179079_b = 0;
-            this.field_179080_c = -1;
-        }
-    }
-
-    static class StencilState {
-        public final StencilFunc field_179078_a;
-        public final int field_179076_b;
-        public final int field_179077_c;
-        public final int field_179074_d;
-        public final int field_179075_e;
-
-        private StencilState() {
-            this.field_179078_a = new StencilFunc();
-            this.field_179076_b = -1;
-            this.field_179077_c = 7680;
-            this.field_179074_d = 7680;
-            this.field_179075_e = 7680;
         }
     }
 
