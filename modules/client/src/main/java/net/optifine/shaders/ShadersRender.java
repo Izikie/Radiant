@@ -207,7 +207,7 @@ public class ShadersRender {
             i = entityRenderer.frameCount;
             entityRenderer.frameCount = i + 1;
             renderglobal.setupTerrain(entity, partialTicks, frustum, i, minecraft.player.isSpectator());
-            GlStateManager.matrixMode(5888);
+            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
             GlStateManager.pushMatrix();
             GlStateManager.disableAlpha();
             renderglobal.renderBlockLayer(RenderLayer.SOLID, partialTicks, 2, entity);
@@ -221,13 +221,13 @@ public class ShadersRender {
             minecraft.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
             GlStateManager.shadeModel(7424);
             GlStateManager.alphaFunc(516, 0.1F);
-            GlStateManager.matrixMode(5888);
+            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
             GlStateManager.popMatrix();
             GlStateManager.pushMatrix();
 
             renderglobal.renderEntities(entity, frustum, partialTicks);
             Shaders.checkGLError("shadow entities");
-            GlStateManager.matrixMode(5888);
+            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
             GlStateManager.popMatrix();
             GlStateManager.depthMask(true);
             GlStateManager.disableBlend();

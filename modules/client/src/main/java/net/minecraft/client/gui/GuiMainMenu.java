@@ -178,7 +178,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
     private void drawPanorama(int p_73970_1_, int p_73970_2_, float p_73970_3_) {
         Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        GlStateManager.matrixMode(5889);
+        GlStateManager.matrixMode(GL11.GL_PROJECTION);
         GlStateManager.pushMatrix();
         GlStateManager.loadIdentity();
 
@@ -192,7 +192,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         projectionMatrix.get(projectionBuffer);
         GlStateManager.multMatrix(projectionBuffer);
 
-        GlStateManager.matrixMode(5888);
+        GlStateManager.matrixMode(GL11.GL_MODELVIEW);
         GlStateManager.pushMatrix();
         GlStateManager.loadIdentity();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -267,9 +267,9 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 
         worldrenderer.setTranslation(0.0D, 0.0D, 0.0D);
         GlStateManager.colorMask(true, true, true, true);
-        GlStateManager.matrixMode(5889);
+        GlStateManager.matrixMode(GL11.GL_PROJECTION);
         GlStateManager.popMatrix();
-        GlStateManager.matrixMode(5888);
+        GlStateManager.matrixMode(GL11.GL_MODELVIEW);
         GlStateManager.popMatrix();
         GlStateManager.depthMask(true);
         GlStateManager.enableCull();

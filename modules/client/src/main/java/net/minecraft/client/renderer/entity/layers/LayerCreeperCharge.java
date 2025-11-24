@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderCreeper;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 public class LayerCreeperCharge implements LayerRenderer<EntityCreeper> {
     private static final ResourceLocation LIGHTNING_TEXTURE = new ResourceLocation("textures/entity/creeper/creeper_armor.png");
@@ -21,11 +22,11 @@ public class LayerCreeperCharge implements LayerRenderer<EntityCreeper> {
             boolean flag = entitylivingbaseIn.isInvisible();
             GlStateManager.depthMask(!flag);
             this.creeperRenderer.bindTexture(LIGHTNING_TEXTURE);
-            GlStateManager.matrixMode(5890);
+            GlStateManager.matrixMode(GL11.GL_TEXTURE);
             GlStateManager.loadIdentity();
             float f = entitylivingbaseIn.ticksExisted + partialTicks;
             GlStateManager.translate(f * 0.01F, f * 0.01F, 0.0F);
-            GlStateManager.matrixMode(5888);
+            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
             GlStateManager.enableBlend();
             float f1 = 0.5F;
             GlStateManager.color(f1, f1, f1, 1.0F);
@@ -33,9 +34,9 @@ public class LayerCreeperCharge implements LayerRenderer<EntityCreeper> {
             GlStateManager.blendFunc(1, 1);
             this.creeperModel.setModelAttributes(this.creeperRenderer.getMainModel());
             this.creeperModel.render(entitylivingbaseIn, p_177141_2_, p_177141_3_, p_177141_5_, p_177141_6_, p_177141_7_, scale);
-            GlStateManager.matrixMode(5890);
+            GlStateManager.matrixMode(GL11.GL_TEXTURE);
             GlStateManager.loadIdentity();
-            GlStateManager.matrixMode(5888);
+            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
             GlStateManager.enableLighting();
             GlStateManager.disableBlend();
             GlStateManager.depthMask(flag);

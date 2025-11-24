@@ -337,9 +337,9 @@ public class Minecraft implements IThreadListener {
         GlStateManager.enableAlpha();
         GlStateManager.alphaFunc(516, 0.1F);
         GlStateManager.cullFace(1029);
-        GlStateManager.matrixMode(5889);
+        GlStateManager.matrixMode(GL11.GL_PROJECTION);
         GlStateManager.loadIdentity();
-        GlStateManager.matrixMode(5888);
+        GlStateManager.matrixMode(GL11.GL_MODELVIEW);
         checkGLError("Startup");
         textureMapBlocks = new TextureMap("textures");
         textureMapBlocks.setMipmapLevels(gameSettings.mipmapLevels);

@@ -624,7 +624,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             this.farPlaneDistance *= 0.83F;
         }
 
-        GlStateManager.matrixMode(5889);
+        GlStateManager.matrixMode(GL11.GL_PROJECTION);
         GlStateManager.loadIdentity();
         float f = 0.07F;
 
@@ -650,7 +650,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         projectionMatrix.get(projectionBuffer);
         GlStateManager.multMatrix(projectionBuffer);
 
-        GlStateManager.matrixMode(5888);
+        GlStateManager.matrixMode(GL11.GL_MODELVIEW);
         GlStateManager.loadIdentity();
 
         this.hurtCameraEffect(partialTicks);
@@ -709,7 +709,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         if (this.debugView)
             return;
 
-        GlStateManager.matrixMode(5889);
+        GlStateManager.matrixMode(GL11.GL_PROJECTION);
         GlStateManager.loadIdentity();
         float f = 0.07F;
 
@@ -727,7 +727,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         projectionMatrix.get(projectionBuffer);
         GlStateManager.multMatrix(projectionBuffer);
 
-        GlStateManager.matrixMode(5888);
+        GlStateManager.matrixMode(GL11.GL_MODELVIEW);
         GlStateManager.loadIdentity();
 
         boolean flag = false;
@@ -785,12 +785,12 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
     public void enableLightmap() {
         GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-        GlStateManager.matrixMode(5890);
+        GlStateManager.matrixMode(GL11.GL_TEXTURE);
         GlStateManager.loadIdentity();
         float f = 0.00390625F;
         GlStateManager.scale(f, f, f);
         GlStateManager.translate(8.0F, 8.0F, 8.0F);
-        GlStateManager.matrixMode(5888);
+        GlStateManager.matrixMode(GL11.GL_MODELVIEW);
         this.mc.getTextureManager().bindTexture(this.locationLightMap);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
@@ -1007,7 +1007,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     this.mc.renderGlobal.renderEntityOutlineFramebuffer();
 
                     if (this.theShaderGroup != null && this.useShader) {
-                        GlStateManager.matrixMode(5890);
+                        GlStateManager.matrixMode(GL11.GL_TEXTURE);
                         GlStateManager.pushMatrix();
                         GlStateManager.loadIdentity();
                         this.theShaderGroup.loadShaderGroup(partialTicks);
@@ -1030,9 +1030,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
             } else {
                 GlStateManager.viewport(0, 0, this.mc.displayWidth, this.mc.displayHeight);
-                GlStateManager.matrixMode(5889);
+                GlStateManager.matrixMode(GL11.GL_PROJECTION);
                 GlStateManager.loadIdentity();
-                GlStateManager.matrixMode(5888);
+                GlStateManager.matrixMode(GL11.GL_MODELVIEW);
                 GlStateManager.loadIdentity();
                 this.setupOverlayRendering();
                 this.renderEndNanoTime = System.nanoTime();
@@ -1097,7 +1097,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GlStateManager.disableTexture2D();
             GlStateManager.depthMask(false);
             GlStateManager.pushMatrix();
-            GlStateManager.matrixMode(5888);
+            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
             GlStateManager.loadIdentity();
             this.orientCamera(partialTicks);
             GlStateManager.translate(0.0F, entity.getEyeHeight(), 0.0F);
@@ -1179,7 +1179,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         if ((Config.isSkyEnabled() || Config.isSunMoonEnabled() || Config.isStarsEnabled()) && !Shaders.isShadowPass) {
             this.setupFog(-1, partialTicks);
-            GlStateManager.matrixMode(5889);
+            GlStateManager.matrixMode(GL11.GL_PROJECTION);
             GlStateManager.loadIdentity();
 
             Matrix4f projectionMatrix = new Matrix4f().perspective(
@@ -1192,7 +1192,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             projectionMatrix.get(projectionBuffer);
             GlStateManager.multMatrix(projectionBuffer);
 
-            GlStateManager.matrixMode(5888);
+            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
 
             if (flag) {
                 Shaders.beginSky();
@@ -1204,7 +1204,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 Shaders.endSky();
             }
 
-            GlStateManager.matrixMode(5889);
+            GlStateManager.matrixMode(GL11.GL_PROJECTION);
             GlStateManager.loadIdentity();
 
             Matrix4f projectionMatrix2 = new Matrix4f().perspective(
@@ -1217,7 +1217,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             projectionMatrix2.get(projectionBuffer2);
             GlStateManager.multMatrix(projectionBuffer2);
 
-            GlStateManager.matrixMode(5888);
+            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
         } else {
             GlStateManager.disableBlend();
         }
@@ -1248,7 +1248,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GL11.glFinish();
         }
 
-        GlStateManager.matrixMode(5888);
+        GlStateManager.matrixMode(GL11.GL_MODELVIEW);
         GlStateManager.pushMatrix();
         GlStateManager.disableAlpha();
 
@@ -1283,7 +1283,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         GlStateManager.alphaFunc(516, 0.1F);
 
         if (!this.debugView) {
-            GlStateManager.matrixMode(5888);
+            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
             GlStateManager.popMatrix();
             GlStateManager.pushMatrix();
             RenderHelper.enableStandardItemLighting();
@@ -1292,7 +1292,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
             RenderHelper.disableStandardItemLighting();
             this.disableLightmap();
-            GlStateManager.matrixMode(5888);
+            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
             GlStateManager.popMatrix();
             GlStateManager.pushMatrix();
 
@@ -1304,7 +1304,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             }
         }
 
-        GlStateManager.matrixMode(5888);
+        GlStateManager.matrixMode(GL11.GL_MODELVIEW);
         GlStateManager.popMatrix();
 
         if (flag1 && this.mc.objectMouseOver != null && !entity.isInsideOfMaterial(Material.WATER)) {
@@ -1434,7 +1434,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
     private void renderCloudsCheck(RenderGlobal renderGlobalIn, float partialTicks, int pass) {
         if (this.mc.gameSettings.renderDistanceChunks >= 4 && !Config.isCloudsOff() && Shaders.shouldRenderClouds(this.mc.gameSettings)) {
-            GlStateManager.matrixMode(5889);
+            GlStateManager.matrixMode(GL11.GL_PROJECTION);
             GlStateManager.loadIdentity();
 
             Matrix4f projectionMatrix = new Matrix4f().perspective(
@@ -1447,13 +1447,13 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             projectionMatrix.get(projectionBuffer);
             GlStateManager.multMatrix(projectionBuffer);
 
-            GlStateManager.matrixMode(5888);
+            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
             GlStateManager.pushMatrix();
             this.setupFog(0, partialTicks);
             renderGlobalIn.renderClouds(partialTicks, pass);
             GlStateManager.disableFog();
             GlStateManager.popMatrix();
-            GlStateManager.matrixMode(5889);
+            GlStateManager.matrixMode(GL11.GL_PROJECTION);
             GlStateManager.loadIdentity();
 
             Matrix4f projectionMatrix2 = new Matrix4f().perspective(
@@ -1466,7 +1466,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             projectionMatrix2.get(projectionBuffer2);
             GlStateManager.multMatrix(projectionBuffer2);
 
-            GlStateManager.matrixMode(5888);
+            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
         }
     }
 
@@ -1674,10 +1674,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     public void setupOverlayRendering() {
         ScaledResolution scaledresolution = new ScaledResolution(this.mc);
         GlStateManager.clear(256);
-        GlStateManager.matrixMode(5889);
+        GlStateManager.matrixMode(GL11.GL_PROJECTION);
         GlStateManager.loadIdentity();
         GlStateManager.ortho(0.0D, scaledresolution.getScaledWidth_double(), scaledresolution.getScaledHeight_double(), 0.0D, 1000.0D, 3000.0D);
-        GlStateManager.matrixMode(5888);
+        GlStateManager.matrixMode(GL11.GL_MODELVIEW);
         GlStateManager.loadIdentity();
         GlStateManager.translate(0.0F, 0.0F, -2000.0F);
     }

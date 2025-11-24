@@ -32,6 +32,7 @@ import net.optifine.CustomColors;
 import net.optifine.CustomItems;
 import net.optifine.shaders.Shaders;
 import net.optifine.shaders.ShadersRender;
+import org.lwjgl.opengl.GL11;
 
 import java.util.List;
 
@@ -165,7 +166,7 @@ public class RenderItem implements IResourceManagerReloadListener {
                     ShadersRender.renderEnchantedGlintBegin();
                 }
 
-                GlStateManager.matrixMode(5890);
+                GlStateManager.matrixMode(GL11.GL_TEXTURE);
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(8.0F, 8.0F, 8.0F);
                 float f = (Minecraft.getSystemTime() % 3000L) / 3000.0F / 8.0F;
@@ -180,7 +181,7 @@ public class RenderItem implements IResourceManagerReloadListener {
                 GlStateManager.rotate(10.0F, 0.0F, 0.0F, 1.0F);
                 this.renderModel(model, -8372020);
                 GlStateManager.popMatrix();
-                GlStateManager.matrixMode(5888);
+                GlStateManager.matrixMode(GL11.GL_MODELVIEW);
                 GlStateManager.blendFunc(770, 771);
                 GlStateManager.enableLighting();
                 GlStateManager.depthFunc(515);

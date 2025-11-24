@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.entity.RenderWither;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 public class LayerWitherAura implements LayerRenderer<EntityWither> {
     private static final ResourceLocation WITHER_ARMOR = new ResourceLocation("textures/entity/wither/wither_armor.png");
@@ -21,13 +22,13 @@ public class LayerWitherAura implements LayerRenderer<EntityWither> {
         if (entitylivingbaseIn.isArmored()) {
             GlStateManager.depthMask(!entitylivingbaseIn.isInvisible());
             this.witherRenderer.bindTexture(WITHER_ARMOR);
-            GlStateManager.matrixMode(5890);
+            GlStateManager.matrixMode(GL11.GL_TEXTURE);
             GlStateManager.loadIdentity();
             float f = entitylivingbaseIn.ticksExisted + partialTicks;
             float f1 = MathHelper.cos(f * 0.02F) * 3.0F;
             float f2 = f * 0.01F;
             GlStateManager.translate(f1, f2, 0.0F);
-            GlStateManager.matrixMode(5888);
+            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
             GlStateManager.enableBlend();
             float f3 = 0.5F;
             GlStateManager.color(f3, f3, f3, 1.0F);
@@ -36,9 +37,9 @@ public class LayerWitherAura implements LayerRenderer<EntityWither> {
             this.witherModel.setLivingAnimations(entitylivingbaseIn, p_177141_2_, p_177141_3_, partialTicks);
             this.witherModel.setModelAttributes(this.witherRenderer.getMainModel());
             this.witherModel.render(entitylivingbaseIn, p_177141_2_, p_177141_3_, p_177141_5_, p_177141_6_, p_177141_7_, scale);
-            GlStateManager.matrixMode(5890);
+            GlStateManager.matrixMode(GL11.GL_TEXTURE);
             GlStateManager.loadIdentity();
-            GlStateManager.matrixMode(5888);
+            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
             GlStateManager.enableLighting();
             GlStateManager.disableBlend();
         }
