@@ -697,7 +697,7 @@ public class CustomItems {
                 if (flag) {
                     GlStateManager.enableAlpha();
                     GlStateManager.enableBlend();
-                    GlStateManager.blendFunc(770, 771);
+                    GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                     GlStateManager.matrixMode(GL11.GL_MODELVIEW);
                     GlStateManager.enableLighting();
@@ -776,7 +776,7 @@ public class CustomItems {
                 if (flag) {
                     GlStateManager.enableAlpha();
                     GlStateManager.enableBlend();
-                    GlStateManager.blendFunc(770, 771);
+                    GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                     GlStateManager.matrixMode(GL11.GL_TEXTURE);
                     GlStateManager.loadIdentity();

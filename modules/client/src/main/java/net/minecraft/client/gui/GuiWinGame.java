@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.network.packet.impl.play.client.C16PacketClientStatus;
 import net.minecraft.util.chat.Formatting;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -191,7 +192,7 @@ public class GuiWinGame extends GuiScreen {
         GlStateManager.popMatrix();
         this.mc.getTextureManager().bindTexture(VIGNETTE_TEXTURE);
         GlStateManager.enableBlend();
-        GlStateManager.blendFunc(0, 769);
+        GlStateManager.blendFunc(GL11.GL_ZERO, GL11.GL_ONE_MINUS_SRC_COLOR);
         int j1 = this.width;
         int k1 = this.height;
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);

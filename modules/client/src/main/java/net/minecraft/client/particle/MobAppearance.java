@@ -10,6 +10,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import org.lwjgl.opengl.GL11;
 
 public class MobAppearance extends EntityFX {
     private EntityLivingBase entity;
@@ -48,7 +49,7 @@ public class MobAppearance extends EntityFX {
             GlStateManager.depthMask(true);
             GlStateManager.enableBlend();
             GlStateManager.enableDepth();
-            GlStateManager.blendFunc(770, 771);
+            GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             float f2 = 240.0F;
             OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, f2, f2);
             GlStateManager.pushMatrix();

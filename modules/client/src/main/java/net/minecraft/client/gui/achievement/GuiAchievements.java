@@ -369,7 +369,7 @@ public class GuiAchievements extends GuiScreen implements IProgressMeter {
                 GlStateManager.enableLighting();
                 GlStateManager.enableCull();
                 this.itemRender.renderItemAndEffectIntoGUI(achievement2.theItemStack, l6 + 3, j7 + 3);
-                GlStateManager.blendFunc(770, 771);
+                GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                 GlStateManager.disableLighting();
 
                 if (!this.statFileWriter.canUnlockAchievement(achievement2)) {

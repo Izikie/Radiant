@@ -272,7 +272,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
         if (this.blend) {
             GlStateManager.getBlendState(this.oldBlendState);
             GlStateManager.enableBlend();
-            GlStateManager.blendFunc(770, 771);
+            GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         }
 
         this.resetStyles();
@@ -613,7 +613,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
         if (this.blend) {
             GlStateManager.getBlendState(this.oldBlendState);
             GlStateManager.enableBlend();
-            GlStateManager.blendFunc(770, 771);
+            GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         }
 
         this.resetStyles();

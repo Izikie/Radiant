@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 import java.util.Random;
 
@@ -21,7 +22,7 @@ public class RenderLightningBolt extends Render<EntityLightningBolt> {
         GlStateManager.disableTexture2D();
         GlStateManager.disableLighting();
         GlStateManager.enableBlend();
-        GlStateManager.blendFunc(770, 1);
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
         double[] adouble = new double[8];
         double[] adouble1 = new double[8];
         double d0 = 0.0D;

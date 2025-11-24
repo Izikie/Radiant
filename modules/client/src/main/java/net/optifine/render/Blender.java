@@ -2,6 +2,7 @@ package net.optifine.render;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.optifine.Log;
+import org.lwjgl.opengl.GL11;
 
 public class Blender {
     public static int parseBlend(String str) {
@@ -51,56 +52,56 @@ public class Blender {
             case 0:
                 GlStateManager.disableAlpha();
                 GlStateManager.enableBlend();
-                GlStateManager.blendFunc(770, 771);
+                GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                 GlStateManager.color(1.0F, 1.0F, 1.0F, brightness);
                 break;
 
             case 1:
                 GlStateManager.disableAlpha();
                 GlStateManager.enableBlend();
-                GlStateManager.blendFunc(770, 1);
+                GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
                 GlStateManager.color(1.0F, 1.0F, 1.0F, brightness);
                 break;
 
             case 2:
                 GlStateManager.disableAlpha();
                 GlStateManager.enableBlend();
-                GlStateManager.blendFunc(775, 0);
+                GlStateManager.blendFunc(GL11.GL_ONE_MINUS_DST_COLOR, GL11.GL_ZERO);
                 GlStateManager.color(brightness, brightness, brightness, 1.0F);
                 break;
 
             case 3:
                 GlStateManager.disableAlpha();
                 GlStateManager.enableBlend();
-                GlStateManager.blendFunc(774, 771);
+                GlStateManager.blendFunc(GL11.GL_DST_COLOR, GL11.GL_ONE_MINUS_SRC_ALPHA);
                 GlStateManager.color(brightness, brightness, brightness, brightness);
                 break;
 
             case 4:
                 GlStateManager.disableAlpha();
                 GlStateManager.enableBlend();
-                GlStateManager.blendFunc(1, 1);
+                GlStateManager.blendFunc(GL11.GL_ONE, GL11.GL_ONE);
                 GlStateManager.color(brightness, brightness, brightness, 1.0F);
                 break;
 
             case 5:
                 GlStateManager.disableAlpha();
                 GlStateManager.enableBlend();
-                GlStateManager.blendFunc(0, 769);
+                GlStateManager.blendFunc(GL11.GL_ZERO, GL11.GL_ONE_MINUS_SRC_COLOR);
                 GlStateManager.color(brightness, brightness, brightness, 1.0F);
                 break;
 
             case 6:
                 GlStateManager.disableAlpha();
                 GlStateManager.enableBlend();
-                GlStateManager.blendFunc(1, 769);
+                GlStateManager.blendFunc(GL11.GL_ONE, GL11.GL_ONE_MINUS_SRC_COLOR);
                 GlStateManager.color(brightness, brightness, brightness, 1.0F);
                 break;
 
             case 7:
                 GlStateManager.disableAlpha();
                 GlStateManager.enableBlend();
-                GlStateManager.blendFunc(774, 768);
+                GlStateManager.blendFunc(GL11.GL_DST_COLOR, GL11.GL_SRC_COLOR);
                 GlStateManager.color(brightness, brightness, brightness, 1.0F);
                 break;
 
@@ -116,7 +117,7 @@ public class Blender {
     public static void clearBlend(float rainBrightness) {
         GlStateManager.disableAlpha();
         GlStateManager.enableBlend();
-        GlStateManager.blendFunc(770, 1);
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
         GlStateManager.color(1.0F, 1.0F, 1.0F, rainBrightness);
     }
 }

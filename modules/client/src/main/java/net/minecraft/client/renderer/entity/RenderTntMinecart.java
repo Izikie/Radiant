@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.item.EntityMinecartTNT;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.MathHelper;
+import org.lwjgl.opengl.GL11;
 
 public class RenderTntMinecart extends RenderMinecart<EntityMinecartTNT> {
     public RenderTntMinecart(RenderManager renderManagerIn) {
@@ -33,7 +34,7 @@ public class RenderTntMinecart extends RenderMinecart<EntityMinecartTNT> {
             GlStateManager.disableTexture2D();
             GlStateManager.disableLighting();
             GlStateManager.enableBlend();
-            GlStateManager.blendFunc(770, 772);
+            GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_DST_ALPHA);
             GlStateManager.color(1.0F, 1.0F, 1.0F, (1.0F - (i - partialTicks + 1.0F) / 100.0F) * 0.8F);
             GlStateManager.pushMatrix();
             blockrendererdispatcher.renderBlockBrightness(Blocks.TNT.getDefaultState(), 1.0F);

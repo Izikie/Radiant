@@ -152,7 +152,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
     private void renderShadow(Entity entityIn, double x, double y, double z, float shadowAlpha, float partialTicks) {
         if (!Config.isShaders() || !Shaders.shouldSkipDefaultShadow) {
             GlStateManager.enableBlend();
-            GlStateManager.blendFunc(770, 771);
+            GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             this.renderManager.renderEngine.bindTexture(SHADOW_TEXTURES);
             World world = this.getWorldFromRenderManager();
             GlStateManager.depthMask(false);

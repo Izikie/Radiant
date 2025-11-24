@@ -40,7 +40,7 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
                     f4 = 65.0F;
                     f5 = 0.125F;
                     GlStateManager.enableBlend();
-                    GlStateManager.blendFunc(770, 771);
+                    GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                 }
 
                 if (i >= 1) {
@@ -49,7 +49,7 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
 
                 if (i == 1) {
                     GlStateManager.enableBlend();
-                    GlStateManager.blendFunc(1, 1);
+                    GlStateManager.blendFunc(GL11.GL_ONE, GL11.GL_ONE);
                     f5 = 0.5F;
                 }
 

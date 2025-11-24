@@ -22,7 +22,7 @@ public class LayerEnderDragonEyes implements LayerRenderer<EntityDragon> {
         this.dragonRenderer.bindTexture(TEXTURE);
         GlStateManager.enableBlend();
         GlStateManager.disableAlpha();
-        GlStateManager.blendFunc(1, 1);
+        GlStateManager.blendFunc(GL11.GL_ONE, GL11.GL_ONE);
         GlStateManager.disableLighting();
         GlStateManager.depthFunc(GL11.GL_EQUAL);
         int i = 61680;

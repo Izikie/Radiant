@@ -3960,7 +3960,7 @@ public class Shaders {
             useProgram(PROGRAM_SPIDER_EYES);
             GlStateManager.enableAlpha();
             GlStateManager.alphaFunc(GL11.GL_GREATER, 0.0F);
-            GlStateManager.blendFunc(770, 771);
+            GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         }
     }
 
@@ -4098,7 +4098,7 @@ public class Shaders {
 
             GlStateManager.enableDepth();
             GlStateManager.enableBlend();
-            GlStateManager.blendFunc(770, 771);
+            GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             GlStateManager.enableAlpha();
             useProgram(PROGRAM_WEATHER);
         }
@@ -4171,7 +4171,7 @@ public class Shaders {
         GL11.glPopMatrix();
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
         GL11.glPopMatrix();
-        GlStateManager.blendFunc(770, 771);
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         checkGLError("endHand");
     }
 

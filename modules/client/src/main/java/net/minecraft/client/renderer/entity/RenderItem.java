@@ -159,7 +159,7 @@ public class RenderItem implements IResourceManagerReloadListener {
                 GlStateManager.depthMask(false);
                 GlStateManager.depthFunc(GL11.GL_EQUAL);
                 GlStateManager.disableLighting();
-                GlStateManager.blendFunc(768, 1);
+                GlStateManager.blendFunc(GL11.GL_SRC_COLOR, GL11.GL_ONE);
                 this.textureManager.bindTexture(RES_ITEM_GLINT);
 
                 if (Config.isShaders() && !this.renderItemGui) {
@@ -182,7 +182,7 @@ public class RenderItem implements IResourceManagerReloadListener {
                 this.renderModel(model, -8372020);
                 GlStateManager.popMatrix();
                 GlStateManager.matrixMode(GL11.GL_MODELVIEW);
-                GlStateManager.blendFunc(770, 771);
+                GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                 GlStateManager.enableLighting();
                 GlStateManager.depthFunc(GL11.GL_LEQUAL);
                 GlStateManager.depthMask(true);
@@ -346,7 +346,7 @@ public class RenderItem implements IResourceManagerReloadListener {
         GlStateManager.enableAlpha();
         GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
         GlStateManager.enableBlend();
-        GlStateManager.blendFunc(770, 771);
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.setupGuiTransform(x, y, ibakedmodel.isGui3d());
 

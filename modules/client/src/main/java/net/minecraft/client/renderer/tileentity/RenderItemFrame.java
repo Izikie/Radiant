@@ -186,7 +186,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
                     GlStateManager.translate(0.0F, 0.25F / f1, 0.0F);
                     GlStateManager.depthMask(false);
                     GlStateManager.enableBlend();
-                    GlStateManager.blendFunc(770, 771);
+                    GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                     Tessellator tessellator = Tessellator.get();
                     WorldRenderer worldrenderer = tessellator.getWorldRenderer();
                     int i = fontrenderer.getStringWidth(s) / 2;

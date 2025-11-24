@@ -117,7 +117,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 
             for (int i = 0; i < 2; ++i) {
                 GlStateManager.disableLighting();
-                GlStateManager.blendFunc(768, 1);
+                GlStateManager.blendFunc(GL11.GL_SRC_COLOR, GL11.GL_ONE);
                 float f2 = 0.76F;
                 GlStateManager.color(0.5F * f2, 0.25F * f2, 0.8F * f2, 1.0F);
                 GlStateManager.matrixMode(GL11.GL_TEXTURE);

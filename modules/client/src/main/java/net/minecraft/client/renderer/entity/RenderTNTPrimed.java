@@ -8,6 +8,7 @@ import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 public class RenderTNTPrimed extends Render<EntityTNTPrimed> {
     public RenderTNTPrimed(RenderManager renderManagerIn) {
@@ -40,7 +41,7 @@ public class RenderTNTPrimed extends Render<EntityTNTPrimed> {
             GlStateManager.disableTexture2D();
             GlStateManager.disableLighting();
             GlStateManager.enableBlend();
-            GlStateManager.blendFunc(770, 772);
+            GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_DST_ALPHA);
             GlStateManager.color(1.0F, 1.0F, 1.0F, f2);
             GlStateManager.doPolygonOffset(-3.0F, -3.0F);
             GlStateManager.enablePolygonOffset();
