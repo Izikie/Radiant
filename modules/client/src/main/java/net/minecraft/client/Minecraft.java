@@ -336,7 +336,7 @@ public class Minecraft implements IThreadListener {
         GlStateManager.depthFunc(GL11.GL_LEQUAL);
         GlStateManager.enableAlpha();
         GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
-        GlStateManager.cullFace(1029);
+        GlStateManager.cullFace(GL11.GL_BACK);
         GlStateManager.matrixMode(GL11.GL_PROJECTION);
         GlStateManager.loadIdentity();
         GlStateManager.matrixMode(GL11.GL_MODELVIEW);
@@ -1148,8 +1148,9 @@ public class Minecraft implements IThreadListener {
                             case 1 -> displayInGameMenu();
 
                             case 20, 31 -> {
-                                if (Keyboard.isKeyDown(61))
+                                if (Keyboard.isKeyDown(61)) {
                                     refreshResources();
+                                }
                             }
 
                             case 25 -> {
@@ -1160,18 +1161,21 @@ public class Minecraft implements IThreadListener {
                             }
 
                             case 30 -> {
-                                if (Keyboard.isKeyDown(61))
+                                if (Keyboard.isKeyDown(61)) {
                                     renderGlobal.loadRenderers();
+                                }
                             }
 
                             case 32 -> {
-                                if (Keyboard.isKeyDown(61) && ingameGUI != null)
+                                if (Keyboard.isKeyDown(61) && ingameGUI != null) {
                                     ingameGUI.getChatGUI().clearChatMessages();
+                                }
                             }
 
                             case 33 -> {
-                                if (Keyboard.isKeyDown(61))
+                                if (Keyboard.isKeyDown(61)) {
                                     gameSettings.setOptionValue(GameSettings.Options.RENDER_DISTANCE, GuiScreen.isShiftKeyDown() ? -1 : 1);
+                                }
                             }
 
                             case 35 -> {
@@ -1182,8 +1186,9 @@ public class Minecraft implements IThreadListener {
                             }
 
                             case 48 -> {
-                                if (Keyboard.isKeyDown(61))
+                                if (Keyboard.isKeyDown(61)) {
                                     renderManager.setDebugBoundingBox(!renderManager.isDebugBoundingBox());
+                                }
                             }
 
                             case 59 -> gameSettings.hideGUI = !gameSettings.hideGUI;

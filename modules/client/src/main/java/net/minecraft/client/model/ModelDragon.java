@@ -4,6 +4,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
+import org.lwjgl.opengl.GL11;
 
 public class ModelDragon extends ModelBase {
     private final ModelRenderer head;
@@ -171,12 +172,12 @@ public class ModelDragon extends ModelBase {
             GlStateManager.scale(-1.0F, 1.0F, 1.0F);
 
             if (j == 0) {
-                GlStateManager.cullFace(1028);
+                GlStateManager.cullFace(GL11.GL_FRONT);
             }
         }
 
         GlStateManager.popMatrix();
-        GlStateManager.cullFace(1029);
+        GlStateManager.cullFace(GL11.GL_BACK);
         GlStateManager.disableCull();
         float f10 = -((float) Math.sin((f * (float) Math.PI * 2.0F))) * 0.0F;
         f8 = f * (float) Math.PI * 2.0F;

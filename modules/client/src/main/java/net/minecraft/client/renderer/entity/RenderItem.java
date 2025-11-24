@@ -320,11 +320,11 @@ public class RenderItem implements IResourceManagerReloadListener {
         itemcameratransforms.applyTransform(cameraTransformType);
 
         if (this.isThereOneNegativeScale(itemcameratransforms.getTransform(cameraTransformType))) {
-            GlStateManager.cullFace(1028);
+            GlStateManager.cullFace(GL11.GL_FRONT);
         }
 
         this.renderItem(stack, model);
-        GlStateManager.cullFace(1029);
+        GlStateManager.cullFace(GL11.GL_BACK);
         GlStateManager.popMatrix();
         GlStateManager.disableRescaleNormal();
         GlStateManager.disableBlend();
