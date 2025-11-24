@@ -1916,7 +1916,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         GlStateManager.enableColorMaterial();
         GlStateManager.enableFog();
-        GlStateManager.colorMaterial(1028, 4608);
+        GlStateManager.colorMaterial(GL11.GL_FRONT, GL11.GL_AMBIENT);
     }
 
     private FloatBuffer setFogColorBuffer(float red, float green, float blue, float alpha) {

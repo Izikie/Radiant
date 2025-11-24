@@ -22,7 +22,7 @@ public class RenderHelper {
         GlStateManager.enableLight(0);
         GlStateManager.enableLight(1);
         GlStateManager.enableColorMaterial();
-        GlStateManager.colorMaterial(1032, 5634);
+        GlStateManager.colorMaterial(GL11.GL_FRONT_AND_BACK, GL11.GL_AMBIENT_AND_DIFFUSE);
         float f = 0.4F;
         float f1 = 0.6F;
         float f2 = 0.0F;
