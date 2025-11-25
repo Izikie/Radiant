@@ -69,6 +69,7 @@ import net.optifine.shaders.ShadersRender;
 import net.optifine.util.MemoryMonitor;
 import net.optifine.util.TextureUtils;
 import net.optifine.util.TimedEvent;
+import org.lwjgl.opengl.NVFogDistance;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.joml.Matrix4f;
@@ -1858,7 +1859,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 f4 = 5.0F + (this.farPlaneDistance - 5.0F) * (1.0F - i / 20.0F);
             }
 
-            GlStateManager.setFog(9729);
+            GlStateManager.setFog(GL11.GL_LINEAR);
 
             if (startCoords == -1) {
                 GlStateManager.setFogStart(0.0F);
@@ -1869,13 +1870,13 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             }
 
             if (GLContext.getCapabilities().GL_NV_fog_distance && Config.isFogFancy()) {
-                GL11.glFogi(34138, 34139);
+                GL11.glFogi(NVFogDistance.GL_FOG_DISTANCE_MODE_NV, NVFogDistance.GL_EYE_RADIAL_NV);
             }
         } else if (this.cloudFog) {
-            GlStateManager.setFog(2048);
+            GlStateManager.setFog(GL11.GL_EXP);
             GlStateManager.setFogDensity(0.1F);
         } else if (block.getMaterial() == Material.WATER) {
-            GlStateManager.setFog(2048);
+            GlStateManager.setFog(GL11.GL_EXP);
             float f1 = Config.isClearWater() ? 0.02F : 0.1F;
 
             if (entity instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPotionActive(Potion.WATER_BREATHING)) {
@@ -1885,12 +1886,12 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 GlStateManager.setFogDensity(Config.limit(f2, 0.0F, f1));
             }
         } else if (block.getMaterial() == Material.LAVA) {
-            GlStateManager.setFog(2048);
+            GlStateManager.setFog(GL11.GL_EXP);
             GlStateManager.setFogDensity(2.0F);
         } else {
             float f3 = this.farPlaneDistance;
             this.fogStandard = true;
-            GlStateManager.setFog(9729);
+            GlStateManager.setFog(GL11.GL_LINEAR);
 
             if (startCoords == -1) {
                 GlStateManager.setFogStart(0.0F);
@@ -1901,11 +1902,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
             if (GLContext.getCapabilities().GL_NV_fog_distance) {
                 if (Config.isFogFancy()) {
-                    GL11.glFogi(34138, 34139);
+                    GL11.glFogi(NVFogDistance.GL_FOG_DISTANCE_MODE_NV, NVFogDistance.GL_EYE_RADIAL_NV);
                 }
 
                 if (Config.isFogFast()) {
-                    GL11.glFogi(34138, 34140);
+                    GL11.glFogi(NVFogDistance.GL_FOG_DISTANCE_MODE_NV, NVFogDistance.GL_EYE_PLANE_ABSOLUTE_NV);
                 }
             }
 
