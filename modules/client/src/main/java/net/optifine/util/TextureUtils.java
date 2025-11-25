@@ -17,6 +17,7 @@ import net.radiant.lwjgl.opengl.GLContext;
 import net.radiant.util.NativeImage;
 import org.joml.Vector2i;
 import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.EXTTextureFilterAnisotropic;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -209,7 +210,7 @@ public class TextureUtils {
 
     public static void applyAnisotropicLevel() {
         if (GLContext.getCapabilities().GL_EXT_texture_filter_anisotropic) {
-            float f = GL11.glGetFloat(34047);
+            float f = GL11.glGetFloat(EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT);
             float f1 = Config.getAnisotropicFilterLevel();
             f1 = Math.min(f1, f);
             GL11.glTexParameterf(GL11.GL_TEXTURE_2D, 34046, f1);
