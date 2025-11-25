@@ -706,8 +706,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     }
 
     public void renderHand(float p_renderHand_1_, int p_renderHand_2_, boolean p_renderHand_3_, boolean p_renderHand_4_, boolean p_renderHand_5_) {
-        if (this.debugView)
+        if (this.debugView) {
             return;
+        }
 
         GlStateManager.matrixMode(GL11.GL_PROJECTION);
         GlStateManager.loadIdentity();
@@ -1092,7 +1093,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         if (this.mc.gameSettings.showDebugInfo && !this.mc.gameSettings.hideGUI && !this.mc.player.hasReducedDebug() && !this.mc.gameSettings.reducedDebugInfo) {
             Entity entity = this.mc.getRenderViewEntity();
             GlStateManager.enableBlend();
-            GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+            GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
             GL11.glLineWidth(1.0F);
             GlStateManager.disableTexture2D();
             GlStateManager.depthMask(false);
@@ -1320,14 +1321,14 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         if (!renderglobal.damagedBlocks.isEmpty()) {
             GlStateManager.enableBlend();
-            GlStateManager.tryBlendFuncSeparate(770, 1, 1, 0);
+            GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ONE, GL11.GL_ZERO);
             this.mc.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
             renderglobal.drawBlockDamageTexture(Tessellator.get(), Tessellator.get().getWorldRenderer(), entity, partialTicks);
             this.mc.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
             GlStateManager.disableBlend();
         }
 
-        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+        GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
         GlStateManager.disableBlend();
 
         if (!this.debugView) {
@@ -1382,7 +1383,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         GlStateManager.disableBlend();
         GlStateManager.enableCull();
-        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+        GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
         GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
         this.setupFog(0, partialTicks);
         GlStateManager.enableBlend();
@@ -1553,7 +1554,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GlStateManager.disableCull();
             GL11.glNormal3f(0.0F, 1.0F, 0.0F);
             GlStateManager.enableBlend();
-            GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+            GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
             GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
             double xPos = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
             double yPos = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;

@@ -3,6 +3,7 @@ package net.minecraft.client.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
+import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,7 @@ public class GuiLabel extends Gui {
     public void drawLabel(Minecraft mc, int mouseX, int mouseY) {
         if (this.visible) {
             GlStateManager.enableBlend();
-            GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+            GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
             this.drawLabelBackground(mc, mouseX, mouseY);
             int i = this.field_146174_h + this.field_146161_f / 2 + this.field_146163_s / 2;
             int j = i - this.field_146173_k.size() * 10 / 2;

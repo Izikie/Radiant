@@ -404,7 +404,7 @@ public class ItemRenderer {
             float f = this.mc.player.getBrightness(partialTicks);
             GlStateManager.color(f, f, f, 0.5F);
             GlStateManager.enableBlend();
-            GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+            GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
             GlStateManager.pushMatrix();
             float f1 = 4.0F;
             float f2 = -1.0F;
@@ -433,7 +433,7 @@ public class ItemRenderer {
         GlStateManager.depthFunc(GL11.GL_ALWAYS);
         GlStateManager.depthMask(false);
         GlStateManager.enableBlend();
-        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+        GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
         float f = 1.0F;
 
         for (int i = 0; i < 2; ++i) {
@@ -477,7 +477,9 @@ public class ItemRenderer {
             if (!this.itemToRender.getIsItemStackEqual(itemstack)) {
                 flag = true;
             }
-        } else flag = this.itemToRender != null || itemstack != null;
+        } else {
+            flag = this.itemToRender != null || itemstack != null;
+        }
 
         float f2 = 0.4F;
         float f = flag ? 0.0F : 1.0F;
