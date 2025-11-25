@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.chat.ChatAllowedCharacters;
 import net.minecraft.util.math.MathHelper;
+import org.lwjgl.opengl.GL11;
 
 public class GuiTextField extends Gui {
     private final int id;
@@ -428,7 +429,7 @@ public class GuiTextField extends Gui {
         GlStateManager.color(0.0F, 0.0F, 255.0F, 255.0F);
         GlStateManager.disableTexture2D();
         GlStateManager.enableColorLogic();
-        GlStateManager.colorLogicOp(5387);
+        GlStateManager.colorLogicOp(GL11.GL_OR_REVERSE);
         worldrenderer.begin(7, DefaultVertexFormats.POSITION);
         worldrenderer.pos(p_146188_1_, p_146188_4_, 0.0D).endVertex();
         worldrenderer.pos(p_146188_3_, p_146188_4_, 0.0D).endVertex();
