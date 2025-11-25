@@ -723,7 +723,7 @@ public class Minecraft implements IThreadListener {
         checkGLError("Pre render");
         mcSoundHandler.setListener(player, timer.renderPartialTicks);
         GlStateManager.pushMatrix();
-        GlStateManager.clear(16640);
+        GlStateManager.clear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
         framebufferMc.bindFramebuffer(true);
         GlStateManager.enableTexture2D();
 

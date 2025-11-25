@@ -1043,7 +1043,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             }
 
             if (this.mc.currentScreen != null) {
-                GlStateManager.clear(256);
+                GlStateManager.clear(GL11.GL_DEPTH_BUFFER_BIT);
 
                 try {
                     this.mc.currentScreen.drawScreen(k1, l1, partialTicks);
@@ -1152,7 +1152,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         }
 
         this.updateFogColor(partialTicks);
-        GlStateManager.clear(16640);
+        GlStateManager.clear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 
         if (flag) {
             Shaders.clearRenderBuffer();
@@ -1418,7 +1418,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 Shaders.renderCompositeFinal();
             }
 
-            GlStateManager.clear(256);
+            GlStateManager.clear(GL11.GL_DEPTH_BUFFER_BIT);
 
             if (flag) {
                 ShadersRender.renderFPOverlay(this, partialTicks, pass);
@@ -1675,7 +1675,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
     public void setupOverlayRendering() {
         ScaledResolution scaledresolution = new ScaledResolution(this.mc);
-        GlStateManager.clear(256);
+        GlStateManager.clear(GL11.GL_DEPTH_BUFFER_BIT);
         GlStateManager.matrixMode(GL11.GL_PROJECTION);
         GlStateManager.loadIdentity();
         GlStateManager.ortho(0.0D, scaledresolution.getScaledWidth_double(), scaledresolution.getScaledHeight_double(), 0.0D, 1000.0D, 3000.0D);

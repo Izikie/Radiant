@@ -55,7 +55,7 @@ public class GuiAchievement extends Gui {
         ScaledResolution scaledresolution = new ScaledResolution(this.mc);
         this.width = scaledresolution.getScaledWidth();
         this.height = scaledresolution.getScaledHeight();
-        GlStateManager.clear(256);
+        GlStateManager.clear(GL11.GL_DEPTH_BUFFER_BIT);
         GlStateManager.matrixMode(GL11.GL_PROJECTION);
         GlStateManager.loadIdentity();
         GlStateManager.ortho(0.0D, this.width, this.height, 0.0D, 1000.0D, 3000.0D);

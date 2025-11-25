@@ -50,7 +50,7 @@ public class LoadingScreenRenderer implements IProgressUpdate {
                 throw new MinecraftError();
             }
         } else {
-            GlStateManager.clear(256);
+            GlStateManager.clear(GL11.GL_DEPTH_BUFFER_BIT);
             GlStateManager.matrixMode(GL11.GL_PROJECTION);
             GlStateManager.loadIdentity();
 
@@ -101,7 +101,7 @@ public class LoadingScreenRenderer implements IProgressUpdate {
                 if (OpenGlHelper.isFramebufferEnabled()) {
                     this.framebuffer.framebufferClear();
                 } else {
-                    GlStateManager.clear(256);
+                    GlStateManager.clear(GL11.GL_DEPTH_BUFFER_BIT);
                 }
 
                 this.framebuffer.bindFramebuffer(false);
@@ -113,7 +113,7 @@ public class LoadingScreenRenderer implements IProgressUpdate {
                 GlStateManager.translate(0.0F, 0.0F, -200.0F);
 
                 if (!OpenGlHelper.isFramebufferEnabled()) {
-                    GlStateManager.clear(16640);
+                    GlStateManager.clear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
                 }
 
                 Tessellator tessellator = Tessellator.get();

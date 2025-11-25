@@ -3289,12 +3289,12 @@ public class Shaders {
                 if (DFB_COLOR_TEXTURES_FLIP.isChanged(0)) {
                     EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064, 3553, DFB_COLOR_TEXTURES_FLIP.getB(0), 0);
                     GL20.glDrawBuffers(36064);
-                    GL11.glClear(16384);
+                    GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
                     EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064, 3553, DFB_COLOR_TEXTURES_FLIP.getA(0), 0);
                 }
 
                 GL20.glDrawBuffers(36064);
-                GL11.glClear(16384);
+                GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
             }
 
             if (GBUFFERS_CLEAR[1]) {
@@ -3308,12 +3308,12 @@ public class Shaders {
                 if (DFB_COLOR_TEXTURES_FLIP.isChanged(1)) {
                     EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36065, 3553, DFB_COLOR_TEXTURES_FLIP.getB(1), 0);
                     GL20.glDrawBuffers(36065);
-                    GL11.glClear(16384);
+                    GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
                     EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36065, 3553, DFB_COLOR_TEXTURES_FLIP.getA(1), 0);
                 }
 
                 GL20.glDrawBuffers(36065);
-                GL11.glClear(16384);
+                GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
             }
 
             for (int i = 2; i < usedColorBuffers; ++i) {
@@ -3328,12 +3328,12 @@ public class Shaders {
                     if (DFB_COLOR_TEXTURES_FLIP.isChanged(i)) {
                         EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064 + i, 3553, DFB_COLOR_TEXTURES_FLIP.getB(i), 0);
                         GL20.glDrawBuffers(36064 + i);
-                        GL11.glClear(16384);
+                        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
                         EXTFramebufferObject.glFramebufferTexture2DEXT(36160, 36064 + i, 3553, DFB_COLOR_TEXTURES_FLIP.getA(i), 0);
                     }
 
                     GL20.glDrawBuffers(36064 + i);
-                    GL11.glClear(16384);
+                    GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
                 }
             }
 
