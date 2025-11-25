@@ -276,16 +276,16 @@ public class GlStateManager {
         }
     }
 
-    public static void enableTexGenCoord(TexGen p_179087_0_) {
-        texGenCoord(p_179087_0_).textureGen.setEnabled();
+    public static void enableTexGenCoord(TexGen state) {
+        texGenCoord(state).textureGen.setEnabled();
     }
 
-    public static void disableTexGenCoord(TexGen p_179100_0_) {
-        texGenCoord(p_179100_0_).textureGen.setDisabled();
+    public static void disableTexGenCoord(TexGen state) {
+        texGenCoord(state).textureGen.setDisabled();
     }
 
-    public static void texGen(TexGen texGen, int param) {
-        TexGenCoord glstatemanager$texgencoord = texGenCoord(texGen);
+    public static void texGen(TexGen state, int param) {
+        TexGenCoord glstatemanager$texgencoord = texGenCoord(state);
 
         if (param != glstatemanager$texgencoord.param) {
             glstatemanager$texgencoord.param = param;
@@ -293,12 +293,12 @@ public class GlStateManager {
         }
     }
 
-    public static void texGen(TexGen p_179105_0_, int pname, FloatBuffer params) {
-        GL11.glTexGenfv(texGenCoord(p_179105_0_).coord, pname, params);
+    public static void texGen(TexGen state, int pname, FloatBuffer params) {
+        GL11.glTexGenfv(texGenCoord(state).coord, pname, params);
     }
 
-    private static TexGenCoord texGenCoord(TexGen p_179125_0_) {
-        return switch (p_179125_0_) {
+    private static TexGenCoord texGenCoord(TexGen state) {
+        return switch (state) {
             case S -> texGenState.s;
             case T -> texGenState.t;
             case R -> texGenState.r;
