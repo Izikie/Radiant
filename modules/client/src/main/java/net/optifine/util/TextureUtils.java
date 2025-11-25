@@ -213,7 +213,7 @@ public class TextureUtils {
             float f = GL11.glGetFloat(EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT);
             float f1 = Config.getAnisotropicFilterLevel();
             f1 = Math.min(f1, f);
-            GL11.glTexParameterf(GL11.GL_TEXTURE_2D, 34046, f1);
+            GL11.glTexParameterf(GL11.GL_TEXTURE_2D, EXTTextureFilterAnisotropic.GL_TEXTURE_MAX_ANISOTROPY_EXT, f1);
         }
     }
 
