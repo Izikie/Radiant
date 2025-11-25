@@ -34,9 +34,9 @@ public class TileEntityPistonRenderer extends TileEntitySpecialRenderer<TileEnti
             GlStateManager.disableCull();
 
             if (Minecraft.isAmbientOcclusionEnabled()) {
-                GlStateManager.shadeModel(7425);
+                GlStateManager.shadeModel(GL11.GL_SMOOTH);
             } else {
-                GlStateManager.shadeModel(7424);
+                GlStateManager.shadeModel(GL11.GL_FLAT);
             }
 
             worldrenderer.begin(7, DefaultVertexFormats.BLOCK);

@@ -104,7 +104,7 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
         RenderHelper.disableStandardItemLighting();
         GlStateManager.disableCull();
         this.bindTexture(ENDER_DRAGON_CRYSTAL_BEAM_TEXTURES);
-        GlStateManager.shadeModel(7425);
+        GlStateManager.shadeModel(GL11.GL_SMOOTH);
         float f7 = 0.0F - (dragon.ticksExisted + p_180574_8_) * 0.01F;
         float f8 = MathHelper.sqrt(f2 * f2 + f3 * f3 + f4 * f4) / 32.0F - (dragon.ticksExisted + p_180574_8_) * 0.01F;
         worldrenderer.begin(5, DefaultVertexFormats.POSITION_TEX_COLOR);
@@ -120,7 +120,7 @@ public class RenderDragon extends RenderLiving<EntityDragon> {
 
         tessellator.draw();
         GlStateManager.enableCull();
-        GlStateManager.shadeModel(7424);
+        GlStateManager.shadeModel(GL11.GL_FLAT);
         RenderHelper.enableStandardItemLighting();
         GlStateManager.popMatrix();
     }

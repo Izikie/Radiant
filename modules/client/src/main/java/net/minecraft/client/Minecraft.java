@@ -330,7 +330,7 @@ public class Minecraft implements IThreadListener {
         mouseHelper = new MouseHelper();
         checkGLError("Pre startup");
         GlStateManager.enableTexture2D();
-        GlStateManager.shadeModel(7425);
+        GlStateManager.shadeModel(GL11.GL_SMOOTH);
         GlStateManager.clearDepth(1.0D);
         GlStateManager.enableDepth();
         GlStateManager.depthFunc(GL11.GL_LEQUAL);

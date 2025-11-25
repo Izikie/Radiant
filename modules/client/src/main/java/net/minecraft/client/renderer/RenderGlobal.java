@@ -1275,7 +1275,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     Shaders.disableTexture2D();
                 }
 
-                GlStateManager.shadeModel(7425);
+                GlStateManager.shadeModel(GL11.GL_SMOOTH);
                 GlStateManager.pushMatrix();
                 GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
                 GlStateManager.rotate(MathHelper.sin(this.theWorld.getCelestialAngleRadians(partialTicks)) < 0.0F ? 180.0F : 0.0F, 0.0F, 0.0F, 1.0F);
@@ -1305,7 +1305,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
                 tessellator.draw();
                 GlStateManager.popMatrix();
-                GlStateManager.shadeModel(7424);
+                GlStateManager.shadeModel(GL11.GL_FLAT);
             }
 
             GlStateManager.enableTexture2D();

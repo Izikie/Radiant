@@ -1225,7 +1225,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         }
 
         this.setupFog(0, partialTicks);
-        GlStateManager.shadeModel(7425);
+        GlStateManager.shadeModel(GL11.GL_SMOOTH);
 
         if (entity.posY + entity.getEyeHeight() < 128.0D + (this.mc.gameSettings.ofCloudsHeight * 128.0F)) {
             this.renderCloudsCheck(renderglobal, partialTicks, pass);
@@ -1281,7 +1281,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             ShadersRender.endTerrain();
         }
 
-        GlStateManager.shadeModel(7424);
+        GlStateManager.shadeModel(GL11.GL_FLAT);
         GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
 
         if (!this.debugView) {
@@ -1390,7 +1390,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         GlStateManager.enableBlend();
         GlStateManager.depthMask(false);
         this.mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-        GlStateManager.shadeModel(7425);
+        GlStateManager.shadeModel(GL11.GL_SMOOTH);
 
         if (flag) {
             Shaders.beginWater();
@@ -1402,7 +1402,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             Shaders.endWater();
         }
 
-        GlStateManager.shadeModel(7424);
+        GlStateManager.shadeModel(GL11.GL_FLAT);
         GlStateManager.depthMask(true);
         GlStateManager.enableCull();
         GlStateManager.disableBlend();

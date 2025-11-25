@@ -196,7 +196,7 @@ public class ShadersRender {
             double yPos = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;
             double zPos = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * partialTicks;
             frustum.setPosition(xPos, yPos, zPos);
-            GlStateManager.shadeModel(7425);
+            GlStateManager.shadeModel(GL11.GL_SMOOTH);
             GlStateManager.enableDepth();
             GlStateManager.depthFunc(GL11.GL_LEQUAL);
             GlStateManager.depthMask(true);
@@ -219,7 +219,7 @@ public class ShadersRender {
             renderglobal.renderBlockLayer(RenderLayer.CUTOUT, partialTicks, 2, entity);
             Shaders.checkGLError("shadow terrain cutout");
             minecraft.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
-            GlStateManager.shadeModel(7424);
+            GlStateManager.shadeModel(GL11.GL_FLAT);
             GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
             GlStateManager.matrixMode(GL11.GL_MODELVIEW);
             GlStateManager.popMatrix();
@@ -246,7 +246,7 @@ public class ShadersRender {
             GlStateManager.disableBlend();
             GlStateManager.depthMask(true);
             minecraft.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-            GlStateManager.shadeModel(7425);
+            GlStateManager.shadeModel(GL11.GL_SMOOTH);
             Shaders.checkGLError("shadow pre-translucent");
             GL20.glDrawBuffers(Shaders.SFB_DRAW_BUFFERS);
             Shaders.checkGLError("shadow drawbuffers pre-translucent");
@@ -257,7 +257,7 @@ public class ShadersRender {
                 Shaders.checkGLError("shadow translucent");
             }
 
-            GlStateManager.shadeModel(7424);
+            GlStateManager.shadeModel(GL11.GL_FLAT);
             GlStateManager.depthMask(true);
             GlStateManager.enableCull();
             GlStateManager.disableBlend();
