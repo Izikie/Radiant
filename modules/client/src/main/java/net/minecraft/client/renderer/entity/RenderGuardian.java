@@ -92,7 +92,7 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
             GlStateManager.rotate(f5 * (180.0F / (float) Math.PI), 1.0F, 0.0F, 0.0F);
             int i = 1;
             double d1 = f2 * 0.05D * (1.0D - (i & 1) * 2.5D);
-            worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+            worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
             float f7 = f * f;
             int j = 64 + (int) (f7 * 240.0F);
             int k = 32 + (int) (f7 * 192.0F);

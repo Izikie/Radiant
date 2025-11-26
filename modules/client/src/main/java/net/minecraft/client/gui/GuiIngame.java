@@ -705,7 +705,7 @@ public class GuiIngame extends Gui {
         this.mc.getTextureManager().bindTexture(PUMPKIN_BLUR_TEX_PATH);
         Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
         worldrenderer.pos(0.0D, scaledRes.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
         worldrenderer.pos(scaledRes.getScaledWidth(), scaledRes.getScaledHeight(), -90.0D).tex(1.0D, 1.0D).endVertex();
         worldrenderer.pos(scaledRes.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
@@ -749,7 +749,7 @@ public class GuiIngame extends Gui {
             this.mc.getTextureManager().bindTexture(VIGNETTE_TEX_PATH);
             Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-            worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+            worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
             worldrenderer.pos(0.0D, scaledRes.getScaledHeight(), -90.0D).tex(0.0D, 1.0D).endVertex();
             worldrenderer.pos(scaledRes.getScaledWidth(), scaledRes.getScaledHeight(), -90.0D).tex(1.0D, 1.0D).endVertex();
             worldrenderer.pos(scaledRes.getScaledWidth(), 0.0D, -90.0D).tex(1.0D, 0.0D).endVertex();
@@ -782,7 +782,7 @@ public class GuiIngame extends Gui {
         float f3 = textureatlassprite.getMaxV();
         Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
         worldrenderer.pos(0.0D, scaledRes.getScaledHeight(), -90.0D).tex(f, f3).endVertex();
         worldrenderer.pos(scaledRes.getScaledWidth(), scaledRes.getScaledHeight(), -90.0D).tex(f2, f3).endVertex();
         worldrenderer.pos(scaledRes.getScaledWidth(), 0.0D, -90.0D).tex(f2, f1).endVertex();

@@ -391,7 +391,7 @@ public class ShadersRender {
             Config.getTextureManager().bindTexture(END_PORTAL_TEXTURE);
             Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-            worldrenderer.begin(7, DefaultVertexFormats.BLOCK);
+            worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
             float f = 0.5F;
             float f1 = f * 0.15F;
             float f2 = f * 0.3F;

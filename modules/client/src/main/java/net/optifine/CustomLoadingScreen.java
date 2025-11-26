@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 import java.util.Properties;
 
@@ -125,7 +126,7 @@ public class CustomLoadingScreen {
                 d4 = 0.0D;
         }
 
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+        worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
         worldrenderer.pos(0.0D, height, 0.0D).tex(d3, d4 + d2).color(255, 255, 255, 255).endVertex();
         worldrenderer.pos(width, height, 0.0D).tex(d3 + d1, d4 + d2).color(255, 255, 255, 255).endVertex();
         worldrenderer.pos(width, 0.0D, 0.0D).tex(d3 + d1, d4).color(255, 255, 255, 255).endVertex();

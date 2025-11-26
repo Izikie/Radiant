@@ -125,7 +125,7 @@ public class LoadingScreenRenderer implements IProgressUpdate {
                 } else {
                     this.mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
                     float f = 32.0F;
-                    worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+                    worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
                     worldrenderer.pos(0.0D, l, 0.0D).tex(0.0D, (l / f)).color(64, 64, 64, 255).endVertex();
                     worldrenderer.pos(k, l, 0.0D).tex((k / f), (l / f)).color(64, 64, 64, 255).endVertex();
                     worldrenderer.pos(k, 0.0D, 0.0D).tex((k / f), 0.0D).color(64, 64, 64, 255).endVertex();
@@ -139,7 +139,7 @@ public class LoadingScreenRenderer implements IProgressUpdate {
                     int j1 = k / 2 - l1 / 2;
                     int k1 = l / 2 + 16;
                     GlStateManager.disableTexture2D();
-                    worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+                    worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
                     worldrenderer.pos(j1, k1, 0.0D).color(128, 128, 128, 255).endVertex();
                     worldrenderer.pos(j1, (k1 + i1), 0.0D).color(128, 128, 128, 255).endVertex();
                     worldrenderer.pos((j1 + l1), (k1 + i1), 0.0D).color(128, 128, 128, 255).endVertex();

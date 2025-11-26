@@ -27,6 +27,7 @@ import net.radiant.lwjgl.input.Keyboard;
 import net.radiant.lwjgl.input.Mouse;
 import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.glfw.GLFW;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -184,8 +185,9 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
     }
 
     protected void handleComponentHover(IChatComponent component, int x, int y) {
-        if (component == null || component.getChatStyle().getChatHoverEvent() == null)
+        if (component == null || component.getChatStyle().getChatHoverEvent() == null) {
             return;
+        }
 
         HoverEvent hoverEvent = component.getChatStyle().getChatHoverEvent();
 
@@ -196,8 +198,9 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                 try {
                     NBTBase nbt = JsonToNBT.getTagFromJson(hoverEvent.getValue().getUnformattedText());
 
-                    if (nbt instanceof NBTTagCompound tag)
+                    if (nbt instanceof NBTTagCompound tag) {
                         stack = ItemStack.loadItemStackFromNBT(tag);
+                    }
                 } catch (NBTException _) {
                 }
 
@@ -263,8 +266,9 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
     }
 
     protected boolean handleComponentClick(IChatComponent component) {
-        if (component == null)
+        if (component == null) {
             return false;
+        }
 
         ClickEvent clickEvent = component.getChatStyle().getChatClickEvent();
 
@@ -436,7 +440,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
         WorldRenderer renderer = tessellator.getWorldRenderer();
         this.mc.getTextureManager().bindTexture(OPTIONS_BACKGROUND);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        renderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+        renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
         renderer.pos(0.0D, this.height, 0.0D).tex(0.0D, this.height / 32.0F + tint).color(64, 64, 64, 255).endVertex();
         renderer.pos(this.width, this.height, 0.0D).tex(this.width / 32.0F, this.height / 32.0F + tint).color(64, 64, 64, 255).endVertex();
         renderer.pos(this.width, 0.0D, 0.0D).tex(this.width / 32.0F, tint).color(64, 64, 64, 255).endVertex();

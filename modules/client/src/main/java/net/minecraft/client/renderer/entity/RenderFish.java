@@ -10,6 +10,7 @@ import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3;
+import org.lwjgl.opengl.GL11;
 
 public class RenderFish extends Render<EntityFishHook> {
     private static final ResourceLocation FISH_PARTICLES = new ResourceLocation("textures/particle/particles.png");
@@ -38,7 +39,7 @@ public class RenderFish extends Render<EntityFishHook> {
         float f6 = 0.5F;
         GlStateManager.rotate(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate(-this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_NORMAL);
+        worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_NORMAL);
         worldrenderer.pos(-0.5D, -0.5D, 0.0D).tex(0.0625D, 0.1875D).normal(0.0F, 1.0F, 0.0F).endVertex();
         worldrenderer.pos(0.5D, -0.5D, 0.0D).tex(0.125D, 0.1875D).normal(0.0F, 1.0F, 0.0F).endVertex();
         worldrenderer.pos(0.5D, 0.5D, 0.0D).tex(0.125D, 0.125D).normal(0.0F, 1.0F, 0.0F).endVertex();

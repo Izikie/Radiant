@@ -3830,7 +3830,7 @@ public class Shaders {
         double d3 = -d0;
         double d4 = 16.0D;
         double d5 = -cameraPositionY;
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION);
+        worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
         worldrenderer.pos(d2, d5, d3).endVertex();
         worldrenderer.pos(d2, d4, d3).endVertex();
         worldrenderer.pos(d3, d4, d2).endVertex();

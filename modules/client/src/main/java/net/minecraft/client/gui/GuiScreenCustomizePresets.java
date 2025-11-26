@@ -8,6 +8,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.ChunkProviderSettings;
 import net.radiant.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -181,7 +182,7 @@ public class GuiScreenCustomizePresets extends GuiScreen {
             int k = 32;
             Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-            worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+            worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
             worldrenderer.pos((i), (p_178051_2_ + 32), 0.0D).tex(0.0D, 1.0D).endVertex();
             worldrenderer.pos((i + 32), (p_178051_2_ + 32), 0.0D).tex(1.0D, 1.0D).endVertex();
             worldrenderer.pos((i + 32), (p_178051_2_), 0.0D).tex(1.0D, 0.0D).endVertex();

@@ -204,7 +204,7 @@ public class Framebuffer {
             float f3 = (float) this.framebufferHeight / this.framebufferTextureHeight;
             Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-            worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+            worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
             worldrenderer.pos(0.0D, (float) p_178038_2_, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
             worldrenderer.pos((float) p_178038_1_, (float) p_178038_2_, 0.0D).tex(f2, 0.0D).color(255, 255, 255, 255).endVertex();
             worldrenderer.pos((float) p_178038_1_, 0.0D, 0.0D).tex(f2, f3).color(255, 255, 255, 255).endVertex();

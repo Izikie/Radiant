@@ -420,7 +420,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
             Tessellator tessellator = Tessellator.get();
             WorldRenderer worldRenderer = tessellator.getWorldRenderer();
             GlStateManager.disableTexture2D();
-            worldRenderer.begin(7, DefaultVertexFormats.POSITION);
+            worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
             worldRenderer.pos(this.posX, (this.posY + (this.FONT_HEIGHT / 2F)), 0.0D).endVertex();
             worldRenderer.pos((this.posX + p_doDraw_1_), (this.posY + (this.FONT_HEIGHT / 2F)), 0.0D).endVertex();
             worldRenderer.pos((this.posX + p_doDraw_1_), (this.posY + (this.FONT_HEIGHT / 2F) - 1.0F), 0.0D).endVertex();
@@ -434,7 +434,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
             Tessellator tessellator = Tessellator.get();
             WorldRenderer worldRenderer = tessellator.getWorldRenderer();
             GlStateManager.disableTexture2D();
-            worldRenderer.begin(7, DefaultVertexFormats.POSITION);
+            worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
             worldRenderer.pos((this.posX + i), (this.posY + this.FONT_HEIGHT), 0.0D).endVertex();
             worldRenderer.pos((this.posX + p_doDraw_1_), (this.posY + this.FONT_HEIGHT), 0.0D).endVertex();
             worldRenderer.pos((this.posX + p_doDraw_1_), (this.posY + this.FONT_HEIGHT - 1.0F), 0.0D).endVertex();

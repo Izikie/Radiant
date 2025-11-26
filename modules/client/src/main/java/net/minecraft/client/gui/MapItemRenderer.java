@@ -91,7 +91,7 @@ public class MapItemRenderer {
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(GL11.GL_ONE, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ZERO, GL11.GL_ONE);
             GlStateManager.disableAlpha();
-            worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+            worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
             worldrenderer.pos(((i) + f), ((j + 128) - f), -0.009999999776482582D).tex(0.0D, 1.0D).endVertex();
             worldrenderer.pos(((i + 128) - f), ((j + 128) - f), -0.009999999776482582D).tex(1.0D, 1.0D).endVertex();
             worldrenderer.pos(((i + 128) - f), ((j) + f), -0.009999999776482582D).tex(1.0D, 0.0D).endVertex();
@@ -114,7 +114,7 @@ public class MapItemRenderer {
                     float f2 = (b0 / 4) / 4.0F;
                     float f3 = (b0 % 4 + 1) / 4.0F;
                     float f4 = (b0 / 4 + 1) / 4.0F;
-                    worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+                    worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
                     float f5 = -0.001F;
                     worldrenderer.pos(-1.0D, 1.0D, (k * -0.001F)).tex(f1, f2).endVertex();
                     worldrenderer.pos(1.0D, 1.0D, (k * -0.001F)).tex(f3, f2).endVertex();

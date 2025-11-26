@@ -250,7 +250,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
                 }
 
                 this.mc.getTextureManager().bindTexture(aresourcelocation[l]);
-                worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+                worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
                 int i1 = 255 / (k + 1);
                 float f3 = 0.0F;
                 worldrenderer.pos(-1.0D, -1.0D, 1.0D).tex(0.0D, 0.0D).color(255, 255, 255, i1).endVertex();
@@ -286,7 +286,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         GlStateManager.colorMask(true, true, true, false);
         Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+        worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
         GlStateManager.disableAlpha();
         int i = 3;
         int j = 3;
@@ -338,7 +338,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         int l = this.height;
         Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+        worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
         worldrenderer.pos(0.0D, l, this.zLevel).tex((0.5F - f), (0.5F + f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
         worldrenderer.pos(k, l, this.zLevel).tex((0.5F - f), (0.5F - f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
         worldrenderer.pos(k, 0.0D, this.zLevel).tex((0.5F + f), (0.5F - f1)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();

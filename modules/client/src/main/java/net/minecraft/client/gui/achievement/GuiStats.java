@@ -22,6 +22,7 @@ import net.minecraft.stats.StatFileWriter;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ResourceLocation;
 import net.radiant.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -163,7 +164,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter {
         int j = 18;
         Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
         worldrenderer.pos((p_146527_1_), (p_146527_2_ + 18), this.zLevel).tex(((p_146527_3_) * 0.0078125F), ((p_146527_4_ + 18) * 0.0078125F)).endVertex();
         worldrenderer.pos((p_146527_1_ + 18), (p_146527_2_ + 18), this.zLevel).tex(((p_146527_3_ + 18) * 0.0078125F), ((p_146527_4_ + 18) * 0.0078125F)).endVertex();
         worldrenderer.pos((p_146527_1_ + 18), (p_146527_2_), this.zLevel).tex(((p_146527_3_ + 18) * 0.0078125F), ((p_146527_4_) * 0.0078125F)).endVertex();

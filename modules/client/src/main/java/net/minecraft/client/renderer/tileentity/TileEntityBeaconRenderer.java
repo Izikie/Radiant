@@ -63,7 +63,7 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
                     double d13;
                     double d14 = -1.0D + d1;
                     double d15 = (beamSegment.getHeight() * f) * 2.5D + d14;
-                    worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+                    worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
                     worldrenderer.pos(x + d4, y + k, z + d5).tex(1.0D, d15).color(f1, f2, f3, 1.0F).endVertex();
                     worldrenderer.pos(x + d4, y + i, z + d5).tex(1.0D, d14).color(f1, f2, f3, 1.0F).endVertex();
                     worldrenderer.pos(x + d6, y + i, z + d7).tex(0.0D, d14).color(f1, f2, f3, 1.0F).endVertex();
@@ -86,7 +86,7 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
                     GlStateManager.depthMask(false);
                     d12 = -1.0D + d1;
                     d13 = (beamSegment.getHeight() * f) + d12;
-                    worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+                    worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
                     worldrenderer.pos(x + 0.2D, y + k, z + 0.2D).tex(1.0D, d13).color(f1, f2, f3, 0.125F).endVertex();
                     worldrenderer.pos(x + 0.2D, y + i, z + 0.2D).tex(1.0D, d12).color(f1, f2, f3, 0.125F).endVertex();
                     worldrenderer.pos(x + 0.8D, y + i, z + 0.2D).tex(0.0D, d12).color(f1, f2, f3, 0.125F).endVertex();

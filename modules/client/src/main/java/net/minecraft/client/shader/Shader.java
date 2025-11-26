@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.IResourceManager;
 import org.joml.Matrix4f;
+import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -85,7 +86,7 @@ public class Shader {
         GlStateManager.colorMask(true, true, true, true);
         Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+        worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
         worldrenderer.pos(0.0D, f1, 500.0D).color(255, 255, 255, 255).endVertex();
         worldrenderer.pos(f, f1, 500.0D).color(255, 255, 255, 255).endVertex();
         worldrenderer.pos(f, 0.0D, 500.0D).color(255, 255, 255, 255).endVertex();

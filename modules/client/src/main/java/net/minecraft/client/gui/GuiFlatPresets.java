@@ -15,6 +15,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.FlatGeneratorInfo;
 import net.minecraft.world.gen.FlatLayerInfo;
 import net.radiant.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -192,7 +193,7 @@ public class GuiFlatPresets extends GuiScreen {
             int j = 18;
             Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-            worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+            worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
             worldrenderer.pos((p_148171_1_), (p_148171_2_ + 18), GuiFlatPresets.this.zLevel).tex(((p_148171_3_) * 0.0078125F), ((p_148171_4_ + 18) * 0.0078125F)).endVertex();
             worldrenderer.pos((p_148171_1_ + 18), (p_148171_2_ + 18), GuiFlatPresets.this.zLevel).tex(((p_148171_3_ + 18) * 0.0078125F), ((p_148171_4_ + 18) * 0.0078125F)).endVertex();
             worldrenderer.pos((p_148171_1_ + 18), (p_148171_2_), GuiFlatPresets.this.zLevel).tex(((p_148171_3_ + 18) * 0.0078125F), ((p_148171_4_) * 0.0078125F)).endVertex();

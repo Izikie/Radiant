@@ -250,7 +250,7 @@ public class EffectRenderer {
                     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                     Tessellator tessellator = Tessellator.get();
                     WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-                    worldrenderer.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
+                    worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
 
                     for (int k = 0; k < this.fxLayers[i][j].size(); ++k) {
                         final EntityFX entityfx = this.fxLayers[i][j].get(k);

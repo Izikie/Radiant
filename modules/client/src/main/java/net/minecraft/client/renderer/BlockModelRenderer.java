@@ -21,6 +21,7 @@ import net.optifine.model.ListQuadsOverlay;
 import net.optifine.render.RenderEnv;
 import net.optifine.shaders.SVertexBuilder;
 import net.optifine.shaders.Shaders;
+import org.lwjgl.opengl.GL11;
 
 import java.util.BitSet;
 import java.util.List;
@@ -384,7 +385,7 @@ public class BlockModelRenderer {
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
 
         for (BakedQuad bakedquad : listQuads) {
-            worldrenderer.begin(7, DefaultVertexFormats.ITEM);
+            worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.ITEM);
             worldrenderer.addVertexData(bakedquad.getVertexData());
             worldrenderer.putSprite(bakedquad.getSprite());
 
@@ -421,7 +422,7 @@ public class BlockModelRenderer {
                         WorldRenderer worldrenderer = regionrendercachebuilder.getWorldRendererByLayer(enumworldblocklayer);
 
                         if (!worldrenderer.isDrawing()) {
-                            worldrenderer.begin(7, DefaultVertexFormats.BLOCK);
+                            worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
                             worldrenderer.setTranslation(p_renderOverlayModels_5_.getXOffset(), p_renderOverlayModels_5_.getYOffset(), p_renderOverlayModels_5_.getZOffset());
                         }
 

@@ -98,7 +98,7 @@ public class RenderItem implements IResourceManagerReloadListener {
             worldrenderer.setBlockLayer(RenderLayer.SOLID);
         }
 
-        worldrenderer.begin(7, DefaultVertexFormats.ITEM);
+        worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.ITEM);
 
         for (Direction enumfacing : Direction.VALUES) {
             this.renderQuads(worldrenderer, model.getFaceQuads(enumfacing), color, stack);
@@ -460,7 +460,7 @@ public class RenderItem implements IResourceManagerReloadListener {
     }
 
     private void draw(WorldRenderer renderer, int x, int y, int width, int height, int red, int green, int blue, int alpha) {
-        renderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+        renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
         renderer.pos((x), (y), 0.0D).color(red, green, blue, alpha).endVertex();
         renderer.pos((x), (y + height), 0.0D).color(red, green, blue, alpha).endVertex();
         renderer.pos((x + width), (y + height), 0.0D).color(red, green, blue, alpha).endVertex();

@@ -10,6 +10,7 @@ import net.optifine.Config;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomColors;
+import org.lwjgl.opengl.GL11;
 
 public class RenderXPOrb extends Render<EntityXPOrb> {
     private static final ResourceLocation EXPERIENCE_ORB_TEXTURES = new ResourceLocation("textures/entity/experience_orb.png");
@@ -54,7 +55,7 @@ public class RenderXPOrb extends Render<EntityXPOrb> {
         GlStateManager.scale(0.3F, 0.3F, 0.3F);
         Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
+        worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
         int k1 = l;
         int l1 = 255;
         int i2 = j1;

@@ -48,14 +48,14 @@ public class RenderArrow extends Render<EntityArrow> {
         GlStateManager.scale(f8, f8, f8);
         GlStateManager.translate(-4.0F, 0.0F, 0.0F);
         GL11.glNormal3f(f8, 0.0F, 0.0F);
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
         worldrenderer.pos(-7.0D, -2.0D, -2.0D).tex(f4, f6).endVertex();
         worldrenderer.pos(-7.0D, -2.0D, 2.0D).tex(f5, f6).endVertex();
         worldrenderer.pos(-7.0D, 2.0D, 2.0D).tex(f5, f7).endVertex();
         worldrenderer.pos(-7.0D, 2.0D, -2.0D).tex(f4, f7).endVertex();
         tessellator.draw();
         GL11.glNormal3f(-f8, 0.0F, 0.0F);
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
         worldrenderer.pos(-7.0D, 2.0D, -2.0D).tex(f4, f6).endVertex();
         worldrenderer.pos(-7.0D, 2.0D, 2.0D).tex(f5, f6).endVertex();
         worldrenderer.pos(-7.0D, -2.0D, 2.0D).tex(f5, f7).endVertex();
@@ -65,7 +65,7 @@ public class RenderArrow extends Render<EntityArrow> {
         for (int j = 0; j < 4; ++j) {
             GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
             GL11.glNormal3f(0.0F, 0.0F, f8);
-            worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+            worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
             worldrenderer.pos(-8.0D, -2.0D, 0.0D).tex(f, f2).endVertex();
             worldrenderer.pos(8.0D, -2.0D, 0.0D).tex(f1, f2).endVertex();
             worldrenderer.pos(8.0D, 2.0D, 0.0D).tex(f1, f3).endVertex();

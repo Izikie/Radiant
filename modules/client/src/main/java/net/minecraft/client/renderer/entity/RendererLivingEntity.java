@@ -530,7 +530,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                     int i = fontrenderer.getStringWidth(s) / 2;
                     Tessellator tessellator = Tessellator.get();
                     WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-                    worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+                    worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
                     worldrenderer.pos((-i - 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
                     worldrenderer.pos((-i - 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
                     worldrenderer.pos((i + 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();

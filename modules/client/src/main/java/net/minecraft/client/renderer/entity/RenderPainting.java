@@ -10,6 +10,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 public class RenderPainting extends Render<EntityPainting> {
     private static final ResourceLocation KRISTOFFER_PAINTING_TEXTURE = new ResourceLocation("textures/painting/paintings_kristoffer_zetterstrand.png");
@@ -69,7 +70,7 @@ public class RenderPainting extends Render<EntityPainting> {
                 float f22 = (textureV + height - (j + 1) * 16) / 256.0F;
                 Tessellator tessellator = Tessellator.get();
                 WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-                worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_NORMAL);
+                worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_NORMAL);
                 worldrenderer.pos(f15, f18, (-f2)).tex(f20, f21).normal(0.0F, 0.0F, -1.0F).endVertex();
                 worldrenderer.pos(f16, f18, (-f2)).tex(f19, f21).normal(0.0F, 0.0F, -1.0F).endVertex();
                 worldrenderer.pos(f16, f17, (-f2)).tex(f19, f22).normal(0.0F, 0.0F, -1.0F).endVertex();

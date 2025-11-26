@@ -85,7 +85,7 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
                 GlStateManager.translate((float) ActiveRenderInfo.getPosition().xCoord * f4 / f8, (float) ActiveRenderInfo.getPosition().zCoord * f4 / f8, -f1);
                 Tessellator tessellator = Tessellator.get();
                 WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-                worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+                worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
                 float f11 = (field_147527_e.nextFloat() * 0.5F + 0.1F) * f6;
                 float f12 = (field_147527_e.nextFloat() * 0.5F + 0.4F) * f6;
                 float f13 = (field_147527_e.nextFloat() * 0.5F + 0.5F) * f6;

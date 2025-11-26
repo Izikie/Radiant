@@ -430,7 +430,7 @@ public class GuiTextField extends Gui {
         GlStateManager.disableTexture2D();
         GlStateManager.enableColorLogic();
         GlStateManager.colorLogicOp(GL11.GL_OR_REVERSE);
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION);
+        worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
         worldrenderer.pos(p_146188_1_, p_146188_4_, 0.0D).endVertex();
         worldrenderer.pos(p_146188_3_, p_146188_4_, 0.0D).endVertex();
         worldrenderer.pos(p_146188_3_, p_146188_2_, 0.0D).endVertex();

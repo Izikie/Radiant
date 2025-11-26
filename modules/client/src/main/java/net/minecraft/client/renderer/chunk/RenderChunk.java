@@ -309,7 +309,7 @@ public class RenderChunk {
     }
 
     private void preRenderBlocks(WorldRenderer worldRendererIn, BlockPos pos) {
-        worldRendererIn.begin(7, DefaultVertexFormats.BLOCK);
+        worldRendererIn.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
 
         if (Config.isRenderRegions()) {
             int i = 8;

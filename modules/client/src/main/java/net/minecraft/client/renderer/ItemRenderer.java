@@ -171,7 +171,7 @@ public class ItemRenderer {
         Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         GL11.glNormal3f(0.0F, 0.0F, -1.0F);
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
         worldrenderer.pos(-7.0D, 135.0D, 0.0D).tex(0.0D, 1.0D).endVertex();
         worldrenderer.pos(135.0D, 135.0D, 0.0D).tex(1.0D, 1.0D).endVertex();
         worldrenderer.pos(135.0D, -7.0D, 0.0D).tex(1.0D, 0.0D).endVertex();
@@ -386,7 +386,7 @@ public class ItemRenderer {
         float f7 = atlas.getMaxU();
         float f8 = atlas.getMinV();
         float f9 = atlas.getMaxV();
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
         worldrenderer.pos(-1.0D, -1.0D, -0.5D).tex(f7, f9).endVertex();
         worldrenderer.pos(1.0D, -1.0D, -0.5D).tex(f6, f9).endVertex();
         worldrenderer.pos(1.0D, 1.0D, -0.5D).tex(f6, f8).endVertex();
@@ -414,7 +414,7 @@ public class ItemRenderer {
             float f6 = -0.5F;
             float f7 = -this.mc.player.rotationYaw / 64.0F;
             float f8 = this.mc.player.rotationPitch / 64.0F;
-            worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+            worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
             worldrenderer.pos(-1.0D, -1.0D, -0.5D).tex((4.0F + f7), (4.0F + f8)).endVertex();
             worldrenderer.pos(1.0D, -1.0D, -0.5D).tex((0.0F + f7), (4.0F + f8)).endVertex();
             worldrenderer.pos(1.0D, 1.0D, -0.5D).tex((0.0F + f7), (0.0F + f8)).endVertex();
@@ -451,7 +451,7 @@ public class ItemRenderer {
             float f9 = -0.5F;
             GlStateManager.translate((-(i * 2 - 1)) * 0.24F, -0.3F, 0.0F);
             GlStateManager.rotate((i * 2 - 1) * 10.0F, 0.0F, 1.0F, 0.0F);
-            worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+            worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
             worldrenderer.setSprite(textureatlassprite);
             worldrenderer.pos(f5, f7, f9).tex(f2, f4).endVertex();
             worldrenderer.pos(f6, f7, f9).tex(f1, f4).endVertex();

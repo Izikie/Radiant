@@ -281,7 +281,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     }
 
     private void renderSky(WorldRenderer worldRendererIn, float posY, boolean reverseX) {
-        worldRendererIn.begin(7, DefaultVertexFormats.POSITION);
+        worldRendererIn.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
         int k = (this.renderDistance / 64 + 1) * 64 + 64;
 
         for (int l = -k; l <= k; l += 64) {
@@ -334,7 +334,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
     private void renderStars(WorldRenderer worldRendererIn) {
         Random random = new Random(10842L);
-        worldRendererIn.begin(7, DefaultVertexFormats.POSITION);
+        worldRendererIn.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
 
         for (int i = 0; i < 1500; ++i) {
             double d0 = random.nextFloat() * 2.0F - 1.0F;
@@ -1168,7 +1168,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     GlStateManager.rotate(-90.0F, 0.0F, 0.0F, 1.0F);
                 }
 
-                worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+                worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
                 int j = 40;
                 int k = 40;
                 int l = 40;
@@ -1335,7 +1335,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
             if (Config.isSunTexture()) {
                 this.renderEngine.bindTexture(LOCATION_SUN_PNG);
-                worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+                worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
                 worldrenderer.pos(-f16, 100.0D, -f16).tex(0.0D, 0.0D).endVertex();
                 worldrenderer.pos(f16, 100.0D, -f16).tex(1.0D, 0.0D).endVertex();
                 worldrenderer.pos(f16, 100.0D, f16).tex(1.0D, 1.0D).endVertex();
@@ -1354,7 +1354,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 float f21 = (i1) / 2.0F;
                 float f23 = (k + 1) / 4.0F;
                 float f14 = (i1 + 1) / 2.0F;
-                worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+                worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
                 worldrenderer.pos(-f16, -100.0D, f16).tex(f23, f14).endVertex();
                 worldrenderer.pos(f16, -100.0D, f16).tex(f19, f14).endVertex();
                 worldrenderer.pos(f16, -100.0D, -f16).tex(f19, f21).endVertex();
@@ -1491,7 +1491,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                         f6 = f6 + this.mc.gameSettings.ofCloudsHeight * 128.0F;
                         float f7 = (float) (d0 * 4.8828125E-4D);
                         float f8 = (float) (d1 * 4.8828125E-4D);
-                        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+                        worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
 
                         for (int i1 = -256; i1 < 256; i1 += 32) {
                             for (int j1 = -256; j1 < 256; j1 += 32) {
@@ -1597,7 +1597,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
             for (int l1 = -3; l1 <= 4; ++l1) {
                 for (int j1 = -3; j1 <= 4; ++j1) {
-                    worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
+                    worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
                     float f22 = (l1 * 8);
                     float f23 = (j1 * 8);
                     float f24 = f22 - f19;
@@ -1769,7 +1769,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             GlStateManager.enableAlpha();
             GlStateManager.disableCull();
             float f3 = (Minecraft.getSystemTime() % 3000L) / 3000.0F;
-            worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+            worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
             worldrenderer.setTranslation(-d2, -d3, -d4);
             double d5 = Math.max(MathHelper.floor(d4 - d0), worldborder.minZ());
             double d6 = Math.min(MathHelper.ceil(d4 + d0), worldborder.maxZ());
@@ -1888,7 +1888,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         if (!this.damagedBlocks.isEmpty()) {
             this.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             this.preRenderDamagedBlocks();
-            worldRendererIn.begin(7, DefaultVertexFormats.BLOCK);
+            worldRendererIn.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
             worldRendererIn.setTranslation(-d0, -d1, -d2);
             worldRendererIn.noColor();
             Iterator<DestroyBlockProgress> iterator = this.damagedBlocks.values().iterator();

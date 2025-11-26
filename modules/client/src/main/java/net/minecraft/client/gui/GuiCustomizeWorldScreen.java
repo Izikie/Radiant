@@ -10,6 +10,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.ChunkProviderSettings;
+import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
 import java.util.Random;
@@ -846,7 +847,7 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
             this.mc.getTextureManager().bindTexture(OPTIONS_BACKGROUND);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             float f2 = 32.0F;
-            worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+            worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
             worldrenderer.pos((this.width / 2 - 90), 185.0D, 0.0D).tex(0.0D, 2.65625D).color(64, 64, 64, 64).endVertex();
             worldrenderer.pos((this.width / 2 + 90), 185.0D, 0.0D).tex(5.625D, 2.65625D).color(64, 64, 64, 64).endVertex();
             worldrenderer.pos((this.width / 2 + 90), 100.0D, 0.0D).tex(5.625D, 0.0D).color(64, 64, 64, 64).endVertex();

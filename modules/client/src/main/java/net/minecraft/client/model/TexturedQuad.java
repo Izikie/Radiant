@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.optifine.Config;
 import net.minecraft.util.math.Vec3;
 import net.optifine.shaders.SVertexFormat;
+import org.lwjgl.opengl.GL11;
 
 public class TexturedQuad {
     public PositionTextureVertex[] vertexPositions;
@@ -52,9 +53,9 @@ public class TexturedQuad {
         }
 
         if (Config.isShaders()) {
-            renderer.begin(7, SVertexFormat.DEF_VERTEX_FORMAT_TEXTURED);
+            renderer.begin(GL11.GL_QUADS, SVertexFormat.DEF_VERTEX_FORMAT_TEXTURED);
         } else {
-            renderer.begin(7, DefaultVertexFormats.OLDMODEL_POSITION_TEX_NORMAL);
+            renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.OLDMODEL_POSITION_TEX_NORMAL);
         }
 
         for (int i = 0; i < 4; ++i) {

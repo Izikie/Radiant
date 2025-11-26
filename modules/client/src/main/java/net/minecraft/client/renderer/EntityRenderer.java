@@ -1613,7 +1613,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
                                     j1 = 0;
                                     this.mc.getTextureManager().bindTexture(LOCATION_RAIN_PNG);
-                                    worldrenderer.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
+                                    worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
                                 }
 
                                 double d5 = ((double) (this.rendererUpdateCount + l1 * l1 * 3121 + l1 * 45238971 + k1 * k1 * 418711 + k1 * 13761 & 31) + partialTicks) / 32.0D * (3.0D + this.random.nextDouble());
@@ -1637,7 +1637,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
                                     j1 = 1;
                                     this.mc.getTextureManager().bindTexture(LOCATION_SNOW_PNG);
-                                    worldrenderer.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
+                                    worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
                                 }
 
                                 double d8 = ((this.rendererUpdateCount & 511) + partialTicks) / 512.0F;

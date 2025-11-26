@@ -14,6 +14,7 @@ import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import org.lwjgl.opengl.GL11;
 
 public class RenderFallingBlock extends Render<EntityFallingBlock> {
     public RenderFallingBlock(RenderManager renderManagerIn) {
@@ -37,7 +38,7 @@ public class RenderFallingBlock extends Render<EntityFallingBlock> {
                     GlStateManager.disableLighting();
                     Tessellator tessellator = Tessellator.get();
                     WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-                    worldrenderer.begin(7, DefaultVertexFormats.BLOCK);
+                    worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
                     int i = blockpos.getX();
                     int j = blockpos.getY();
                     int k = blockpos.getZ();

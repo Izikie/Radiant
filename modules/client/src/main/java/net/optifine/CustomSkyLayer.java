@@ -16,6 +16,7 @@ import net.optifine.config.RangeListInt;
 import net.optifine.render.Blender;
 import net.optifine.util.SmoothFloat;
 import net.optifine.util.TextureUtils;
+import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -378,7 +379,7 @@ public class CustomSkyLayer {
         WorldRenderer worldrenderer = tess.getWorldRenderer();
         double u = (double) (side % 3) / 3.0D;
         double v = (double) (side / 3) / 2.0D;
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
         worldrenderer.pos(-100.0D, -100.0D, -100.0D).tex(u, v).endVertex();
         worldrenderer.pos(-100.0D, -100.0D, 100.0D).tex(u, v + 0.5D).endVertex();
         worldrenderer.pos(100.0D, -100.0D, 100.0D).tex(u + 0.3333333333333333D, v + 0.5D).endVertex();
@@ -416,6 +417,7 @@ public class CustomSkyLayer {
         return timeStart <= timeEnd ? timeOfDay >= timeStart && timeOfDay <= timeEnd : timeOfDay >= timeStart || timeOfDay <= timeEnd;
     }
 
+    @Override
     public String toString() {
         return this.source + ", " + this.startFadeIn + "-" + this.endFadeIn + " " + this.startFadeOut + "-" + this.endFadeOut;
     }

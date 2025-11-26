@@ -14,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.gen.FlatGeneratorInfo;
 import net.minecraft.world.gen.FlatLayerInfo;
+import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
 
@@ -139,7 +140,7 @@ public class GuiCreateFlatWorld extends GuiScreen {
             int j = 18;
             Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-            worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+            worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
             worldrenderer.pos((p_148224_1_), (p_148224_2_ + 18), GuiCreateFlatWorld.this.zLevel).tex(((p_148224_3_) * 0.0078125F), ((p_148224_4_ + 18) * 0.0078125F)).endVertex();
             worldrenderer.pos((p_148224_1_ + 18), (p_148224_2_ + 18), GuiCreateFlatWorld.this.zLevel).tex(((p_148224_3_ + 18) * 0.0078125F), ((p_148224_4_ + 18) * 0.0078125F)).endVertex();
             worldrenderer.pos((p_148224_1_ + 18), (p_148224_2_), GuiCreateFlatWorld.this.zLevel).tex(((p_148224_3_ + 18) * 0.0078125F), ((p_148224_4_) * 0.0078125F)).endVertex();
