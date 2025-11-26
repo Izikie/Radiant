@@ -877,7 +877,7 @@ public class GlStateManager {
         public int textureName;
 
         private TextureState() {
-            this.texture2DState = new BooleanState(3553);
+            this.texture2DState = new BooleanState(GL11.GL_TEXTURE_2D);
             this.textureName = 0;
         }
     }

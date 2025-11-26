@@ -73,6 +73,6 @@ public class HFNoiseTexture implements ICustomTexture {
 
     @Override
     public int getTarget() {
-        return 3553;
+        return GL11.GL_TEXTURE_2D;
     }
 }

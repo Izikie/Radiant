@@ -151,10 +151,10 @@ public class OpenGlHelper {
             if (contextcapabilities.OpenGL30) {
                 logText += "OpenGL 3.0 is supported and separate blending is supported.\n";
                 framebufferType = 0;
-                GL_FRAMEBUFFER = 36160;
+                GL_FRAMEBUFFER = EXTFramebufferObject.GL_FRAMEBUFFER_EXT;
                 GL_RENDERBUFFER = 36161;
-                GL_COLOR_ATTACHMENT0 = 36064;
-                GL_DEPTH_ATTACHMENT = 36096;
+                GL_COLOR_ATTACHMENT0 = EXTFramebufferObject.GL_COLOR_ATTACHMENT0_EXT;
+                GL_DEPTH_ATTACHMENT = EXTFramebufferObject.GL_DEPTH_ATTACHMENT_EXT;
                 GL_FRAMEBUFFER_COMPLETE = 36053;
                 GL_FB_INCOMPLETE_ATTACHMENT = 36054;
                 GL_FB_INCOMPLETE_MISS_ATTACH = 36055;
@@ -163,10 +163,10 @@ public class OpenGlHelper {
             } else if (contextcapabilities.GL_ARB_framebuffer_object) {
                 logText += "ARB_framebuffer_object is supported and separate blending is supported.\n";
                 framebufferType = 1;
-                GL_FRAMEBUFFER = 36160;
+                GL_FRAMEBUFFER = EXTFramebufferObject.GL_FRAMEBUFFER_EXT;
                 GL_RENDERBUFFER = 36161;
-                GL_COLOR_ATTACHMENT0 = 36064;
-                GL_DEPTH_ATTACHMENT = 36096;
+                GL_COLOR_ATTACHMENT0 = EXTFramebufferObject.GL_COLOR_ATTACHMENT0_EXT;
+                GL_DEPTH_ATTACHMENT = EXTFramebufferObject.GL_DEPTH_ATTACHMENT_EXT;
                 GL_FRAMEBUFFER_COMPLETE = 36053;
                 GL_FB_INCOMPLETE_MISS_ATTACH = 36055;
                 GL_FB_INCOMPLETE_ATTACHMENT = 36054;
@@ -175,10 +175,10 @@ public class OpenGlHelper {
             } else if (contextcapabilities.GL_EXT_framebuffer_object) {
                 logText += "EXT_framebuffer_object is supported.\n";
                 framebufferType = 2;
-                GL_FRAMEBUFFER = 36160;
+                GL_FRAMEBUFFER = EXTFramebufferObject.GL_FRAMEBUFFER_EXT;
                 GL_RENDERBUFFER = 36161;
-                GL_COLOR_ATTACHMENT0 = 36064;
-                GL_DEPTH_ATTACHMENT = 36096;
+                GL_COLOR_ATTACHMENT0 = EXTFramebufferObject.GL_COLOR_ATTACHMENT0_EXT;
+                GL_DEPTH_ATTACHMENT = EXTFramebufferObject.GL_DEPTH_ATTACHMENT_EXT;
                 GL_FRAMEBUFFER_COMPLETE = 36053;
                 GL_FB_INCOMPLETE_MISS_ATTACH = 36055;
                 GL_FB_INCOMPLETE_ATTACHMENT = 36054;

@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.renderer.texture.SimpleTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 public class CustomTextureLocation implements ICustomTexture {
     public static final int VARIANT_BASE = 0;
@@ -69,9 +70,10 @@ public class CustomTextureLocation implements ICustomTexture {
 
     @Override
     public int getTarget() {
-        return 3553;
+        return GL11.GL_TEXTURE_2D;
     }
 
+    @Override
     public String toString() {
         return "textureUnit: " + this.textureUnit + ", location: " + this.location + ", glTextureId: " + (this.texture != null ? Integer.valueOf(this.texture.getGlTextureId()) : "");
     }
