@@ -14,9 +14,11 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+// TOOD: Unfuck
 public class OpenGlHelper {
     public static boolean nvidia;
     public static boolean ati;
+
     public static int GL_FRAMEBUFFER;
     public static int GL_RENDERBUFFER;
     public static int GL_COLOR_ATTACHMENT0;
@@ -26,19 +28,23 @@ public class OpenGlHelper {
     public static int GL_FB_INCOMPLETE_MISS_ATTACH;
     public static int GL_FB_INCOMPLETE_DRAW_BUFFER;
     public static int GL_FB_INCOMPLETE_READ_BUFFER;
+
     private static int framebufferType;
     public static boolean framebufferSupported;
     private static boolean shadersAvailable;
     private static boolean arbShaders;
+
     public static int GL_LINK_STATUS;
     public static int GL_COMPILE_STATUS;
     public static int GL_VERTEX_SHADER;
     public static int GL_FRAGMENT_SHADER;
+
     private static boolean arbMultitexture;
     public static int defaultTexUnit;
     public static int lightmapTexUnit;
     public static int GL_TEXTURE2;
     private static boolean arbTextureEnvCombine;
+
     public static int GL_COMBINE;
     public static int GL_INTERPOLATE;
     public static int GL_PRIMARY_COLOR;
@@ -66,14 +72,15 @@ public class OpenGlHelper {
     public static boolean vboSupported;
     public static boolean vboSupportedAti;
     private static boolean arbVbo;
-    public static int GL_ARRAY_BUFFER;
-    public static int GL_STATIC_DRAW;
     public static float lastBrightnessX = 0.0F;
     public static float lastBrightnessY = 0.0F;
     public static boolean openGL31;
     public static boolean vboRegions;
+    public static int GL_ARRAY_BUFFER;
+    public static int GL_STATIC_DRAW;
     public static int GL_COPY_READ_BUFFER;
     public static int GL_COPY_WRITE_BUFFER;
+
     public static final int GL_QUADS = 7;
     public static final int GL_TRIANGLES = 4;
 

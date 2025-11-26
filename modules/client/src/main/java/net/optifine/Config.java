@@ -32,9 +32,7 @@ import net.radiant.lwjgl.opengl.GLContext;
 import net.radiant.lwjgl.opengl.PixelFormat;
 import org.apache.commons.io.IOUtils;
 import org.joml.Vector2i;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GL30;
+import org.lwjgl.opengl.*;
 
 import java.io.*;
 import java.lang.reflect.Array;
@@ -46,6 +44,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+// TOOD: Unfuck
 public class Config {
     public static final String VERSION = "OptiFine 1.8.9 HD U M6-Pre2";
     public static final Float DEF_ALPHA_FUNC_LEVEL = 0.1F;
@@ -189,22 +188,54 @@ public class Config {
     }
 
     private static GlVersion getGlVersionLwjgl() {
-        if (GLContext.getCapabilities().OpenGL44) return new GlVersion(4, 4);
-        if (GLContext.getCapabilities().OpenGL43) return new GlVersion(4, 3);
-        if (GLContext.getCapabilities().OpenGL42) return new GlVersion(4, 2);
-        if (GLContext.getCapabilities().OpenGL41) return new GlVersion(4, 1);
-        if (GLContext.getCapabilities().OpenGL40) return new GlVersion(4, 0);
-        if (GLContext.getCapabilities().OpenGL33) return new GlVersion(3, 3);
-        if (GLContext.getCapabilities().OpenGL32) return new GlVersion(3, 2);
-        if (GLContext.getCapabilities().OpenGL31) return new GlVersion(3, 1);
-        if (GLContext.getCapabilities().OpenGL30) return new GlVersion(3, 0);
-        if (GLContext.getCapabilities().OpenGL21) return new GlVersion(2, 1);
-        if (GLContext.getCapabilities().OpenGL20) return new GlVersion(2, 0);
-        if (GLContext.getCapabilities().OpenGL15) return new GlVersion(1, 5);
-        if (GLContext.getCapabilities().OpenGL14) return new GlVersion(1, 4);
-        if (GLContext.getCapabilities().OpenGL13) return new GlVersion(1, 3);
-        if (GLContext.getCapabilities().OpenGL12) return new GlVersion(1, 2);
-        if (GLContext.getCapabilities().OpenGL11) return new GlVersion(1, 1);
+        if (GLContext.getCapabilities().OpenGL44) {
+            return new GlVersion(4, 4);
+        }
+        if (GLContext.getCapabilities().OpenGL43) {
+            return new GlVersion(4, 3);
+        }
+        if (GLContext.getCapabilities().OpenGL42) {
+            return new GlVersion(4, 2);
+        }
+        if (GLContext.getCapabilities().OpenGL41) {
+            return new GlVersion(4, 1);
+        }
+        if (GLContext.getCapabilities().OpenGL40) {
+            return new GlVersion(4, 0);
+        }
+        if (GLContext.getCapabilities().OpenGL33) {
+            return new GlVersion(3, 3);
+        }
+        if (GLContext.getCapabilities().OpenGL32) {
+            return new GlVersion(3, 2);
+        }
+        if (GLContext.getCapabilities().OpenGL31) {
+            return new GlVersion(3, 1);
+        }
+        if (GLContext.getCapabilities().OpenGL30) {
+            return new GlVersion(3, 0);
+        }
+        if (GLContext.getCapabilities().OpenGL21) {
+            return new GlVersion(2, 1);
+        }
+        if (GLContext.getCapabilities().OpenGL20) {
+            return new GlVersion(2, 0);
+        }
+        if (GLContext.getCapabilities().OpenGL15) {
+            return new GlVersion(1, 5);
+        }
+        if (GLContext.getCapabilities().OpenGL14) {
+            return new GlVersion(1, 4);
+        }
+        if (GLContext.getCapabilities().OpenGL13) {
+            return new GlVersion(1, 3);
+        }
+        if (GLContext.getCapabilities().OpenGL12) {
+            return new GlVersion(1, 2);
+        }
+        if (GLContext.getCapabilities().OpenGL11) {
+            return new GlVersion(1, 1);
+        }
 
         return new GlVersion(1, 0);
     }
@@ -276,13 +307,13 @@ public class Config {
             GlVersion glversion = getGlVersion();
 
             if (glversion.getMajor() >= 3) {
-                int i = GL11.glGetInteger(33309);
+                int i = GL11.glGetInteger(GL30.GL_NUM_EXTENSIONS);
 
                 if (i > 0) {
                     String[] astring = new String[i];
 
                     for (int j = 0; j < i; ++j) {
-                        astring[j] = GL30.glGetStringi(7939, j);
+                        astring[j] = GL30.glGetStringi(GL30.GL_EXTENSIONS, j);
                     }
 
                     return astring;
