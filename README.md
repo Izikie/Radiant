@@ -14,9 +14,11 @@ It focuses on pre-optimized tweaks, bug and exploit fixes, and quality-of-life i
 
 ## Todo
 - [ ] Patch all known packet exploits
-- [ ] Optimize network stack heavily without sacrificing security (using tricks from velocity)
+- [ ] Optimize network stack heavily without sacrificing security (using tricks from velocity / no reflection for packets)
 - [ ] Optimize/Cleanup LWJGL3 translation layer
 - [ ] One Click Auto Native Compile Task
+- [ ] Remove usage of reflection for structure stuff
+- [ ] Optimize OpenGl rendering
 
 ## Requirements
 - [JDK/JRE: Oracle GraalVM 25(https://www.graalvm.org/downloads/)
