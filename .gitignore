@@ -11,6 +11,9 @@ out/
 run/
 
 # This may be changed whenever the agent is run, therefore it should be excluded
-/modules/dev/src/main/resources/META-INF/native-image/reachability-metadata.json
-/modules/dev/src/main/resources/META-INF/native-image/.lock
-/modules/dev/src/main/resources/gradle_hack.txt
+modules/dev/src/main/resources/META-INF/native-image/reachability-metadata.json
+modules/dev/src/main/resources/META-INF/native-image/.lock
+modules/dev/src/main/resources/gradle_hack.txt
+nativeimage/src/
+nativeimage/out/
+nativeimage/reports/

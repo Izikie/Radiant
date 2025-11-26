@@ -8,7 +8,7 @@ version = "1.0"
 description = "Optimized Minecraft Java Client for 1.8.9"
 
 extra["lwjglModules"] = listOf(
-    "lwjgl", "lwjgl-glfw", "lwjgl-openal", "lwjgl-opengl", "lwjgl-stb"
+    "lwjgl", "lwjgl-glfw", "lwjgl-opengl", "lwjgl-openal", "lwjgl-stb"
 )
 
 subprojects {
