@@ -32,6 +32,7 @@ except ImportError:
     from rich.console import Console as _Console
 
 console = _Console()
+console.clear()
 
 # ===============================
 #   CONSTANTS
