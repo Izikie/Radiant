@@ -29,7 +29,7 @@ It focuses on pre-optimized tweaks, bug and exploit fixes, and quality-of-life i
    - MSVC (Kinda bad but so is anything made by Microsoft)
 
 ## Getting Started
-To run the client in development, use the `RunClient` Gradle task located under the `GradleMCP` task group in your IDE or via CLI.
+To run the client in development, use the `RunClient` Gradle task located in the `Dev` module under the `RadiantMCP` task group in your IDE or via CLI.
 
 ## Native Image
 
