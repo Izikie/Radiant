@@ -6,7 +6,6 @@ import io.netty.channel.local.LocalAddress;
 import io.netty.channel.local.LocalIoHandler;
 import io.netty.channel.local.LocalServerChannel;
 import io.netty.channel.nio.NioIoHandler;
-import io.netty.channel.socket.ServerSocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import net.minecraft.client.network.NetHandlerHandshakeMemory;
@@ -31,123 +30,173 @@ import java.net.InetAddress;
 import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 public class NetworkSystem {
     private static final Logger LOGGER = LoggerFactory.getLogger(NetworkSystem.class);
-    public static final LazyLoadBase<MultiThreadIoEventLoopGroup> EVENT_LOOPS = new LazyLoadBase<>() {
+
+    public static final LazyLoadBase<MultiThreadIoEventLoopGroup> LAN_EVENT_GROUP = new LazyLoadBase<>() {
         @Override
         protected MultiThreadIoEventLoopGroup load() {
             return new MultiThreadIoEventLoopGroup(0, Thread.ofVirtual().name("Netty Server IO #%d", 0).factory(), NioIoHandler.newFactory());
         }
     };
-    public static final LazyLoadBase<MultiThreadIoEventLoopGroup> SERVER_LOCAL_EVENTLOOP = new LazyLoadBase<>() {
+    public static final LazyLoadBase<MultiThreadIoEventLoopGroup> LOCAL_EVENT_GROUP = new LazyLoadBase<>() {
         @Override
         protected MultiThreadIoEventLoopGroup load() {
             return new MultiThreadIoEventLoopGroup(0, Thread.ofVirtual().name("Netty Local Server IO #%d", 0).factory(), LocalIoHandler.newFactory());
         }
     };
-    private final MinecraftServer mcServer;
-    public volatile boolean isAlive;
+
     private final List<ChannelFuture> endpoints = Collections.synchronizedList(new ArrayList<>());
     private final List<NetworkManager> networkManagers = Collections.synchronizedList(new ArrayList<>());
+    private final MinecraftServer server;
+    public volatile boolean isAlive;
 
     public NetworkSystem(MinecraftServer server) {
-        this.mcServer = server;
+        this.server = server;
         this.isAlive = true;
     }
 
     public void addLanEndpoint(InetAddress address, int port) throws IOException {
         synchronized (this.endpoints) {
-            Class<? extends ServerSocketChannel> oclass = NioServerSocketChannel.class;
+            ChannelFuture future = new ServerBootstrap()
+                    .channel(NioServerSocketChannel.class)
+                    .childHandler(new LanChannelInitializer(server, networkManagers, this))
+                    .group(LAN_EVENT_GROUP.getValue())
+                    .localAddress(address, port)
+                    .bind()
+                    .syncUninterruptibly();
 
-            this.endpoints.add((new ServerBootstrap()).channel(oclass).childHandler(new ChannelInitializer<>() {
-                @Override
-                protected void initChannel(Channel channel) {
-                    try {
-                        channel.config().setOption(ChannelOption.TCP_NODELAY, Boolean.TRUE);
-                    } catch (ChannelException _) {
-                    }
-
-                    channel.pipeline().addLast("timeout", new ReadTimeoutHandler(30))
-                            .addLast("legacy_query", new PingResponseHandler(NetworkSystem.this))
-                            .addLast("splitter", new MessageSplitter()).addLast("decoder", new MessageDeserializer(PacketDirection.OUTGOING))
-                            .addLast("prepender", new MessagePrepender()).addLast("encoder", new MessageSerializer(PacketDirection.INCOMING));
-                    NetworkManager manager = new NetworkManager();
-                    networkManagers.add(manager);
-                    channel.pipeline().addLast("packet_handler", manager);
-                    manager.setNetHandler(new NetHandlerHandshakeTCP(mcServer, manager));
-                }
-            }).group((EVENT_LOOPS).getValue()).localAddress(address, port).bind().syncUninterruptibly());
+            this.endpoints.add(future);
         }
     }
 
     public SocketAddress addLocalEndpoint() {
-        ChannelFuture channelfuture;
+        ChannelFuture future;
 
         synchronized (this.endpoints) {
-            channelfuture = (new ServerBootstrap()).channel(LocalServerChannel.class).childHandler(new ChannelInitializer<>() {
-                @Override
-                protected void initChannel(Channel channel) {
-                    NetworkManager manager = new NetworkManager();
-                    manager.setNetHandler(new NetHandlerHandshakeMemory(mcServer, manager));
-                    networkManagers.add(manager);
-                    channel.pipeline().addLast("packet_handler", manager);
-                }
-            }).group(SERVER_LOCAL_EVENTLOOP.getValue()).localAddress(LocalAddress.ANY).bind().syncUninterruptibly();
-            this.endpoints.add(channelfuture);
+            future = new ServerBootstrap()
+                    .channel(LocalServerChannel.class)
+                    .childHandler(new LocalChannelInitializer(server, networkManagers))
+                    .group(LOCAL_EVENT_GROUP.getValue())
+                    .localAddress(LocalAddress.ANY)
+                    .bind()
+                    .syncUninterruptibly();
+
+            this.endpoints.add(future);
         }
 
-        return channelfuture.channel().localAddress();
+        return future.channel().localAddress();
     }
 
     public void terminateEndpoints() {
         this.isAlive = false;
 
-        for (ChannelFuture channelfuture : this.endpoints) {
+        for (ChannelFuture future : this.endpoints) {
             try {
-                channelfuture.channel().close().sync();
-            } catch (InterruptedException _) {
-                LOGGER.error("Interrupted whilst closing channel");
+                future.channel().close().sync();
+            } catch (InterruptedException e) {
+                LOGGER.error("Interrupted whilst closing channel {}", future.channel(), e);
             }
         }
     }
 
     public void networkTick() {
         synchronized (this.networkManagers) {
-            Iterator<NetworkManager> iterator = this.networkManagers.iterator();
-
-            while (iterator.hasNext()) {
-                final NetworkManager manager = iterator.next();
-
-                if (!manager.hasNoChannel()) {
-                    if (!manager.isChannelOpen()) {
-                        iterator.remove();
-                        manager.checkDisconnected();
-                    } else {
-                        try {
-                            manager.processReceivedPackets();
-                        } catch (Exception exception) {
-                            if (manager.isLocalChannel()) {
-                                CrashReport report = CrashReport.makeCrashReport(exception, "Ticking memory connection");
-                                CrashReportCategory category = report.makeCategory("Ticking connection");
-                                category.addCrashSectionCallable("Connection", manager::toString);
-                                throw new ReportedException(report);
-                            }
-
-                            LOGGER.warn("Failed to handle packet for {}", manager.getRemoteAddress(), exception);
-                            ChatComponentText component = new ChatComponentText("Internal server error");
-                            manager.sendPacket(new S40PacketDisconnect(component), _ -> manager.closeChannel(component));
-                            manager.disableAutoRead();
-                        }
-                    }
+            this.networkManagers.removeIf(manager -> {
+                if (manager.hasNoChannel()) {
+                    return false;
                 }
-            }
+
+                if (!manager.isChannelOpen()) {
+                    manager.checkDisconnected();
+                    return true;
+                }
+
+                processManagerPackets(manager);
+                return false;
+            });
         }
     }
 
+    private void processManagerPackets(NetworkManager manager) {
+        try {
+            manager.processReceivedPackets();
+        } catch (Exception exception) {
+            handlePacketProcessingException(manager, exception);
+        }
+    }
+
+    private void handlePacketProcessingException(NetworkManager manager, Exception exception) {
+        if (manager.isLocalChannel()) {
+            CrashReport report = CrashReport.makeCrashReport(exception, "Ticking memory connection");
+            CrashReportCategory category = report.makeCategory("Ticking connection");
+            category.addCrashSectionCallable("Connection", manager::toString);
+            throw new ReportedException(report);
+        }
+
+        LOGGER.warn("Failed to handle packet for {}", manager.getRemoteAddress(), exception);
+        ChatComponentText component = new ChatComponentText("Internal server error");
+        manager.sendPacket(new S40PacketDisconnect(component), _ -> manager.closeChannel(component));
+        manager.disableAutoRead();
+    }
+
     public MinecraftServer getServer() {
-        return this.mcServer;
+        return this.server;
+    }
+
+    static class LanChannelInitializer extends ChannelInitializer<Channel> {
+
+        private final MinecraftServer server;
+        private final List<NetworkManager> networkManagers;
+        private final NetworkSystem networkSystem;
+
+        public LanChannelInitializer(MinecraftServer server, List<NetworkManager> networkManagers, NetworkSystem networkSystem) {
+            this.server = server;
+            this.networkManagers = networkManagers;
+            this.networkSystem = networkSystem;
+        }
+
+        @Override
+        protected void initChannel(Channel channel) {
+            try {
+                channel.config().setOption(ChannelOption.TCP_NODELAY, Boolean.TRUE);
+            } catch (ChannelException e) {
+                NetworkSystem.LOGGER.error("Failed to set TCP_NODELAY option", e);
+            }
+
+            channel.pipeline()
+                    .addLast("timeout", new ReadTimeoutHandler(30))
+                    .addLast("legacy_query", new PingResponseHandler(networkSystem))
+                    .addLast("splitter", new MessageSplitter())
+                    .addLast("decoder", new MessageDeserializer(PacketDirection.OUTGOING))
+                    .addLast("prepender", new MessagePrepender())
+                    .addLast("encoder", new MessageSerializer(PacketDirection.INCOMING));
+
+            NetworkManager manager = new NetworkManager();
+            this.networkManagers.add(manager);
+            channel.pipeline().addLast("packet_handler", manager);
+            manager.setNetHandler(new NetHandlerHandshakeTCP(this.server, manager));
+        }
+    }
+
+    static class LocalChannelInitializer extends ChannelInitializer<Channel> {
+
+        private final MinecraftServer server;
+        private final List<NetworkManager> networkManagers;
+
+        public LocalChannelInitializer(MinecraftServer server, List<NetworkManager> networkManagers) {
+            this.server = server;
+            this.networkManagers = networkManagers;
+        }
+
+        @Override
+        protected void initChannel(Channel channel) {
+            NetworkManager manager = new NetworkManager();
+            manager.setNetHandler(new NetHandlerHandshakeMemory(this.server, manager));
+            this.networkManagers.add(manager);
+            channel.pipeline().addLast("packet_handler", manager);
+        }
     }
 }

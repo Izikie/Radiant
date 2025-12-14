@@ -6,91 +6,97 @@ import org.slf4j.Logger;
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.EncodedKeySpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 
-public class CryptManager {
+public final class CryptManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(CryptManager.class);
+
+    private CryptManager() {
+    }
 
     public static SecretKey createNewSharedKey() {
         try {
-            KeyGenerator keygenerator = KeyGenerator.getInstance("AES");
-            keygenerator.init(128);
-            return keygenerator.generateKey();
-        } catch (NoSuchAlgorithmException exception) {
-            throw new Error(exception);
+            KeyGenerator generator = KeyGenerator.getInstance("AES");
+            generator.init(128);
+
+            return generator.generateKey();
+        } catch (NoSuchAlgorithmException e) {
+            LOGGER.error("Required algorithm 'AES' not supported by JRE.", e);
+            throw new RuntimeException("AES algorithm not supported.", e);
         }
     }
 
     public static KeyPair generateKeyPair() {
         try {
-            KeyPairGenerator keypairgenerator = KeyPairGenerator.getInstance("RSA");
-            keypairgenerator.initialize(1024);
-            return keypairgenerator.generateKeyPair();
-        } catch (NoSuchAlgorithmException exception) {
-            exception.printStackTrace();
-            LOGGER.error("Key pair generation failed!");
+            KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
+            generator.initialize(1024);
+
+            return generator.generateKeyPair();
+        } catch (NoSuchAlgorithmException e) {
+            LOGGER.error("Required algorithm 'RSA' not supported by JRE.", e);
             return null;
         }
     }
 
     public static byte[] getServerIdHash(String serverId, PublicKey publicKey, SecretKey secretKey) {
         try {
-            return digestOperation("SHA-1", serverId.getBytes("ISO_8859_1"), secretKey.getEncoded(), publicKey.getEncoded());
-        } catch (UnsupportedEncodingException exception) {
-            exception.printStackTrace();
-            return null;
-        }
-    }
+            MessageDigest message = MessageDigest.getInstance("SHA-1");
 
-    private static byte[] digestOperation(String algorithm, byte[]... data) {
-        try {
-            MessageDigest messagedigest = MessageDigest.getInstance(algorithm);
+            message.update(serverId.getBytes(StandardCharsets.ISO_8859_1));
+            message.update(secretKey.getEncoded());
+            message.update(publicKey.getEncoded());
 
-            for (byte[] abyte : data) {
-                messagedigest.update(abyte);
-            }
-
-            return messagedigest.digest();
-        } catch (NoSuchAlgorithmException exception) {
-            exception.printStackTrace();
+            return message.digest();
+        } catch (NoSuchAlgorithmException e) {
+            LOGGER.error("Required algorithm 'SHA-1' not supported by JRE.", e);
             return null;
         }
     }
 
     public static PublicKey decodePublicKey(byte[] encodedKey) {
         try {
-            EncodedKeySpec encodedkeyspec = new X509EncodedKeySpec(encodedKey);
-            KeyFactory keyfactory = KeyFactory.getInstance("RSA");
-            return keyfactory.generatePublic(encodedkeyspec);
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException exception) {
-            exception.printStackTrace();
+            KeyFactory factory = KeyFactory.getInstance("RSA");
+            EncodedKeySpec encodedKeySpec = new X509EncodedKeySpec(encodedKey);
+
+            return factory.generatePublic(encodedKeySpec);
+        } catch (NoSuchAlgorithmException e) {
+            LOGGER.error("Algorithm 'RSA' not found while decoding public key.", e);
+        } catch (InvalidKeySpecException e) {
+            LOGGER.error("Invalid key specification while decoding public key.", e);
         }
 
-        LOGGER.error("Public key reconstitute failed!");
+        LOGGER.error("Public key reconstitution failed!");
         return null;
     }
 
     public static SecretKey decryptSharedKey(PrivateKey key, byte[] secretKeyEncrypted) {
-        return new SecretKeySpec(decryptData(key, secretKeyEncrypted), "AES");
+        byte[] decryptedBytes = decryptData(key, secretKeyEncrypted);
+        return new SecretKeySpec(decryptedBytes, "AES");
     }
 
     public static byte[] encryptData(Key key, byte[] data) {
-        return cipherOperation(1, key, data);
+        return cipherOperation(Cipher.ENCRYPT_MODE, key, data);
     }
 
     public static byte[] decryptData(Key key, byte[] data) {
-        return cipherOperation(2, key, data);
+        return cipherOperation(Cipher.DECRYPT_MODE, key, data);
     }
 
     private static byte[] cipherOperation(int opMode, Key key, byte[] data) {
         try {
-            return createTheCipherInstance(opMode, key.getAlgorithm(), key).doFinal(data);
-        } catch (IllegalBlockSizeException | BadPaddingException exception) {
-            exception.printStackTrace();
+            Cipher cipher = createTheCipherInstance(opMode, key.getAlgorithm(), key);
+
+            if (cipher == null) {
+                return null;
+            }
+
+            return cipher.doFinal(data);
+        } catch (IllegalBlockSizeException | BadPaddingException e) {
+            LOGGER.error("Cipher operation failed for mode {} and algorithm {}", opMode, key.getAlgorithm(), e);
         }
 
         LOGGER.error("Cipher data failed!");
@@ -101,12 +107,14 @@ public class CryptManager {
         try {
             Cipher cipher = Cipher.getInstance(transformation);
             cipher.init(opMode, key);
+
             return cipher;
-        } catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException exception) {
-            exception.printStackTrace();
+        } catch (InvalidKeyException e) {
+            LOGGER.error("Invalid key provided for cipher initialization: {}", key.getAlgorithm(), e);
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
+            LOGGER.error("Required cipher algorithm/padding not found: {}", transformation, e);
         }
 
-        LOGGER.error("Cipher creation failed!");
         return null;
     }
 
@@ -114,9 +122,11 @@ public class CryptManager {
         try {
             Cipher cipher = Cipher.getInstance("AES/CFB8/NoPadding");
             cipher.init(opMode, key, new IvParameterSpec(key.getEncoded()));
+
             return cipher;
-        } catch (GeneralSecurityException exception) {
-            throw new RuntimeException(exception);
+        } catch (GeneralSecurityException e) {
+            LOGGER.error("Failed to create network cipher instance ('AES/CFB8/NoPadding').", e);
+            throw new RuntimeException("Failed to create network cipher instance.", e);
         }
     }
 }

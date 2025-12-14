@@ -41,10 +41,10 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
 
     @Override
     public void handleEncryptionRequest(S01PacketEncryptionRequest packet) {
-        final SecretKey secretkey = CryptManager.createNewSharedKey();
+        SecretKey secretkey = CryptManager.createNewSharedKey();
         String s = packet.getServerId();
         PublicKey publickey = packet.getPublicKey();
-        String s1 = (new BigInteger(CryptManager.getServerIdHash(s, publickey, secretkey))).toString(16);
+        String s1 = new BigInteger(CryptManager.getServerIdHash(s, publickey, secretkey)).toString(16);
 
         if (this.mc.getCurrentServerData() != null && this.mc.getCurrentServerData().isOnLAN()) {
             try {
