@@ -5,6 +5,8 @@ import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import org.lwjgl.glfw.GLFW;
 import net.radiant.lwjgl.LWJGLException;
 import net.radiant.lwjgl.opengl.Display;
@@ -167,7 +169,7 @@ public class Keyboard {
     private static final long[] nanoTimeEvents = new long[queue.getMaxEvents()];
     private static final char[] keyEventChars = new char[256];
     private static final String[] keyName = new String[KEYBOARD_SIZE];
-    private static final Map<String, Integer> keyMap = new HashMap<>(253);
+    private static final Object2IntMap<String> keyMap = new Object2IntOpenHashMap<>(253);
     private static boolean repeatEvents;
 
     static {
@@ -271,10 +273,11 @@ public class Keyboard {
 
     public static int getKeyIndex(String keyName) {
         Integer ret = keyMap.get(keyName);
-        if (ret == null)
+        if (ret == null) {
             return KEY_NONE;
-        else
+        } else {
             return ret;
+        }
     }
 
     public static boolean isCreated() {

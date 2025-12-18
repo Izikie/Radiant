@@ -4,6 +4,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.packet.impl.play.server.S37PacketStatistics;
@@ -164,7 +166,7 @@ public class StatisticsFile extends StatFileWriter {
 
     public void func_150876_a(EntityPlayerMP entityPlayerMP) {
         int i = this.mcServer.getTickCounter();
-        Map<StatBase, Integer> map = new HashMap<>();
+        Object2IntMap<StatBase> map = new Object2IntOpenHashMap<>();
 
         if (this.field_150886_g || i - this.field_150885_f > 300) {
             this.field_150885_f = i;
@@ -178,7 +180,7 @@ public class StatisticsFile extends StatFileWriter {
     }
 
     public void sendAchievements(EntityPlayerMP player) {
-        Map<StatBase, Integer> map = new HashMap<>();
+        Object2IntMap<StatBase> map = new Object2IntOpenHashMap<>();
 
         for (Achievement achievement : AchievementList.ACHIEVEMENT_LIST) {
             if (this.hasAchievementUnlocked(achievement)) {

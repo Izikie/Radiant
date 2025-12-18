@@ -1,5 +1,7 @@
 package net.minecraft.block;
 
+import it.unimi.dsi.fastutil.objects.Reference2IntMap;
+import it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -10,7 +12,7 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 
 public class BlockAir extends Block {
-    private static final Map<Block, Integer> MAP_ORIGINAL_OPACITY = new IdentityHashMap<>();
+    private static final Reference2IntMap<Block> MAP_ORIGINAL_OPACITY = new Reference2IntOpenHashMap<>();
 
     protected BlockAir() {
         super(Material.AIR);

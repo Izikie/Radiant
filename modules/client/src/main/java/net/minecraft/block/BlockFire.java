@@ -1,5 +1,7 @@
 package net.minecraft.block;
 
+import it.unimi.dsi.fastutil.objects.Reference2IntMap;
+import it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -27,8 +29,8 @@ public class BlockFire extends Block {
     public static final PropertyBool SOUTH = PropertyBool.create("south");
     public static final PropertyBool WEST = PropertyBool.create("west");
     public static final PropertyInteger UPPER = PropertyInteger.create("upper", 0, 2);
-    private final Map<Block, Integer> encouragements = new IdentityHashMap<>();
-    private final Map<Block, Integer> flammabilities = new IdentityHashMap<>();
+    private final Reference2IntMap<Block> encouragements = new Reference2IntOpenHashMap<>();
+    private final Reference2IntMap<Block> flammabilities = new Reference2IntOpenHashMap<>();
 
     @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {

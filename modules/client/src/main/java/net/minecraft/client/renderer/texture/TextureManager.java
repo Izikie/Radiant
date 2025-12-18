@@ -1,5 +1,7 @@
 package net.minecraft.client.renderer.texture;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.crash.CrashReport;
@@ -23,7 +25,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
     private static final Logger LOGGER = LoggerFactory.getLogger(TextureManager.class);
     private final Map<ResourceLocation, ITextureObject> mapTextureObjects = new HashMap<>();
     private final List<ITickable> listTickables = new ArrayList<>();
-    private final Map<String, Integer> mapTextureCounters = new HashMap<>();
+    private final Object2IntMap<String> mapTextureCounters = new Object2IntOpenHashMap<>();
     private final IResourceManager theResourceManager;
 
     public TextureManager(IResourceManager resourceManager) {
@@ -75,7 +77,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
             this.mapTextureObjects.put(textureLocation, textureObj);
             flag = false;
         } catch (Throwable throwable) {
-            final ITextureObject textureObjf = textureObj;
+            ITextureObject textureObjf = textureObj;
             CrashReport report = CrashReport.makeCrashReport(throwable, "Registering texture");
             CrashReportCategory category = report.makeCategory("Resource location being registered");
             category.addCrashSection("Resource Location", textureLocation);

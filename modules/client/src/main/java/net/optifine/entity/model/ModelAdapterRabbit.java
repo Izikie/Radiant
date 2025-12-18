@@ -1,5 +1,7 @@
 package net.optifine.entity.model;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRabbit;
@@ -8,19 +10,16 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderRabbit;
 import net.minecraft.entity.passive.EntityRabbit;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class ModelAdapterRabbit extends ModelAdapter {
-    private static Map<String, Integer> mapPartFields = null;
+    private static Object2IntMap<String> mapPartFields = null;
 
     public ModelAdapterRabbit() {
         super(EntityRabbit.class, "rabbit", 0.3F);
     }
 
-    private static Map<String, Integer> getMapPartFields() {
+    private static Object2IntMap<String> getMapPartFields() {
         if (mapPartFields == null) {
-            mapPartFields = new HashMap<>();
+            mapPartFields = new Object2IntOpenHashMap<>();
             mapPartFields.put("left_foot", 0);
             mapPartFields.put("right_foot", 1);
             mapPartFields.put("left_thigh", 2);
@@ -45,7 +44,7 @@ public class ModelAdapterRabbit extends ModelAdapter {
     @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
         if (model instanceof ModelRabbit modelrabbit) {
-            Map<String, Integer> map = getMapPartFields();
+            Object2IntMap<String> map = getMapPartFields();
 
             if (map.containsKey(modelPart)) {
                 int i = map.get(modelPart);

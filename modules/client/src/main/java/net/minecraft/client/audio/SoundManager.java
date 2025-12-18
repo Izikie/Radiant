@@ -4,6 +4,8 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
@@ -39,16 +41,16 @@ public class SoundManager {
     private final Map<ISound, SoundPoolEntry> playingSoundPoolEntries;
     private final Multimap<SoundCategory, String> categorySounds;
     private final List<ITickableSound> tickableSounds;
-    private final Map<ISound, Integer> delayedSounds;
-    private final Map<String, Integer> playingSoundsStopTime;
+    private final Object2IntMap<ISound> delayedSounds;
+    private final Object2IntMap<String> playingSoundsStopTime;
 
     public SoundManager(SoundHandler handler, GameSettings options) {
         this.invPlayingSounds = this.playingSounds.inverse();
         this.playingSoundPoolEntries = new HashMap<>();
         this.categorySounds = HashMultimap.create();
         this.tickableSounds = new ArrayList<>();
-        this.delayedSounds = new HashMap<>();
-        this.playingSoundsStopTime = new HashMap<>();
+        this.delayedSounds = new Object2IntOpenHashMap<>();
+        this.playingSoundsStopTime = new Object2IntOpenHashMap<>();
         this.sndHandler = handler;
         this.options = options;
     }
@@ -300,7 +302,7 @@ public class SoundManager {
         this.delayedSounds.put(sound, this.playTime + delay);
     }
 
-    private static URL getURLForSoundResource(final ResourceLocation resource) {
+    private static URL getURLForSoundResource(ResourceLocation resource) {
         String protocol = "mcsounddomain";
         String domain = resource.getResourceDomain();
         String path = resource.getResourcePath();

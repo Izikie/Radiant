@@ -1,5 +1,7 @@
 package net.optifine.entity.model;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelOcelot;
@@ -12,15 +14,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ModelAdapterOcelot extends ModelAdapter {
-    private static Map<String, Integer> mapPartFields = null;
+    private static Object2IntMap<String> mapPartFields = null;
 
     public ModelAdapterOcelot() {
         super(EntityOcelot.class, "ocelot", 0.4F);
     }
 
-    private static Map<String, Integer> getMapPartFields() {
+    private static Object2IntMap<String> getMapPartFields() {
         if (mapPartFields == null) {
-            mapPartFields = new HashMap<>();
+            mapPartFields = new Object2IntOpenHashMap<>();
             mapPartFields.put("back_left_leg", 0);
             mapPartFields.put("back_right_leg", 1);
             mapPartFields.put("front_left_leg", 2);
@@ -41,7 +43,7 @@ public class ModelAdapterOcelot extends ModelAdapter {
     @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
         if (model instanceof ModelOcelot modelocelot) {
-            Map<String, Integer> map = getMapPartFields();
+            Object2IntMap<String> map = getMapPartFields();
 
             if (map.containsKey(modelPart)) {
                 int i = map.get(modelPart);

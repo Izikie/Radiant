@@ -1,5 +1,7 @@
 package net.optifine;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.entity.Entity;
@@ -25,8 +27,8 @@ import java.util.Map;
 
 public class DynamicLights {
     private static final DynamicLightsMap DYNAMIC_LIGHTS_MAP = new DynamicLightsMap();
-    private static final Map<Entity, Integer> ENTITY_LIGHT_LEVELS = new HashMap<>();
-    private static final Map<Item, Integer> ITEM_LIGHT_LEVELS = new HashMap<>();
+    private static final Object2IntMap<Entity> ENTITY_LIGHT_LEVELS = new Object2IntOpenHashMap<>();
+    private static final Object2IntMap<Item> ITEM_LIGHT_LEVELS = new Object2IntOpenHashMap<>();
     private static final double MAX_DIST = 7.5D;
     private static final double MAX_DIST_SQ = 56.25D;
     private static final int LIGHT_LEVEL_MAX = 15;

@@ -1,5 +1,7 @@
 package net.optifine.entity.model;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelHorse;
@@ -12,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ModelAdapterHorse extends ModelAdapter {
-    private static Map<String, Integer> mapPartFields = null;
+    private static Object2IntMap<String> mapPartFields = null;
 
     public ModelAdapterHorse() {
         super(EntityHorse.class, "horse", 0.75F);
@@ -22,9 +24,9 @@ public class ModelAdapterHorse extends ModelAdapter {
         super(entityClass, name, shadowSize);
     }
 
-    private static Map<String, Integer> getMapPartFields() {
+    private static Object2IntMap<String> getMapPartFields() {
         if (mapPartFields == null) {
-            mapPartFields = new HashMap<>();
+            mapPartFields = new Object2IntOpenHashMap<>();
             mapPartFields.put("head", 0);
             mapPartFields.put("upper_mouth", 1);
             mapPartFields.put("lower_mouth", 2);
@@ -76,7 +78,7 @@ public class ModelAdapterHorse extends ModelAdapter {
     @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
         if (model instanceof ModelHorse modelhorse) {
-            Map<String, Integer> map = getMapPartFields();
+            Object2IntMap<String> map = getMapPartFields();
 
             if (map.containsKey(modelPart)) {
                 int i = map.get(modelPart);

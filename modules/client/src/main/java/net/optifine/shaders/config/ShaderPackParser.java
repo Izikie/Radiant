@@ -1,6 +1,9 @@
 package net.optifine.shaders.config;
 
 import it.unimi.dsi.fastutil.ints.IntList;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMaps;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.optifine.Config;
 import net.optifine.Log;
 import net.optifine.expr.*;
@@ -26,8 +29,8 @@ public class ShaderPackParser {
     private static final Pattern PATTERN_VERSION = Pattern.compile("^\\s*#version\\s+.*$");
     private static final Pattern PATTERN_INCLUDE = Pattern.compile("^\\s*#include\\s+\"([A-Za-z0-9_/\\.]+)\".*$");
     private static final Set<String> SET_CONST_NAMES = makeSetConstNames();
-    private static final Map<String, Integer> ALPHA_FUNCS = makeMapAlphaFuncs();
-    private static final Map<String, Integer> BLEND_FACTORS = makeMapBlendFactors();
+    private static final Object2IntMap<String> ALPHA_FUNCS = makeMapAlphaFuncs();
+    private static final Object2IntMap<String> BLEND_FACTORS = makeMapBlendFactors();
 
     public static ShaderOption[] parseShaderPackOptions(IShaderPack shaderPack, String[] programNames, IntList listDimensions) {
         if (shaderPack == null) {
@@ -824,11 +827,36 @@ public class ShaderPackParser {
         }
     }
 
-    private static Map<String, Integer> makeMapAlphaFuncs() {
-        return Map.of("NEVER", 512, "LESS", 513, "EQUAL", 514, "LEQUAL", 515, "GREATER", 516, "NOTEQUAL", 517, "GEQUAL", 518, "ALWAYS", 519);
+    private static Object2IntMap<String> makeMapAlphaFuncs() {
+        Object2IntMap<String> map = new Object2IntOpenHashMap<>();
+        map.put("NEVER", 512);
+        map.put("LESS", 513);
+        map.put("EQUAL", 514);
+        map.put("LEQUAL", 515);
+        map.put("GREATER", 516);
+        map.put("NOTEQUAL", 517);
+        map.put("GEQUAL", 518);
+        map.put("ALWAYS", 519);
+        return Object2IntMaps.unmodifiable(map);
     }
 
-    private static Map<String, Integer> makeMapBlendFactors() {
-        return Map.ofEntries(Map.entry("ZERO", 0), Map.entry("ONE", 1), Map.entry("SRC_COLOR", 768), Map.entry("ONE_MINUS_SRC_COLOR", 769), Map.entry("DST_COLOR", 774), Map.entry("ONE_MINUS_DST_COLOR", 775), Map.entry("SRC_ALPHA", 770), Map.entry("ONE_MINUS_SRC_ALPHA", 771), Map.entry("DST_ALPHA", 772), Map.entry("ONE_MINUS_DST_ALPHA", 773), Map.entry("CONSTANT_COLOR", 32769), Map.entry("ONE_MINUS_CONSTANT_COLOR", 32770), Map.entry("CONSTANT_ALPHA", 32771), Map.entry("ONE_MINUS_CONSTANT_ALPHA", 32772), Map.entry("SRC_ALPHA_SATURATE", 776));
+    private static Object2IntMap<String> makeMapBlendFactors() {
+        Object2IntMap<String> map = new Object2IntOpenHashMap<>();
+        map.put("ZERO", 0);
+        map.put("ONE", 1);
+        map.put("SRC_COLOR", 768);
+        map.put("ONE_MINUS_SRC_COLOR", 769);
+        map.put("DST_COLOR", 774);
+        map.put("ONE_MINUS_DST_COLOR", 775);
+        map.put("SRC_ALPHA", 770);
+        map.put("ONE_MINUS_SRC_ALPHA", 771);
+        map.put("DST_ALPHA", 772);
+        map.put("ONE_MINUS_DST_ALPHA", 773);
+        map.put("CONSTANT_COLOR", 32769);
+        map.put("ONE_MINUS_CONSTANT_COLOR", 32770);
+        map.put("CONSTANT_ALPHA", 32771);
+        map.put("ONE_MINUS_CONSTANT_ALPHA", 32772);
+        map.put("SRC_ALPHA_SATURATE", 776);
+        return Object2IntMaps.unmodifiable(map);
     }
 }

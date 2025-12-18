@@ -2,6 +2,8 @@ package net.optifine.shaders;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
+import it.unimi.dsi.fastutil.objects.Reference2IntMap;
+import it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -399,7 +401,7 @@ public class Shaders {
     static ShaderProfile[] shaderPackProfiles = null;
     static Map<String, ScreenShaderOptions> shaderPackGuiScreens = null;
     static Map<String, IExpressionBool> shaderPackProgramConditions = new HashMap<>();
-    static Map<Block, Integer> mapBlockToEntityData;
+    static Reference2IntMap<Block> mapBlockToEntityData;
     private static int renderDisplayWidth = 0;
     private static int renderDisplayHeight = 0;
     private static boolean isRenderingFirstPersonHand;
@@ -2697,7 +2699,7 @@ public class Shaders {
     }
 
     private static void loadEntityDataMap() {
-        mapBlockToEntityData = new IdentityHashMap<>(300);
+        mapBlockToEntityData = new Reference2IntOpenHashMap<>(300);
 
         if (mapBlockToEntityData.isEmpty()) {
             for (ResourceLocation resourcelocation : Block.blockRegistry.getKeys()) {

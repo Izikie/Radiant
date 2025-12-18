@@ -3,6 +3,8 @@ package net.minecraft.command;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.ComparisonChain;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
@@ -124,7 +126,7 @@ public class PlayerSelector {
     private static List<Predicate<Entity>> func_179663_a(Map<String, String> p_179663_0_, String p_179663_1_) {
         List<Predicate<Entity>> list = new ArrayList<>();
         String s = func_179651_b(p_179663_0_, "type");
-        final boolean flag = s != null && s.startsWith("!");
+        boolean flag = s != null && s.startsWith("!");
 
         if (flag) {
             s = s.substring(1);
@@ -138,7 +140,7 @@ public class PlayerSelector {
                 list.add(p_apply_1_ -> p_apply_1_ instanceof EntityPlayer);
             }
         } else {
-            final String s_f = s;
+            String s_f = s;
             list.add(p_apply_1_ -> EntityList.isStringEntityName(p_apply_1_, s_f) != flag);
         }
 
@@ -147,8 +149,8 @@ public class PlayerSelector {
 
     private static List<Predicate<Entity>> getXpLevelPredicates(Map<String, String> p_179648_0_) {
         List<Predicate<Entity>> list = new ArrayList<>();
-        final int i = parseIntWithDefault(p_179648_0_, "lm", -1);
-        final int j = parseIntWithDefault(p_179648_0_, "l", -1);
+        int i = parseIntWithDefault(p_179648_0_, "lm", -1);
+        int j = parseIntWithDefault(p_179648_0_, "l", -1);
 
         if (i > -1 || j > -1) {
             list.add(p_apply_1_ -> {
@@ -165,7 +167,7 @@ public class PlayerSelector {
 
     private static List<Predicate<Entity>> getGamemodePredicates(Map<String, String> p_179649_0_) {
         List<Predicate<Entity>> list = new ArrayList<>();
-        final int i = parseIntWithDefault(p_179649_0_, "m", WorldSettings.GameType.NOT_SET.getID());
+        int i = parseIntWithDefault(p_179649_0_, "m", WorldSettings.GameType.NOT_SET.getID());
 
         if (i != WorldSettings.GameType.NOT_SET.getID()) {
             list.add(p_apply_1_ -> {
@@ -183,14 +185,14 @@ public class PlayerSelector {
     private static List<Predicate<Entity>> getTeamPredicates(Map<String, String> p_179659_0_) {
         List<Predicate<Entity>> list = new ArrayList<>();
         String s = func_179651_b(p_179659_0_, "team");
-        final boolean flag = s != null && s.startsWith("!");
+        boolean flag = s != null && s.startsWith("!");
 
         if (flag) {
             s = s.substring(1);
         }
 
         if (s != null) {
-            final String s_f = s;
+            String s_f = s;
             list.add(p_apply_1_ -> {
                 if (!(p_apply_1_ instanceof EntityLivingBase entitylivingbase)) {
                     return false;
@@ -207,7 +209,7 @@ public class PlayerSelector {
 
     private static List<Predicate<Entity>> getScorePredicates(Map<String, String> p_179657_0_) {
         List<Predicate<Entity>> list = new ArrayList<>();
-        final Map<String, Integer> map = func_96560_a(p_179657_0_);
+        Object2IntMap<String> map = func_96560_a(p_179657_0_);
 
         if (map != null && !map.isEmpty()) {
             list.add(p_apply_1_ -> {
@@ -256,28 +258,28 @@ public class PlayerSelector {
     private static List<Predicate<Entity>> getNamePredicates(Map<String, String> p_179647_0_) {
         List<Predicate<Entity>> list = new ArrayList<>();
         String s = func_179651_b(p_179647_0_, "name");
-        final boolean flag = s != null && s.startsWith("!");
+        boolean flag = s != null && s.startsWith("!");
 
         if (flag) {
             s = s.substring(1);
         }
 
         if (s != null) {
-            final String s_f = s;
+            String s_f = s;
             list.add(p_apply_1_ -> p_apply_1_.getName().equals(s_f) != flag);
         }
 
         return list;
     }
 
-    private static List<Predicate<Entity>> func_180698_a(Map<String, String> p_180698_0_, final BlockPos p_180698_1_) {
+    private static List<Predicate<Entity>> func_180698_a(Map<String, String> p_180698_0_, BlockPos p_180698_1_) {
         List<Predicate<Entity>> list = new ArrayList<>();
-        final int i = parseIntWithDefault(p_180698_0_, "rm", -1);
-        final int j = parseIntWithDefault(p_180698_0_, "r", -1);
+        int i = parseIntWithDefault(p_180698_0_, "rm", -1);
+        int j = parseIntWithDefault(p_180698_0_, "r", -1);
 
         if (p_180698_1_ != null && (i >= 0 || j >= 0)) {
-            final int k = i * i;
-            final int l = j * j;
+            int k = i * i;
+            int l = j * j;
             list.add(p_apply_1_ -> {
                 int i1 = (int) p_apply_1_.getDistanceSqToCenter(p_180698_1_);
                 return (i < 0 || i1 >= k) && (j < 0 || i1 <= l);
@@ -291,8 +293,8 @@ public class PlayerSelector {
         List<Predicate<Entity>> list = new ArrayList<>();
 
         if (p_179662_0_.containsKey("rym") || p_179662_0_.containsKey("ry")) {
-            final int i = func_179650_a(parseIntWithDefault(p_179662_0_, "rym", 0));
-            final int j = func_179650_a(parseIntWithDefault(p_179662_0_, "ry", 359));
+            int i = func_179650_a(parseIntWithDefault(p_179662_0_, "rym", 0));
+            int j = func_179650_a(parseIntWithDefault(p_179662_0_, "ry", 359));
             list.add(p_apply_1_ -> {
                 int i1 = PlayerSelector.func_179650_a((int) Math.floor(p_apply_1_.rotationYaw));
                 return i > j ? i1 >= i || i1 <= j : i1 >= i && i1 <= j;
@@ -300,8 +302,8 @@ public class PlayerSelector {
         }
 
         if (p_179662_0_.containsKey("rxm") || p_179662_0_.containsKey("rx")) {
-            final int k = func_179650_a(parseIntWithDefault(p_179662_0_, "rxm", 0));
-            final int l = func_179650_a(parseIntWithDefault(p_179662_0_, "rx", 359));
+            int k = func_179650_a(parseIntWithDefault(p_179662_0_, "rxm", 0));
+            int l = func_179650_a(parseIntWithDefault(p_179662_0_, "rx", 359));
             list.add(p_apply_1_ -> {
                 int i1 = PlayerSelector.func_179650_a((int) Math.floor(p_apply_1_.rotationPitch));
                 return k > l ? i1 >= k || i1 <= l : i1 >= k && i1 <= l;
@@ -346,7 +348,7 @@ public class PlayerSelector {
                     list.addAll(worldIn.<T>getPlayers(entityClass, predicate1));
                 }
             } else {
-                final AxisAlignedBB axisalignedbb = func_179661_a(position, i, j, k);
+                AxisAlignedBB axisalignedbb = func_179661_a(position, i, j, k);
 
                 if (flag && flag2 && !flag1) {
                     Predicate<Entity> predicate2 = p_apply_1_ -> p_apply_1_.posX >= axisalignedbb.minX && p_apply_1_.posY >= axisalignedbb.minY && p_apply_1_.posZ >= axisalignedbb.minZ && p_apply_1_.posX < axisalignedbb.maxX && p_apply_1_.posY < axisalignedbb.maxY && p_apply_1_.posZ < axisalignedbb.maxZ;
@@ -366,7 +368,7 @@ public class PlayerSelector {
         return list;
     }
 
-    private static <T extends Entity> List<T> func_179658_a(List<T> p_179658_0_, Map<String, String> p_179658_1_, ICommandSender p_179658_2_, Class<? extends T> p_179658_3_, String p_179658_4_, final BlockPos p_179658_5_) {
+    private static <T extends Entity> List<T> func_179658_a(List<T> p_179658_0_, Map<String, String> p_179658_1_, ICommandSender p_179658_2_, Class<? extends T> p_179658_3_, String p_179658_4_, BlockPos p_179658_5_) {
         int i = parseIntWithDefault(p_179658_1_, "c", !p_179658_4_.equals("a") && !p_179658_4_.equals("e") ? 1 : 0);
 
         if (!p_179658_4_.equals("p") && !p_179658_4_.equals("a") && !p_179658_4_.equals("e")) {
@@ -443,8 +445,8 @@ public class PlayerSelector {
         return p_179651_0_.get(p_179651_1_);
     }
 
-    public static Map<String, Integer> func_96560_a(Map<String, String> p_96560_0_) {
-        Map<String, Integer> map = new HashMap<>();
+    public static Object2IntMap<String> func_96560_a(Map<String, String> p_96560_0_) {
+        Object2IntMap<String> map = new Object2IntOpenHashMap<>();
 
         for (String s : p_96560_0_.keySet()) {
             if (s.startsWith("score_") && s.length() > "score_".length()) {

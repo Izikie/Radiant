@@ -1,5 +1,7 @@
 package net.minecraft.command.client;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.command.*;
 import net.minecraft.entity.Entity;
@@ -20,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CommandReplaceItem extends CommandBase {
-    private static final Map<String, Integer> SHORTCUTS = new HashMap<>();
+    private static final Object2IntMap<String> SHORTCUTS = new Object2IntOpenHashMap<>();
 
     @Override
     public String getCommandName() {

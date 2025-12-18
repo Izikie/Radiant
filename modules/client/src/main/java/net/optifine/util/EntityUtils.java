@@ -1,5 +1,8 @@
 package net.optifine.util;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMaps;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.optifine.Log;
@@ -9,7 +12,7 @@ import java.util.Map;
 
 public class EntityUtils {
     private static final Map<Class<?>, Integer> mapIdByClass = new HashMap<>();
-    private static final Map<String, Integer> mapIdByName = new HashMap<>();
+    private static final Object2IntMap<String> mapIdByName = new Object2IntOpenHashMap<>();
     private static final Map<String, Class<?>> mapClassByName = new HashMap<>();
 
     static {

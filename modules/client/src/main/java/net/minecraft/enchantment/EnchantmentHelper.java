@@ -1,6 +1,8 @@
 package net.minecraft.enchantment;
 
 import it.unimi.dsi.fastutil.ints.Int2IntLinkedOpenHashMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityLivingBase;
@@ -280,7 +282,7 @@ public class EnchantmentHelper {
             }
 
             List<EnchantmentData> list = null;
-            Map<Integer, EnchantmentData> map = mapEnchantmentData(k, itemStackIn);
+            Int2ObjectMap<EnchantmentData> map = mapEnchantmentData(k, itemStackIn);
 
             if (map != null && !map.isEmpty()) {
                 EnchantmentData enchantmentdata = WeightedRandom.getRandomItem(randomIn, map.values());
@@ -320,9 +322,9 @@ public class EnchantmentHelper {
         }
     }
 
-    public static Map<Integer, EnchantmentData> mapEnchantmentData(int p_77505_0_, ItemStack p_77505_1_) {
+    public static Int2ObjectMap<EnchantmentData> mapEnchantmentData(int p_77505_0_, ItemStack p_77505_1_) {
         Item item = p_77505_1_.getItem();
-        Map<Integer, EnchantmentData> map = null;
+        Int2ObjectMap<EnchantmentData> map = null;
         boolean flag = p_77505_1_.getItem() == Items.BOOK;
 
         for (Enchantment enchantment : Enchantment.ENCHANTMENTS_BOOK_LIST) {
@@ -330,7 +332,7 @@ public class EnchantmentHelper {
                 for (int i = enchantment.getMinLevel(); i <= enchantment.getMaxLevel(); ++i) {
                     if (p_77505_0_ >= enchantment.getMinEnchantability(i) && p_77505_0_ <= enchantment.getMaxEnchantability(i)) {
                         if (map == null) {
-                            map = new HashMap<>();
+                            map = new Int2ObjectOpenHashMap<>();
                         }
 
                         map.put(enchantment.effectId, new EnchantmentData(enchantment, i));

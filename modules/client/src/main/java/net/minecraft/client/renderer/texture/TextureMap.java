@@ -1,5 +1,7 @@
 package net.minecraft.client.renderer.texture;
 
+import it.unimi.dsi.fastutil.ints.Int2IntMap;
+import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.StitcherException;
@@ -260,7 +262,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                 this.mipmapLevels = k2;
             }
 
-            for (final TextureAtlasSprite textureatlassprite1 : this.mapRegisteredSprites.values()) {
+            for (TextureAtlasSprite textureatlassprite1 : this.mapRegisteredSprites.values()) {
                 if (this.skipFirst) {
                     break;
                 }
@@ -608,39 +610,44 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         return j;
     }
 
-    private int detectMinimumSpriteSize(Map<String, TextureAtlasSprite> sprites, IResourceManager p_detectMinimumSpriteSize_2_, int p_detectMinimumSpriteSize_3_) {
-        Map<Integer, Integer> map = new HashMap<>();
+    private int detectMinimumSpriteSize(Map<String, TextureAtlasSprite> sprites, IResourceManager resourceManager, int p_detectMinimumSpriteSize_3_) {
+        Int2IntMap map = new Int2IntOpenHashMap();
 
         for (TextureAtlasSprite sprite : sprites.values()) {
-            ResourceLocation resourcelocation = new ResourceLocation(sprite.getIconName());
-            ResourceLocation resourcelocation1 = this.completeResourceLocation(resourcelocation);
+            ResourceLocation location = new ResourceLocation(sprite.getIconName());
+            ResourceLocation completeLocation = this.completeResourceLocation(location);
 
-            if (!sprite.hasCustomLoader(p_detectMinimumSpriteSize_2_, resourcelocation)) {
-                try {
-                    IResource iresource = p_detectMinimumSpriteSize_2_.getResource(resourcelocation1);
+            if (sprite.hasCustomLoader(resourceManager, location)) {
+                continue;
+            }
 
-                    if (iresource != null) {
-                        InputStream inputstream = iresource.getInputStream();
+            try {
+                IResource iResource = resourceManager.getResource(completeLocation);
 
-                        if (inputstream != null) {
-                            Vector2i dimension = TextureUtils.getImageSize(inputstream, "png");
-                            inputstream.close();
-
-                            if (dimension != null) {
-                                int i = dimension.x;
-                                int j = MathHelper.roundUpToPowerOfTwo(i);
-
-                                if (!map.containsKey(j)) {
-                                    map.put(j, 1);
-                                } else {
-                                    int k = map.get(j);
-                                    map.put(j, k + 1);
-                                }
-                            }
-                        }
-                    }
-                } catch (Exception _) {
+                if (iResource == null) {
+                    continue;
                 }
+
+                InputStream inputStream = iResource.getInputStream();
+
+                if (inputStream == null) {
+                    continue;
+                }
+
+                Vector2i dimension = TextureUtils.getImageSize(inputStream, "png");
+                inputStream.close();
+
+                if (dimension != null) {
+                    int size = MathHelper.roundUpToPowerOfTwo(dimension.x);
+
+                    if (!map.containsKey(size)) {
+                        map.put(size, 1);
+                    } else {
+                        int k = map.get(size);
+                        map.put(size, k + 1);
+                    }
+                }
+            } catch (Exception _) {
             }
         }
 

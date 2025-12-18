@@ -3,6 +3,8 @@ package net.minecraft.entity;
 import it.unimi.dsi.fastutil.ints.Int2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.entity.ai.EntityMinecartMobSpawner;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
@@ -27,7 +29,7 @@ public class EntityList {
     private static final Map<Class<? extends Entity>, String> classToStringMapping = new HashMap<>();
     private static final Int2ObjectOpenHashMap<Class<? extends Entity>> idToClassMapping = new Int2ObjectOpenHashMap<>();
     public static final Map<Class<? extends Entity>, Integer> classToIDMapping = new HashMap<>();
-    private static final Map<String, Integer> stringToIDMapping = new HashMap<>();
+    private static final Object2IntMap<String> stringToIDMapping = new Object2IntOpenHashMap<>();
     public static final Int2ObjectMap<EntityEggInfo> entityEggs = new Int2ObjectLinkedOpenHashMap<>();
 
     private static void addMapping(Class<? extends Entity> entityClass, String entityName, int id) {

@@ -1,5 +1,7 @@
 package net.minecraft.world.storage;
 
+import it.unimi.dsi.fastutil.objects.Object2ShortMap;
+import it.unimi.dsi.fastutil.objects.Object2ShortOpenHashMap;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -16,7 +18,7 @@ public class MapStorage {
     private final ISaveHandler saveHandler;
     protected final Map<String, WorldSavedData> loadedDataMap = new HashMap<>();
     private final List<WorldSavedData> loadedDataList = new ArrayList<>();
-    private final Map<String, Short> idCounts = new HashMap<>();
+    private final Object2ShortMap<String> idCounts = new Object2ShortOpenHashMap<>();
 
     public MapStorage(ISaveHandler saveHandlerIn) {
         this.saveHandler = saveHandlerIn;

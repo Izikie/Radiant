@@ -1,6 +1,7 @@
 package net.minecraft.world.village;
 
 import com.mojang.authlib.GameProfile;
+import it.unimi.dsi.fastutil.objects.Object2IntRBTreeMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.material.Material;
@@ -30,7 +31,7 @@ public class Village {
     private int tickCounter;
     private int numVillagers;
     private int noBreedTicks;
-    private final TreeMap<String, Integer> playerReputation = new TreeMap<>();
+    private final Object2IntRBTreeMap<String> playerReputation = new Object2IntRBTreeMap<>();
     private final List<VillageAggressor> villageAgressors = new ArrayList<>();
     private int numIronGolems;
 
