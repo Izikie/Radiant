@@ -2,6 +2,8 @@ package net.minecraft.entity.player;
 
 import com.mojang.authlib.GameProfile;
 import io.netty.buffer.Unpooled;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockFenceGate;
@@ -67,7 +69,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     public double managedPosX;
     public double managedPosZ;
     public final List<ChunkCoordIntPair> loadedChunks = new LinkedList<>();
-    private final List<Integer> destroyedItemsNetCache = new LinkedList<>();
+    private final IntList destroyedItemsNetCache = new IntArrayList();
     private final StatisticsFile statsFile;
     private float combinedHealth = Float.MIN_VALUE;
     private float lastHealth = -1.0E8F;
@@ -179,16 +181,8 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         }
 
         while (!this.destroyedItemsNetCache.isEmpty()) {
-            int i = Math.min(this.destroyedItemsNetCache.size(), Integer.MAX_VALUE);
-            int[] aint = new int[i];
-            Iterator<Integer> iterator = this.destroyedItemsNetCache.iterator();
-            int j = 0;
-
-            while (iterator.hasNext() && j < i) {
-                aint[j++] = iterator.next();
-                iterator.remove();
-            }
-
+            int[] aint = this.destroyedItemsNetCache.toIntArray();
+            this.destroyedItemsNetCache.clear();
             this.playerNetServerHandler.sendPacket(new S13PacketDestroyEntities(aint));
         }
 

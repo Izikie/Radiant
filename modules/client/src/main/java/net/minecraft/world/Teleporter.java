@@ -1,6 +1,9 @@
 package net.minecraft.world;
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.longs.LongArrayList;
+import it.unimi.dsi.fastutil.longs.LongIterator;
+import it.unimi.dsi.fastutil.longs.LongList;
 import net.minecraft.block.BlockPortal;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockPattern;
@@ -19,7 +22,7 @@ public class Teleporter {
     private final WorldServer worldServerInstance;
     private final Random random;
     private final Long2ObjectOpenHashMap<PortalPosition> destinationCoordinateCache = new Long2ObjectOpenHashMap<>();
-    private final List<Long> destinationCoordinateKeys = new ArrayList<>();
+    private final LongList destinationCoordinateKeys = new LongArrayList();
 
     public Teleporter(WorldServer worldIn) {
         this.worldServerInstance = worldIn;
@@ -324,16 +327,16 @@ public class Teleporter {
 
     public void removeStalePortalLocations(long worldTime) {
         if (worldTime % 100L == 0L) {
-            Iterator<Long> iterator = this.destinationCoordinateKeys.iterator();
-            long i = worldTime - 300L;
+            LongIterator iterator = this.destinationCoordinateKeys.iterator();
+            long threshold = worldTime - 300L;
 
             while (iterator.hasNext()) {
-                long olong = iterator.next();
-                PortalPosition teleporter$portalposition = this.destinationCoordinateCache.get(olong);
+                long key = iterator.nextLong();
+                PortalPosition position = this.destinationCoordinateCache.get(key);
 
-                if (teleporter$portalposition == null || teleporter$portalposition.lastUpdateTime < i) {
+                if (position == null || position.lastUpdateTime < threshold) {
                     iterator.remove();
-                    this.destinationCoordinateCache.remove(olong);
+                    this.destinationCoordinateCache.remove(key);
                 }
             }
         }
