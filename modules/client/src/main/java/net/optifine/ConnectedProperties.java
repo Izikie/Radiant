@@ -9,9 +9,9 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.RenderLayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.optifine.config.*;
-import net.minecraft.util.math.MathHelper;
 import net.optifine.util.TextureUtils;
 
 import java.util.ArrayList;
@@ -888,6 +888,7 @@ public class ConnectedProperties {
         return Matches.sprite(icon, this.matchTileIcons);
     }
 
+    @Override
     public String toString() {
         return "CTM name: " + this.name + ", basePath: " + this.basePath + ", matchBlocks: " + Config.arrayToString(this.matchBlocks) + ", matchTiles: " + Config.arrayToString(this.matchTiles);
     }

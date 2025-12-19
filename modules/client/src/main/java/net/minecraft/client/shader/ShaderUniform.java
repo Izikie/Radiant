@@ -1,10 +1,10 @@
 package net.minecraft.client.shader;
 
 import net.minecraft.client.renderer.OpenGlHelper;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;

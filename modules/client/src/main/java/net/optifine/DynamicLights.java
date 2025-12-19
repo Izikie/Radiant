@@ -21,9 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class DynamicLights {
     private static final DynamicLightsMap DYNAMIC_LIGHTS_MAP = new DynamicLightsMap();

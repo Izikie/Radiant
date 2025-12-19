@@ -1,11 +1,10 @@
 package net.minecraft.entity.ai.attributes;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 import net.minecraft.util.math.MathHelper;
 import org.apache.commons.lang3.Validate;
 
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class AttributeModifier {
     private final double amount;
@@ -53,6 +52,7 @@ public class AttributeModifier {
         return this;
     }
 
+    @Override
     public boolean equals(Object p_equals_1_) {
         if (this == p_equals_1_) {
             return true;
@@ -61,16 +61,20 @@ public class AttributeModifier {
 
             if (this.id != null) {
                 return this.id.equals(attributemodifier.id);
-            } else return attributemodifier.id == null;
+            } else {
+                return attributemodifier.id == null;
+            }
         } else {
             return false;
         }
     }
 
+    @Override
     public int hashCode() {
         return this.id != null ? this.id.hashCode() : 0;
     }
 
+    @Override
     public String toString() {
         return "AttributeModifier{amount=" + this.amount + ", operation=" + this.operation + ", name='" + this.name + '\'' + ", id=" + this.id + ", serialize=" + this.isSaved + '}';
     }

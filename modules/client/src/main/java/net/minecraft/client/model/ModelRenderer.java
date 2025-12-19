@@ -1,8 +1,8 @@
 package net.minecraft.client.model;
 
 import net.minecraft.client.renderer.*;
-import net.optifine.Config;
 import net.minecraft.util.ResourceLocation;
+import net.optifine.Config;
 import net.optifine.entity.model.anim.ModelUpdater;
 import net.optifine.model.ModelSprite;
 import net.optifine.shaders.Shaders;
@@ -416,6 +416,7 @@ public class ModelRenderer {
         this.modelUpdater = p_setModelUpdater_1_;
     }
 
+    @Override
     public String toString() {
         return "id: " + this.id + ", boxes: " + (this.cubeList != null ? this.cubeList.size() : null) + ", submodels: " + (this.childModels != null ? this.childModels.size() : null);
     }

@@ -1,11 +1,11 @@
 package net.minecraft.entity.item;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.monster.EntityEndermite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.util.input.MovingObjectPosition;
 import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;

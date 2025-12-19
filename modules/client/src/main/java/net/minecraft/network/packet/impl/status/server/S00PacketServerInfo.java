@@ -2,13 +2,13 @@ package net.minecraft.network.packet.impl.status.server;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import net.minecraft.network.ServerStatusResponse;
 import net.minecraft.network.packet.api.Packet;
 import net.minecraft.network.packet.api.PacketBuffer;
-import net.minecraft.network.ServerStatusResponse;
 import net.minecraft.network.packet.impl.status.INetHandlerStatusClient;
 import net.minecraft.util.chat.ChatStyle;
-import net.minecraft.util.json.EnumTypeAdapterFactory;
 import net.minecraft.util.chat.IChatComponent;
+import net.minecraft.util.json.EnumTypeAdapterFactory;
 
 import java.io.IOException;
 

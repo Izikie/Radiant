@@ -2,6 +2,7 @@ package net.minecraft.entity.item;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -10,12 +11,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.util.BlockPos;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.StatCollector;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class EntityItem extends Entity {
     private static final Logger LOGGER = LoggerFactory.getLogger(EntityItem.class);

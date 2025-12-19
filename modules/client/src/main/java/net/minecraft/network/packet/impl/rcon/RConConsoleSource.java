@@ -1,7 +1,7 @@
 package net.minecraft.network.packet.impl.rcon;
 
-import net.minecraft.command.client.CommandResultStats;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.command.client.CommandResultStats;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;

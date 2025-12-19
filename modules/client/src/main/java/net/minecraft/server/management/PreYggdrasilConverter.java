@@ -7,8 +7,8 @@ import com.mojang.authlib.ProfileLookupCallback;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.StringUtils;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -39,13 +39,13 @@ public class PreYggdrasilConverter {
 
     public static String getStringUUIDFromName(String p_152719_0_) {
         if (!StringUtils.isNullOrEmpty(p_152719_0_) && p_152719_0_.length() <= 16) {
-            final MinecraftServer minecraftserver = MinecraftServer.getServer();
+            MinecraftServer minecraftserver = MinecraftServer.getServer();
             GameProfile gameprofile = minecraftserver.getPlayerProfileCache().getGameProfileForUsername(p_152719_0_);
 
             if (gameprofile != null && gameprofile.getId() != null) {
                 return gameprofile.getId().toString();
             } else if (!minecraftserver.isSinglePlayer() && minecraftserver.isServerInOnlineMode()) {
-                final List<GameProfile> list = new ArrayList<>();
+                List<GameProfile> list = new ArrayList<>();
                 ProfileLookupCallback profilelookupcallback = new ProfileLookupCallback() {
                     @Override
                     public void onProfileLookupSucceeded(GameProfile p_onProfileLookupSucceeded_1_) {

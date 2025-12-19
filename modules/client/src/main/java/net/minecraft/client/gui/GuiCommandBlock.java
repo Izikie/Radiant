@@ -5,9 +5,9 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.command.server.CommandBlockLogic;
 import net.minecraft.network.packet.api.PacketBuffer;
 import net.minecraft.network.packet.impl.play.client.C17PacketCustomPayload;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
 import net.radiant.lwjgl.input.Keyboard;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 

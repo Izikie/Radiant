@@ -2,8 +2,8 @@ package net.minecraft.command.server;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
-import net.minecraft.command.client.CommandResultStats;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.command.client.CommandResultStats;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.chat.ChatComponentText;
 import net.minecraft.util.chat.ChatComponentTranslation;

@@ -84,8 +84,8 @@
  */
 package net.radiant.lwjgl.util.glu.tessellation;
 
-import static org.lwjgl.opengl.GL46.*;
 import static net.radiant.lwjgl.util.glu.GLU.*;
+import static org.lwjgl.opengl.GL46.*;
 
 class Render {
     private static final boolean USE_OPTIMIZED_CODE_PATH = false;

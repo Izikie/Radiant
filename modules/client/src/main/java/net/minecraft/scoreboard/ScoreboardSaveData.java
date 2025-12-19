@@ -5,8 +5,8 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.chat.Formatting;
 import net.minecraft.world.WorldSavedData;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ScoreboardSaveData extends WorldSavedData {
     private static final Logger LOGGER = LoggerFactory.getLogger(ScoreboardSaveData.class);

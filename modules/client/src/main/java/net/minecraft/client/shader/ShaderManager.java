@@ -12,11 +12,11 @@ import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.util.JsonBlendingMode;
 import net.minecraft.client.util.JsonException;
-import net.minecraft.util.json.JsonUtils;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.json.JsonUtils;
 import org.apache.commons.io.IOUtils;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;

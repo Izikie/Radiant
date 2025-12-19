@@ -2,18 +2,18 @@ package net.minecraft.item;
 
 import com.google.common.base.Predicates;
 import net.minecraft.block.BlockDispenser;
-import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.block.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.block.dispenser.IBehaviorDispenseItem;
 import net.minecraft.block.dispenser.IBlockSource;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntitySelectors;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.entity.EntitySelectors;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import java.util.List;

@@ -8,6 +8,7 @@ import com.mojang.authlib.minecraft.MinecraftSessionService;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiDisconnected;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.network.CryptManager;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.NetworkState;
 import net.minecraft.network.packet.impl.login.INetHandlerLoginClient;
@@ -17,10 +18,9 @@ import net.minecraft.network.packet.impl.login.server.S01PacketEncryptionRequest
 import net.minecraft.network.packet.impl.login.server.S02PacketLoginSuccess;
 import net.minecraft.network.packet.impl.login.server.S03PacketEnableCompression;
 import net.minecraft.util.chat.ChatComponentTranslation;
-import net.minecraft.network.CryptManager;
 import net.minecraft.util.chat.IChatComponent;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.crypto.SecretKey;
 import java.math.BigInteger;

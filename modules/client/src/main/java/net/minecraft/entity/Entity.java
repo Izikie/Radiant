@@ -4,8 +4,8 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockPattern;
-import net.minecraft.command.client.CommandResultStats;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.command.client.CommandResultStats;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.crash.ReportedException;
@@ -16,8 +16,6 @@ import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.chat.IChatComponent;
-import net.minecraft.util.chat.HoverEvent;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -26,8 +24,12 @@ import net.minecraft.nbt.NBTTagDouble;
 import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.Direction;
+import net.minecraft.util.StatCollector;
 import net.minecraft.util.chat.ChatComponentText;
+import net.minecraft.util.chat.HoverEvent;
+import net.minecraft.util.chat.IChatComponent;
 import net.minecraft.util.input.MovingObjectPosition;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
@@ -163,10 +165,12 @@ public abstract class Entity implements ICommandSender {
         return this.dataWatcher;
     }
 
+    @Override
     public boolean equals(Object p_equals_1_) {
         return p_equals_1_ instanceof Entity entity && entity.entityId == this.entityId;
     }
 
+    @Override
     public int hashCode() {
         return this.entityId;
     }
@@ -1619,6 +1623,7 @@ public abstract class Entity implements ICommandSender {
         return false;
     }
 
+    @Override
     public String toString() {
         return String.format("%s['%s'/%d, l='%s', x=%.2f, y=%.2f, z=%.2f]", this.getClass().getSimpleName(), this.getName(), this.entityId, this.worldObj == null ? "~NULL~" : this.worldObj.getWorldInfo().getWorldName(), this.posX, this.posY, this.posZ);
     }

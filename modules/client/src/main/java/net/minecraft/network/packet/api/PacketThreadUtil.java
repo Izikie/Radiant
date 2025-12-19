@@ -5,8 +5,8 @@ import net.minecraft.network.ThreadQuickExitException;
 import net.minecraft.network.packet.impl.play.server.S01PacketJoinGame;
 import net.minecraft.network.packet.impl.play.server.S07PacketRespawn;
 import net.minecraft.network.packet.impl.play.server.S08PacketPlayerPosLook;
-import net.optifine.Config;
 import net.minecraft.util.IThreadListener;
+import net.optifine.Config;
 
 public class PacketThreadUtil {
     public static int lastDimensionId = Integer.MIN_VALUE;

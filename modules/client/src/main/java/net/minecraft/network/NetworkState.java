@@ -2,6 +2,8 @@ package net.minecraft.network;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import net.minecraft.network.packet.api.Packet;
+import net.minecraft.network.packet.api.PacketDirection;
 import net.minecraft.network.packet.impl.handshake.client.C00Handshake;
 import net.minecraft.network.packet.impl.login.client.C00PacketLoginStart;
 import net.minecraft.network.packet.impl.login.client.C01PacketEncryptionResponse;
@@ -9,16 +11,14 @@ import net.minecraft.network.packet.impl.login.server.S00PacketDisconnect;
 import net.minecraft.network.packet.impl.login.server.S01PacketEncryptionRequest;
 import net.minecraft.network.packet.impl.login.server.S02PacketLoginSuccess;
 import net.minecraft.network.packet.impl.login.server.S03PacketEnableCompression;
-import net.minecraft.network.packet.api.Packet;
-import net.minecraft.network.packet.api.PacketDirection;
 import net.minecraft.network.packet.impl.play.client.*;
 import net.minecraft.network.packet.impl.play.server.*;
 import net.minecraft.network.packet.impl.status.client.C00PacketServerQuery;
 import net.minecraft.network.packet.impl.status.client.C01PacketPing;
 import net.minecraft.network.packet.impl.status.server.S00PacketServerInfo;
 import net.minecraft.network.packet.impl.status.server.S01PacketPong;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.EnumMap;

@@ -3,11 +3,11 @@ package net.minecraft.block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBeacon;
@@ -88,12 +88,12 @@ public class BlockBeacon extends BlockContainer {
         return RenderLayer.CUTOUT;
     }
 
-    public static void updateColorAsync(final World worldIn, final BlockPos glassPos) {
+    public static void updateColorAsync(World worldIn, BlockPos glassPos) {
         HttpUtil.DOWNLOAD_EXECUTOR.submit(() -> {
             Chunk chunk = worldIn.getChunkFromBlockCoords(glassPos);
 
             for (int i = glassPos.getY() - 1; i >= 0; --i) {
-                final BlockPos blockpos = new BlockPos(glassPos.getX(), i, glassPos.getZ());
+                BlockPos blockpos = new BlockPos(glassPos.getX(), i, glassPos.getZ());
 
                 if (!chunk.canSeeSky(blockpos)) {
                     break;

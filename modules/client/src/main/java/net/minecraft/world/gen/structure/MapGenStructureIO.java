@@ -2,8 +2,8 @@ package net.minecraft.world.gen.structure;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;

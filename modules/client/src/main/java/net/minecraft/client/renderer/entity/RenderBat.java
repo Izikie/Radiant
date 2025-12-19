@@ -3,8 +3,8 @@ package net.minecraft.client.renderer.entity;
 import net.minecraft.client.model.ModelBat;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.passive.EntityBat;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 
 public class RenderBat extends RenderLiving<EntityBat> {
     private static final ResourceLocation BAT_TEXTURES = new ResourceLocation("textures/entity/bat.png");

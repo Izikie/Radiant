@@ -3,14 +3,14 @@ package net.minecraft.entity.item;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.Explosion;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 
 public class EntityMinecartTNT extends EntityMinecart {

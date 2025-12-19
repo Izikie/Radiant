@@ -2,16 +2,16 @@ package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerWorkbench;
+import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.chat.ChatComponentTranslation;
 import net.minecraft.util.Direction;
+import net.minecraft.util.chat.ChatComponentTranslation;
 import net.minecraft.util.chat.IChatComponent;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;

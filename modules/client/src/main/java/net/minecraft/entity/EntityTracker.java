@@ -15,8 +15,8 @@ import net.minecraft.entity.projectile.*;
 import net.minecraft.network.packet.api.Packet;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -101,7 +101,7 @@ public class EntityTracker {
         this.addEntityToTracker(entityIn, trackingRange, updateFrequency, false);
     }
 
-    public void addEntityToTracker(Entity entityIn, int trackingRange, final int updateFrequency, boolean sendVelocityUpdates) {
+    public void addEntityToTracker(Entity entityIn, int trackingRange, int updateFrequency, boolean sendVelocityUpdates) {
         if (trackingRange > this.maxTrackingDistanceThreshold) {
             trackingRange = this.maxTrackingDistanceThreshold;
         }

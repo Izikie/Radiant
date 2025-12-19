@@ -7,6 +7,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -14,11 +15,10 @@ import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.BlockPos;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.ParticleTypes;
-import net.minecraft.world.village.Village;
 import net.minecraft.world.World;
+import net.minecraft.world.village.Village;
 
 public class EntityIronGolem extends EntityGolem {
     private int homeCheckTimer;
@@ -227,7 +227,7 @@ public class EntityIronGolem extends EntityGolem {
     }
 
     static class AINearestAttackableTargetNonCreeper<T extends EntityLivingBase> extends EntityAINearestAttackableTarget<T> {
-        public AINearestAttackableTargetNonCreeper(final EntityCreature creature, Class<T> classTarget, int chance, boolean p_i45858_4_, boolean p_i45858_5_, final Predicate<? super T> p_i45858_6_) {
+        public AINearestAttackableTargetNonCreeper(EntityCreature creature, Class<T> classTarget, int chance, boolean p_i45858_4_, boolean p_i45858_5_, Predicate<? super T> p_i45858_6_) {
             super(creature, classTarget, chance, p_i45858_4_, p_i45858_5_, p_i45858_6_);
             this.targetEntitySelector = (Predicate<T>) p_apply_1_ -> {
                 if (p_i45858_6_ != null && !p_i45858_6_.apply(p_apply_1_)) {

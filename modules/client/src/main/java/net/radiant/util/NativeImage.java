@@ -15,7 +15,8 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
 import static org.lwjgl.stb.STBImage.*;
-import static org.lwjgl.stb.STBImageResize.*;
+import static org.lwjgl.stb.STBImageResize.STBIR_RGBA;
+import static org.lwjgl.stb.STBImageResize.stbir_resize_uint8_linear;
 import static org.lwjgl.stb.STBImageWrite.*;
 
 /**

@@ -2,8 +2,8 @@ package net.minecraft.entity.boss;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityMultiPart;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class EntityDragonPart extends Entity {
     public final IEntityMultiPart entityDragonObj;

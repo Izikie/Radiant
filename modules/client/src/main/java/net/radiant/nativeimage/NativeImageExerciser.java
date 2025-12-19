@@ -21,7 +21,6 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.network.NetworkState;
 import net.minecraft.scoreboard.ScoreboardSaveData;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.village.VillageCollection;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
@@ -29,6 +28,7 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.gen.structure.MapGenStructureData;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraft.world.storage.MapData;
+import net.minecraft.world.village.VillageCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

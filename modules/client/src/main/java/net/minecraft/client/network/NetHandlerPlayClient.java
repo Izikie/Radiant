@@ -21,8 +21,6 @@ import net.minecraft.client.player.inventory.ContainerLocalMenu;
 import net.minecraft.client.player.inventory.LocalBlockIntercommunication;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.entity.monster.EntityGuardian;
-import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.BaseAttributeMap;
@@ -30,6 +28,7 @@ import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.*;
+import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -41,6 +40,7 @@ import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.packet.api.Packet;
 import net.minecraft.network.packet.api.PacketBuffer;
@@ -54,21 +54,23 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatBase;
 import net.minecraft.tileentity.*;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.Direction;
+import net.minecraft.util.StringUtils;
 import net.minecraft.util.chat.ChatComponentText;
 import net.minecraft.util.chat.ChatComponentTranslation;
 import net.minecraft.util.chat.Formatting;
 import net.minecraft.util.chat.IChatComponent;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.village.MerchantRecipeList;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.WorldProviderSurface;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.storage.MapData;
-import org.slf4j.LoggerFactory;
+import net.minecraft.world.village.MerchantRecipeList;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -1118,8 +1120,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
 
     @Override
     public void handleResourcePack(S48PacketResourcePackSend packet) {
-        final String url = packet.getURL();
-        final String hash = packet.getHash();
+        String url = packet.getURL();
+        String hash = packet.getHash();
 
         // BUGFIX: Resource Pack Traversal Exploit
         try {
@@ -1319,7 +1321,9 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
             playerTeam = scoreboard.getTeam(packet.getName());
         }
 
-        if (playerTeam == null) return;
+        if (playerTeam == null) {
+            return;
+        }
 
         if (packet.getAction() == 0 || packet.getAction() == 2) {
             playerTeam.setTeamName(packet.getDisplayName());

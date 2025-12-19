@@ -11,8 +11,8 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -107,10 +107,10 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable {
             this.sndRegistry.registerSound(soundeventaccessorcomposite);
         }
 
-        for (final SoundList.SoundEntry soundlist$soundentry : sounds.getSoundList()) {
+        for (SoundList.SoundEntry soundlist$soundentry : sounds.getSoundList()) {
             String s = soundlist$soundentry.getSoundEntryName();
             ResourceLocation resourcelocation = new ResourceLocation(s);
-            final String s1 = s.contains(":") ? resourcelocation.getResourceDomain() : location.getResourceDomain();
+            String s1 = s.contains(":") ? resourcelocation.getResourceDomain() : location.getResourceDomain();
             ISoundEventAccessor<SoundPoolEntry> isoundeventaccessor;
 
             switch (soundlist$soundentry.getSoundEntryType()) {

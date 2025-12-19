@@ -3,7 +3,7 @@ package net.minecraft.stats;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.StatCollector;
 import net.minecraft.util.chat.ChatComponentTranslation;
 import net.minecraft.util.chat.Formatting;
 import net.minecraft.util.chat.IChatComponent;

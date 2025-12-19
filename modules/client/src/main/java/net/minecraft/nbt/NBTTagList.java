@@ -1,7 +1,7 @@
 package net.minecraft.nbt;
 
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -60,6 +60,7 @@ public class NBTTagList extends NBTBase {
         return (byte) 9;
     }
 
+    @Override
     public String toString() {
         StringBuilder stringbuilder = new StringBuilder("[");
 
@@ -181,6 +182,7 @@ public class NBTTagList extends NBTBase {
         return nbttaglist;
     }
 
+    @Override
     public boolean equals(Object p_equals_1_) {
         if (super.equals(p_equals_1_)) {
             NBTTagList nbttaglist = (NBTTagList) p_equals_1_;
@@ -193,6 +195,7 @@ public class NBTTagList extends NBTBase {
         return false;
     }
 
+    @Override
     public int hashCode() {
         return super.hashCode() ^ this.tagList.hashCode();
     }

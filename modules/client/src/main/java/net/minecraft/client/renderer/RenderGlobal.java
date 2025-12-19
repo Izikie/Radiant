@@ -43,7 +43,10 @@ import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.Direction;
+import net.minecraft.util.RenderLayer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.collection.ClassInheritanceMultiMap;
 import net.minecraft.util.input.MovingObjectPosition;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -63,11 +66,11 @@ import net.optifine.shaders.ShadersRender;
 import net.optifine.shaders.ShadowUtils;
 import net.optifine.shaders.gui.GuiShaderOptions;
 import net.optifine.util.RenderChunkUtils;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-import org.joml.Vector3f;
 import net.radiant.lwjgl.input.Keyboard;
+import org.joml.Vector3f;
 import org.lwjgl.opengl.GL11;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.*;
@@ -2079,7 +2082,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     }
 
     @Override
-    public void spawnParticle(int particleID, boolean ignoreRange, final double xCoord, final double yCoord, final double zCoord, double xOffset, double yOffset, double zOffset, int... parameters) {
+    public void spawnParticle(int particleID, boolean ignoreRange, double xCoord, double yCoord, double zCoord, double xOffset, double yOffset, double zOffset, int... parameters) {
         try {
             this.spawnEntityFX(particleID, ignoreRange, xCoord, yCoord, zCoord, xOffset, yOffset, zOffset, parameters);
         } catch (Throwable throwable) {

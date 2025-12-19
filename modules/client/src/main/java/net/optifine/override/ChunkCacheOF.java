@@ -1,7 +1,6 @@
 package net.optifine.override;
 
 import net.minecraft.block.state.IBlockState;
-import net.optifine.Config;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
@@ -9,6 +8,7 @@ import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.optifine.Config;
 import net.optifine.DynamicLights;
 import net.optifine.util.collection.ArrayCache;
 

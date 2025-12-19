@@ -14,15 +14,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.PlayerModelParts;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Team;
-import net.optifine.Config;
 import net.minecraft.util.chat.Formatting;
 import net.minecraft.util.math.MathHelper;
+import net.optifine.Config;
 import net.optifine.EmissiveTextures;
 import net.optifine.entity.model.CustomEntityModels;
 import net.optifine.shaders.Shaders;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
 import org.lwjgl.opengl.GL11;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.FloatBuffer;
 import java.util.ArrayList;

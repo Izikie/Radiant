@@ -1,7 +1,7 @@
 package net.optifine.shaders.config;
 
-import net.optifine.Config;
 import net.minecraft.util.Util;
+import net.optifine.Config;
 import net.optifine.shaders.Shaders;
 
 public class ShaderMacros {

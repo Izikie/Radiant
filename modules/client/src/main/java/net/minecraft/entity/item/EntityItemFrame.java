@@ -2,6 +2,7 @@ package net.minecraft.entity.item;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityHanging;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -9,7 +10,6 @@ import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.MapData;

@@ -30,13 +30,14 @@ import net.minecraft.scoreboard.Score;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
-import net.optifine.Config;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.chat.Formatting;
 import net.minecraft.util.chat.IChatComponent;
 import net.minecraft.util.input.MovingObjectPosition;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.border.WorldBorder;
+import net.optifine.Config;
 import net.optifine.CustomColors;
 import org.lwjgl.opengl.GL11;
 

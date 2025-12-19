@@ -4,9 +4,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.optifine.Config;
 import net.optifine.Log;
-import org.lwjgl.opengl.*;
 import net.radiant.lwjgl.opengl.ContextCapabilities;
 import net.radiant.lwjgl.opengl.GLContext;
+import org.lwjgl.opengl.*;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;

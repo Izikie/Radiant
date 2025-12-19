@@ -1,10 +1,10 @@
 package net.optifine.util;
 
-import net.optifine.Config;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.IWorldNameable;
+import net.optifine.Config;
 
 public class TileEntityUtils {
     public static String getTileEntityName(IBlockAccess blockAccess, BlockPos blockPos) {

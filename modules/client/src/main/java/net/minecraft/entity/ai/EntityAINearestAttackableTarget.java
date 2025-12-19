@@ -5,8 +5,8 @@ import com.google.common.base.Predicates;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.EntitySelectors;
+import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.Comparator;
 import java.util.List;
@@ -26,7 +26,7 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
         this(creature, classTarget, 10, checkSight, onlyNearby, null);
     }
 
-    public EntityAINearestAttackableTarget(EntityCreature creature, Class<T> classTarget, int chance, boolean checkSight, boolean onlyNearby, final Predicate<? super T> targetSelector) {
+    public EntityAINearestAttackableTarget(EntityCreature creature, Class<T> classTarget, int chance, boolean checkSight, boolean onlyNearby, Predicate<? super T> targetSelector) {
         super(creature, checkSight, onlyNearby);
         this.targetClass = classTarget;
         this.targetChance = chance;

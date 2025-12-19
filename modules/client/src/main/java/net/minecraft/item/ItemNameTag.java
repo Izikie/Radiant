@@ -1,9 +1,9 @@
 package net.minecraft.item;
 
-import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.creativetab.CreativeTabs;
 
 public class ItemNameTag extends Item {
     public ItemNameTag() {

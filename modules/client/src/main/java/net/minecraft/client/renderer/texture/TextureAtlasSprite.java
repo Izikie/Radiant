@@ -6,8 +6,8 @@ import net.minecraft.client.resources.data.AnimationMetadataSection;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.crash.ReportedException;
-import net.optifine.Config;
 import net.minecraft.util.ResourceLocation;
+import net.optifine.Config;
 import net.optifine.SmartAnimations;
 import net.optifine.shaders.Shaders;
 import net.optifine.util.CounterInt;
@@ -359,7 +359,7 @@ public class TextureAtlasSprite {
         List<int[][]> list = new ArrayList<>();
 
         for (int i = 0; i < this.framesTextureData.size(); ++i) {
-            final int[][] aint = this.framesTextureData.get(i);
+            int[][] aint = this.framesTextureData.get(i);
 
             if (aint != null) {
                 try {
@@ -451,6 +451,7 @@ public class TextureAtlasSprite {
         }
     }
 
+    @Override
     public String toString() {
         return "TextureAtlasSprite{name='" + this.iconName + '\'' + ", frameCount=" + this.framesTextureData.size() + ", rotated=" + this.rotated + ", x=" + this.originX + ", y=" + this.originY + ", height=" + this.height + ", width=" + this.width + ", u0=" + this.minU + ", u1=" + this.maxU + ", v0=" + this.minV + ", v1=" + this.maxV + '}';
     }

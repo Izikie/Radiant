@@ -30,8 +30,8 @@ import net.minecraft.entity.passive.*;
 import net.minecraft.entity.projectile.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3;
 import net.minecraft.world.World;
 import net.optifine.entity.model.CustomEntityModels;
@@ -298,7 +298,9 @@ public class RenderManager {
                         throw new ReportedException(CrashReport.makeCrashReport(throwable, "Rendering entity hitbox in world"));
                     }
                 }
-            } else return this.renderEngine == null;
+            } else {
+                return this.renderEngine == null;
+            }
 
             return true;
         } catch (Throwable throwable) {

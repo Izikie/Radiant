@@ -39,10 +39,10 @@ package net.radiant.lwjgl.opengl;
  * @author elias_naur
  */
 
+import net.radiant.lwjgl.LWJGLException;
+
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
-
-import net.radiant.lwjgl.LWJGLException;
 
 interface DisplayImplementation extends InputImplementation {
 

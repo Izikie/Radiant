@@ -8,8 +8,8 @@ import net.minecraft.network.NetworkState;
 import net.minecraft.network.packet.api.Packet;
 import net.minecraft.network.packet.api.PacketBuffer;
 import net.minecraft.network.packet.api.PacketDirection;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 

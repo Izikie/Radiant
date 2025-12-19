@@ -17,9 +17,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class CommandReplaceItem extends CommandBase {
     private static final Object2IntMap<String> SHORTCUTS = new Object2IntOpenHashMap<>();

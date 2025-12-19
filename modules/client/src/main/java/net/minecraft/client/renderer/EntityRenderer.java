@@ -47,8 +47,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.server.integrated.IntegratedServer;
-import net.optifine.Config;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.RenderLayer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.chat.ChatComponentText;
 import net.minecraft.util.input.MouseFilter;
 import net.minecraft.util.input.MovingObjectPosition;
@@ -59,27 +60,24 @@ import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.optifine.CustomColors;
-import net.optifine.GlErrors;
-import net.optifine.Log;
-import net.optifine.RandomEntities;
+import net.optifine.*;
 import net.optifine.gui.GuiChatOF;
 import net.optifine.shaders.Shaders;
 import net.optifine.shaders.ShadersRender;
 import net.optifine.util.MemoryMonitor;
 import net.optifine.util.TextureUtils;
 import net.optifine.util.TimedEvent;
-import org.lwjgl.opengl.NVFogDistance;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-import org.joml.Matrix4f;
-import org.lwjgl.BufferUtils;
 import net.radiant.lwjgl.input.Keyboard;
 import net.radiant.lwjgl.input.Mouse;
 import net.radiant.lwjgl.opengl.Display;
+import net.radiant.lwjgl.opengl.GLContext;
+import org.joml.Matrix4f;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-import net.radiant.lwjgl.opengl.GLContext;
+import org.lwjgl.opengl.NVFogDistance;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.FloatBuffer;
@@ -991,11 +989,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         }
 
         if (!this.mc.skipRenderWorld) {
-            final ScaledResolution scaledresolution = new ScaledResolution(this.mc);
+            ScaledResolution scaledresolution = new ScaledResolution(this.mc);
             int i1 = scaledresolution.getScaledWidth();
             int j1 = scaledresolution.getScaledHeight();
-            final int k1 = Mouse.getX() * i1 / this.mc.displayWidth;
-            final int l1 = j1 - Mouse.getY() * j1 / this.mc.displayHeight - 1;
+            int k1 = Mouse.getX() * i1 / this.mc.displayWidth;
+            int l1 = j1 - Mouse.getY() * j1 / this.mc.displayHeight - 1;
             int i2 = this.mc.gameSettings.limitFramerate;
 
             if (this.mc.world != null) {

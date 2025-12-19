@@ -1,8 +1,8 @@
 package net.minecraft.entity.passive;
 
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 public abstract class EntityWaterMob extends EntityLiving implements IAnimals {

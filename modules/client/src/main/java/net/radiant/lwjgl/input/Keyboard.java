@@ -1,15 +1,13 @@
 package net.radiant.lwjgl.input;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.HashMap;
-import java.util.Map;
-
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import org.lwjgl.glfw.GLFW;
 import net.radiant.lwjgl.LWJGLException;
 import net.radiant.lwjgl.opengl.Display;
+import org.lwjgl.glfw.GLFW;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 public class Keyboard {
 

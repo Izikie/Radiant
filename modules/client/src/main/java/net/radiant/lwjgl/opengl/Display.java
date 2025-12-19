@@ -1,33 +1,37 @@
 package net.radiant.lwjgl.opengl;
 
-import static org.lwjgl.opengl.GL46.*;
-import static net.radiant.lwjgl.BufferUtils.createByteBuffer;
-import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.system.MemoryUtil.*;
-
-import java.nio.Buffer;
-import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import net.radiant.lwjgl.BufferUtils;
-import org.lwjgl.Version;
-import org.lwjgl.glfw.*;
-import org.lwjgl.opengl.GL;
-import net.radiant.lwjgl.LWJGLUtil;
-import org.lwjgl.opengl.GL46;
-import org.lwjgl.system.MemoryUtil;
 import net.radiant.lwjgl.LWJGLException;
+import net.radiant.lwjgl.LWJGLUtil;
 import net.radiant.lwjgl.input.Cursor;
 import net.radiant.lwjgl.input.Keyboard;
 import net.radiant.lwjgl.input.Mouse;
+import org.lwjgl.Version;
+import org.lwjgl.glfw.*;
+import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GL46;
+import org.lwjgl.system.MemoryUtil;
 
-import java.io.*;
-import java.net.*;
-import java.nio.channels.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.SeekableByteChannel;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
+
+import static net.radiant.lwjgl.BufferUtils.createByteBuffer;
+import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL46.GL_FALSE;
+import static org.lwjgl.opengl.GL46.GL_TRUE;
+import static org.lwjgl.system.MemoryUtil.NULL;
+import static org.lwjgl.system.MemoryUtil.memSlice;
 
 public class Display {
 
@@ -76,7 +80,9 @@ public class Display {
 
         mode = desktopDisplayMode = new DisplayMode(monitorWidth, monitorHeight, monitorBitPerPixel, monitorRefreshRate);
         LWJGLUtil.log("Initial mode: " + desktopDisplayMode);
-        if ("opengles2".equals(System.getenv("POJAV_RENDERER"))) GLContext.getCapabilities();
+        if ("opengles2".equals(System.getenv("POJAV_RENDERER"))) {
+            GLContext.getCapabilities();
+        }
     }
 
     public static void setSwapInterval(int value) {
@@ -175,11 +181,15 @@ public class Display {
     }
 
     public static void create() throws LWJGLException {
-        if (isCreated) return;
-        else isCreated = true;
+        if (isCreated) {
+            return;
+        } else {
+            isCreated = true;
+        }
 
-        if (Window.handle != MemoryUtil.NULL)
+        if (Window.handle != MemoryUtil.NULL) {
             glfwDestroyWindow(Window.handle);
+        }
 
         long monitor = glfwGetPrimaryMonitor();
         GLFWVidMode vidmode = glfwGetVideoMode(monitor);
@@ -197,8 +207,9 @@ public class Display {
         glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 
         Window.handle = glfwCreateWindow(mode.getWidth(), mode.getHeight(), windowTitle, isFullscreen() ? glfwGetPrimaryMonitor() : NULL, Window.handle);
-        if (Window.handle == NULL)
+        if (Window.handle == NULL) {
             throw new LWJGLException("Failed to create Display window");
+        }
 
         Window.scrollCallback = new GLFWScrollCallback() {
             @Override
@@ -318,12 +329,13 @@ public class Display {
         GL.createCapabilities();
 
         //glfwMakeContextCurrent(Window.handle);
-        final DrawableGL drawable = new DrawableGL() {
+        DrawableGL drawable = new DrawableGL() {
             @Override
             public void destroy() {
                 synchronized (GlobalLock.lock) {
-                    if (!isCreated())
+                    if (!isCreated()) {
                         return;
+                    }
 
                     super.destroy();
                     destroyWindow();
@@ -621,8 +633,9 @@ public class Display {
             throw new RuntimeException(e);
         }
 
-        if (processMessages)
+        if (processMessages) {
             processMessages();
+        }
     }
 
     public static void processMessages() {
@@ -657,7 +670,9 @@ public class Display {
 
     public static void setDisplayMode(DisplayMode dm) throws LWJGLException {
         mode = dm;
-        if (isCreated) GLFW.glfwSetWindowSize(Window.handle, dm.getWidth(), dm.getHeight());
+        if (isCreated) {
+            GLFW.glfwSetWindowSize(Window.handle, dm.getWidth(), dm.getHeight());
+        }
     }
 
     public static DisplayMode[] getAvailableDisplayModes() throws LWJGLException {
@@ -720,8 +735,9 @@ public class Display {
 
     public static void setTitle(String title) {
         windowTitle = title;
-        if (Window.handle != NULL)
+        if (Window.handle != NULL) {
             glfwSetWindowTitle(Window.handle, windowTitle);
+        }
     }
 
     public static boolean isCloseRequested() {
@@ -784,10 +800,11 @@ public class Display {
     }
 
     public static int setIcon(ByteBuffer[] icons) {
-        if (!Arrays.equals(cached_icons, icons))
+        if (!Arrays.equals(cached_icons, icons)) {
             cached_icons = Arrays.stream(icons)
                     .map(Display::cloneByteBuffer)
                     .toArray(ByteBuffer[]::new);
+        }
 
         if (isCreated) {
             glfwSetWindowIcon(Window.handle, iconsToGLFWBuffer(cached_icons));

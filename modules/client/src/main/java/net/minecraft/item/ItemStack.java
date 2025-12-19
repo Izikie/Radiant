@@ -13,16 +13,19 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.chat.Formatting;
-import net.minecraft.util.chat.IChatComponent;
-import net.minecraft.util.chat.HoverEvent;
 import net.minecraft.init.Items;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.util.chat.ChatComponentText;
+import net.minecraft.util.chat.Formatting;
+import net.minecraft.util.chat.HoverEvent;
+import net.minecraft.util.chat.IChatComponent;
 import net.minecraft.world.World;
 
 import java.text.DecimalFormat;
@@ -317,6 +320,7 @@ public final class ItemStack {
         return stack == null ? null : stack.copy();
     }
 
+    @Override
     public String toString() {
         return this.stackSize + "x" + this.item.getUnlocalizedName() + "@" + this.itemDamage;
     }

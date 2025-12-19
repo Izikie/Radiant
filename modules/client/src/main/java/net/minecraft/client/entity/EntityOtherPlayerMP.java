@@ -2,9 +2,9 @@ package net.minecraft.client.entity;
 
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.util.chat.IChatComponent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;

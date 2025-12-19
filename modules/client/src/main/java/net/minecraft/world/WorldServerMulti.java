@@ -2,11 +2,11 @@ package net.minecraft.world;
 
 
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.village.VillageCollection;
 import net.minecraft.world.border.IBorderListener;
 import net.minecraft.world.border.WorldBorder;
 import net.minecraft.world.storage.DerivedWorldInfo;
 import net.minecraft.world.storage.ISaveHandler;
+import net.minecraft.world.village.VillageCollection;
 
 public class WorldServerMulti extends WorldServer {
     private final WorldServer delegate;

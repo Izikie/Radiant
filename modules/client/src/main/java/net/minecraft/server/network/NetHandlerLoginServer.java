@@ -4,6 +4,7 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.exceptions.AuthenticationUnavailableException;
 import io.netty.channel.ChannelFutureListener;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.network.CryptManager;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.packet.impl.login.INetHandlerLoginServer;
 import net.minecraft.network.packet.impl.login.client.C00PacketLoginStart;
@@ -13,13 +14,12 @@ import net.minecraft.network.packet.impl.login.server.S01PacketEncryptionRequest
 import net.minecraft.network.packet.impl.login.server.S02PacketLoginSuccess;
 import net.minecraft.network.packet.impl.login.server.S03PacketEnableCompression;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.chat.ChatComponentText;
-import net.minecraft.network.CryptManager;
-import net.minecraft.util.chat.IChatComponent;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.chat.ChatComponentText;
+import net.minecraft.util.chat.IChatComponent;
 import org.apache.commons.lang3.Validate;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.crypto.SecretKey;
 import java.math.BigInteger;

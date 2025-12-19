@@ -3,12 +3,12 @@ package net.minecraft.client.resources;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiListExtended;
-import net.minecraft.client.gui.resourcepack.GuiScreenResourcePacks;
 import net.minecraft.client.gui.GuiYesNo;
+import net.minecraft.client.gui.resourcepack.GuiScreenResourcePacks;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.chat.ChatComponentTranslation;
 import net.minecraft.util.chat.IChatComponent;
-import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
 

@@ -5,8 +5,8 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.util.BlockPos;
-import net.minecraft.world.ParticleTypes;
 import net.minecraft.util.math.Vec3;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 

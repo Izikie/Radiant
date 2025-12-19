@@ -6,8 +6,8 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
-import net.optifine.Config;
 import net.minecraft.world.World;
+import net.optifine.Config;
 import net.optifine.shaders.Program;
 import net.optifine.shaders.Shaders;
 

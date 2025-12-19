@@ -10,9 +10,6 @@ import net.minecraft.client.renderer.entity.RenderHorse;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.passive.EntityHorse;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class ModelAdapterHorse extends ModelAdapter {
     private static Object2IntMap<String> mapPartFields = null;
 

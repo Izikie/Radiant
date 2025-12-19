@@ -18,8 +18,8 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.storage.MapData;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -67,10 +67,12 @@ public class EntityTrackerEntry {
         this.onGround = trackedEntityIn.onGround;
     }
 
+    @Override
     public boolean equals(Object p_equals_1_) {
         return p_equals_1_ instanceof EntityTrackerEntry entityTrackerEntry && entityTrackerEntry.trackedEntity.getEntityId() == this.trackedEntity.getEntityId();
     }
 
+    @Override
     public int hashCode() {
         return this.trackedEntity.getEntityId();
     }

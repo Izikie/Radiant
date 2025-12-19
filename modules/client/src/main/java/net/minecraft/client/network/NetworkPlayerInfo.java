@@ -6,8 +6,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.network.packet.impl.play.server.S38PacketPlayerListItem;
 import net.minecraft.scoreboard.ScorePlayerTeam;
-import net.minecraft.util.chat.IChatComponent;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.chat.IChatComponent;
 import net.minecraft.world.WorldSettings;
 
 public class NetworkPlayerInfo {

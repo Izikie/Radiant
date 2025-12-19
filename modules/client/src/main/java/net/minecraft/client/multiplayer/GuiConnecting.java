@@ -12,8 +12,8 @@ import net.minecraft.network.packet.impl.handshake.client.C00Handshake;
 import net.minecraft.network.packet.impl.login.client.C00PacketLoginStart;
 import net.minecraft.util.chat.ChatComponentText;
 import net.minecraft.util.chat.ChatComponentTranslation;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -43,7 +43,7 @@ public class GuiConnecting extends GuiScreen {
         this.connect(hostName, port);
     }
 
-    private void connect(final String ip, final int port) {
+    private void connect(String ip, int port) {
         LOGGER.info("Connecting to {}, {}", ip, port);
         (new Thread("Server Connector #" + CONNECTION_ID.incrementAndGet()) {
             @Override

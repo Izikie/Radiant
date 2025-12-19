@@ -2,8 +2,8 @@ package net.minecraft.client.renderer.block.model;
 
 import com.google.gson.*;
 import net.minecraft.client.resources.model.ModelRotation;
-import net.minecraft.util.json.JsonUtils;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.json.JsonUtils;
 
 import java.io.Reader;
 import java.lang.reflect.Type;
@@ -43,6 +43,7 @@ public class ModelBlockDefinition {
         }
     }
 
+    @Override
     public boolean equals(Object p_equals_1_) {
         if (this == p_equals_1_) {
             return true;
@@ -53,6 +54,7 @@ public class ModelBlockDefinition {
         }
     }
 
+    @Override
     public int hashCode() {
         return this.mapVariants.hashCode();
     }
@@ -125,6 +127,7 @@ public class ModelBlockDefinition {
             return this.weight;
         }
 
+        @Override
         public boolean equals(Object p_equals_1_) {
             if (this == p_equals_1_) {
                 return true;
@@ -135,6 +138,7 @@ public class ModelBlockDefinition {
             }
         }
 
+        @Override
         public int hashCode() {
             int i = this.modelLocation.hashCode();
             i = 31 * i + (this.modelRotation != null ? this.modelRotation.hashCode() : 0);
@@ -198,6 +202,7 @@ public class ModelBlockDefinition {
             return this.listVariants;
         }
 
+        @Override
         public boolean equals(Object p_equals_1_) {
             if (this == p_equals_1_) {
                 return true;
@@ -208,6 +213,7 @@ public class ModelBlockDefinition {
             }
         }
 
+        @Override
         public int hashCode() {
             int i = this.name.hashCode();
             i = 31 * i + this.listVariants.hashCode();

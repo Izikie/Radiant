@@ -31,7 +31,7 @@
  */
 package net.radiant.lwjgl.opengl;
 
-import static org.lwjgl.opengl.ARBImaging.*;
+import static org.lwjgl.opengl.ARBImaging.GL_TABLE_TOO_LARGE;
 import static org.lwjgl.opengl.GL46.*;
 
 /**

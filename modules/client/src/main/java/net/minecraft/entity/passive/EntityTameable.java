@@ -3,11 +3,11 @@ package net.minecraft.entity.passive;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityOwnable;
 import net.minecraft.entity.ai.EntityAISit;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.server.management.PreYggdrasilConverter;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 

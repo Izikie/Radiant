@@ -1,8 +1,8 @@
 package net.minecraft.item;
 
 import net.minecraft.block.material.MapColor;
-import net.minecraft.util.chat.Formatting;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.chat.Formatting;
 
 public enum DyeColor implements IStringSerializable {
     WHITE(0, 15, "white", "white", MapColor.SNOW_COLOR, Formatting.WHITE),
@@ -72,6 +72,7 @@ public enum DyeColor implements IStringSerializable {
         return META_LOOKUP[meta];
     }
 
+    @Override
     public String toString() {
         return this.unlocalizedName;
     }

@@ -10,9 +10,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
-import net.minecraft.world.ParticleTypes;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 
 import java.util.Random;

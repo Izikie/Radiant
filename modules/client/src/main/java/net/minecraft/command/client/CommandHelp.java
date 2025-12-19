@@ -2,10 +2,10 @@ package net.minecraft.command.client;
 
 import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.chat.ClickEvent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.chat.ChatComponentTranslation;
+import net.minecraft.util.chat.ClickEvent;
 import net.minecraft.util.chat.Formatting;
 import net.minecraft.util.math.MathHelper;
 

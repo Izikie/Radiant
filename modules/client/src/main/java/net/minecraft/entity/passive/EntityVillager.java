@@ -25,18 +25,18 @@ import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.chat.ChatComponentText;
 import net.minecraft.util.chat.ChatComponentTranslation;
 import net.minecraft.util.chat.IChatComponent;
 import net.minecraft.util.collection.Tuple;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.village.MerchantRecipe;
-import net.minecraft.world.village.MerchantRecipeList;
-import net.minecraft.world.village.Village;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
+import net.minecraft.world.village.MerchantRecipe;
+import net.minecraft.world.village.MerchantRecipeList;
+import net.minecraft.world.village.Village;
 
 import java.util.Random;
 

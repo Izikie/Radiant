@@ -2,7 +2,10 @@ package net.minecraft.command.server;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.command.*;
+import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.command.WrongUsageException;
 import net.minecraft.command.client.CommandResultStats;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;

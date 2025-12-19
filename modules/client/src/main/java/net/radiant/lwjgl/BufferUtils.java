@@ -31,15 +31,7 @@
  */
 package net.radiant.lwjgl;
 
-import java.nio.Buffer;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.CharBuffer;
-import java.nio.DoubleBuffer;
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
-import java.nio.LongBuffer;
-import java.nio.ShortBuffer;
+import java.nio.*;
 
 /**
  * Some often-used Buffer code for creating native buffers of the appropriate size.
@@ -142,16 +134,17 @@ public final class BufferUtils {
      * @return n, where buffer_element_size=2^n.
      */
     public static int getElementSizeExponent(Buffer buf) {
-        if (buf instanceof ByteBuffer)
+        if (buf instanceof ByteBuffer) {
             return 0;
-        else if (buf instanceof ShortBuffer || buf instanceof CharBuffer)
+        } else if (buf instanceof ShortBuffer || buf instanceof CharBuffer) {
             return 1;
-        else if (buf instanceof FloatBuffer || buf instanceof IntBuffer)
+        } else if (buf instanceof FloatBuffer || buf instanceof IntBuffer) {
             return 2;
-        else if (buf instanceof LongBuffer || buf instanceof DoubleBuffer)
+        } else if (buf instanceof LongBuffer || buf instanceof DoubleBuffer) {
             return 3;
-        else
+        } else {
             throw new IllegalStateException("Unsupported buffer type: " + buf);
+        }
     }
 
     /**

@@ -2,8 +2,8 @@ package net.minecraft.client.renderer.entity;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.passive.EntityRabbit;
-import net.minecraft.util.chat.Formatting;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.chat.Formatting;
 
 public class RenderRabbit extends RenderLiving<EntityRabbit> {
     private static final ResourceLocation BROWN = new ResourceLocation("textures/entity/rabbit/brown.png");

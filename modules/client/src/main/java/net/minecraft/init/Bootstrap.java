@@ -2,9 +2,9 @@ package net.minecraft.init;
 
 import com.mojang.authlib.GameProfile;
 import net.minecraft.block.*;
+import net.minecraft.block.dispenser.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.dispenser.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
@@ -25,8 +25,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.LoggingPrintStream;
 import net.minecraft.util.StringUtils;
 import net.minecraft.world.World;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.PrintStream;
 import java.util.Random;
@@ -81,7 +81,7 @@ public class Bootstrap {
             private final BehaviorDefaultDispenseItem field_150843_b = new BehaviorDefaultDispenseItem();
 
             @Override
-            public ItemStack dispense(IBlockSource source, final ItemStack stack) {
+            public ItemStack dispense(IBlockSource source, ItemStack stack) {
                 return ItemPotion.isSplash(stack.getMetadata()) ? (new BehaviorProjectileDispense() {
                     @Override
                     protected IProjectile getProjectileEntity(World worldIn, IPosition position) {

@@ -2,20 +2,16 @@ package net.minecraft.tileentity;
 
 import com.google.gson.JsonParseException;
 import net.minecraft.command.CommandException;
-import net.minecraft.command.client.CommandResultStats;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.command.client.CommandResultStats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.chat.IChatComponent;
-import net.minecraft.util.chat.ClickEvent;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.api.Packet;
 import net.minecraft.network.packet.impl.play.server.S33PacketUpdateSign;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.*;
-import net.minecraft.util.chat.ChatComponentProcessor;
-import net.minecraft.util.chat.ChatComponentText;
-import net.minecraft.util.chat.ChatStyle;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.chat.*;
 import net.minecraft.util.math.Vec3;
 import net.minecraft.world.World;
 
@@ -143,7 +139,7 @@ public class TileEntitySign extends TileEntity {
         return this.player;
     }
 
-    public boolean executeCommand(final EntityPlayer playerIn) {
+    public boolean executeCommand(EntityPlayer playerIn) {
         ICommandSender icommandsender = new ICommandSender() {
             @Override
             public String getName() {

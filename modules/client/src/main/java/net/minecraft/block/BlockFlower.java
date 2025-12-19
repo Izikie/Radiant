@@ -5,10 +5,10 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.util.IStringSerializable;
 
 import java.util.Collection;
@@ -123,6 +123,7 @@ public abstract class BlockFlower extends BlockBush {
             return TYPES_FOR_BLOCK[flowerColor.ordinal()];
         }
 
+        @Override
         public String toString() {
             return this.name;
         }
@@ -137,7 +138,7 @@ public abstract class BlockFlower extends BlockBush {
         }
 
         static {
-            for (final FlowerColor blockflower$enumflowercolor : FlowerColor.values()) {
+            for (FlowerColor blockflower$enumflowercolor : FlowerColor.values()) {
                 Collection<FlowerType> collection = Collections2.filter(List.of(values()), p_apply_1_ -> p_apply_1_.getBlockType() == blockflower$enumflowercolor);
                 TYPES_FOR_BLOCK[blockflower$enumflowercolor.ordinal()] = collection.toArray(new FlowerType[0]);
             }

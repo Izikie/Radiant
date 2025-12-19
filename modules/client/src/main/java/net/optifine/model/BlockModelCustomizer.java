@@ -4,15 +4,11 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.resources.model.IBakedModel;
-import net.optifine.Config;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.util.RenderLayer;
 import net.minecraft.world.IBlockAccess;
-import net.optifine.BetterGrass;
-import net.optifine.ConnectedTextures;
-import net.optifine.NaturalTextures;
-import net.optifine.SmartLeaves;
+import net.optifine.*;
 import net.optifine.render.RenderEnv;
 
 import java.util.List;

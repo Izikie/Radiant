@@ -6,13 +6,13 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.EntityDamageSource;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.util.Direction;
-import net.minecraft.entity.damage.EntityDamageSource;
 import net.minecraft.world.World;
 
 import java.util.Random;

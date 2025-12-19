@@ -1,9 +1,9 @@
 package net.optifine.expr;
 
 import net.minecraft.client.Minecraft;
-import net.optifine.Config;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.optifine.Config;
 import net.optifine.Log;
 import net.optifine.shaders.uniform.Smoother;
 

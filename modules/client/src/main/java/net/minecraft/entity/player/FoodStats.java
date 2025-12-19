@@ -1,9 +1,9 @@
 package net.minecraft.entity.player;
 
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.world.Difficulty;
 
 public class FoodStats {

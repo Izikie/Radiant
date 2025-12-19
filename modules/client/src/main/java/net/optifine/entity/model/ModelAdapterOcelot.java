@@ -10,9 +10,6 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderOcelot;
 import net.minecraft.entity.passive.EntityOcelot;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class ModelAdapterOcelot extends ModelAdapter {
     private static Object2IntMap<String> mapPartFields = null;
 

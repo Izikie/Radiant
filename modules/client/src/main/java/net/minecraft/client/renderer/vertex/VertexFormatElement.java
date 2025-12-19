@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.vertex;
 
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class VertexFormatElement {
     private static final Logger LOGGER = LoggerFactory.getLogger(VertexFormatElement.class);
@@ -43,6 +43,7 @@ public class VertexFormatElement {
         return this.index;
     }
 
+    @Override
     public String toString() {
         return this.elementCount + "," + this.usage.getDisplayName() + "," + this.type.getDisplayName();
     }
@@ -55,6 +56,7 @@ public class VertexFormatElement {
         return this.usage == EnumUsage.POSITION;
     }
 
+    @Override
     public boolean equals(Object p_equals_1_) {
         if (this == p_equals_1_) {
             return true;
@@ -66,6 +68,7 @@ public class VertexFormatElement {
         }
     }
 
+    @Override
     public int hashCode() {
         int i = this.type.hashCode();
         i = 31 * i + this.usage.hashCode();

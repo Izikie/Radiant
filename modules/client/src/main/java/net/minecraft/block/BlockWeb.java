@@ -2,13 +2,13 @@ package net.minecraft.block;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.RenderLayer;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import java.util.Random;

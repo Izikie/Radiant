@@ -25,8 +25,8 @@ import net.minecraft.util.chat.Formatting;
 import net.minecraft.util.chat.IChatComponent;
 import net.minecraft.util.math.MathHelper;
 import org.apache.commons.lang3.ArrayUtils;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -41,9 +41,9 @@ public class OldServerPinger {
     private static final Logger LOGGER = LoggerFactory.getLogger(OldServerPinger.class);
     private final List<NetworkManager> pingDestinations = Collections.synchronizedList(new ArrayList<>());
 
-    public void ping(final ServerData server) throws UnknownHostException {
+    public void ping(ServerData server) throws UnknownHostException {
         ServerAddress address = ServerAddress.fromString(server.serverIP);
-        final NetworkManager networkManager = NetworkManager.createNetworkManagerAndConnect(InetAddress.getByName(address.getIP()), address.getPort(), false);
+        NetworkManager networkManager = NetworkManager.createNetworkManagerAndConnect(InetAddress.getByName(address.getIP()), address.getPort(), false);
         this.pingDestinations.add(networkManager);
         server.serverMOTD = "Pinging...";
         server.pingToServer = -1L;

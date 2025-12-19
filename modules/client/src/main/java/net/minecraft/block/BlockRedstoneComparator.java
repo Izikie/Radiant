@@ -15,7 +15,10 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityComparator;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.Direction;
+import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StatCollector;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -125,7 +128,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
         return i;
     }
 
-    private EntityItemFrame findItemFrame(World worldIn, final Direction facing, BlockPos pos) {
+    private EntityItemFrame findItemFrame(World worldIn, Direction facing, BlockPos pos) {
         List<EntityItemFrame> list = worldIn.getEntitiesWithinAABB(EntityItemFrame.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), (pos.getX() + 1), (pos.getY() + 1), (pos.getZ() + 1)), (Predicate<Entity>) p_apply_1_ -> p_apply_1_ != null && p_apply_1_.getHorizontalFacing() == facing);
         return list.size() == 1 ? list.getFirst() : null;
     }
@@ -259,6 +262,7 @@ public class BlockRedstoneComparator extends BlockRedstoneDiode implements ITile
             this.name = name;
         }
 
+        @Override
         public String toString() {
             return this.name;
         }

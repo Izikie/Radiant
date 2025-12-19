@@ -1,13 +1,13 @@
 package net.minecraft.crash;
 
 import net.minecraft.client.Minecraft;
-import net.optifine.Config;
 import net.minecraft.world.gen.layer.IntCache;
+import net.optifine.Config;
 import net.optifine.Log;
 import net.optifine.shaders.Shaders;
 import org.apache.commons.lang3.ArrayUtils;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.lang.management.ManagementFactory;

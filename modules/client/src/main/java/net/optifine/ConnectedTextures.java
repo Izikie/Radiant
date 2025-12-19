@@ -19,9 +19,9 @@ import net.optifine.config.Matches;
 import net.optifine.model.BlockModelUtils;
 import net.optifine.model.ListQuadsOverlay;
 import net.optifine.render.RenderEnv;
-import net.optifine.util.collection.PropertiesOrdered;
 import net.optifine.util.ResUtils;
 import net.optifine.util.TileEntityUtils;
+import net.optifine.util.collection.PropertiesOrdered;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;

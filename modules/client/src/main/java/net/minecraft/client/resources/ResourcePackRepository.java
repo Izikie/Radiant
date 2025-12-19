@@ -14,9 +14,9 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.client.resources.data.PackMetadataSection;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.util.chat.Formatting;
 import net.minecraft.util.HttpUtil;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.chat.Formatting;
 import net.radiant.util.NativeImage;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -146,7 +146,7 @@ public class ResourcePackRepository {
             s = "legacy";
         }
 
-        final File file1 = new File(this.dirServerResourcepacks, s);
+        File file1 = new File(this.dirServerResourcepacks, s);
         this.lock.lock();
 
         try {
@@ -169,11 +169,11 @@ public class ResourcePackRepository {
             }
 
             this.deleteOldServerResourcesPacks();
-            final GuiScreenWorking guiscreenworking = new GuiScreenWorking();
+            GuiScreenWorking guiscreenworking = new GuiScreenWorking();
             Map<String, String> map = Minecraft.getSessionInfo();
-            final Minecraft minecraft = Minecraft.get();
+            Minecraft minecraft = Minecraft.get();
             Futures.getUnchecked(minecraft.addScheduledTask(() -> minecraft.displayGuiScreen(guiscreenworking)));
-            final SettableFuture<Object> settablefuture = SettableFuture.create();
+            SettableFuture<Object> settablefuture = SettableFuture.create();
             this.downloadingPacks = HttpUtil.downloadResourcePack(file1, url, map, 52428800, guiscreenworking, minecraft.getProxy());
             Futures.addCallback(this.downloadingPacks, new FutureCallback<>() {
                 @Override
@@ -291,14 +291,17 @@ public class ResourcePackRepository {
             return this.rePackMetadataSection.getPackFormat();
         }
 
+        @Override
         public boolean equals(Object p_equals_1_) {
             return this == p_equals_1_ || (p_equals_1_ instanceof Entry && this.toString().equals(p_equals_1_.toString()));
         }
 
+        @Override
         public int hashCode() {
             return this.toString().hashCode();
         }
 
+        @Override
         public String toString() {
             return String.format("%s:%s:%d", this.resourcePackFile.getName(), this.resourcePackFile.isDirectory() ? "folder" : "zip", this.resourcePackFile.lastModified());
         }

@@ -14,8 +14,8 @@ import net.minecraft.util.chat.ChatComponentTranslation;
 import net.minecraft.util.json.IJsonSerializable;
 import net.minecraft.util.json.TupleIntJsonSerializable;
 import org.apache.commons.io.FileUtils;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;

@@ -7,11 +7,11 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.network.packet.impl.play.client.C16PacketClientStatus;
-import net.minecraft.util.chat.Formatting;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.chat.Formatting;
 import org.lwjgl.opengl.GL11;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;

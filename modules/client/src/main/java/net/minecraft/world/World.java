@@ -18,12 +18,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.input.MovingObjectPosition;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3;
-import net.minecraft.world.village.VillageCollection;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.border.WorldBorder;
@@ -33,6 +34,7 @@ import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.MapStorage;
 import net.minecraft.world.storage.WorldInfo;
+import net.minecraft.world.village.VillageCollection;
 
 import java.util.*;
 
@@ -94,7 +96,7 @@ public abstract class World implements IBlockAccess {
     }
 
     @Override
-    public BiomeGenBase getBiomeGenForCoords(final BlockPos pos) {
+    public BiomeGenBase getBiomeGenForCoords(BlockPos pos) {
         if (this.isBlockLoaded(pos)) {
             Chunk chunk = this.getChunkFromBlockCoords(pos);
 
@@ -342,7 +344,7 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    public void notifyBlockOfStateChange(BlockPos pos, final Block blockIn) {
+    public void notifyBlockOfStateChange(BlockPos pos, Block blockIn) {
         if (!this.isRemote) {
             IBlockState iblockstate = this.getBlockState(pos);
 

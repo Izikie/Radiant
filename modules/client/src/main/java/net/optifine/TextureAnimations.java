@@ -3,9 +3,9 @@ package net.optifine;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ResourceLocation;
-import net.optifine.util.collection.PropertiesOrdered;
 import net.optifine.util.ResUtils;
 import net.optifine.util.TextureUtils;
+import net.optifine.util.collection.PropertiesOrdered;
 import net.radiant.util.NativeImage;
 
 import java.io.FileNotFoundException;

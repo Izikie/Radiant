@@ -3,15 +3,15 @@ package net.minecraft.block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.util.BlockPos;
-import net.minecraft.world.ParticleTypes;
 import net.minecraft.util.RenderLayer;
 import net.minecraft.world.ColorizerFoliage;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
 

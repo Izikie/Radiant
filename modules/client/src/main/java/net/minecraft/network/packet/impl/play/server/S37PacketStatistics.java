@@ -9,8 +9,6 @@ import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Map.Entry;
 
 public class S37PacketStatistics implements Packet<INetHandlerPlayClient> {

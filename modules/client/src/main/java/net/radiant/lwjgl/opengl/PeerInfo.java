@@ -31,10 +31,10 @@
  */
 package net.radiant.lwjgl.opengl;
 
-import java.nio.ByteBuffer;
-
 import net.radiant.lwjgl.LWJGLException;
 import net.radiant.lwjgl.LWJGLUtil;
+
+import java.nio.ByteBuffer;
 
 /**
  * @author elias_naur <elias_naur@users.sourceforge.net>

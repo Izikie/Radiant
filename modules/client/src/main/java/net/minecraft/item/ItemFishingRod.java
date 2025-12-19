@@ -1,8 +1,8 @@
 package net.minecraft.item;
 
-import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFishHook;
+import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.stats.StatList;
 import net.minecraft.world.World;
 

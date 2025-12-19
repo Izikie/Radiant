@@ -19,15 +19,11 @@ import net.minecraft.network.packet.impl.play.server.S1BPacketEntityAttach;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.scoreboard.Team;
-import net.optifine.Config;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.ParticleTypes;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.*;
+import net.optifine.Config;
 
 import java.util.Arrays;
 import java.util.UUID;

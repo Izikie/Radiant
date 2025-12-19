@@ -5,8 +5,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.util.BlockPos;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.LightType;
@@ -53,7 +53,9 @@ public abstract class EntityMob extends EntityCreature implements IMob {
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (this.isEntityInvulnerable(source)) {
             return false;
-        } else return super.attackEntityFrom(source, amount);
+        } else {
+            return super.attackEntityFrom(source, amount);
+        }
     }
 
     @Override

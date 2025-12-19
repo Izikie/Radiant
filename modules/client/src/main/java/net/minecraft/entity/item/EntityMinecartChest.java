@@ -2,13 +2,13 @@ package net.minecraft.entity.item;
 
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerChest;
 import net.minecraft.item.Item;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 

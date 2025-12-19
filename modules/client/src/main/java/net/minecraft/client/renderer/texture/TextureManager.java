@@ -7,15 +7,11 @@ import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.crash.ReportedException;
-import net.optifine.Config;
 import net.minecraft.util.ResourceLocation;
-import net.optifine.CustomGuis;
-import net.optifine.EmissiveTextures;
-import net.optifine.Log;
-import net.optifine.RandomEntities;
+import net.optifine.*;
 import net.optifine.shaders.ShadersTex;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.*;

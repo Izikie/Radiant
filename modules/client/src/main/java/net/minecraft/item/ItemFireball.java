@@ -1,9 +1,9 @@
 package net.minecraft.item;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.world.World;

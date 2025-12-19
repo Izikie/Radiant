@@ -5,17 +5,17 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
-import net.optifine.Config;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.RenderLayer;
+import net.minecraft.util.math.MathHelper;
+import net.optifine.Config;
 import net.optifine.SmartAnimations;
 import net.optifine.render.RenderEnv;
 import net.optifine.shaders.SVertexBuilder;
 import net.optifine.util.TextureUtils;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
 import org.lwjgl.opengl.GL11;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.*;
 import java.util.Arrays;
@@ -88,7 +88,7 @@ public class WorldRenderer {
 
     public void sortVertexData(float p_181674_1_, float p_181674_2_, float p_181674_3_) {
         int i = this.vertexCount / 4;
-        final float[] afloat = new float[i];
+        float[] afloat = new float[i];
 
         for (int j = 0; j < i; ++j) {
             afloat[j] = getDistanceSq(this.rawFloatBuffer, (float) (p_181674_1_ + this.xOffset), (float) (p_181674_2_ + this.yOffset), (float) (p_181674_3_ + this.zOffset), this.vertexFormat.getIntegerSize(), j * this.vertexFormat.getNextOffset());

@@ -13,15 +13,15 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.IRegistry;
 import net.minecraft.util.registry.RegistrySimple;
-import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomItems;
 import net.optifine.util.StrUtils;
 import net.optifine.util.TextureUtils;
 import org.apache.commons.io.IOUtils;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -487,7 +487,7 @@ public class ModelBakery {
     }
 
     private void loadSprites() {
-        final Set<ResourceLocation> set = this.getVariantsTextureLocations();
+        Set<ResourceLocation> set = this.getVariantsTextureLocations();
         set.addAll(this.getItemsTextureLocations());
         set.remove(TextureMap.LOCATION_MISSING_TEXTURE);
         IIconCreator iiconcreator = iconRegistry -> {

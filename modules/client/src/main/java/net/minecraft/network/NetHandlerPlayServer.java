@@ -38,13 +38,15 @@ import net.minecraft.stats.AchievementList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityCommandBlock;
 import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.chat.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.WorldServer;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -108,7 +110,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
     }
 
     public void kickPlayerFromServer(String reason) {
-        final ChatComponentText component = new ChatComponentText(reason);
+        ChatComponentText component = new ChatComponentText(reason);
         this.netManager.sendPacket(new S40PacketDisconnect(component), _ -> this.netManager.closeChannel(component));
         this.netManager.disableAutoRead();
         Futures.getUnchecked(this.serverController.addScheduledTask(this.netManager::checkDisconnected));
@@ -764,8 +766,9 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
     public void processCreativeInventoryAction(C10PacketCreativeInventoryAction packet) {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
 
-        if (!this.playerEntity.theItemInWorldManager.isCreative())
+        if (!this.playerEntity.theItemInWorldManager.isCreative()) {
             return;
+        }
 
         boolean flag = packet.getSlotId() < 0;
         ItemStack itemStack = packet.getStack();

@@ -2,8 +2,8 @@ package net.minecraft.client.renderer.block.model;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.optifine.Config;
 import net.minecraft.util.Direction;
+import net.optifine.Config;
 import net.optifine.model.QuadBounds;
 
 public class BakedQuad {
@@ -189,6 +189,7 @@ public class BakedQuad {
         return this.quadEmissive;
     }
 
+    @Override
     public String toString() {
         return "vertex: " + this.vertexData.length / 7 + ", tint: " + this.tintIndex + ", facing: " + this.face + ", sprite: " + this.sprite;
     }

@@ -1,6 +1,8 @@
 package net.minecraft.entity.item;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntitySelectors;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
@@ -11,8 +13,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.IHopper;
 import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraft.util.BlockPos;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.EntitySelectors;
 import net.minecraft.world.World;
 
 import java.util.List;

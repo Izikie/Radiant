@@ -8,8 +8,8 @@ import net.minecraft.client.renderer.RegionRenderCacheBuilder;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.RenderLayer;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +45,7 @@ public class ChunkRenderWorker implements Runnable {
         }
     }
 
-    protected void processTask(final ChunkCompileTaskGenerator generator) throws InterruptedException {
+    protected void processTask(ChunkCompileTaskGenerator generator) throws InterruptedException {
         generator.getLock().lock();
 
         try {
@@ -96,7 +96,7 @@ public class ChunkRenderWorker implements Runnable {
                 generator.getLock().unlock();
             }
 
-            final CompiledChunk lvt_7_1_ = generator.getCompiledChunk();
+            CompiledChunk lvt_7_1_ = generator.getCompiledChunk();
             ArrayList<ListenableFuture<Object>> lvt_8_1_ = new ArrayList<>();
 
             if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK) {
@@ -109,7 +109,7 @@ public class ChunkRenderWorker implements Runnable {
                 lvt_8_1_.add(this.chunkRenderDispatcher.uploadChunk(RenderLayer.TRANSLUCENT, generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(RenderLayer.TRANSLUCENT), generator.getRenderChunk(), lvt_7_1_));
             }
 
-            final ListenableFuture<List<Object>> listenablefuture = Futures.allAsList(lvt_8_1_);
+            ListenableFuture<List<Object>> listenablefuture = Futures.allAsList(lvt_8_1_);
             generator.addFinishRunnable(() -> listenablefuture.cancel(false));
             Futures.addCallback(listenablefuture, new FutureCallback<>() {
                 @Override

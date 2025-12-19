@@ -31,9 +31,9 @@
  */
 package net.radiant.lwjgl.input;
 
-import java.nio.IntBuffer;
-
 import net.radiant.lwjgl.LWJGLException;
+
+import java.nio.IntBuffer;
 
 /**
  * A class representing a native cursor. Instances of this
@@ -203,8 +203,9 @@ public class Cursor {
     }
 
     private void checkValid() {
-        if (destroyed)
+        if (destroyed) {
             throw new IllegalStateException("The cursor is destroyed");
+        }
     }
 
     /**

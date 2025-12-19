@@ -12,13 +12,13 @@ import net.minecraft.inventory.ContainerMerchant;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.api.PacketBuffer;
 import net.minecraft.network.packet.impl.play.client.C17PacketCustomPayload;
-import net.minecraft.util.chat.IChatComponent;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.chat.IChatComponent;
+import net.minecraft.world.World;
 import net.minecraft.world.village.MerchantRecipe;
 import net.minecraft.world.village.MerchantRecipeList;
-import net.minecraft.world.World;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 

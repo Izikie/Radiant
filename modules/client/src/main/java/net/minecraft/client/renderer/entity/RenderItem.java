@@ -24,10 +24,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
-import net.optifine.Config;
-import net.minecraft.util.*;
+import net.minecraft.util.Direction;
+import net.minecraft.util.RenderLayer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.chat.Formatting;
 import net.minecraft.util.math.Vec3i;
+import net.optifine.Config;
 import net.optifine.CustomColors;
 import net.optifine.CustomItems;
 import net.optifine.shaders.Shaders;
@@ -380,7 +382,7 @@ public class RenderItem implements IResourceManagerReloadListener {
         }
     }
 
-    public void renderItemAndEffectIntoGUI(final ItemStack stack, int xPosition, int yPosition) {
+    public void renderItemAndEffectIntoGUI(ItemStack stack, int xPosition, int yPosition) {
         if (stack != null && stack.getItem() != null) {
             this.zLevel += 50.0F;
 

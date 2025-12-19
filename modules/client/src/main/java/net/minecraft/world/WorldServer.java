@@ -24,12 +24,12 @@ import net.minecraft.scoreboard.ServerScoreboard;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.PlayerManager;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.IProgressUpdate;
+import net.minecraft.util.IThreadListener;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.random.WeightedRandom;
 import net.minecraft.util.random.WeightedRandomChestContent;
-import net.minecraft.world.village.VillageCollection;
-import net.minecraft.world.village.VillageSiege;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.chunk.Chunk;
@@ -42,8 +42,10 @@ import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.MapStorage;
 import net.minecraft.world.storage.WorldInfo;
-import org.slf4j.LoggerFactory;
+import net.minecraft.world.village.VillageCollection;
+import net.minecraft.world.village.VillageSiege;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 

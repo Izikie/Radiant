@@ -4,12 +4,9 @@ import it.unimi.dsi.fastutil.objects.Reference2IntMap;
 import it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
-
-import java.util.IdentityHashMap;
-import java.util.Map;
 
 public class BlockAir extends Block {
     private static final Reference2IntMap<Block> MAP_ORIGINAL_OPACITY = new Reference2IntOpenHashMap<>();

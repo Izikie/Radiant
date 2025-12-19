@@ -12,10 +12,10 @@ import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.scoreboard.ScorePlayerTeam;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.chat.ChatComponentText;
 import net.minecraft.util.chat.IChatComponent;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.ResourceLocation;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,8 +2,8 @@ package net.minecraft.client.renderer.vertex;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +95,7 @@ public class VertexFormat {
         return this.uvOffsetsById.getInt(id);
     }
 
+    @Override
     public String toString() {
         String s = "format: " + this.elements.size() + " elements: ";
 
@@ -147,6 +148,7 @@ public class VertexFormat {
         return this.offsets.getInt(p_181720_1_);
     }
 
+    @Override
     public boolean equals(Object p_equals_1_) {
         if (this == p_equals_1_) {
             return true;
@@ -158,6 +160,7 @@ public class VertexFormat {
         }
     }
 
+    @Override
     public int hashCode() {
         int i = this.elements.hashCode();
         i = 31 * i + this.offsets.hashCode();

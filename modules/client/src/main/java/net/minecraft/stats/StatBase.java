@@ -1,9 +1,9 @@
 package net.minecraft.stats;
 
-import net.minecraft.util.chat.HoverEvent;
 import net.minecraft.scoreboard.IScoreObjectiveCriteria;
 import net.minecraft.util.chat.ChatComponentText;
 import net.minecraft.util.chat.Formatting;
+import net.minecraft.util.chat.HoverEvent;
 import net.minecraft.util.chat.IChatComponent;
 import net.minecraft.util.json.IJsonSerializable;
 
@@ -85,6 +85,7 @@ public class StatBase {
         return ichatcomponent1;
     }
 
+    @Override
     public boolean equals(Object p_equals_1_) {
         if (this == p_equals_1_) {
             return true;
@@ -96,10 +97,12 @@ public class StatBase {
         }
     }
 
+    @Override
     public int hashCode() {
         return this.statId.hashCode();
     }
 
+    @Override
     public String toString() {
         return "Stat{id=" + this.statId + ", nameId=" + this.statName + ", awardLocallyOnly=" + this.isIndependent + ", formatter=" + this.type + ", objectiveCriteria=" + this.objectiveCriteria + '}';
     }

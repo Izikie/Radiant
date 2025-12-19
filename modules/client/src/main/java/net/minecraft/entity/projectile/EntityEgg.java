@@ -1,10 +1,10 @@
 package net.minecraft.entity.projectile;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.util.input.MovingObjectPosition;
 import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;

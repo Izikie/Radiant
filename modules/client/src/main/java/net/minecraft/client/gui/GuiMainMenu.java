@@ -1,6 +1,5 @@
 package net.minecraft.client.gui;
 
-import net.radiant.MicrosoftAuth;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -9,15 +8,16 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.chat.Formatting;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.ResourceLocation;
 import net.optifine.CustomPanorama;
 import net.optifine.CustomPanoramaProperties;
+import net.radiant.MicrosoftAuth;
+import net.radiant.lwjgl.opengl.GLContext;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
-import net.radiant.lwjgl.opengl.GLContext;
 
 import java.io.BufferedReader;
 import java.io.IOException;

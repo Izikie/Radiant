@@ -1,7 +1,7 @@
 package net.minecraft.client.audio;
 
-import net.minecraft.util.registry.RegistrySimple;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.RegistrySimple;
 
 import java.util.HashMap;
 import java.util.Map;

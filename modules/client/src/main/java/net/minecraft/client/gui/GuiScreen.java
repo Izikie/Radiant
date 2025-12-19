@@ -9,8 +9,6 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.EntityList;
-import net.minecraft.util.chat.ClickEvent;
-import net.minecraft.util.chat.HoverEvent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTBase;
@@ -19,10 +17,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.Achievement;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.chat.ChatComponentTranslation;
-import net.minecraft.util.chat.Formatting;
-import net.minecraft.util.chat.IChatComponent;
 import net.minecraft.util.Util;
+import net.minecraft.util.chat.*;
 import net.radiant.lwjgl.input.Keyboard;
 import net.radiant.lwjgl.input.Mouse;
 import org.apache.commons.lang3.StringUtils;
@@ -405,8 +401,8 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
     }
 
     public void handleKeyboardInput() throws IOException {
-        final char character = Keyboard.getEventCharacter();
-        final int key = Keyboard.getEventKey();
+        char character = Keyboard.getEventCharacter();
+        int key = Keyboard.getEventKey();
 
         if ((key == 0 && character >= ' ') || Keyboard.getEventKeyState()) {
             this.keyTyped(character, key);

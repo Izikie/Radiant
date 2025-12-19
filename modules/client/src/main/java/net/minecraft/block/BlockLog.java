@@ -3,8 +3,8 @@ package net.minecraft.block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.creativetab.CreativeTabs;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IStringSerializable;
@@ -53,6 +53,7 @@ public abstract class BlockLog extends BlockRotatedPillar {
             this.name = name;
         }
 
+        @Override
         public String toString() {
             return this.name;
         }

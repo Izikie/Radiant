@@ -2,9 +2,9 @@ package net.minecraft.entity.projectile;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.util.input.MovingObjectPosition;
 import net.minecraft.world.World;
 

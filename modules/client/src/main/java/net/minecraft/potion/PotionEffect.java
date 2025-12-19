@@ -2,8 +2,8 @@ package net.minecraft.potion;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PotionEffect {
     private static final Logger LOGGER = LoggerFactory.getLogger(PotionEffect.class);
@@ -106,10 +106,12 @@ public class PotionEffect {
         return Potion.POTION_TYPES[this.potionID].getName();
     }
 
+    @Override
     public int hashCode() {
         return this.potionID;
     }
 
+    @Override
     public String toString() {
         String s;
 
@@ -130,6 +132,7 @@ public class PotionEffect {
         return Potion.POTION_TYPES[this.potionID].isUsable() ? "(" + s + ")" : s;
     }
 
+    @Override
     public boolean equals(Object p_equals_1_) {
         if (!(p_equals_1_ instanceof PotionEffect potioneffect)) {
             return false;

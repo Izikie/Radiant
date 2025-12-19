@@ -8,11 +8,11 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.VertexBuffer;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.RenderLayer;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
+import net.minecraft.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,7 +110,7 @@ public class ChunkRenderDispatcher {
         boolean flag;
 
         try {
-            final ChunkCompileTaskGenerator chunkcompiletaskgenerator = chunkRenderer.makeCompileTaskChunk();
+            ChunkCompileTaskGenerator chunkcompiletaskgenerator = chunkRenderer.makeCompileTaskChunk();
             chunkcompiletaskgenerator.addFinishRunnable(() -> ChunkRenderDispatcher.this.queueChunkUpdates.remove(chunkcompiletaskgenerator));
             boolean flag1 = this.queueChunkUpdates.offer(chunkcompiletaskgenerator);
 
@@ -181,7 +181,7 @@ public class ChunkRenderDispatcher {
         boolean flag1;
 
         try {
-            final ChunkCompileTaskGenerator chunkcompiletaskgenerator = chunkRenderer.makeCompileTaskTransparency();
+            ChunkCompileTaskGenerator chunkcompiletaskgenerator = chunkRenderer.makeCompileTaskTransparency();
 
             if (chunkcompiletaskgenerator != null) {
                 chunkcompiletaskgenerator.addFinishRunnable(() -> ChunkRenderDispatcher.this.queueChunkUpdates.remove(chunkcompiletaskgenerator));
@@ -196,7 +196,7 @@ public class ChunkRenderDispatcher {
         return flag1;
     }
 
-    public ListenableFuture<Object> uploadChunk(final RenderLayer player, final WorldRenderer p_178503_2_, final RenderChunk chunkRenderer, final CompiledChunk compiledChunkIn) {
+    public ListenableFuture<Object> uploadChunk(RenderLayer player, WorldRenderer p_178503_2_, RenderChunk chunkRenderer, CompiledChunk compiledChunkIn) {
         if (Minecraft.get().isCallingFromMinecraftThread()) {
             if (OpenGlHelper.useVbo()) {
                 this.uploadVertexBuffer(p_178503_2_, chunkRenderer.getVertexBufferByLayer(player.ordinal()));

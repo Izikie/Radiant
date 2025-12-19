@@ -6,9 +6,9 @@ import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.network.packet.impl.play.client.C18PacketSpectate;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.chat.ChatComponentText;
 import net.minecraft.util.chat.IChatComponent;
-import net.minecraft.util.ResourceLocation;
 
 public class PlayerMenuObject implements ISpectatorMenuObject {
     private final GameProfile profile;

@@ -1,9 +1,9 @@
 package net.radiant.lwjgl.input;
 
-import org.lwjgl.glfw.GLFW;
-import org.lwjgl.system.MemoryUtil;
 import net.radiant.lwjgl.LWJGLException;
 import net.radiant.lwjgl.opengl.Display;
+import org.lwjgl.glfw.GLFW;
+import org.lwjgl.system.MemoryUtil;
 
 public class Mouse {
 
@@ -71,10 +71,18 @@ public class Mouse {
         lastY = y;
 
         if (!grabbed && clipPostionToDisplay) {
-            if (latestX < 0) latestX = 0;
-            if (latestY < 0) latestY = 0;
-            if (latestX > Display.getWidth() - 1) latestX = Display.getWidth() - 1;
-            if (latestY > Display.getHeight() - 1) latestY = Display.getHeight() - 1;
+            if (latestX < 0) {
+                latestX = 0;
+            }
+            if (latestY < 0) {
+                latestY = 0;
+            }
+            if (latestX > Display.getWidth() - 1) {
+                latestX = Display.getWidth() - 1;
+            }
+            if (latestY > Display.getHeight() - 1) {
+                latestY = Display.getHeight() - 1;
+            }
         }
 
         x = latestX;

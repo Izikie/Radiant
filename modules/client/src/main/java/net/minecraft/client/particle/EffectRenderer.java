@@ -15,11 +15,13 @@ import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.crash.ReportedException;
 import net.minecraft.entity.Entity;
-import net.optifine.Config;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
+import net.optifine.Config;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -190,7 +192,7 @@ public class EffectRenderer {
         entitiesFX.removeAll(list);
     }
 
-    private void tickParticle(final EntityFX particle) {
+    private void tickParticle(EntityFX particle) {
         try {
             particle.onUpdate();
         } catch (Throwable throwable) {
@@ -224,7 +226,7 @@ public class EffectRenderer {
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 2; ++j) {
-                final int i_f = i;
+                int i_f = i;
 
                 if (!this.fxLayers[i][j].isEmpty()) {
                     switch (j) {
@@ -253,7 +255,7 @@ public class EffectRenderer {
                     worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
 
                     for (int k = 0; k < this.fxLayers[i][j].size(); ++k) {
-                        final EntityFX entityfx = this.fxLayers[i][j].get(k);
+                        EntityFX entityfx = this.fxLayers[i][j].get(k);
 
                         try {
                             if (flag || !(entityfx instanceof EntitySuspendFX)) {

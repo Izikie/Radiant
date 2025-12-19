@@ -35,7 +35,9 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * <p>
@@ -64,15 +66,16 @@ public class LWJGLUtil {
     private static final int PLATFORM;
 
     static {
-        final String osName = getPrivilegedProperty("os.name");
-        if (osName.startsWith("Windows"))
+        String osName = getPrivilegedProperty("os.name");
+        if (osName.startsWith("Windows")) {
             PLATFORM = PLATFORM_WINDOWS;
-        else if (osName.startsWith("Linux") || osName.startsWith("FreeBSD") || osName.startsWith("SunOS") || osName.startsWith("Unix"))
+        } else if (osName.startsWith("Linux") || osName.startsWith("FreeBSD") || osName.startsWith("SunOS") || osName.startsWith("Unix")) {
             PLATFORM = PLATFORM_LINUX;
-        else if (osName.startsWith("Mac OS X") || osName.startsWith("Darwin"))
+        } else if (osName.startsWith("Mac OS X") || osName.startsWith("Darwin")) {
             PLATFORM = PLATFORM_MACOSX;
-        else
+        } else {
             throw new LinkageError("Unknown platform: " + osName);
+        }
     }
 
     private static ByteBuffer loadIcon(String data) {
@@ -175,7 +178,7 @@ public class LWJGLUtil {
         return possible_paths.toArray(new String[0]);
     }
 
-    static void execPrivileged(final String[] cmd_array) throws Exception {
+    static void execPrivileged(String[] cmd_array) throws Exception {
         Process process = Runtime.getRuntime().exec(cmd_array);
         // Close unused streams to make sure the child process won't hang
         process.getInputStream().close();
@@ -183,7 +186,7 @@ public class LWJGLUtil {
         process.getErrorStream().close();
     }
 
-    private static String getPrivilegedProperty(final String property_name) {
+    private static String getPrivilegedProperty(String property_name) {
         return System.getProperty(property_name);
     }
 
@@ -198,7 +201,7 @@ public class LWJGLUtil {
      * @param classloader Classloader to use
      * @return Absolute path to library if found, otherwise null
      */
-    private static String getPathFromClassLoader(final String libname, final ClassLoader classloader) {
+    private static String getPathFromClassLoader(String libname, ClassLoader classloader) {
         try {
             log("getPathFromClassLoader: searching for: " + libname);
             Class<?> clazz = classloader.getClass();
@@ -216,7 +219,7 @@ public class LWJGLUtil {
     /**
      * Gets a boolean property as a privileged action.
      */
-    public static boolean getPrivilegedBoolean(final String property_name) {
+    public static boolean getPrivilegedBoolean(String property_name) {
         return Boolean.getBoolean(property_name);
     }
 
@@ -226,7 +229,7 @@ public class LWJGLUtil {
      * @param property_name the integer property name
      * @return the property value
      */
-    public static Integer getPrivilegedInteger(final String property_name) {
+    public static Integer getPrivilegedInteger(String property_name) {
         return Integer.getInteger(property_name);
     }
 
@@ -237,7 +240,7 @@ public class LWJGLUtil {
      * @param default_val   the default value to use if the property is not defined
      * @return the property value
      */
-    public static Integer getPrivilegedInteger(final String property_name, final int default_val) {
+    public static Integer getPrivilegedInteger(String property_name, int default_val) {
         return Integer.getInteger(property_name, default_val);
     }
 
@@ -283,7 +286,7 @@ public class LWJGLUtil {
      * @param value the integer value
      * @return the hex string representation
      */
-    public static String toHexString(final int value) {
+    public static String toHexString(int value) {
         return "0x" + Integer.toHexString(value).toUpperCase();
     }
 

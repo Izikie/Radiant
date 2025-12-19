@@ -12,7 +12,8 @@ import net.minecraft.crash.ReportedException;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.Direction;
 import net.minecraft.util.collection.ClassInheritanceMultiMap;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
@@ -24,8 +25,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraft.world.gen.ChunkProviderDebug;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -381,7 +382,7 @@ public class Chunk {
         return block;
     }
 
-    public Block getBlock(final int x, final int y, final int z) {
+    public Block getBlock(int x, int y, int z) {
         try {
             return this.getBlock0(x & 15, y, z & 15);
         } catch (ReportedException exception) {
@@ -391,7 +392,7 @@ public class Chunk {
         }
     }
 
-    public Block getBlock(final BlockPos pos) {
+    public Block getBlock(BlockPos pos) {
         try {
             return this.getBlock0(pos.getX() & 15, pos.getY(), pos.getZ() & 15);
         } catch (ReportedException exception) {
@@ -401,7 +402,7 @@ public class Chunk {
         }
     }
 
-    public IBlockState getBlockState(final BlockPos pos) {
+    public IBlockState getBlockState(BlockPos pos) {
         if (this.worldObj.getWorldType() == WorldType.DEBUG_WORLD) {
             IBlockState iblockstate = null;
 
