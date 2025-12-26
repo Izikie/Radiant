@@ -478,6 +478,95 @@ public class Minecraft implements IThreadListener {
     }
 
     public void refreshResources() {
+        refreshResourcesSync();
+    }
+
+    /**
+     * Refresh resources using pre-cached data - instant operation
+     */
+    public void refreshResourcesFromCache() {
+        List<IResourcePack> list = new ArrayList<>(defaultResourcePacks);
+
+        for (ResourcePackRepository.Entry entry : mcResourcePackRepository.getRepositoryEntries()) {
+            list.add(entry.getResourcePack());
+        }
+
+        if (mcResourcePackRepository.getResourcePackInstance() != null) {
+            list.add(mcResourcePackRepository.getResourcePackInstance());
+        }
+
+        try {
+            mcResourceManager.reloadResources(list);
+        } catch (RuntimeException exception) {
+            LOGGER.info("Caught error stitching, removing all assigned resource packs", exception);
+            list.clear();
+            list.addAll(defaultResourcePacks);
+            mcResourcePackRepository.setRepositories(Collections.emptyList());
+            mcResourceManager.reloadResources(list);
+            gameSettings.resourcePacks.clear();
+            gameSettings.incompatibleResourcePacks.clear();
+            gameSettings.saveOptions();
+        }
+
+        mcLanguageManager.parseLanguageMetadata(list);
+
+        if (renderGlobal != null) {
+            renderGlobal.loadRenderers();
+        }
+    }
+
+    public void refreshResourcesAsync() {
+        // Show loading screen
+        GuiScreenWorking loadingScreen = new GuiScreenWorking();
+        addScheduledTask(() -> displayGuiScreen(loadingScreen));
+
+        // Load resource packs asynchronously
+        mcResourcePackRepository.updateRepositoryEntriesAllAsync().thenRun(() -> {
+            // Prepare resource pack list on background thread
+            List<IResourcePack> resourcePacks = new ArrayList<>(defaultResourcePacks);
+
+            for (ResourcePackRepository.Entry entry : mcResourcePackRepository.getRepositoryEntries()) {
+                try {
+                    entry.updateResourcePack();
+                    resourcePacks.add(entry.getResourcePack());
+                } catch (Exception e) {
+                    LOGGER.warn("Failed to load resource pack entry: {}", entry.getResourcePackName(), e);
+                }
+            }
+
+            if (mcResourcePackRepository.getResourcePackInstance() != null) {
+                resourcePacks.add(mcResourcePackRepository.getResourcePackInstance());
+            }
+
+            // Reload resources on main thread
+            addScheduledTask(() -> {
+                try {
+                    mcResourceManager.reloadResources(resourcePacks);
+                    mcLanguageManager.parseLanguageMetadata(resourcePacks);
+
+                    if (renderGlobal != null) {
+                        renderGlobal.loadRenderers();
+                    }
+
+                    // Close loading screen
+                    displayGuiScreen(null);
+                } catch (Exception e) {
+                    LOGGER.error("Failed to reload resources", e);
+                    displayGuiScreen(new GuiErrorScreen("Resource Loading Error",
+                            "Failed to load resources: " + e.getMessage()));
+                }
+            });
+        }).exceptionally(throwable -> {
+            LOGGER.error("Failed to load resource packs asynchronously", throwable);
+            addScheduledTask(() -> {
+                displayGuiScreen(new GuiErrorScreen("Resource Pack Loading Error",
+                        "Failed to load resource packs: " + throwable.getMessage()));
+            });
+            return null;
+        });
+    }
+
+    public void refreshResourcesSync() {
         List<IResourcePack> list = new ArrayList<>(defaultResourcePacks);
 
         for (ResourcePackRepository.Entry entry : mcResourcePackRepository.getRepositoryEntries()) {

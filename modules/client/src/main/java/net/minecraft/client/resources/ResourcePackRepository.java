@@ -14,9 +14,9 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.client.resources.data.PackMetadataSection;
 import net.minecraft.client.settings.GameSettings;
+import net.minecraft.util.chat.Formatting;
 import net.minecraft.util.HttpUtil;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.chat.Formatting;
 import net.radiant.util.NativeImage;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -25,20 +25,30 @@ import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.image.BufferedImage;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
+import java.nio.file.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class ResourcePackRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(ResourcePackRepository.class);
+
     private static final FileFilter RESOURCE_PACK_FILTER = p_accept_1_ -> {
         boolean flag = p_accept_1_.isFile() && p_accept_1_.getName().endsWith(".zip");
         boolean flag1 = p_accept_1_.isDirectory() && (new File(p_accept_1_, "pack.mcmeta")).isFile();
         return flag || flag1;
     };
+
     private final File dirResourcepacks;
     public final IResourcePack rprDefaultResourcePack;
     private final File dirServerResourcepacks;
@@ -49,12 +59,29 @@ public class ResourcePackRepository {
     private List<Entry> repositoryEntriesAll = new ArrayList<>();
     public final List<Entry> repositoryEntries = new ArrayList<>();
 
+    private static final ExecutorService ASYNC_EXECUTOR = Executors.newCachedThreadPool(r -> {
+        Thread thread = new Thread(r, "ResourcePackLoader");
+        thread.setDaemon(true);
+        return thread;
+    });
+
+    private volatile boolean isLoading = false;
+    private CompletableFuture<Void> currentLoadOperation = null;
+
+    private final Map<String, CachedResourcePack> packCache = new ConcurrentHashMap<>();
+    private final AtomicLong lastCacheUpdate = new AtomicLong(0);
+    private final AtomicBoolean cacheValid = new AtomicBoolean(false);
+    private WatchService fileWatcher;
+    private WatchKey watchKey;
+    private final Object cacheLock = new Object();
+
     public ResourcePackRepository(File dirResourcepacksIn, File dirServerResourcepacksIn, IResourcePack rprDefaultResourcePackIn, IMetadataSerializer rprMetadataSerializerIn, GameSettings settings) {
         this.dirResourcepacks = dirResourcepacksIn;
         this.dirServerResourcepacks = dirServerResourcepacksIn;
         this.rprDefaultResourcePack = rprDefaultResourcePackIn;
         this.rprMetadataSerializer = rprMetadataSerializerIn;
         this.fixDirResourcepacks();
+        this.initializeFileWatcher();
         this.updateRepositoryEntriesAll();
         Iterator<String> iterator = settings.resourcePacks.iterator();
 
@@ -99,8 +126,10 @@ public class ResourcePackRepository {
                 try {
                     resourcepackrepository$entry.updateResourcePack();
                     list.add(resourcepackrepository$entry);
+
+                    cacheResourcePackEntry(file1, resourcepackrepository$entry);
                 } catch (Exception exception) {
-                    list.remove(resourcepackrepository$entry);
+                    cacheResourcePackEntry(file1, null);
                 }
             } else {
                 int i = this.repositoryEntriesAll.indexOf(resourcepackrepository$entry);
@@ -118,6 +147,147 @@ public class ResourcePackRepository {
         }
 
         this.repositoryEntriesAll = list;
+    }
+
+    private void cacheResourcePackEntry(File file, Entry entry) {
+        String fileKey = file.getAbsolutePath();
+        long currentTime = System.currentTimeMillis();
+        long fileLastModified = file.lastModified();
+
+        synchronized (cacheLock) {
+            CachedResourcePack cached = new CachedResourcePack(
+                    entry,
+                    fileLastModified,
+                    currentTime,
+                    entry != null
+            );
+            packCache.put(fileKey, cached);
+        }
+
+        if (entry == null) {
+            LOGGER.debug("Cached failed resource pack: {}", file.getName());
+        }
+    }
+
+    public CompletableFuture<Void> loadFromCacheAndCheckChanges() {
+        return CompletableFuture.runAsync(() -> {
+            LOGGER.debug("Loading resource packs from cache and checking for changes");
+
+            List<Entry> cachedEntries = new ArrayList<>();
+            List<File> currentFiles = this.getResourcePackFiles();
+
+            for (File file : currentFiles) {
+                String fileKey = file.getAbsolutePath();
+                CachedResourcePack cached = packCache.get(fileKey);
+
+                if (cached != null) {
+                    if (cached.lastModified == file.lastModified()) {
+                        if (cached.isValid && cached.entry != null) {
+                            cachedEntries.add(cached.entry);
+                        }
+                    } else {
+                        packCache.remove(fileKey);
+                    }
+                }
+            }
+
+            synchronized (this) {
+                this.repositoryEntriesAll.removeAll(cachedEntries);
+                for (Entry entry : this.repositoryEntriesAll) {
+                    entry.closeResourcePack();
+                }
+                this.repositoryEntriesAll = cachedEntries;
+            }
+
+            Set<String> currentFileKeys = new HashSet<>();
+            for (File file : currentFiles) {
+                currentFileKeys.add(file.getAbsolutePath());
+            }
+
+            Set<String> keysToRemove = new HashSet<>();
+            for (String fileKey : packCache.keySet()) {
+                if (!currentFileKeys.contains(fileKey)) {
+                    keysToRemove.add(fileKey);
+                }
+            }
+
+            synchronized (cacheLock) {
+                for (String key : keysToRemove) {
+                    packCache.remove(key);
+                }
+            }
+
+            for (File file : currentFiles) {
+                String fileKey = file.getAbsolutePath();
+                if (!packCache.containsKey(fileKey)) {
+                    try {
+                        Entry entry = new Entry(file);
+                        entry.updateResourcePack();
+                        cacheResourcePackEntry(file, entry);
+
+                        synchronized (this) {
+                            if (!this.repositoryEntriesAll.contains(entry)) {
+                                this.repositoryEntriesAll.add(entry);
+                            }
+                        }
+                    } catch (Exception e) {
+                        LOGGER.warn("Failed to load new resource pack: {}", file.getName(), e);
+                    }
+                }
+            }
+
+        }, ASYNC_EXECUTOR);
+    }
+
+    public CompletableFuture<Void> updateRepositoryEntriesAllAsync() {
+        return CompletableFuture.runAsync(() -> {
+            List<Entry> list = new ArrayList<>();
+            List<File> resourcePackFiles = this.getResourcePackFiles();
+
+            for (File file1 : resourcePackFiles) {
+                Entry resourcepackrepository$entry = new Entry(file1);
+
+                if (!this.repositoryEntriesAll.contains(resourcepackrepository$entry)) {
+                    try {
+                        resourcepackrepository$entry.updateResourcePack();
+                        list.add(resourcepackrepository$entry);
+
+                        cacheResourcePackEntry(file1, resourcepackrepository$entry);
+                    } catch (Exception exception) {
+                        LOGGER.warn("Failed to update resource pack entry: {}", file1.getName(), exception);
+                        cacheResourcePackEntry(file1, null);
+                    }
+                } else {
+                    int i = this.repositoryEntriesAll.indexOf(resourcepackrepository$entry);
+
+                    if (i > -1 && i < this.repositoryEntriesAll.size()) {
+                        list.add(this.repositoryEntriesAll.get(i));
+                    }
+                }
+            }
+
+            synchronized (this) {
+                this.repositoryEntriesAll.removeAll(list);
+
+                for (Entry resourcepackrepository$entry1 : this.repositoryEntriesAll) {
+                    resourcepackrepository$entry1.closeResourcePack();
+                }
+
+                this.repositoryEntriesAll = list;
+            }
+        }, ASYNC_EXECUTOR);
+    }
+
+    public boolean isLoading() {
+        return isLoading;
+    }
+
+    public void cancelLoading() {
+        if (currentLoadOperation != null) {
+            currentLoadOperation.cancel(true);
+            currentLoadOperation = null;
+        }
+        isLoading = false;
     }
 
     public List<Entry> getRepositoryEntriesAll() {
@@ -146,7 +316,7 @@ public class ResourcePackRepository {
             s = "legacy";
         }
 
-        File file1 = new File(this.dirServerResourcepacks, s);
+        final File file1 = new File(this.dirServerResourcepacks, s);
         this.lock.lock();
 
         try {
@@ -169,20 +339,18 @@ public class ResourcePackRepository {
             }
 
             this.deleteOldServerResourcesPacks();
-            GuiScreenWorking guiscreenworking = new GuiScreenWorking();
+            final GuiScreenWorking guiscreenworking = new GuiScreenWorking();
             Map<String, String> map = Minecraft.getSessionInfo();
-            Minecraft minecraft = Minecraft.get();
+            final Minecraft minecraft = Minecraft.get();
             Futures.getUnchecked(minecraft.addScheduledTask(() -> minecraft.displayGuiScreen(guiscreenworking)));
-            SettableFuture<Object> settablefuture = SettableFuture.create();
+            final SettableFuture<Object> settablefuture = SettableFuture.create();
             this.downloadingPacks = HttpUtil.downloadResourcePack(file1, url, map, 52428800, guiscreenworking, minecraft.getProxy());
             Futures.addCallback(this.downloadingPacks, new FutureCallback<>() {
-                @Override
                 public void onSuccess(Object p_onSuccess_1_) {
                     ResourcePackRepository.this.setResourcePackInstance(file1);
                     settablefuture.set(null);
                 }
 
-                @Override
                 public void onFailure(Throwable throwable) {
                     settablefuture.setException(throwable);
                 }
@@ -251,8 +419,7 @@ public class ResourcePackRepository {
 
             try {
                 this.texturePackIcon = this.reResourcePack.getPackImage();
-            } catch (IOException _) {
-            }
+            } catch (IOException ignored) {}
 
             if (this.texturePackIcon == null) {
                 this.texturePackIcon = ResourcePackRepository.this.rprDefaultResourcePack.getPackImage();
@@ -291,19 +458,159 @@ public class ResourcePackRepository {
             return this.rePackMetadataSection.getPackFormat();
         }
 
-        @Override
         public boolean equals(Object p_equals_1_) {
             return this == p_equals_1_ || (p_equals_1_ instanceof Entry && this.toString().equals(p_equals_1_.toString()));
         }
 
-        @Override
         public int hashCode() {
             return this.toString().hashCode();
         }
 
-        @Override
         public String toString() {
             return String.format("%s:%s:%d", this.resourcePackFile.getName(), this.resourcePackFile.isDirectory() ? "folder" : "zip", this.resourcePackFile.lastModified());
+        }
+    }
+
+    private record CachedResourcePack(Entry entry, long lastModified, long cacheTime, boolean isValid) {
+
+        boolean isStale(long currentTime, long maxCacheAge) {
+            return !isValid || (currentTime - cacheTime) > maxCacheAge;
+        }
+    }
+
+    private void initializeFileWatcher() {
+        try {
+            this.fileWatcher = FileSystems.getDefault().newWatchService();
+            Path resourcePackPath = this.dirResourcepacks.toPath();
+
+            if (resourcePackPath.toFile().isDirectory()) {
+                this.watchKey = resourcePackPath.register(
+                        fileWatcher,
+                        StandardWatchEventKinds.ENTRY_CREATE,
+                        StandardWatchEventKinds.ENTRY_DELETE,
+                        StandardWatchEventKinds.ENTRY_MODIFY
+                );
+
+                ASYNC_EXECUTOR.submit(this::monitorFileChanges);
+            }
+        } catch (IOException e) {
+            LOGGER.warn("Failed to initialize file watcher for resource packs", e);
+        }
+    }
+
+    private void monitorFileChanges() {
+        while (watchKey != null && watchKey.isValid()) {
+            try {
+                WatchKey key = fileWatcher.take();
+
+                for (WatchEvent<?> event : key.pollEvents()) {
+                    WatchEvent.Kind<?> kind = event.kind();
+
+                    if (kind == StandardWatchEventKinds.OVERFLOW) {
+                        continue;
+                    }
+
+                    @SuppressWarnings("unchecked")
+                    WatchEvent<Path> ev = (WatchEvent<Path>) event;
+                    Path filename = ev.context();
+                    Path child = ((Path) key.watchable()).resolve(filename);
+
+                    if (isResourcePackFile(child.toFile())) {
+                        LOGGER.debug("Resource pack file changed: {}", filename);
+                        invalidateCache();
+                    }
+                }
+
+                boolean valid = key.reset();
+                if (!valid) {
+                    break;
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                break;
+            } catch (Exception e) {
+                LOGGER.warn("Error monitoring file changes", e);
+            }
+        }
+    }
+
+    private boolean isResourcePackFile(File file) {
+        return RESOURCE_PACK_FILTER.accept(file);
+    }
+
+    private void invalidateCache() {
+        synchronized (cacheLock) {
+            cacheValid.set(false);
+            packCache.clear();
+            lastCacheUpdate.set(0);
+        }
+    }
+
+    public boolean isCacheValid() {
+        long currentTime = System.currentTimeMillis();
+        long maxCacheAge = 300000; // 5 minutes cache validity (longer since we pre-load)
+
+        return cacheValid.get() &&
+                !packCache.isEmpty() &&
+                (currentTime - lastCacheUpdate.get()) < maxCacheAge;
+    }
+
+    private Entry getCachedResourcePack(File file) {
+        String fileKey = file.getAbsolutePath();
+        long currentTime = System.currentTimeMillis();
+        long fileLastModified = file.lastModified();
+
+        synchronized (cacheLock) {
+            CachedResourcePack cached = packCache.get(fileKey);
+
+            if (cached != null &&
+                    !cached.isStale(currentTime, 30000) &&
+                    cached.lastModified == fileLastModified) {
+                return cached.entry;
+            }
+
+            try {
+                Entry entry = new Entry(file);
+                entry.updateResourcePack();
+
+                CachedResourcePack newCached = new CachedResourcePack(
+                        entry,
+                        fileLastModified,
+                        currentTime,
+                        true
+                );
+
+                packCache.put(fileKey, newCached);
+                return entry;
+            } catch (Exception e) {
+                LOGGER.warn("Failed to load resource pack: {}", file.getName(), e);
+                CachedResourcePack failedCached = new CachedResourcePack(
+                        null,
+                        fileLastModified,
+                        currentTime,
+                        false
+                );
+                packCache.put(fileKey, failedCached);
+                return null;
+            }
+        }
+    }
+
+    public void cleanup() {
+        if (fileWatcher != null) {
+            try {
+                fileWatcher.close();
+            } catch (IOException e) {
+                LOGGER.warn("Failed to close file watcher", e);
+            }
+        }
+
+        if (watchKey != null) {
+            watchKey.cancel();
+        }
+
+        synchronized (cacheLock) {
+            packCache.clear();
         }
     }
 }
