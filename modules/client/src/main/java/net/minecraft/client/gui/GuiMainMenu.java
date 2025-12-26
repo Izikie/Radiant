@@ -1,5 +1,6 @@
 package net.minecraft.client.gui;
 
+import com.mojang.util.UUIDTypeAdapter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -9,12 +10,16 @@ import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Session;
 import net.minecraft.util.chat.Formatting;
 import net.minecraft.util.math.MathHelper;
 import net.optifine.CustomPanorama;
 import net.optifine.CustomPanoramaProperties;
 import net.radiant.MicrosoftAuth;
 import net.radiant.lwjgl.opengl.GLContext;
+import net.radiant.openauth.microsoft.MicrosoftAuthResult;
+import net.radiant.openauth.microsoft.MicrosoftAuthenticationException;
+import net.radiant.openauth.microsoft.MicrosoftAuthenticator;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
@@ -25,6 +30,8 @@ import java.io.InputStreamReader;
 import java.nio.FloatBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
     private static final Random RANDOM = new Random();
@@ -49,6 +56,14 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
     private ResourceLocation backgroundTexture;
     private final boolean field_183502_L;
     private GuiScreen field_183503_M;
+
+    private final MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
+    private final Executor executor = Executors.newFixedThreadPool(1,
+            r -> Thread.ofPlatform()
+                    .name("Account Thread")
+                    .factory()
+                    .newThread(r)
+    );
 
     public GuiMainMenu() {
         this.openGLWarning2 = field_96138_a;
@@ -171,7 +186,27 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         }
 
         if (button.id == 14) {
-            this.mc.displayGuiScreen(new MicrosoftAuth(this));
+            executor.execute(() -> {
+                MicrosoftAuthResult result;
+
+                try {
+                    result = this.authenticator.loginWithWebview();
+                } catch (MicrosoftAuthenticationException e) {
+                    throw new RuntimeException(e);
+                }
+
+                if (result == null)
+                    return;
+
+                Minecraft.get().setSession(
+                        new Session(
+                                result.profile().name(),
+                                result.profile().id(),
+                                result.accessToken(),
+                                "MOJANG"
+                        )
+                );
+            });
         }
     }
 

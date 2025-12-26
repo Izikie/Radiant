@@ -7,6 +7,7 @@ val lwjglModules: List<String> by rootProject.extra
 val lwjglVer: String by rootProject.extra
 val nettyVer: String by rootProject.extra
 val slf4jVer: String by rootProject.extra
+val javafxVer: String by rootProject.extra
 
 dependencies {
     val nettyModules = listOf("netty-buffer", "netty-handler", "netty-transport", "netty-common", "netty-codec")
@@ -45,7 +46,35 @@ dependencies {
 
     impl(group = "net.sf.jopt-simple", name = "jopt-simple", version = "5.0.4")
 
-    impl(group = "fr.litarvan", name = "openauth", version = "1.1.6")
+//    impl(group = "fr.litarvan", name = "openauth", version = "1.1.6")
+
+    // JavaFX
+    val osClassifier = when {
+        org.gradle.internal.os.OperatingSystem.current().isWindows -> "win"
+        org.gradle.internal.os.OperatingSystem.current().isLinux -> "linux"
+        org.gradle.internal.os.OperatingSystem.current().isMacOsX -> {
+            if (System.getProperty("os.arch") == "aarch64") "mac-aarch64" else "mac"
+        }
+        else -> error("Unsupported OS for JavaFX")
+    }
+
+    val javafxModules = listOf(
+        "javafx-base",
+        "javafx-controls",
+        "javafx-graphics",
+        "javafx-swing",
+        "javafx-web",
+        "javafx-media"
+    )
+
+    javafxModules.forEach {
+        impl(
+            group = "org.openjfx",
+            name = it,
+            version = javafxVer,
+            classifier = osClassifier
+        )
+    }
 
     impl(group = "it.unimi.dsi", name = "fastutil", version = "8.5.16")
 

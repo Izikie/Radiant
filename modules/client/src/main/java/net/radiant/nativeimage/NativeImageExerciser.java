@@ -2,13 +2,6 @@ package net.radiant.nativeimage;
 
 import com.google.gson.Gson;
 import com.mojang.authlib.yggdrasil.response.*;
-import fr.litarvan.openauth.microsoft.model.request.MinecraftLoginRequest;
-import fr.litarvan.openauth.microsoft.model.request.XSTSAuthorizationProperties;
-import fr.litarvan.openauth.microsoft.model.request.XboxLiveLoginProperties;
-import fr.litarvan.openauth.microsoft.model.request.XboxLoginRequest;
-import fr.litarvan.openauth.microsoft.model.response.*;
-import fr.litarvan.openauth.model.request.*;
-import fr.litarvan.openauth.model.response.AuthResponse;
 import io.netty.channel.AbstractChannel;
 import io.netty.channel.epoll.EpollServerSocketChannel;
 import io.netty.channel.epoll.EpollSocketChannel;
@@ -29,6 +22,13 @@ import net.minecraft.world.gen.structure.MapGenStructureData;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraft.world.storage.MapData;
 import net.minecraft.world.village.VillageCollection;
+import net.radiant.openauth.microsoft.model.request.MinecraftLoginRequest;
+import net.radiant.openauth.microsoft.model.request.XSTSAuthorizationProperties;
+import net.radiant.openauth.microsoft.model.request.XboxLiveLoginProperties;
+import net.radiant.openauth.microsoft.model.request.XboxLoginRequest;
+import net.radiant.openauth.microsoft.model.response.*;
+import net.radiant.openauth.model.request.*;
+import net.radiant.openauth.model.response.AuthResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

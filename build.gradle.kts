@@ -1,6 +1,7 @@
 extra["slf4jVer"] = project.property("slf4j_version") as String
 extra["nettyVer"] = project.property("netty_version") as String
 extra["lwjglVer"] = project.property("lwjgl_version") as String
+extra["javafxVer"] = project.property("javafx_version") as String
 extra["lwjglNatives"] = rootProject.extra["lwjgl_natives"] as String
 
 group = "com.github.izikie"
