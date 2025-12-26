@@ -102,6 +102,10 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
         }
     }
 
+    public String getName() {
+        return this.func_148312_b();
+    }
+
     protected abstract int func_183019_a();
 
     protected abstract String func_148311_a();
