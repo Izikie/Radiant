@@ -1,12 +1,15 @@
 package net.minecraft.client.gui.resourcepack.api;
 
+import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiListExtended;
+import net.minecraft.client.gui.resourcepack.GuiScreenResourcePacks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.resources.ResourcePackListEntry;
 import net.minecraft.util.chat.Formatting;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public abstract class GuiResourcePackList extends GuiListExtended {
     protected final List<ResourcePackListEntry> packs;
@@ -27,7 +30,19 @@ public abstract class GuiResourcePackList extends GuiListExtended {
     protected abstract String getListHeader();
 
     public List<ResourcePackListEntry> getList() {
-        return this.packs;
+        final List<ResourcePackListEntry> packs = Lists.newCopyOnWriteArrayList(this.packs);
+
+        if (this instanceof GuiResourcePackAvailable && !GuiScreenResourcePacks.searchBox.getText().isBlank()) {
+            final Predicate<ResourcePackListEntry> filter = new ResourcePackFilter(GuiScreenResourcePacks.searchBox.getText());
+
+            for (ResourcePackListEntry pack : this.packs) {
+                if (!filter.test(pack)) {
+                    packs.remove(pack);
+                }
+            }
+        }
+
+        return packs;
     }
 
     @Override
