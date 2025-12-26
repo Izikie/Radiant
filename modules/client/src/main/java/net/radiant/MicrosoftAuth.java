@@ -1,14 +1,14 @@
 package net.radiant;
 
-import fr.litarvan.openauth.microsoft.MicrosoftAuthResult;
-import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
-import fr.litarvan.openauth.microsoft.MicrosoftAuthenticator;
-import fr.litarvan.openauth.microsoft.model.response.MinecraftProfile;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.Session;
+import net.radiant.openauth.microsoft.MicrosoftAuthResult;
+import net.radiant.openauth.microsoft.MicrosoftAuthenticationException;
+import net.radiant.openauth.microsoft.MicrosoftAuthenticator;
+import net.radiant.openauth.microsoft.model.response.MinecraftProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,16 +91,16 @@ public class MicrosoftAuth extends GuiScreen {
                 MicrosoftAuthResult result = AUTHENTICATOR.loginWithCredentials(username.getText(), password.getText());
 
                 if (result != null) {
-                    MinecraftProfile profile = result.getProfile();
+                    MinecraftProfile profile = result.profile();
 
                     mc.setSession(new Session(
-                            profile.getName(),
-                            profile.getId(),
-                            result.getAccessToken(),
+                            profile.name(),
+                            profile.id(),
+                            result.accessToken(),
                             "MICROSOFT"));
 
-                    LOGGER.info("Logged in as: {}", profile.getName());
-                    status = "Logged in as " + profile.getName();
+                    LOGGER.info("Logged in as: {}", profile.name());
+                    status = "Logged in as " + profile.name();
                 } else {
                     status = "Login failed";
                     LOGGER.error("Login failed, result is null");
