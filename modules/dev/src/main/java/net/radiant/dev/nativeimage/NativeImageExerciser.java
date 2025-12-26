@@ -4,15 +4,6 @@ import com.google.gson.Gson;
 import com.mojang.authlib.yggdrasil.request.RefreshRequest;
 import com.mojang.authlib.yggdrasil.request.ValidateRequest;
 import com.mojang.authlib.yggdrasil.response.*;
-import fr.litarvan.openauth.microsoft.model.request.MinecraftLoginRequest;
-import fr.litarvan.openauth.microsoft.model.request.XSTSAuthorizationProperties;
-import fr.litarvan.openauth.microsoft.model.request.XboxLiveLoginProperties;
-import fr.litarvan.openauth.microsoft.model.request.XboxLoginRequest;
-import fr.litarvan.openauth.microsoft.model.response.*;
-import fr.litarvan.openauth.model.request.AuthRequest;
-import fr.litarvan.openauth.model.request.InvalidateRequest;
-import fr.litarvan.openauth.model.request.SignoutRequest;
-import fr.litarvan.openauth.model.response.AuthResponse;
 import io.netty.channel.AbstractChannel;
 import io.netty.channel.epoll.EpollServerSocketChannel;
 import io.netty.channel.epoll.EpollSocketChannel;
@@ -22,7 +13,6 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.network.NetworkState;
 import net.minecraft.scoreboard.ScoreboardSaveData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.Difficulty;
@@ -59,18 +49,15 @@ public class NativeImageExerciser {
             return;
         }
 
-        LOGGER.info("Exercising classes");
+        LOGGER.info("Running native-image exerciser, for more info see: https://www.graalvm.org/jdk25/reference-manual/native-image/metadata/AutomaticMetadataCollection/");
 
         loadAllResources();
         loadGsonClasses();
         loadAllEntityClasses();
 
         if (resourceCount < 256) {
-            throw new RuntimeException("Not enough resources exercised. Are you running in the right directory?");
+            throw new FailedExerciseException("Not enough resources exercised. Are you running in the right directory?");
         }
-
-        // These load packets reflectively on clinit, <3 final
-        NetworkState.getById(0);
     }
 
     private static void loadGsonClasses() {
@@ -90,25 +77,8 @@ public class NativeImageExerciser {
                 RefreshResponse.class,
                 User.class,
 
-                MinecraftLoginRequest.class,
-                XboxLiveLoginProperties.class,
-                XboxLoginRequest.class,
-                XSTSAuthorizationProperties.class,
-                MicrosoftRefreshResponse.class,
-                MinecraftLoginResponse.class,
-                MinecraftProfile.class,
-                MinecraftProfile.MinecraftSkin.class,
-                MinecraftStoreResponse.class,
-                MinecraftStoreResponse.StoreProduct.class,
-                XboxLoginResponse.class,
-                XboxLoginResponse.XboxLiveLoginResponseClaims.class,
-                XboxLoginResponse.XboxLiveUserInfo.class,
-                AuthRequest.class,
-                InvalidateRequest.class,
                 RefreshRequest.class,
-                SignoutRequest.class,
                 ValidateRequest.class,
-                AuthResponse.class,
                 RefreshResponse.class
         ));
 
@@ -118,8 +88,8 @@ public class NativeImageExerciser {
                 Object o = tryConstruct(clazz);
                 gson.fromJson(gson.toJson(o), clazz);
                 ++loaded;
-            } catch (Throwable throwable) {
-                throw new RuntimeException("Couldn't exercise: " + clazz.getName(), throwable);
+            } catch (Exception e) {
+                throw new FailedExerciseException("Failed exercise: " + clazz.getName(), e);
             }
         }
 
@@ -143,6 +113,7 @@ public class NativeImageExerciser {
                         paramsList.add(null);
                     }
                 }
+
                 Object[] params = paramsList.toArray(Object[]::new);
                 return constructor.newInstance(params);
             } catch (ReflectiveOperationException _) {
@@ -158,36 +129,40 @@ public class NativeImageExerciser {
 
         for (Class<? extends AbstractChannel> aClass : nio) {
             Constructor<?>[] constructors = aClass.getConstructors();
+
             for (Constructor<?> constructor : constructors) {
                 try {
                     constructor.newInstance(new Object[constructor.getParameterCount()]);
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException _) {
                     //new RuntimeException(e).printStackTrace();
-                } catch (Throwable _) {
+                } catch (Exception _) {
                     // Ignore
                     LOGGER.warn("Woke {} up but had error", aClass.getName());
                 }
             }
         }
+
         wakeUpClassCollection(TileEntity.nameToClassMap.values(), count);
         wakeUpClassCollection(MapGenStructureIO.startNameToClassMap.values(), count);
         wakeUpClassCollection(MapGenStructureIO.componentClassToNameMap.keySet(), count);
         wakeUpClassCollection(MapGenStructureIO.startClassToNameMap.keySet(), count);
         wakeUpClassCollection(MapGenStructureIO.componentNameToClassMap.values(), count);
         wakeUpEntityCollection(EntityList.classToIDMapping.keySet(), count);
-        wakeUpConstructor(count, VillageCollection.class, "");
-        wakeUpConstructor(count, MapGenStructureData.class, "");
-        wakeUpConstructor(count, MapData.class, "");
-        wakeUpConstructor(count, ScoreboardSaveData.class, "");
+        wakeUpConstructor(count, VillageCollection.class);
+        wakeUpConstructor(count, MapGenStructureData.class);
+        wakeUpConstructor(count, MapData.class);
+        wakeUpConstructor(count, ScoreboardSaveData.class);
         LOGGER.info("Woke {} classes up", count.get());
     }
 
     private static void wakeUpEntityCollection(Set<Class<? extends Entity>> classes, AtomicInteger count) {
         WorldClient worldClient = new WorldClient(null, new WorldSettings(0, WorldSettings.GameType.SURVIVAL, true, true, WorldType.DEFAULT), 0, Difficulty.HARD);
+
         for (Class<? extends Entity> value : classes) {
             if (Modifier.isAbstract(value.getModifiers())) {
                 continue;
             }
+
             try {
                 Constructor<? extends Entity> constructor = value.getConstructor(World.class);
                 constructor.setAccessible(true);
@@ -196,6 +171,7 @@ public class NativeImageExerciser {
                      InvocationTargetException e) {
                 throw new RuntimeException("Waking up " + value.getName(), e);
             }
+
             count.incrementAndGet();
         }
     }
@@ -204,19 +180,19 @@ public class NativeImageExerciser {
         for (Class<?> clazz : values) {
             try {
                 clazz.getDeclaredConstructor().newInstance();
-            } catch (Throwable e) {
+            } catch (Exception e) {
                 throw new RuntimeException("Waking up " + clazz.getName(), e);
             }
             count.incrementAndGet();
         }
     }
 
-    private static void wakeUpConstructor(AtomicInteger count, Class<?> clazz, Object... args) {
+    private static void wakeUpConstructor(AtomicInteger count, Class<?> clazz) {
         try {
-            Class<?>[] params = Arrays.stream(args).map(Object::getClass).toArray(Class[]::new);
+            Class<?>[] params = Arrays.stream(new Object[]{""}).map(Object::getClass).toArray(Class[]::new);
             Constructor<?> constructor = clazz.getDeclaredConstructor(params);
-            constructor.newInstance(args);
-        } catch (Throwable throwable) {
+            constructor.newInstance("");
+        } catch (Exception throwable) {
             throw new RuntimeException("Waking up " + clazz.getName(), throwable);
         }
 
