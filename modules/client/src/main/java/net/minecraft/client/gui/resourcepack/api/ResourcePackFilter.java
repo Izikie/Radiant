@@ -4,12 +4,6 @@ import net.minecraft.client.resources.ResourcePackListEntry;
 
 import java.util.function.Predicate;
 
-/**
- * @author Mediacy
- * Thursday 16 October @ 13:58
- * LunarClient
- */
-
 public class ResourcePackFilter implements Predicate<ResourcePackListEntry> {
 
     private final String buffer;
