@@ -1,12 +1,21 @@
 import org.gradle.internal.os.OperatingSystem
 
+plugins {
+    id("org.openjfx.javafxplugin") version "0.1.0"
+}
+
 val lwjglVer: String by rootProject.extra
 val lwjglModules: List<String> by rootProject.extra
 val lwjglNatives: String by rootProject.extra
+val javafxVer: String by rootProject.extra
 
 val lwjglExtract: Configuration by configurations.creating {
     isCanBeResolved = true
     isCanBeConsumed = false
+}
+
+javafx {
+    modules("javafx.base", "javafx.controls", "javafx.graphics", "javafx.swing", "javafx.web", "javafx.media")
 }
 
 dependencies {
@@ -16,6 +25,29 @@ dependencies {
         val notation = "org.lwjgl:$module:$lwjglVer:$lwjglNatives"
         runtimeOnly(notation)
         lwjglExtract(notation)
+    }
+
+    val osClassifier = when {
+        OperatingSystem.current().isWindows -> "win"
+        OperatingSystem.current().isLinux -> "linux"
+        OperatingSystem.current().isMacOsX -> {
+            if (System.getProperty("os.arch") == "aarch64") "mac-aarch64" else "mac"
+        }
+
+        else -> error("Unsupported OS for JavaFX")
+    }
+
+    val javafxModules = listOf(
+        "javafx-base",
+        "javafx-controls",
+        "javafx-graphics",
+        "javafx-swing",
+        "javafx-web",
+        "javafx-media"
+    )
+
+    javafxModules.forEach {
+        implementation("org.openjfx:$it:$javafxVer:$osClassifier")
     }
 }
 
@@ -42,7 +74,7 @@ tasks.withType<JavaExec>().configureEach {
 
     workingDir = rootProject.file("run")
     classpath = sourceSets["main"].runtimeClasspath
-    mainClass.set("net.radiant.start.DevStart")
+    mainClass.set("net.radiant.dev.start.LaunchWrapper")
 
     args(
         "--gameDir", minecraftDir,

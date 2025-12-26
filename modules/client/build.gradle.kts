@@ -1,35 +1,9 @@
-import org.gradle.internal.os.OperatingSystem
-
 val lwjglModules: List<String> by rootProject.extra
 val lwjglVer: String by rootProject.extra
 val nettyVer: String by rootProject.extra
 val slf4jVer: String by rootProject.extra
-val javafxVer: String by rootProject.extra
 
 dependencies {
-    val osClassifier = when {
-        OperatingSystem.current().isWindows -> "win"
-        OperatingSystem.current().isLinux -> "linux"
-        OperatingSystem.current().isMacOsX -> {
-            if (System.getProperty("os.arch") == "aarch64") "mac-aarch64" else "mac"
-        }
-
-        else -> error("Unsupported OS for JavaFX")
-    }
-
-    val javafxModules = listOf(
-        "javafx-base",
-        "javafx-controls",
-        "javafx-graphics",
-        "javafx-swing",
-        "javafx-web",
-        "javafx-media"
-    )
-
-    javafxModules.forEach {
-        impl("org.openjfx:$it:$javafxVer:$osClassifier")
-    }
-
     // --- Networking ---
     listOf("netty-buffer", "netty-handler", "netty-transport", "netty-common", "netty-codec").forEach { module ->
         impl("io.netty:$module:$nettyVer", transitive = true)
