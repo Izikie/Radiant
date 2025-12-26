@@ -1,31 +1,34 @@
-extra["slf4jVer"] = project.property("slf4j_version") as String
-extra["nettyVer"] = project.property("netty_version") as String
-extra["lwjglVer"] = project.property("lwjgl_version") as String
-extra["javafxVer"] = project.property("javafx_version") as String
-extra["lwjglNatives"] = rootProject.extra["lwjgl_natives"] as String
+plugins {
+    `java-library`
+}
 
 group = "com.github.izikie"
 version = "1.0"
 description = "Optimized Minecraft Java Client for 1.8.9"
 
-extra["lwjglModules"] = listOf(
-    "lwjgl", "lwjgl-glfw", "lwjgl-opengl", "lwjgl-openal", "lwjgl-stb"
-)
+extra["lwjglVer"] = project.property("lwjgl_version") as String
+extra["nettyVer"] = project.property("netty_version") as String
+extra["slf4jVer"] = project.property("slf4j_version") as String
+extra["javafxVer"] = project.property("javafx_version") as String
 
 subprojects {
-    apply(plugin = "java")
-    apply(plugin = "java-library")
+    apply<JavaLibraryPlugin>()
 
-    extensions.configure(JavaPluginExtension::class.java) {
+    configure<JavaPluginExtension> {
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(25))
         }
     }
 
+    tasks.withType<JavaCompile>().configureEach {
+        options.encoding = "UTF-8"
+        options.release.set(25)
+        options.isIncremental = true
+    }
+
     repositories {
         mavenCentral()
-        maven { url = uri("https://libraries.minecraft.net") }
-        maven { url = uri("https://litarvan.github.io/maven") }
+        maven("https://libraries.minecraft.net")
     }
 
     dependencies {
