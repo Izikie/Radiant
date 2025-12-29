@@ -239,6 +239,64 @@ public class ResourcePackRepository {
         }, ASYNC_EXECUTOR);
     }
 
+    public CompletableFuture<Void> loadFromCacheAndCheckChangesProgressive(java.util.function.Consumer<Entry> onEntryLoaded) {
+        return CompletableFuture.runAsync(() -> {
+            LOGGER.debug("Loading resource packs progressively from cache and checking for changes");
+
+            List<File> currentFiles = this.getResourcePackFiles();
+            List<Entry> loadedEntries = new ArrayList<>();
+
+            for (File file : currentFiles) {
+                String fileKey = file.getAbsolutePath();
+                CachedResourcePack cached = packCache.get(fileKey);
+
+                if (cached != null && cached.lastModified == file.lastModified()) {
+                    if (cached.isValid && cached.entry != null) {
+                        loadedEntries.add(cached.entry);
+                        // Notify immediately for cached entries
+                        onEntryLoaded.accept(cached.entry);
+                    }
+                } else if (cached != null) {
+                    packCache.remove(fileKey);
+                }
+            }
+
+            for (File file : currentFiles) {
+                String fileKey = file.getAbsolutePath();
+                if (!packCache.containsKey(fileKey)) {
+                    try {
+                        Entry entry = new Entry(file);
+                        entry.updateResourcePack();
+                        cacheResourcePackEntry(file, entry);
+                        loadedEntries.add(entry);
+                        onEntryLoaded.accept(entry);
+                    } catch (Exception e) {
+                        LOGGER.warn("Failed to load resource pack: {}", file.getName(), e);
+                        cacheResourcePackEntry(file, null);
+                    }
+                }
+            }
+
+            synchronized (this) {
+                this.repositoryEntriesAll.removeAll(loadedEntries);
+                for (Entry entry : this.repositoryEntriesAll) {
+                    entry.closeResourcePack();
+                }
+                this.repositoryEntriesAll = loadedEntries;
+            }
+
+            Set<String> currentFileKeys = new HashSet<>();
+            for (File file : currentFiles) {
+                currentFileKeys.add(file.getAbsolutePath());
+            }
+
+            synchronized (cacheLock) {
+                packCache.keySet().removeIf(key -> !currentFileKeys.contains(key));
+            }
+
+        }, ASYNC_EXECUTOR);
+    }
+
     public CompletableFuture<Void> updateRepositoryEntriesAllAsync() {
         return CompletableFuture.runAsync(() -> {
             List<Entry> list = new ArrayList<>();
