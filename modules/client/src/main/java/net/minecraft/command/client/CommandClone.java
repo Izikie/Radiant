@@ -138,7 +138,7 @@ public class CommandClone extends CommandBase {
                             list3.addAll(list);
                             list3.addAll(list1);
                             list3.addAll(list2);
-                            List<StaticCloneData> list4 = Lists.reverse(list3);
+                            List<StaticCloneData> list4 = list3.reversed();
 
                             for (StaticCloneData commandclone$staticclonedata : list4) {
                                 TileEntity tileentity2 = world.getTileEntity(commandclone$staticclonedata.pos);

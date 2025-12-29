@@ -1,4 +1,3 @@
-
 package net.minecraft.client.gui.resourcepack;
 
 import com.google.common.collect.Lists;
@@ -7,6 +6,7 @@ import net.minecraft.client.gui.resourcepack.api.GuiResourcePackAvailable;
 import net.minecraft.client.gui.resourcepack.api.GuiResourcePackSelected;
 import net.minecraft.client.resources.*;
 import net.minecraft.util.Util;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
@@ -17,6 +17,8 @@ import java.util.concurrent.CompletableFuture;
 
 // TODO: Implement sorting by search, A-Z, Z-A
 public class GuiScreenResourcePacks extends GuiScreen {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(GuiScreenResourcePacks.class);
 
     private final GuiScreen parentScreen;
     private final List<ResourcePackListEntry> availableResourcePacks = new ArrayList<>();
@@ -32,6 +34,7 @@ public class GuiScreenResourcePacks extends GuiScreen {
         this.parentScreen = parentScreen;
     }
 
+    @Override
     public void initGui() {
         this.buttonList.add(new GuiButton(0, this.width / 2 - 204, this.height - 26, 30, 20, "A-Z"));
         this.buttonList.add(new GuiButton(1, this.width / 2 - 204 + 34, this.height - 26, 30, 20, "Z-A"));
@@ -53,33 +56,30 @@ public class GuiScreenResourcePacks extends GuiScreen {
         if (isLoading) {
             return;
         }
-        
+
         this.isLoading = true;
         this.availableResourcePacks.clear();
         this.selectedResourcePacks.clear();
 
         this.selectedResourcePacks.add(new ResourcePackListEntryDefault(this));
         setupResourcePackLists();
-        
+
         if (loadingFuture != null) {
             loadingFuture.cancel(true);
         }
 
         ResourcePackRepository repository = this.mc.getResourcePackRepository();
-        loadingFuture = repository.loadFromCacheAndCheckChangesProgressive(entry -> {
-            this.mc.addScheduledTask(() -> addResourcePackEntry(entry));
-        }).thenRun(() -> {
-            this.mc.addScheduledTask(() -> {
-                this.isLoading = false;
-            });
-        }).exceptionally(throwable -> {
-            LoggerFactory.getLogger(GuiScreenResourcePacks.class).warn("Cache loading failed, falling back to sync", throwable);
-            this.mc.addScheduledTask(() -> {
-                loadResourcePacksSync();
-                this.isLoading = false;
-            });
-            return null;
-        });
+        loadingFuture = repository
+                .loadFromCacheAndCheckChangesProgressive(entry -> this.mc.addScheduledTask(() -> addResourcePackEntry(entry)))
+                .thenRun(() -> this.mc.addScheduledTask(() -> this.isLoading = false))
+                .exceptionally(throwable -> {
+                    LOGGER.warn("Cache loading failed, falling back to sync", throwable);
+                    this.mc.addScheduledTask(() -> {
+                        loadResourcePacksSync();
+                        this.isLoading = false;
+                    });
+                    return null;
+                });
     }
 
     private void addResourcePackEntry(ResourcePackRepository.Entry entry) {
@@ -87,7 +87,7 @@ public class GuiScreenResourcePacks extends GuiScreen {
 
         List<ResourcePackRepository.Entry> selectedEntries = this.mc.getResourcePackRepository().getRepositoryEntries();
         if (selectedEntries.contains(entry)) {
-            List<ResourcePackRepository.Entry> correctOrder = Lists.reverse(selectedEntries);
+            List<ResourcePackRepository.Entry> correctOrder = selectedEntries.reversed();
             int myIndex = correctOrder.indexOf(entry);
 
             boolean inserted = false;
@@ -95,9 +95,8 @@ public class GuiScreenResourcePacks extends GuiScreen {
             for (int i = 0; i < this.selectedResourcePacks.size(); i++) {
                 ResourcePackListEntry existing = this.selectedResourcePacks.get(i);
 
-                if (existing instanceof ResourcePackListEntryFound) {
-                    ResourcePackRepository.Entry existingEntry = ((ResourcePackListEntryFound) existing)
-                            .func_148318_i();
+                if (existing instanceof ResourcePackListEntryFound existingFound) {
+                    ResourcePackRepository.Entry existingEntry = existingFound.func_148318_i();
                     int otherIndex = correctOrder.indexOf(existingEntry);
 
                     if (otherIndex > myIndex) {
@@ -119,13 +118,13 @@ public class GuiScreenResourcePacks extends GuiScreen {
             this.availableResourcePacks.add(listEntry);
         }
     }
-    
+
     private void loadResourcePacksSync() {
         ResourcePackRepository resourcePackRepository = this.mc.getResourcePackRepository();
         resourcePackRepository.updateRepositoryEntriesAll();
         populateResourcePackLists();
     }
-    
+
     private void populateResourcePackLists() {
         ResourcePackRepository resourcePackRepository = this.mc.getResourcePackRepository();
         List<ResourcePackRepository.Entry> allEntries = new ArrayList<>(resourcePackRepository.getRepositoryEntriesAll());
@@ -135,12 +134,12 @@ public class GuiScreenResourcePacks extends GuiScreen {
             this.availableResourcePacks.add(new ResourcePackListEntryFound(this, entry));
         }
 
-        for (ResourcePackRepository.Entry entry : Lists.reverse(resourcePackRepository.getRepositoryEntries())) {
+        for (ResourcePackRepository.Entry entry : resourcePackRepository.getRepositoryEntries().reversed()) {
             this.selectedResourcePacks.add(new ResourcePackListEntryFound(this, entry));
         }
 
         this.selectedResourcePacks.add(new ResourcePackListEntryDefault(this));
-        
+
         setupResourcePackLists();
     }
 
@@ -155,8 +154,9 @@ public class GuiScreenResourcePacks extends GuiScreen {
     }
 
     private void applyResourcePackChanges() {
-        if (!this.changed)
+        if (!this.changed) {
             return;
+        }
 
         List<ResourcePackRepository.Entry> entries = new ArrayList<>();
         for (ResourcePackListEntry entry : this.selectedResourcePacks) {
@@ -193,9 +193,11 @@ public class GuiScreenResourcePacks extends GuiScreen {
         searchBox.textboxKeyTyped(typedChar, keyCode);
     }
 
+    @Override
     protected void actionPerformed(GuiButton button) throws IOException {
-        if (!button.enabled)
+        if (!button.enabled) {
             return;
+        }
 
         switch (button.id) {
             case 0 -> { // Sort A-Z
@@ -208,9 +210,8 @@ public class GuiScreenResourcePacks extends GuiScreen {
                     loadResourcePacks();
                 }
             }
-            case 3 -> { // Open Resource Pack Folder
-                Util.openFolder(mc.getResourcePackRepository().getDirResourcepacks());
-            }
+            // Open Resource Pack Folder
+            case 3 -> Util.openFolder(mc.getResourcePackRepository().getDirResourcepacks());
             case 4 -> { // Done
                 applyResourcePackChanges();
                 this.mc.displayGuiScreen(this.parentScreen);
@@ -218,12 +219,14 @@ public class GuiScreenResourcePacks extends GuiScreen {
         }
     }
 
+    @Override
     public void handleMouseInput() throws IOException {
         super.handleMouseInput();
         this.selectedResourcePacksList.handleMouseInput();
         this.availableResourcePacksList.handleMouseInput();
     }
 
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
         searchBox.mouseClicked(mouseX, mouseY, mouseButton);
@@ -231,26 +234,23 @@ public class GuiScreenResourcePacks extends GuiScreen {
         this.selectedResourcePacksList.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
+    @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         super.mouseReleased(mouseX, mouseY, state);
     }
 
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        if (mc.world != null) {
-            this.drawDefaultBackground();
-        } else {
-            this.drawBackground(0);
-        }
-
+        this.drawDefaultBackground();
         this.availableResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
         this.selectedResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
-        
+
         if (isLoading) {
             Gui.drawCenteredString(this.fontRendererObj, "Loading...", this.width / 2, this.height - 60, 8421504);
         }
 
         searchBox.drawTextBox();
-        
+
         Gui.drawCenteredString(this.fontRendererObj, I18n.format("resourcePack.title"), this.width / 2, 16, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }

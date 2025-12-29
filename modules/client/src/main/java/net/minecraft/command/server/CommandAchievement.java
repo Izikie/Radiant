@@ -38,12 +38,12 @@ public class CommandAchievement extends CommandBase {
         if (args.length < 2) {
             throw new WrongUsageException("commands.achievement.usage");
         } else {
-            final StatBase statbase = StatList.getOneShotStat(args[1]);
+            StatBase statbase = StatList.getOneShotStat(args[1]);
 
             if (statbase == null && !args[1].equals("*")) {
                 throw new CommandException("commands.achievement.unknownAchievement", args[1]);
             } else {
-                final EntityPlayerMP entityplayermp = args.length >= 3 ? getPlayer(sender, args[2]) : getCommandSenderAsPlayer(sender);
+                EntityPlayerMP entityplayermp = args.length >= 3 ? getPlayer(sender, args[2]) : getCommandSenderAsPlayer(sender);
                 boolean flag = args[0].equalsIgnoreCase("give");
                 boolean flag1 = args[0].equalsIgnoreCase("take");
 
@@ -56,7 +56,7 @@ public class CommandAchievement extends CommandBase {
 
                             notifyOperators(sender, this, "commands.achievement.give.success.all", entityplayermp.getName());
                         } else if (flag1) {
-                            for (Achievement achievement5 : Lists.reverse(AchievementList.ACHIEVEMENT_LIST)) {
+                            for (Achievement achievement5 : AchievementList.ACHIEVEMENT_LIST.reversed()) {
                                 entityplayermp.func_175145_a(achievement5);
                             }
 
@@ -76,7 +76,7 @@ public class CommandAchievement extends CommandBase {
                                     list.add(achievement.parentAchievement);
                                 }
 
-                                for (Achievement achievement1 : Lists.reverse(list)) {
+                                for (Achievement achievement1 : list.reversed()) {
                                     entityplayermp.triggerAchievement(achievement1);
                                 }
                             } else if (flag1) {

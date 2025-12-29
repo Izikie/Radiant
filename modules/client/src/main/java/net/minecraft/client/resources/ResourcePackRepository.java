@@ -39,6 +39,7 @@ import java.nio.file.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Consumer;
 
 public class ResourcePackRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(ResourcePackRepository.class);
@@ -239,7 +240,7 @@ public class ResourcePackRepository {
         }, ASYNC_EXECUTOR);
     }
 
-    public CompletableFuture<Void> loadFromCacheAndCheckChangesProgressive(java.util.function.Consumer<Entry> onEntryLoaded) {
+    public CompletableFuture<Void> loadFromCacheAndCheckChangesProgressive(Consumer<Entry> onEntryLoaded) {
         return CompletableFuture.runAsync(() -> {
             LOGGER.debug("Loading resource packs progressively from cache and checking for changes");
 
@@ -374,7 +375,7 @@ public class ResourcePackRepository {
             s = "legacy";
         }
 
-        final File file1 = new File(this.dirServerResourcepacks, s);
+        File file1 = new File(this.dirServerResourcepacks, s);
         this.lock.lock();
 
         try {
@@ -397,18 +398,20 @@ public class ResourcePackRepository {
             }
 
             this.deleteOldServerResourcesPacks();
-            final GuiScreenWorking guiscreenworking = new GuiScreenWorking();
+            GuiScreenWorking guiscreenworking = new GuiScreenWorking();
             Map<String, String> map = Minecraft.getSessionInfo();
-            final Minecraft minecraft = Minecraft.get();
+            Minecraft minecraft = Minecraft.get();
             Futures.getUnchecked(minecraft.addScheduledTask(() -> minecraft.displayGuiScreen(guiscreenworking)));
-            final SettableFuture<Object> settablefuture = SettableFuture.create();
+            SettableFuture<Object> settablefuture = SettableFuture.create();
             this.downloadingPacks = HttpUtil.downloadResourcePack(file1, url, map, 52428800, guiscreenworking, minecraft.getProxy());
             Futures.addCallback(this.downloadingPacks, new FutureCallback<>() {
+                @Override
                 public void onSuccess(Object p_onSuccess_1_) {
                     ResourcePackRepository.this.setResourcePackInstance(file1);
                     settablefuture.set(null);
                 }
 
+                @Override
                 public void onFailure(Throwable throwable) {
                     settablefuture.setException(throwable);
                 }
@@ -477,7 +480,8 @@ public class ResourcePackRepository {
 
             try {
                 this.texturePackIcon = this.reResourcePack.getPackImage();
-            } catch (IOException ignored) {}
+            } catch (IOException _) {
+            }
 
             if (this.texturePackIcon == null) {
                 this.texturePackIcon = ResourcePackRepository.this.rprDefaultResourcePack.getPackImage();
@@ -516,14 +520,17 @@ public class ResourcePackRepository {
             return this.rePackMetadataSection.getPackFormat();
         }
 
+        @Override
         public boolean equals(Object p_equals_1_) {
             return this == p_equals_1_ || (p_equals_1_ instanceof Entry && this.toString().equals(p_equals_1_.toString()));
         }
 
+        @Override
         public int hashCode() {
             return this.toString().hashCode();
         }
 
+        @Override
         public String toString() {
             return String.format("%s:%s:%d", this.resourcePackFile.getName(), this.resourcePackFile.isDirectory() ? "folder" : "zip", this.resourcePackFile.lastModified());
         }

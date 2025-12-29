@@ -28,7 +28,6 @@ public class PlayerProfileCache {
     protected final Gson gson = new GsonBuilder()
             .registerTypeHierarchyAdapter(ProfileEntry.class, new Serializer())
             .create();
-    ;
     private final File usercacheFile;
     private static final ParameterizedType TYPE = new ParameterizedType() {
         @Override
@@ -54,7 +53,7 @@ public class PlayerProfileCache {
     }
 
     private static GameProfile getGameProfile(MinecraftServer server, String username) {
-        final GameProfile[] agameprofile = new GameProfile[1];
+        GameProfile[] agameprofile = new GameProfile[1];
         ProfileLookupCallback profilelookupcallback = new ProfileLookupCallback() {
             @Override
             public void onProfileLookupSucceeded(GameProfile p_onProfileLookupSucceeded_1_) {
@@ -166,7 +165,7 @@ public class PlayerProfileCache {
             this.uuidToProfileEntryMap.clear();
             this.gameProfiles.clear();
 
-            for (ProfileEntry playerprofilecache$profileentry : Lists.reverse(list)) {
+            for (ProfileEntry playerprofilecache$profileentry : list.reversed()) {
                 if (playerprofilecache$profileentry != null) {
                     this.addEntry(playerprofilecache$profileentry.getGameProfile(), playerprofilecache$profileentry.getExpirationDate());
                 }

@@ -30,10 +30,10 @@ public abstract class GuiResourcePackList extends GuiListExtended {
     protected abstract String getListHeader();
 
     public List<ResourcePackListEntry> getList() {
-        final List<ResourcePackListEntry> packs = Lists.newCopyOnWriteArrayList(this.packs);
+        List<ResourcePackListEntry> packs = Lists.newCopyOnWriteArrayList(this.packs);
 
         if (this instanceof GuiResourcePackAvailable && !GuiScreenResourcePacks.searchBox.getText().isBlank()) {
-            final Predicate<ResourcePackListEntry> filter = new ResourcePackFilter(GuiScreenResourcePacks.searchBox.getText());
+            Predicate<ResourcePackListEntry> filter = new ResourcePackFilter(GuiScreenResourcePacks.searchBox.getText());
 
             for (ResourcePackListEntry pack : this.packs) {
                 if (!filter.test(pack)) {
