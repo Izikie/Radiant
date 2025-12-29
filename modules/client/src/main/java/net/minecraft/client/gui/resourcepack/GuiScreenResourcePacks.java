@@ -87,8 +87,34 @@ public class GuiScreenResourcePacks extends GuiScreen {
 
         List<ResourcePackRepository.Entry> selectedEntries = this.mc.getResourcePackRepository().getRepositoryEntries();
         if (selectedEntries.contains(entry)) {
-            int insertIndex = Math.max(0, this.selectedResourcePacks.size() - 1);
-            this.selectedResourcePacks.add(insertIndex, listEntry);
+            List<ResourcePackRepository.Entry> correctOrder = Lists.reverse(selectedEntries);
+            int myIndex = correctOrder.indexOf(entry);
+
+            boolean inserted = false;
+
+            for (int i = 0; i < this.selectedResourcePacks.size(); i++) {
+                ResourcePackListEntry existing = this.selectedResourcePacks.get(i);
+
+                if (existing instanceof ResourcePackListEntryFound) {
+                    ResourcePackRepository.Entry existingEntry = ((ResourcePackListEntryFound) existing)
+                            .func_148318_i();
+                    int otherIndex = correctOrder.indexOf(existingEntry);
+
+                    if (otherIndex > myIndex) {
+                        this.selectedResourcePacks.add(i, listEntry);
+                        inserted = true;
+                        break;
+                    }
+                } else if (existing instanceof ResourcePackListEntryDefault) {
+                    this.selectedResourcePacks.add(i, listEntry);
+                    inserted = true;
+                    break;
+                }
+            }
+
+            if (!inserted) {
+                this.selectedResourcePacks.add(listEntry);
+            }
         } else {
             this.availableResourcePacks.add(listEntry);
         }
