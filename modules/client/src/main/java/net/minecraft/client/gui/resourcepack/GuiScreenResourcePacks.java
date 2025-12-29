@@ -57,15 +57,19 @@ public class GuiScreenResourcePacks extends GuiScreen {
         this.isLoading = true;
         this.availableResourcePacks.clear();
         this.selectedResourcePacks.clear();
+
+        this.selectedResourcePacks.add(new ResourcePackListEntryDefault(this));
+        setupResourcePackLists();
         
         if (loadingFuture != null) {
             loadingFuture.cancel(true);
         }
-        
+
         ResourcePackRepository repository = this.mc.getResourcePackRepository();
-        loadingFuture = repository.loadFromCacheAndCheckChanges().thenRun(() -> {
+        loadingFuture = repository.loadFromCacheAndCheckChangesProgressive(entry -> {
+            this.mc.addScheduledTask(() -> addResourcePackEntry(entry));
+        }).thenRun(() -> {
             this.mc.addScheduledTask(() -> {
-                populateResourcePackLists();
                 this.isLoading = false;
             });
         }).exceptionally(throwable -> {
@@ -76,6 +80,18 @@ public class GuiScreenResourcePacks extends GuiScreen {
             });
             return null;
         });
+    }
+
+    private void addResourcePackEntry(ResourcePackRepository.Entry entry) {
+        ResourcePackListEntry listEntry = new ResourcePackListEntryFound(this, entry);
+
+        List<ResourcePackRepository.Entry> selectedEntries = this.mc.getResourcePackRepository().getRepositoryEntries();
+        if (selectedEntries.contains(entry)) {
+            int insertIndex = Math.max(0, this.selectedResourcePacks.size() - 1);
+            this.selectedResourcePacks.add(insertIndex, listEntry);
+        } else {
+            this.availableResourcePacks.add(listEntry);
+        }
     }
     
     private void loadResourcePacksSync() {
@@ -199,13 +215,12 @@ public class GuiScreenResourcePacks extends GuiScreen {
         } else {
             this.drawBackground(0);
         }
+
+        this.availableResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
+        this.selectedResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
         
         if (isLoading) {
-            Gui.drawCenteredString(this.fontRendererObj, "Loading resource packs...", this.width / 2, this.height / 2 - 10, 16777215);
-            Gui.drawCenteredString(this.fontRendererObj, "Please wait...", this.width / 2, this.height / 2 + 10, 8421504);
-        } else {
-            this.availableResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
-            this.selectedResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
+            Gui.drawCenteredString(this.fontRendererObj, "Loading...", this.width / 2, this.height - 60, 8421504);
         }
 
         searchBox.drawTextBox();
