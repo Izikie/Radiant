@@ -1,91 +1,98 @@
+import org.gradle.internal.os.OperatingSystem
+
 plugins {
-    id("java")
-    id("java-library")
+    id("org.openjfx.javafxplugin") version "0.1.0"
 }
 
 val lwjglVer: String by rootProject.extra
 val lwjglModules: List<String> by rootProject.extra
 val lwjglNatives: String by rootProject.extra
+val javafxVer: String by rootProject.extra
 
-val lwjglExtract by configurations.creating {
+val lwjglExtract: Configuration by configurations.creating {
     isCanBeResolved = true
     isCanBeConsumed = false
-    extendsFrom(configurations.runtimeOnly.get())
 }
 
-val nettyExtract by configurations.creating {
-    isCanBeResolved = true
-    isCanBeConsumed = false
-    extendsFrom(configurations.implementation.get())
+javafx {
+    modules("javafx.base", "javafx.controls", "javafx.graphics", "javafx.swing", "javafx.web", "javafx.media")
 }
 
 dependencies {
     implementation(project(":client"))
 
     lwjglModules.forEach { module ->
-        runtimeOnly(group = "org.lwjgl", name = module, version = lwjglVer, classifier = lwjglNatives)
-        lwjglExtract(group = "org.lwjgl", name = module, version = lwjglVer, classifier = lwjglNatives)
+        val notation = "org.lwjgl:$module:$lwjglVer:$lwjglNatives"
+        runtimeOnly(notation)
+        lwjglExtract(notation)
+    }
+
+    val osClassifier = when {
+        OperatingSystem.current().isWindows -> "win"
+        OperatingSystem.current().isLinux -> "linux"
+        OperatingSystem.current().isMacOsX -> {
+            if (System.getProperty("os.arch") == "aarch64") "mac-aarch64" else "mac"
+        }
+
+        else -> error("Unsupported OS for JavaFX")
+    }
+
+    val javafxModules = listOf(
+        "javafx-base",
+        "javafx-controls",
+        "javafx-graphics",
+        "javafx-swing",
+        "javafx-web",
+        "javafx-media"
+    )
+
+    javafxModules.forEach {
+        implementation("org.openjfx:$it:$javafxVer:$osClassifier")
     }
 }
 
-val os = System.getProperty("os.name").lowercase()
+val minecraftDir = run {
+    val home = System.getProperty("user.home")
+    when {
+        OperatingSystem.current().isWindows ->
+            "${System.getenv("APPDATA")}/.minecraft"
 
-val home = System.getProperty("user.home") as String
-val appData = System.getenv("APPDATA") as String
-val minecraftDir = when {
-    "windows" in os -> "$appData/.minecraft"
-    "mac" in os -> "$home/Library/Application Support/minecraft"
-    else -> "$home/.minecraft"
+        OperatingSystem.current().isMacOsX ->
+            "$home/Library/Application Support/minecraft"
+
+        else -> "$home/.minecraft"
+    }
+}
+
+tasks.withType<JavaExec>().configureEach {
+    dependsOn("ExtractLwjglNatives")
+
+    doFirst {
+        val runDir = rootProject.file("run")
+        if (!runDir.exists()) runDir.mkdirs()
+    }
+
+    workingDir = rootProject.file("run")
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("net.radiant.dev.start.LaunchWrapper")
+
+    args(
+        "--gameDir", minecraftDir,
+        "--accessToken", "0",
+        "--userProperties", "{}"
+    )
 }
 
 tasks.register<JavaExec>("RunClient") {
     group = "RadiantMCP"
     description = "Starts the Minecraft client."
-
-    dependsOn("ExtractLwjglNatives")
-
-    doFirst {
-        workingDir = rootProject.file("run")
-        if (!workingDir.exists()) {
-            workingDir.mkdirs()
-        }
-    }
-
-    classpath = sourceSets["main"].runtimeClasspath
-
-    mainClass.set("net.radiant.start.DevStart")
-
-    args = listOf(
-        "--gameDir", minecraftDir,
-        "--accessToken", "0",
-        "--userProperties", "{}"
-    )
 }
 
 tasks.register<JavaExec>("RunClientNativeAgent") {
     group = "RadiantMCP"
-    description = "Starts the Minecraft client with the native image tracing agent attached. This won't work if ran in debug mode."
+    description = "Starts the client with the native image tracing agent."
 
-    dependsOn("ExtractLwjglNatives")
-
-    doFirst {
-        workingDir = rootProject.file("run")
-        if (!workingDir.exists()) {
-            workingDir.mkdirs()
-        }
-    }
-
-    classpath = sourceSets["main"].runtimeClasspath
-
-    mainClass.set("net.radiant.start.DevStart")
-
-    args = listOf(
-        "--gameDir", minecraftDir,
-        "--accessToken", "0",
-        "--userProperties", "{}"
-    )
-
-    jvmArgs = listOf(
+    jvmArgs(
         "-Djava.library.path=natives",
         "-Dradiant.exerciseClasses",
         "-agentlib:native-image-agent=config-output-dir=../modules/dev/src/main/resources/META-INF/native-image"
@@ -96,18 +103,16 @@ tasks.register<Copy>("ExtractLwjglNatives") {
     group = "RadiantMCP"
     description = "Extracts LWJGL native libraries"
 
-    from(lwjglExtract.resolve()
-        .filter { it.name.contains("natives") }
-        .map { zipTree(it) }
-    )
+    from(provider {
+        lwjglExtract.files
+            .filter { it.name.contains("natives") }
+            .map { zipTree(it) }
+    })
 
     include("**/*.dll", "**/*.dylib", "**/*.so")
 
-    eachFile {
-        relativePath = RelativePath(true, name)
-    }
-
+    eachFile { relativePath = RelativePath(true, name) }
     includeEmptyDirs = false
 
-    into("${rootProject.projectDir}/run/natives")
+    into(rootProject.file("run/natives"))
 }

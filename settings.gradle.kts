@@ -28,9 +28,13 @@ val lwjglNatives = "natives-${
 }"
 
 gradle.rootProject {
-    extra["lwjgl_natives"] = lwjglNatives
+    extra["lwjglNatives"] = lwjglNatives
+    extra["lwjglModules"] = listOf(
+        "lwjgl", "lwjgl-glfw", "lwjgl-opengl", "lwjgl-openal", "lwjgl-stb"
+    )
 }
 
-file("modules").listFiles()
-    ?.filter { it.isDirectory }
-    ?.forEach { include(it.name); project(":${it.name}").projectDir = it }
+file("modules").listFiles()?.filter { it.isDirectory }?.forEach {
+    include(it.name)
+    project(":${it.name}").projectDir = it
+}

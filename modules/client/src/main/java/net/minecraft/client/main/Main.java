@@ -9,7 +9,6 @@ import joptsimple.OptionSpec;
 import joptsimple.ValueConverter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Session;
-import net.radiant.nativeimage.NativeImageExerciser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,8 +85,8 @@ public class Main {
             }
         }
 
-        final String proxyUser = options.valueOf(optionProxyUser);
-        final String proxyPass = options.valueOf(optionProxyPass);
+        String proxyUser = options.valueOf(optionProxyUser);
+        String proxyPass = options.valueOf(optionProxyPass);
 
         if (!proxy.equals(Proxy.NO_PROXY) && isNotNullOrEmpty(proxyUser) && isNotNullOrEmpty(proxyPass)) {
             Authenticator.setDefault(new Authenticator() {
@@ -138,9 +137,6 @@ public class Main {
         });
         Thread.currentThread().setName("Client thread");
         Minecraft minecraft = new Minecraft(gameConfiguration);
-        if (System.getProperty("radiant.exerciseClasses") != null) {
-            NativeImageExerciser.exercise();
-        }
         minecraft.run();
 
     }
