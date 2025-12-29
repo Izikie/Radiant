@@ -4,8 +4,13 @@ package net.minecraft.client.gui.resourcepack;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.resourcepack.api.GuiResourcePackAvailable;
 import net.minecraft.client.gui.resourcepack.api.GuiResourcePackSelected;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.*;
 import net.minecraft.util.Util;
+import org.lwjgl.opengl.GL11;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -236,8 +241,45 @@ public class GuiScreenResourcePacks extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
+
         this.availableResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
         this.selectedResourcePacksList.drawScreen(mouseX, mouseY, partialTicks);
+
+        Tessellator tessellator = Tessellator.get();
+        WorldRenderer renderer = tessellator.getWorldRenderer();
+
+        GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ZERO, GL11.GL_ONE);
+        GlStateManager.disableAlpha();
+        GlStateManager.shadeModel(GL11.GL_SMOOTH);
+        GlStateManager.disableTexture2D();
+
+        int i1 = 4; // Magic BS SweedNumber
+        int bottom = this.height - 50;
+
+        // Top Gradient
+        renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
+        renderer.pos(0, 32 + i1, 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 0).endVertex();
+        renderer.pos(this.width, 32 + i1, 0.0D).tex(1.0D, 1.0D).color(0, 0, 0, 0).endVertex();
+        renderer.pos(this.width, 32, 0.0D).tex(1.0D, 0.0D).color(0, 0, 0, 255).endVertex();
+        renderer.pos(0, 32, 0.0D).tex(0.0D, 0.0D).color(0, 0, 0, 255).endVertex();
+        tessellator.draw();
+
+        // Bottom Gradient
+        renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
+        renderer.pos(0, bottom, 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+        renderer.pos(this.width, bottom, 0.0D).tex(1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+        renderer.pos(this.width, bottom - i1, 0.0D).tex(1.0D, 0.0D).color(0, 0, 0, 0).endVertex();
+        renderer.pos(0, bottom - i1, 0.0D).tex(0.0D, 0.0D).color(0, 0, 0, 0).endVertex();
+        tessellator.draw();
+
+        GlStateManager.enableTexture2D();
+        GlStateManager.shadeModel(GL11.GL_FLAT);
+        GlStateManager.enableAlpha();
+        GlStateManager.disableBlend();
+
+        this.overlayBackground(0, 0, this.width, 32, 255, 255);
+        this.overlayBackground(0, bottom, this.width,  this.height, 255, 255);
 
         if (isLoading) {
             Gui.drawCenteredString(this.fontRendererObj, "Loading...", this.width / 2, this.height - 60, 8421504);
@@ -267,5 +309,19 @@ public class GuiScreenResourcePacks extends GuiScreen {
 
     public void markChanged() {
         this.changed = true;
+    }
+
+    protected void overlayBackground(int startX, int startY, int endX, int endY, int startAlpha, int endAlpha) {
+        Tessellator tessellator = Tessellator.get();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+        this.mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        float f = 32.0F;
+        worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
+        worldrenderer.pos(startX, endY, 0.0D).tex(0.0D, endY / 32.0F).color(64, 64, 64, endAlpha).endVertex();
+        worldrenderer.pos(startX + this.width, endY, 0.0D).tex(this.width / 32.0F, endY / 32.0F).color(64, 64, 64, endAlpha).endVertex();
+        worldrenderer.pos(startX + this.width, startY, 0.0D).tex(this.width / 32.0F, startY / 32.0F).color(64, 64, 64, startAlpha).endVertex();
+        worldrenderer.pos(startX, startY, 0.0D).tex(0.0D, startY / 32.0F).color(64, 64, 64, startAlpha).endVertex();
+        tessellator.draw();
     }
 }
