@@ -1,6 +1,6 @@
 package net.minecraft.client.gui.resourcepack;
 
-import com.google.common.collect.Lists;
+
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.resourcepack.api.GuiResourcePackAvailable;
 import net.minecraft.client.gui.resourcepack.api.GuiResourcePackSelected;
@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-// TODO: Implement sorting by search, A-Z, Z-A
+// TODO: fix the top/bottom header thing like controls
 public class GuiScreenResourcePacks extends GuiScreen {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GuiScreenResourcePacks.class);
@@ -36,12 +36,10 @@ public class GuiScreenResourcePacks extends GuiScreen {
 
     @Override
     public void initGui() {
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 204, this.height - 26, 30, 20, "A-Z"));
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 204 + 34, this.height - 26, 30, 20, "Z-A"));
-        this.buttonList.add(new GuiButton(2, this.width / 2 - 56, this.height - 26, 52, 20, "Refresh"));
+        this.buttonList.add(new GuiButton(0, this.width / 2 - 56, this.height - 26, 52, 20, "Refresh"));
 
-        this.buttonList.add(new GuiOptionButton(3, this.width / 2 + 25, this.height - 26, I18n.format("resourcePack.openFolder")));
-        this.buttonList.add(new GuiOptionButton(4, this.width / 2 + 25, this.height - 48, I18n.format("gui.done")));
+        this.buttonList.add(new GuiOptionButton(1, this.width / 2 + 25, this.height - 26, I18n.format("resourcePack.openFolder")));
+        this.buttonList.add(new GuiOptionButton(2, this.width / 2 + 25, this.height - 48, I18n.format("gui.done")));
 
         searchBox = new GuiTextField(5, this.fontRendererObj, this.width / 2 - 204, this.height - 46, 200, 16);
 
@@ -200,19 +198,15 @@ public class GuiScreenResourcePacks extends GuiScreen {
         }
 
         switch (button.id) {
-            case 0 -> { // Sort A-Z
-            }
-            case 1 -> { // Sort Z-A
-            }
-            case 2 -> { // Refresh
+            case 0 -> { // Refresh
                 if (!isLoading) {
                     this.changed = false;
                     loadResourcePacks();
                 }
             }
             // Open Resource Pack Folder
-            case 3 -> Util.openFolder(mc.getResourcePackRepository().getDirResourcepacks());
-            case 4 -> { // Done
+            case 1 -> Util.openFolder(mc.getResourcePackRepository().getDirResourcepacks());
+            case 2 -> { // Done
                 applyResourcePackChanges();
                 this.mc.displayGuiScreen(this.parentScreen);
             }
