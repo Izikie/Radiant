@@ -476,7 +476,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
                 Int2IntLinkedOpenHashMap map = EnchantmentHelper.getEnchantments(stack);
 
                 if (map.size() == 1) {
-                    Enchantment enchantment = Enchantment.getEnchantmentById(map.keySet().iterator().next());
+                    Enchantment enchantment = Enchantment.getEnchantmentById(map.keySet().iterator().nextInt());
 
                     for (CreativeTabs creativetabs1 : CreativeTabs.CREATIVE_TABS) {
                         if (creativetabs1.hasRelevantEnchantmentType(enchantment.type)) {

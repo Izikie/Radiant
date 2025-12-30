@@ -666,7 +666,7 @@ public class ShaderPackParser {
         } else if (astring.length == 2) {
             String s2 = astring[0];
             String s1 = astring[1];
-            Integer integer = ALPHA_FUNCS.get(s2);
+            Integer integer = ALPHA_FUNCS.getInt(s2);
             float f = Config.parseFloat(s1, -1.0F);
 
             if (integer != null && f >= 0.0F) {
@@ -725,10 +725,10 @@ public class ShaderPackParser {
                 s3 = astring[3];
             }
 
-            Integer integer = BLEND_FACTORS.get(s4);
-            Integer integer1 = BLEND_FACTORS.get(s1);
-            Integer integer2 = BLEND_FACTORS.get(s2);
-            Integer integer3 = BLEND_FACTORS.get(s3);
+            Integer integer = BLEND_FACTORS.getInt(s4);
+            Integer integer1 = BLEND_FACTORS.getInt(s1);
+            Integer integer2 = BLEND_FACTORS.getInt(s2);
+            Integer integer3 = BLEND_FACTORS.getInt(s3);
 
             if (integer != null && integer1 != null && integer2 != null && integer3 != null) {
                 return new GlBlendState(true, integer, integer1, integer2, integer3);
@@ -828,7 +828,7 @@ public class ShaderPackParser {
     }
 
     private static Object2IntMap<String> makeMapAlphaFuncs() {
-        Object2IntMap<String> map = new Object2IntOpenHashMap<>();
+        Object2IntOpenHashMap<String> map = new Object2IntOpenHashMap<>();
         map.put("NEVER", 512);
         map.put("LESS", 513);
         map.put("EQUAL", 514);
@@ -841,7 +841,7 @@ public class ShaderPackParser {
     }
 
     private static Object2IntMap<String> makeMapBlendFactors() {
-        Object2IntMap<String> map = new Object2IntOpenHashMap<>();
+        Object2IntOpenHashMap<String> map = new Object2IntOpenHashMap<>();
         map.put("ZERO", 0);
         map.put("ONE", 1);
         map.put("SRC_COLOR", 768);

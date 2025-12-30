@@ -1,5 +1,6 @@
 package net.optifine.shaders;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -26,7 +27,7 @@ public class ShadersTex {
     public static final int DEF_BASE_TEX_COLOR = 0;
     public static final int DEF_NORM_TEX_COLOR = -8421377;
     public static final int DEF_SPEC_TEX_COLOR = 0;
-    public static final Int2ObjectOpenHashMap<MultiTexID> MULTI_TEX_MAP = new Int2ObjectOpenHashMap<>();
+    public static final Int2ObjectMap<MultiTexID> MULTI_TEX_MAP = new Int2ObjectOpenHashMap<>();
     public static ByteBuffer byteBuffer = BufferUtils.createByteBuffer(4194304);
     public static IntBuffer intBuffer = byteBuffer.asIntBuffer();
     public static int[] intArray = new int[1048576];
@@ -352,7 +353,7 @@ public class ShadersTex {
                     }
                 }
             }
-        } catch (IOException exception) {
+        } catch (IOException _) {
             return null;
         }
     }

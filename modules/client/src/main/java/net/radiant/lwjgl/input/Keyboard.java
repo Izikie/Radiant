@@ -1,6 +1,5 @@
 package net.radiant.lwjgl.input;
 
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.radiant.lwjgl.LWJGLException;
 import net.radiant.lwjgl.opengl.Display;
@@ -167,7 +166,7 @@ public class Keyboard {
     private static final long[] nanoTimeEvents = new long[queue.getMaxEvents()];
     private static final char[] keyEventChars = new char[256];
     private static final String[] keyName = new String[KEYBOARD_SIZE];
-    private static final Object2IntMap<String> keyMap = new Object2IntOpenHashMap<>(253);
+    private static final Object2IntOpenHashMap<String> keyMap = new Object2IntOpenHashMap<>(253);
     private static boolean repeatEvents;
 
     static {

@@ -40,7 +40,7 @@ public class ItemAliases {
         reset();
 
         if (shaderPack != null) {
-            IntList list = new IntArrayList();
+            IntArrayList list = new IntArrayList();
             String s = "/shaders/item.properties";
             InputStream inputstream = shaderPack.getResourceAsStream(s);
 
@@ -90,7 +90,7 @@ public class ItemAliases {
                         }
                     }
                 }
-            } catch (IOException exception) {
+            } catch (IOException _) {
                 Log.error("[Shaders] Error reading: " + path);
             }
         }
@@ -105,13 +105,7 @@ public class ItemAliases {
     }
 
     private static int[] toArray(IntList list) {
-        int[] aint = new int[list.size()];
-
-        for (int i = 0; i < aint.length; ++i) {
-            aint[i] = list.getInt(i);
-        }
-
-        return aint;
+        return list.toIntArray();
     }
 
     public static void reset() {

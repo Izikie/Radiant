@@ -1,6 +1,5 @@
 package net.optifine.entity.model;
 
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
@@ -11,13 +10,13 @@ import net.minecraft.client.renderer.entity.RenderOcelot;
 import net.minecraft.entity.passive.EntityOcelot;
 
 public class ModelAdapterOcelot extends ModelAdapter {
-    private static Object2IntMap<String> mapPartFields = null;
+    private static Object2IntOpenHashMap<String> mapPartFields = null;
 
     public ModelAdapterOcelot() {
         super(EntityOcelot.class, "ocelot", 0.4F);
     }
 
-    private static Object2IntMap<String> getMapPartFields() {
+    private static Object2IntOpenHashMap<String> getMapPartFields() {
         if (mapPartFields == null) {
             mapPartFields = new Object2IntOpenHashMap<>();
             mapPartFields.put("back_left_leg", 0);
@@ -40,10 +39,10 @@ public class ModelAdapterOcelot extends ModelAdapter {
     @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
         if (model instanceof ModelOcelot modelocelot) {
-            Object2IntMap<String> map = getMapPartFields();
+            Object2IntOpenHashMap<String> map = getMapPartFields();
 
             if (map.containsKey(modelPart)) {
-                int i = map.get(modelPart);
+                int i = map.getInt(modelPart);
                 return switch (i) {
                     case 0 -> modelocelot.getOcelotBackLeftLeg();
                     case 1 -> modelocelot.getOcelotBackRightLeg();

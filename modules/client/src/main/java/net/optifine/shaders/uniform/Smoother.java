@@ -10,13 +10,7 @@ public class Smoother {
 
     public static float getSmoothValue(int id, float value, float timeFadeUpSec, float timeFadeDownSec) {
         synchronized (mapSmoothValues) {
-            SmoothFloat smoothfloat = mapSmoothValues.get(id);
-
-            if (smoothfloat == null) {
-                smoothfloat = new SmoothFloat(value, timeFadeUpSec, timeFadeDownSec);
-                mapSmoothValues.put(id, smoothfloat);
-            }
-
+            SmoothFloat smoothfloat = mapSmoothValues.computeIfAbsent(id, _ -> new SmoothFloat(value, timeFadeUpSec, timeFadeDownSec));
             return smoothfloat.getSmoothValue(value, timeFadeUpSec, timeFadeDownSec);
         }
     }

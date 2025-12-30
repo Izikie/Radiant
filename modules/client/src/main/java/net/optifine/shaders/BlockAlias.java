@@ -1,7 +1,6 @@
 package net.optifine.shaders;
 
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
-import it.unimi.dsi.fastutil.ints.IntSet;
 import net.optifine.Config;
 import net.optifine.config.MatchBlock;
 
@@ -32,7 +31,7 @@ public class BlockAlias {
     }
 
     public int[] getMatchBlockIds() {
-        IntSet blockIDs = new IntOpenHashSet();
+        IntOpenHashSet blockIDs = new IntOpenHashSet();
 
         for (MatchBlock matchBlock : this.matchBlocks) {
             blockIDs.add(matchBlock.getBlockId());
@@ -53,6 +52,7 @@ public class BlockAlias {
         return list.toArray(new MatchBlock[0]);
     }
 
+    @Override
     public String toString() {
         return "block." + this.blockAliasId + "=" + Config.arrayToString(this.matchBlocks);
     }
