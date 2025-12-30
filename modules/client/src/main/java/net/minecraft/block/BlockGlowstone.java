@@ -18,7 +18,7 @@ public class BlockGlowstone extends Block {
 
     @Override
     public int quantityDroppedWithBonus(int fortune, Random random) {
-        return MathHelper.clamp(this.quantityDropped(random) + random.nextInt(fortune + 1), 1, 4);
+        return Math.clamp(this.quantityDropped(random) + random.nextInt(fortune + 1), 1, 4);
     }
 
     @Override

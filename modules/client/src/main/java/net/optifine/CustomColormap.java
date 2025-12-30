@@ -299,13 +299,13 @@ public class CustomColormap implements CustomColors.IColorizer {
     }
 
     public int getColor(int index) {
-        index = Config.limit(index, 0, this.colors.length - 1);
+        index = Math.clamp(index, 0, this.colors.length - 1);
         return this.colors[index] & 16777215;
     }
 
     public int getColor(int cx, int cy) {
-        cx = Config.limit(cx, 0, this.width - 1);
-        cy = Config.limit(cy, 0, this.height - 1);
+        cx = Math.clamp(cx, 0, this.width - 1);
+        cy = Math.clamp(cy, 0, this.height - 1);
         return this.colors[cy * this.width + cx] & 16777215;
     }
 
@@ -368,8 +368,8 @@ public class CustomColormap implements CustomColors.IColorizer {
     }
 
     private int getColorVanilla(BiomeGenBase biome, BlockPos blockPos) {
-        double d0 = MathHelper.clamp(biome.getFloatTemperature(blockPos), 0.0F, 1.0F);
-        double d1 = MathHelper.clamp(biome.getFloatRainfall(), 0.0F, 1.0F);
+        double d0 = Math.clamp(biome.getFloatTemperature(blockPos), 0.0F, 1.0F);
+        double d1 = Math.clamp(biome.getFloatRainfall(), 0.0F, 1.0F);
         d1 = d1 * d0;
         int i = (int) ((1.0D - d0) * (this.width - 1));
         int j = (int) ((1.0D - d1) * (this.height - 1));

@@ -130,18 +130,6 @@ public class MathHelper {
         return value > i ? i + 1 : i;
     }
 
-    public static int clamp(int num, int min, int max) {
-        return Math.clamp(num, min, max);
-    }
-
-    public static float clamp(float num, float min, float max) {
-        return Math.clamp(num, min, max);
-    }
-
-    public static double clamp(double num, double min, double max) {
-        return Math.clamp(num, min, max);
-    }
-
     public static double denormalizeClamp(double lowerBnd, double upperBnd, double slide) {
         return slide < 0.0D ? lowerBnd : (slide > 1.0D ? upperBnd : lowerBnd + (upperBnd - lowerBnd) * slide);
     }
@@ -155,21 +143,23 @@ public class MathHelper {
     }
 
     public static int getRandomIntegerInRange(Random random, int min, int max) {
-        return clamp(random.nextInt(max - min + 1), min, max);
+        return Math.clamp(random.nextInt(max - min + 1), min, max);
     }
 
     public static float randomFloatClamp(Random random, float min, float max) {
-        return clamp(random.nextFloat() * (max - min) + min, min, max);
+        return Math.clamp(random.nextFloat() * (max - min) + min, min, max);
     }
 
     public static double getRandomDoubleInRange(Random random, double min, double max) {
-        return clamp(random.nextDouble() * (max - min) + min, min, max);
+        return Math.clamp(random.nextDouble() * (max - min) + min, min, max);
     }
 
     public static double average(long[] values) {
         long i = 0L;
 
-        for (long j : values) i += j;
+        for (long j : values) {
+            i += j;
+        }
 
         return (double) i / values.length;
     }
@@ -185,8 +175,12 @@ public class MathHelper {
     public static float wrapAngle(float value) {
         value = value % 360.0F;
 
-        if (value >= 180.0F) value -= 360.0F;
-        if (value < -180.0F) value += 360.0F;
+        if (value >= 180.0F) {
+            value -= 360.0F;
+        }
+        if (value < -180.0F) {
+            value += 360.0F;
+        }
 
         return value;
     }
@@ -194,8 +188,12 @@ public class MathHelper {
     public static double wrapAngle(double value) {
         value = value % 360.0D;
 
-        if (value >= 180.0D) value -= 360.0D;
-        if (value < -180.0D) value += 360.0D;
+        if (value >= 180.0D) {
+            value -= 360.0D;
+        }
+        if (value < -180.0D) {
+            value += 360.0D;
+        }
 
         return value;
     }
@@ -248,10 +246,14 @@ public class MathHelper {
     }
 
     public static int roundUp(int number, int multiple) {
-        if (multiple == 0) return 0;
-        else if (number == 0) return multiple;
-        else {
-            if (number < 0) multiple *= -1;
+        if (multiple == 0) {
+            return 0;
+        } else if (number == 0) {
+            return multiple;
+        } else {
+            if (number < 0) {
+                multiple *= -1;
+            }
 
             int i = number % multiple;
             return i == 0 ? number : number + multiple - i;
@@ -358,9 +360,9 @@ public class MathHelper {
                     throw new RuntimeException("Something went wrong when converting from HSV to RGB. Input was " + p_181758_0_ + ", " + p_181758_1_ + ", " + p_181758_2_);
         }
 
-        int j = clamp((int) (f4 * 255.0F), 0, 255);
-        int k = clamp((int) (f5 * 255.0F), 0, 255);
-        int l = clamp((int) (f6 * 255.0F), 0, 255);
+        int j = Math.clamp((int) (f4 * 255.0F), 0, 255);
+        int k = Math.clamp((int) (f5 * 255.0F), 0, 255);
+        int l = Math.clamp((int) (f6 * 255.0F), 0, 255);
         return j << 16 | k << 8 | l;
     }
 }

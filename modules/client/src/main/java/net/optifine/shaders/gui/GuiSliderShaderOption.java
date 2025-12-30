@@ -28,7 +28,7 @@ public class GuiSliderShaderOption extends GuiButtonShaderOption {
         if (this.visible) {
             if (this.dragging && !GuiScreen.isShiftKeyDown()) {
                 this.sliderValue = (float) (mouseX - (this.xPosition + 4)) / (this.width - 8);
-                this.sliderValue = MathHelper.clamp(this.sliderValue, 0.0F, 1.0F);
+                this.sliderValue = Math.clamp(this.sliderValue, 0.0F, 1.0F);
                 this.shaderOption.setIndexNormalized(this.sliderValue);
                 this.sliderValue = this.shaderOption.getIndexNormalized();
                 this.displayString = GuiShaderOptions.getButtonText(this.shaderOption, this.width);
@@ -45,7 +45,7 @@ public class GuiSliderShaderOption extends GuiButtonShaderOption {
     public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
         if (super.mousePressed(mc, mouseX, mouseY)) {
             this.sliderValue = (float) (mouseX - (this.xPosition + 4)) / (this.width - 8);
-            this.sliderValue = MathHelper.clamp(this.sliderValue, 0.0F, 1.0F);
+            this.sliderValue = Math.clamp(this.sliderValue, 0.0F, 1.0F);
             this.shaderOption.setIndexNormalized(this.sliderValue);
             this.displayString = GuiShaderOptions.getButtonText(this.shaderOption, this.width);
             this.dragging = true;

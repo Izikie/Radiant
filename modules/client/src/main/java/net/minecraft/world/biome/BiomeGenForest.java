@@ -73,7 +73,7 @@ public class BiomeGenForest extends BiomeGenBase {
     @Override
     public BlockFlower.FlowerType pickRandomFlower(Random rand, BlockPos pos) {
         if (this.field_150632_aF == 1) {
-            double d0 = MathHelper.clamp((1.0D + GRASS_COLOR_NOISE.func_151601_a(pos.getX() / 48.0D, pos.getZ() / 48.0D)) / 2.0D, 0.0D, 0.9999D);
+            double d0 = Math.clamp((1.0D + GRASS_COLOR_NOISE.func_151601_a(pos.getX() / 48.0D, pos.getZ() / 48.0D)) / 2.0D, 0.0D, 0.9999D);
             BlockFlower.FlowerType blockflower$enumflowertype = BlockFlower.FlowerType.values()[(int) (d0 * BlockFlower.FlowerType.values().length)];
             return blockflower$enumflowertype == BlockFlower.FlowerType.BLUE_ORCHID ? BlockFlower.FlowerType.POPPY : blockflower$enumflowertype;
         } else {
@@ -143,7 +143,7 @@ public class BiomeGenForest extends BiomeGenBase {
     }
 
     @Override
-    protected BiomeGenBase createMutatedBiome(final int p_180277_1_) {
+    protected BiomeGenBase createMutatedBiome(int p_180277_1_) {
         if (this.biomeID == BiomeGenBase.FOREST.biomeID) {
             BiomeGenForest biomegenforest = new BiomeGenForest(p_180277_1_, 1);
             biomegenforest.setHeight(new Height(this.minHeight, this.maxHeight + 0.2F));

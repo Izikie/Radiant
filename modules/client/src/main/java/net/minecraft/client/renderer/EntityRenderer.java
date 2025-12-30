@@ -297,7 +297,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         double d1 = entity.posZ;
         float f2 = this.mc.world.getLightBrightness(new BlockPos(d2, d0, d1));
         float f3 = this.mc.gameSettings.renderDistanceChunks / 16.0F;
-        f3 = MathHelper.clamp(f3, 0.0F, 1.0F);
+        f3 = Math.clamp(f3, 0.0F, 1.0F);
         float f4 = f2 * (1.0F - f3) + f3;
         this.fogColor1 += (f4 - this.fogColor1) * 0.1F;
         ++this.rendererUpdateCount;
@@ -1750,7 +1750,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             this.fogColorBlue = (float) vec33.zCoord;
         } else if (block.getMaterial() == Material.WATER) {
             float f12 = EnchantmentHelper.getRespiration(entity) * 0.2F;
-            f12 = Config.limit(f12, 0.0F, 0.6F);
+            f12 = Math.clamp(f12, 0.0F, 0.6F);
 
             if (entity instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPotionActive(Potion.WATER_BREATHING)) {
                 f12 = f12 * 0.3F + 0.6F;
@@ -1881,7 +1881,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 GlStateManager.setFogDensity(0.01F);
             } else {
                 float f2 = 0.1F - EnchantmentHelper.getRespiration(entity) * 0.03F;
-                GlStateManager.setFogDensity(Config.limit(f2, 0.0F, f1));
+                GlStateManager.setFogDensity(Math.clamp(f2, 0.0F, f1));
             }
         } else if (block.getMaterial() == Material.LAVA) {
             GlStateManager.setFog(GL11.GL_EXP);

@@ -279,7 +279,7 @@ public class Teleporter {
         }
 
         if (d0 < 0.0D) {
-            j1 = MathHelper.clamp(j1, 70, this.worldServerInstance.getActualHeight() - 10);
+            j1 = Math.clamp(j1, 70, this.worldServerInstance.getActualHeight() - 10);
             k2 = j1;
 
             for (int j7 = -1; j7 <= 1; ++j7) {

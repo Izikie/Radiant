@@ -408,16 +408,16 @@ public abstract class ServerConfigurationManager {
         double d2 = 8.0D;
         float f = entityIn.rotationYaw;
         if (entityIn.dimension == -1) {
-            d0 = MathHelper.clamp(d0 / d2, toWorldIn.getWorldBorder().minX() + 16.0D, toWorldIn.getWorldBorder().maxX() - 16.0D);
-            d1 = MathHelper.clamp(d1 / d2, toWorldIn.getWorldBorder().minZ() + 16.0D, toWorldIn.getWorldBorder().maxZ() - 16.0D);
+            d0 = Math.clamp(d0 / d2, toWorldIn.getWorldBorder().minX() + 16.0D, toWorldIn.getWorldBorder().maxX() - 16.0D);
+            d1 = Math.clamp(d1 / d2, toWorldIn.getWorldBorder().minZ() + 16.0D, toWorldIn.getWorldBorder().maxZ() - 16.0D);
             entityIn.setLocationAndAngles(d0, entityIn.posY, d1, entityIn.rotationYaw, entityIn.rotationPitch);
 
             if (entityIn.isEntityAlive()) {
                 oldWorldIn.updateEntityWithOptionalForce(entityIn, false);
             }
         } else if (entityIn.dimension == 0) {
-            d0 = MathHelper.clamp(d0 * d2, toWorldIn.getWorldBorder().minX() + 16.0D, toWorldIn.getWorldBorder().maxX() - 16.0D);
-            d1 = MathHelper.clamp(d1 * d2, toWorldIn.getWorldBorder().minZ() + 16.0D, toWorldIn.getWorldBorder().maxZ() - 16.0D);
+            d0 = Math.clamp(d0 * d2, toWorldIn.getWorldBorder().minX() + 16.0D, toWorldIn.getWorldBorder().maxX() - 16.0D);
+            d1 = Math.clamp(d1 * d2, toWorldIn.getWorldBorder().minZ() + 16.0D, toWorldIn.getWorldBorder().maxZ() - 16.0D);
             entityIn.setLocationAndAngles(d0, entityIn.posY, d1, entityIn.rotationYaw, entityIn.rotationPitch);
 
             if (entityIn.isEntityAlive()) {
@@ -444,8 +444,8 @@ public abstract class ServerConfigurationManager {
 
 
         if (p_82448_2_ != 1) {
-            d0 = MathHelper.clamp((int) d0, -29999872, 29999872);
-            d1 = MathHelper.clamp((int) d1, -29999872, 29999872);
+            d0 = Math.clamp((int) d0, -29999872, 29999872);
+            d1 = Math.clamp((int) d1, -29999872, 29999872);
 
             if (entityIn.isEntityAlive()) {
                 entityIn.setLocationAndAngles(d0, entityIn.posY, d1, entityIn.rotationYaw, entityIn.rotationPitch);

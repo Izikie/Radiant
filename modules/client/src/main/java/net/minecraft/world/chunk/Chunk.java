@@ -732,8 +732,8 @@ public class Chunk {
     public void getEntitiesWithinAABBForEntity(Entity entityIn, AxisAlignedBB aabb, List<Entity> listToFill, Predicate<? super Entity> p_177414_4_) {
         int i = MathHelper.floor((aabb.minY - 2.0D) / 16.0D);
         int j = MathHelper.floor((aabb.maxY + 2.0D) / 16.0D);
-        i = MathHelper.clamp(i, 0, this.entityLists.length - 1);
-        j = MathHelper.clamp(j, 0, this.entityLists.length - 1);
+        i = Math.clamp(i, 0, this.entityLists.length - 1);
+        j = Math.clamp(j, 0, this.entityLists.length - 1);
 
         for (int k = i; k <= j; ++k) {
             if (!this.entityLists[k].isEmpty()) {
@@ -763,8 +763,8 @@ public class Chunk {
     public <T extends Entity> void getEntitiesOfTypeWithinAAAB(Class<? extends T> entityClass, AxisAlignedBB aabb, List<T> listToFill, Predicate<? super T> p_177430_4_) {
         int i = MathHelper.floor((aabb.minY - 2.0D) / 16.0D);
         int j = MathHelper.floor((aabb.maxY + 2.0D) / 16.0D);
-        i = MathHelper.clamp(i, 0, this.entityLists.length - 1);
-        j = MathHelper.clamp(j, 0, this.entityLists.length - 1);
+        i = Math.clamp(i, 0, this.entityLists.length - 1);
+        j = Math.clamp(j, 0, this.entityLists.length - 1);
 
         for (int k = i; k <= j; ++k) {
             for (T t : this.entityLists[k].getByClass(entityClass)) {

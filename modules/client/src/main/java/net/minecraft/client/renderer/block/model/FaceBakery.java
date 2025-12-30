@@ -52,7 +52,7 @@ public class FaceBakery {
 
     private int getFaceShadeColor(Direction facing) {
         float f = getFaceBrightness(facing);
-        int i = MathHelper.clamp((int) (f * 255.0F), 0, 255);
+        int i = Math.clamp((int) (f * 255.0F), 0, 255);
         return -16777216 | i << 16 | i << 8 | i;
     }
 

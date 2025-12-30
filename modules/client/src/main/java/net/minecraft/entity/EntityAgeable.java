@@ -102,7 +102,7 @@ public abstract class EntityAgeable extends EntityCreature {
     }
 
     public void setGrowingAge(int age) {
-        this.dataWatcher.updateObject(12, (byte) MathHelper.clamp(age, -1, 1));
+        this.dataWatcher.updateObject(12, (byte) Math.clamp(age, -1, 1));
         this.growingAge = age;
         this.setScaleForAge(this.isChild());
     }

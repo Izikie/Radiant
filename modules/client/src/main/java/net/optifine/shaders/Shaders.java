@@ -2214,7 +2214,7 @@ public class Shaders {
                                                         sunPathRotation = shaderline.getValueFloat();
                                                         Log.info("Sun path rotation: " + sunPathRotation);
                                                     } else if (shaderline.isConstFloat("ambientOcclusionLevel")) {
-                                                        aoLevel = Config.limit(shaderline.getValueFloat(), 0.0F, 1.0F);
+                                                        aoLevel = Math.clamp(shaderline.getValueFloat(), 0.0F, 1.0F);
                                                         Log.info("AO Level: " + aoLevel);
                                                     } else if (shaderline.isConstInt("superSamplingLevel")) {
                                                         int i1 = shaderline.getValueInt();
@@ -3097,7 +3097,7 @@ public class Shaders {
 
                 if (mc.player.isPotionActive(Potion.BLINDNESS)) {
                     int i = mc.player.getActivePotionEffect(Potion.BLINDNESS).getDuration();
-                    blindness = Config.limit(i / 20.0F, 0.0F, 1.0F);
+                    blindness = Math.clamp(i / 20.0F, 0.0F, 1.0F);
                 }
             }
 
@@ -4375,7 +4375,7 @@ public class Shaders {
         }
 
         configAntialiasingLevel = configAntialiasingLevel / 2 * 2;
-        configAntialiasingLevel = Config.limit(configAntialiasingLevel, 0, 4);
+        configAntialiasingLevel = Math.clamp(configAntialiasingLevel, 0, 4);
     }
 
     public static void resourcesReloaded() {

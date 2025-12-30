@@ -109,7 +109,7 @@ public abstract class GuiSlot {
     }
 
     protected void bindAmountScrolled() {
-        this.amountScrolled = MathHelper.clamp(this.amountScrolled, 0.0F, this.func_148135_f());
+        this.amountScrolled = Math.clamp(this.amountScrolled, 0.0F, this.func_148135_f());
     }
 
     public int func_148135_f() {
@@ -200,7 +200,7 @@ public abstract class GuiSlot {
 
             if (j1 > 0) {
                 int k1 = (this.bottom - this.top) * (this.bottom - this.top) / this.getContentHeight();
-                k1 = MathHelper.clamp(k1, 32, this.bottom - this.top - 8);
+                k1 = Math.clamp(k1, 32, this.bottom - this.top - 8);
                 int l1 = (int) this.amountScrolled * (this.bottom - this.top - k1) / j1 + this.top;
 
                 if (l1 < this.top) {
@@ -288,7 +288,7 @@ public abstract class GuiSlot {
                             }
 
                             int l1 = (int) ((float) ((this.bottom - this.top) * (this.bottom - this.top)) / this.getContentHeight());
-                            l1 = MathHelper.clamp(l1, 32, this.bottom - this.top - 8);
+                            l1 = Math.clamp(l1, 32, this.bottom - this.top - 8);
                             this.scrollMultiplier /= (float) (this.bottom - this.top - l1) / k1;
                         } else {
                             this.scrollMultiplier = 1.0F;

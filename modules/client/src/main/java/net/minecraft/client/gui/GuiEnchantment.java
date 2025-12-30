@@ -283,10 +283,10 @@ public class GuiEnchantment extends GuiContainer {
             this.field_147080_z -= 0.2F;
         }
 
-        this.field_147080_z = MathHelper.clamp(this.field_147080_z, 0.0F, 1.0F);
+        this.field_147080_z = Math.clamp(this.field_147080_z, 0.0F, 1.0F);
         float f1 = (this.field_147082_x - this.field_147071_v) * 0.4F;
         float f = 0.2F;
-        f1 = MathHelper.clamp(f1, -f, f);
+        f1 = Math.clamp(f1, -f, f);
         this.field_147081_y += (f1 - this.field_147081_y) * 0.9F;
         this.field_147071_v += this.field_147081_y;
     }

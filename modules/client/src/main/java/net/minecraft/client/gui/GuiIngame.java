@@ -217,7 +217,7 @@ public class GuiIngame extends Gui {
                 i2 = (int) (f3 * 255.0F / this.titleFadeOut);
             }
 
-            i2 = MathHelper.clamp(i2, 0, 255);
+            i2 = Math.clamp(i2, 0, 255);
 
             if (i2 > 8) {
                 GlStateManager.pushMatrix();
@@ -724,7 +724,7 @@ public class GuiIngame extends Gui {
             GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
         } else {
             lightLevel = 1.0F - lightLevel;
-            lightLevel = MathHelper.clamp(lightLevel, 0.0F, 1.0F);
+            lightLevel = Math.clamp(lightLevel, 0.0F, 1.0F);
             WorldBorder worldborder = this.mc.world.getWorldBorder();
             float f = (float) worldborder.getClosestDistance(this.mc.player);
             double d0 = Math.min(worldborder.getResizeSpeed() * worldborder.getWarningTime() * 1000.0D, Math.abs(worldborder.getTargetSize() - worldborder.getDiameter()));

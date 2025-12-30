@@ -43,7 +43,7 @@ public class MapData extends WorldSavedData {
         this.xCenter = nbt.getInteger("xCenter");
         this.zCenter = nbt.getInteger("zCenter");
         this.scale = nbt.getByte("scale");
-        this.scale = (byte) MathHelper.clamp(this.scale, 0, 4);
+        this.scale = (byte) Math.clamp(this.scale, 0, 4);
         int i = nbt.getShort("width");
         int j = nbt.getShort("height");
 

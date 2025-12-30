@@ -48,7 +48,7 @@ public class Property {
     public void nextValue(boolean forward) {
         int i = 0;
         int j = this.propertyValues.length - 1;
-        this.value = Config.limit(this.value, i, j);
+        this.value = Math.clamp(this.value, i, j);
 
         if (forward) {
             ++this.value;
@@ -114,6 +114,7 @@ public class Property {
         }
     }
 
+    @Override
     public String toString() {
         return this.propertyName + "=" + this.getPropertyValue() + " [" + Config.arrayToString(this.propertyValues) + "], value: " + this.value;
     }

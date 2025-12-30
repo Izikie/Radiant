@@ -228,7 +228,7 @@ public class RenderItemFrame extends Render<EntityItemFrame> {
 
     public static void updateItemRenderDistance() {
         Minecraft minecraft = Config.getMinecraft();
-        double d0 = Config.limit(minecraft.gameSettings.fovSetting, 1.0F, 120.0F);
+        double d0 = Math.clamp(minecraft.gameSettings.fovSetting, 1.0F, 120.0F);
         double d1 = Math.max(6.0D * minecraft.displayHeight / d0, 16.0D);
         itemRenderDistanceSq = d1 * d1;
     }

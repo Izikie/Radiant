@@ -35,7 +35,7 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
 
     private float func_175265_c() {
         long i = this.field_175270_h - Minecraft.getSystemTime() + 5000L;
-        return MathHelper.clamp(i / 2000.0F, 0.0F, 1.0F);
+        return Math.clamp(i / 2000.0F, 0.0F, 1.0F);
     }
 
     public void renderTooltip(ScaledResolution p_175264_1_, float p_175264_2_) {

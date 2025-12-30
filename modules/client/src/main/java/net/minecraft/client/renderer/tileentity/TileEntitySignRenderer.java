@@ -133,7 +133,7 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntity
 
     public static void updateTextRenderDistance() {
         Minecraft minecraft = Config.getMinecraft();
-        double d0 = Config.limit(minecraft.gameSettings.fovSetting, 1.0F, 120.0F);
+        double d0 = Math.clamp(minecraft.gameSettings.fovSetting, 1.0F, 120.0F);
         double d1 = Math.max(1.5D * minecraft.displayHeight / d0, 16.0D);
         textRenderDistanceSq = d1 * d1;
     }

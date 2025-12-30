@@ -153,7 +153,7 @@ public enum FunctionType {
             case TODEG -> MathHelper.toDeg(evalFloat(args, 0));
             case MIN -> this.getMin(args);
             case MAX -> this.getMax(args);
-            case CLAMP -> MathHelper.clamp(evalFloat(args, 0), evalFloat(args, 1), evalFloat(args, 2));
+            case CLAMP -> Math.clamp(evalFloat(args, 0), evalFloat(args, 1), evalFloat(args, 2));
             case ABS -> MathHelper.abs(evalFloat(args, 0));
             case EXP -> (float) Math.exp(evalFloat(args, 0));
             case FLOOR -> MathHelper.floor(evalFloat(args, 0));

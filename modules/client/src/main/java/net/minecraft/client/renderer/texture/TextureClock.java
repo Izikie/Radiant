@@ -34,7 +34,7 @@ public class TextureClock extends TextureAtlasSprite {
                 --d1;
             }
 
-            d1 = MathHelper.clamp(d1, -1.0D, 1.0D);
+            d1 = Math.clamp(d1, -1.0D, 1.0D);
             this.angleDelta += d1 * 0.1D;
             this.angleDelta *= 0.8D;
             this.currentAngle += this.angleDelta;

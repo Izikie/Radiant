@@ -272,7 +272,7 @@ public class GuiPlayerTabOverlay extends Gui {
                         }
                     }
                 } else {
-                    float f1 = MathHelper.clamp(i / 20.0F, 0.0F, 1.0F);
+                    float f1 = Math.clamp(i / 20.0F, 0.0F, 1.0F);
                     int i1 = (int) ((1.0F - f1) * 255.0F) << 16 | (int) (f1 * 255.0F) << 8;
                     String s = "" + i / 2.0F;
 

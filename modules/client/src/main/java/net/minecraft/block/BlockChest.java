@@ -406,7 +406,7 @@ public class BlockChest extends BlockContainer {
                 i = tileEntityChest.numPlayersUsing;
             }
 
-            return MathHelper.clamp(i, 0, 15);
+            return Math.clamp(i, 0, 15);
         }
     }
 
