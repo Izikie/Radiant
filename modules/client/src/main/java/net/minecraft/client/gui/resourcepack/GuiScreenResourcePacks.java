@@ -276,10 +276,6 @@ public class GuiScreenResourcePacks extends GuiScreen {
         this.overlayBackground(0, 0, this.width, 32, 255, 255);
         this.overlayBackground(0, bottom, this.width, this.height, 255, 255);
 
-        if (isLoading) {
-            Gui.drawCenteredString(this.fontRendererObj, "Loading...", this.width / 2, this.height - 60, 8421504);
-        }
-
         searchBox.drawTextBox();
 
         Gui.drawCenteredString(this.fontRendererObj, I18n.format("resourcePack.title"), this.width / 2, 16, 16777215);
