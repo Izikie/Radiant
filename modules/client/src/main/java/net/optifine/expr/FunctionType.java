@@ -148,7 +148,7 @@ public enum FunctionType {
             case ACOS -> MathHelper.acos(evalFloat(args, 0));
             case TAN -> (float) Math.tan(evalFloat(args, 0));
             case ATAN -> (float) Math.atan(evalFloat(args, 0));
-            case ATAN2 -> (float) MathHelper.atan2(evalFloat(args, 0), evalFloat(args, 1));
+            case ATAN2 -> (float) Math.atan2(evalFloat(args, 0), evalFloat(args, 1));
             case TORAD -> MathHelper.toRad(evalFloat(args, 0));
             case TODEG -> MathHelper.toDeg(evalFloat(args, 0));
             case MIN -> this.getMin(args);

@@ -311,10 +311,6 @@ public class MathHelper {
         return (value - min) / (max - min);
     }
 
-    public static double atan2(double y, double x) {
-        return Math.atan2(y, x);
-    }
-
     public static int hsvToRGB(float p_181758_0_, float p_181758_1_, float p_181758_2_) {
         int i = (int) (p_181758_0_ * 6.0F) % 6;
         float f = p_181758_0_ * 6.0F - i;

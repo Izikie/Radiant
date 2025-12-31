@@ -512,7 +512,7 @@ public class EntityGuardian extends EntityMob {
                 double d3 = d0 * d0 + d1 * d1 + d2 * d2;
                 d3 = MathHelper.sqrt(d3);
                 d1 = d1 / d3;
-                float f = (float) (MathHelper.atan2(d2, d0) * 180.0D / Math.PI) - 90.0F;
+                float f = (float) (Math.atan2(d2, d0) * 180.0D / Math.PI) - 90.0F;
                 this.entityGuardian.rotationYaw = this.limitAngle(this.entityGuardian.rotationYaw, f, 30.0F);
                 this.entityGuardian.renderYawOffset = this.entityGuardian.rotationYaw;
                 float f1 = (float) (this.speed * this.entityGuardian.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());

@@ -55,7 +55,7 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
         if (entityplayer != null) {
             double d0 = entityplayer.posX - (this.pos.getX() + 0.5F);
             double d1 = entityplayer.posZ - (this.pos.getZ() + 0.5F);
-            this.field_145924_q = (float) MathHelper.atan2(d1, d0);
+            this.field_145924_q = (float) Math.atan2(d1, d0);
             this.bookSpread += 0.1F;
 
             if (this.bookSpread < 0.5F || RANDOM.nextInt(40) == 0) {

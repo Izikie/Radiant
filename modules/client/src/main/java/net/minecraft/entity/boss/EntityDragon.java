@@ -178,7 +178,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                     d12 = Math.clamp(d12, (-f17), f17);
                     this.motionY += d12 * 0.10000000149011612D;
                     this.rotationYaw = MathHelper.wrapAngle(this.rotationYaw);
-                    double d4 = 180.0D - MathHelper.atan2(d11, d13) * 180.0D / Math.PI;
+                    double d4 = 180.0D - Math.atan2(d11, d13) * 180.0D / Math.PI;
                     double d6 = MathHelper.wrapAngle(d4 - this.rotationYaw);
 
                     if (d6 > 50.0D) {
