@@ -55,7 +55,7 @@ public class EntityChicken extends EntityAnimal {
         this.field_70888_h = this.wingRotation;
         this.field_70884_g = this.destPos;
         this.destPos = (float) (this.destPos + (this.onGround ? -1 : 4) * 0.3D);
-        this.destPos = MathHelper.clamp(this.destPos, 0.0F, 1.0F);
+        this.destPos = Math.clamp(this.destPos, 0.0F, 1.0F);
 
         if (!this.onGround && this.wingRotDelta < 1.0F) {
             this.wingRotDelta = 1.0F;

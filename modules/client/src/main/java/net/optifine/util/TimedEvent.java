@@ -1,10 +1,9 @@
 package net.optifine.util;
 
-import it.unimi.dsi.fastutil.objects.Object2LongMap;
 import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
 
 public class TimedEvent {
-    private static final Object2LongMap<String> mapEventTimes = new Object2LongOpenHashMap<>();
+    private static final Object2LongOpenHashMap<String> mapEventTimes = new Object2LongOpenHashMap<>();
 
     public static boolean isActive(String name, long timeIntervalMs) {
         synchronized (mapEventTimes) {

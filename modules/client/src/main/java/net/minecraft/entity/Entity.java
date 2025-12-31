@@ -228,7 +228,7 @@ public abstract class Entity implements ICommandSender {
         float f1 = this.rotationYaw;
         this.rotationYaw = (float) (this.rotationYaw + yaw * 0.15D);
         this.rotationPitch = (float) (this.rotationPitch - pitch * 0.15D);
-        this.rotationPitch = MathHelper.clamp(this.rotationPitch, -90.0F, 90.0F);
+        this.rotationPitch = Math.clamp(this.rotationPitch, -90.0F, 90.0F);
         this.prevRotationPitch += this.rotationPitch - f;
         this.prevRotationYaw += this.rotationYaw - f1;
     }

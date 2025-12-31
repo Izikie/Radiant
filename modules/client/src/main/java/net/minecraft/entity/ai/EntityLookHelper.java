@@ -51,8 +51,8 @@ public class EntityLookHelper {
             double d1 = this.posY - (this.entity.posY + this.entity.getEyeHeight());
             double d2 = this.posZ - this.entity.posZ;
             double d3 = MathHelper.sqrt(d0 * d0 + d2 * d2);
-            float f = (float) (MathHelper.atan2(d2, d0) * 180.0D / Math.PI) - 90.0F;
-            float f1 = (float) (-(MathHelper.atan2(d1, d3) * 180.0D / Math.PI));
+            float f = (float) (Math.atan2(d2, d0) * 180.0D / Math.PI) - 90.0F;
+            float f1 = (float) (-(Math.atan2(d1, d3) * 180.0D / Math.PI));
             this.entity.rotationPitch = this.updateRotation(this.entity.rotationPitch, f1, this.deltaLookPitch);
             this.entity.rotationYawHead = this.updateRotation(this.entity.rotationYawHead, f, this.deltaLookYaw);
         } else {

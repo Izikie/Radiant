@@ -136,10 +136,10 @@ public class EntitySquid extends EntityWaterMob {
             }
 
             float f1 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
-            this.renderYawOffset += (-((float) MathHelper.atan2(this.motionX, this.motionZ)) * 180.0F / (float) Math.PI - this.renderYawOffset) * 0.1F;
+            this.renderYawOffset += (-((float) Math.atan2(this.motionX, this.motionZ)) * 180.0F / (float) Math.PI - this.renderYawOffset) * 0.1F;
             this.rotationYaw = this.renderYawOffset;
             this.squidYaw = (float) (this.squidYaw + Math.PI * this.field_70871_bB * 1.5D);
-            this.squidPitch += (-((float) MathHelper.atan2(f1, this.motionY)) * 180.0F / (float) Math.PI - this.squidPitch) * 0.1F;
+            this.squidPitch += (-((float) Math.atan2(f1, this.motionY)) * 180.0F / (float) Math.PI - this.squidPitch) * 0.1F;
         } else {
             this.tentacleAngle = MathHelper.abs(MathHelper.sin(this.squidRotation)) * (float) Math.PI * 0.25F;
 

@@ -26,8 +26,8 @@ public class MovingSoundMinecart extends MovingSound {
             float f = MathHelper.sqrt(this.minecart.motionX * this.minecart.motionX + this.minecart.motionZ * this.minecart.motionZ);
 
             if (f >= 0.01D) {
-                this.distance = MathHelper.clamp(this.distance + 0.0025F, 0.0F, 1.0F);
-                this.volume = 0.0F + MathHelper.clamp(f, 0.0F, 0.5F) * 0.7F;
+                this.distance = Math.clamp(this.distance + 0.0025F, 0.0F, 1.0F);
+                this.volume = 0.0F + Math.clamp(f, 0.0F, 0.5F) * 0.7F;
             } else {
                 this.distance = 0.0F;
                 this.volume = 0.0F;

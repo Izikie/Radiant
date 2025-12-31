@@ -974,7 +974,7 @@ public abstract class World implements IBlockAccess {
     public int calculateSkylightSubtracted(float p_72967_1_) {
         float f = this.getCelestialAngle(p_72967_1_);
         float f1 = 1.0F - (MathHelper.cos(f * (float) Math.PI * 2.0F) * 2.0F + 0.5F);
-        f1 = MathHelper.clamp(f1, 0.0F, 1.0F);
+        f1 = Math.clamp(f1, 0.0F, 1.0F);
         f1 = 1.0F - f1;
         f1 = (float) (f1 * (1.0D - (this.getRainStrength(p_72967_1_) * 5.0F) / 16.0D));
         f1 = (float) (f1 * (1.0D - (this.getThunderStrength(p_72967_1_) * 5.0F) / 16.0D));
@@ -985,7 +985,7 @@ public abstract class World implements IBlockAccess {
     public float getSunBrightness(float p_72971_1_) {
         float f = this.getCelestialAngle(p_72971_1_);
         float f1 = 1.0F - (MathHelper.cos(f * (float) Math.PI * 2.0F) * 2.0F + 0.2F);
-        f1 = MathHelper.clamp(f1, 0.0F, 1.0F);
+        f1 = Math.clamp(f1, 0.0F, 1.0F);
         f1 = 1.0F - f1;
         f1 = (float) (f1 * (1.0D - (this.getRainStrength(p_72971_1_) * 5.0F) / 16.0D));
         f1 = (float) (f1 * (1.0D - (this.getThunderStrength(p_72971_1_) * 5.0F) / 16.0D));
@@ -995,7 +995,7 @@ public abstract class World implements IBlockAccess {
     public Vec3 getSkyColor(Entity entityIn, float partialTicks) {
         float f = this.getCelestialAngle(partialTicks);
         float f1 = MathHelper.cos(f * (float) Math.PI * 2.0F) * 2.0F + 0.5F;
-        f1 = MathHelper.clamp(f1, 0.0F, 1.0F);
+        f1 = Math.clamp(f1, 0.0F, 1.0F);
         int i = MathHelper.floor(entityIn.posX);
         int j = MathHelper.floor(entityIn.posY);
         int k = MathHelper.floor(entityIn.posZ);
@@ -1065,7 +1065,7 @@ public abstract class World implements IBlockAccess {
     public Vec3 getCloudColour(float partialTicks) {
         float f = this.getCelestialAngle(partialTicks);
         float f1 = MathHelper.cos(f * (float) Math.PI * 2.0F) * 2.0F + 0.5F;
-        f1 = MathHelper.clamp(f1, 0.0F, 1.0F);
+        f1 = Math.clamp(f1, 0.0F, 1.0F);
         float f2 = (this.cloudColour >> 16 & 255L) / 255.0F;
         float f3 = (this.cloudColour >> 8 & 255L) / 255.0F;
         float f4 = (this.cloudColour & 255L) / 255.0F;
@@ -1124,7 +1124,7 @@ public abstract class World implements IBlockAccess {
     public float getStarBrightness(float partialTicks) {
         float f = this.getCelestialAngle(partialTicks);
         float f1 = 1.0F - (MathHelper.cos(f * (float) Math.PI * 2.0F) * 2.0F + 0.25F);
-        f1 = MathHelper.clamp(f1, 0.0F, 1.0F);
+        f1 = Math.clamp(f1, 0.0F, 1.0F);
         return f1 * f1 * 0.5F;
     }
 
@@ -1797,7 +1797,7 @@ public abstract class World implements IBlockAccess {
                     this.thunderingStrength = (float) (this.thunderingStrength - 0.01D);
                 }
 
-                this.thunderingStrength = MathHelper.clamp(this.thunderingStrength, 0.0F, 1.0F);
+                this.thunderingStrength = Math.clamp(this.thunderingStrength, 0.0F, 1.0F);
                 int k = this.worldInfo.getRainTime();
 
                 if (k <= 0) {
@@ -1823,7 +1823,7 @@ public abstract class World implements IBlockAccess {
                     this.rainingStrength = (float) (this.rainingStrength - 0.01D);
                 }
 
-                this.rainingStrength = MathHelper.clamp(this.rainingStrength, 0.0F, 1.0F);
+                this.rainingStrength = Math.clamp(this.rainingStrength, 0.0F, 1.0F);
             }
         }
     }

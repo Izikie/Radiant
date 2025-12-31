@@ -57,7 +57,7 @@ public class SoundSystem {
 
     // ---------------- Master Volume ----------------
     public void setMasterVolume(float volume) {
-        masterVolume = Math.max(0f, Math.min(1f, volume));
+        masterVolume = Math.clamp(volume, 0f, 1f);
         for (ISoundSource src : sources.values()) {
             src.updateVolumeWithMaster(masterVolume);
         }

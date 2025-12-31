@@ -270,7 +270,7 @@ public class PlayerManager {
     }
 
     public void setPlayerViewRadius(int radius) {
-        radius = MathHelper.clamp(radius, 3, 64);
+        radius = Math.clamp(radius, 3, 64);
 
         if (radius != this.playerViewRadius) {
             int i = radius - this.playerViewRadius;

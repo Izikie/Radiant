@@ -191,12 +191,13 @@ public abstract class ShaderOption {
 
     public void setIndexNormalized(float f) {
         if (this.values.length > 1) {
-            f = Config.limit(f, 0.0F, 1.0F);
+            f = Math.clamp(f, 0.0F, 1.0F);
             int i = Math.round(f * (this.values.length - 1));
             this.value = this.values[i];
         }
     }
 
+    @Override
     public String toString() {
         return this.name + ", value: " + this.value + ", valueDefault: " + this.valueDefault + ", paths: " + Config.arrayToString(this.paths);
     }

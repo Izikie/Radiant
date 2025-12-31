@@ -148,12 +148,12 @@ public enum FunctionType {
             case ACOS -> MathHelper.acos(evalFloat(args, 0));
             case TAN -> (float) Math.tan(evalFloat(args, 0));
             case ATAN -> (float) Math.atan(evalFloat(args, 0));
-            case ATAN2 -> (float) MathHelper.atan2(evalFloat(args, 0), evalFloat(args, 1));
+            case ATAN2 -> (float) Math.atan2(evalFloat(args, 0), evalFloat(args, 1));
             case TORAD -> MathHelper.toRad(evalFloat(args, 0));
             case TODEG -> MathHelper.toDeg(evalFloat(args, 0));
             case MIN -> this.getMin(args);
             case MAX -> this.getMax(args);
-            case CLAMP -> MathHelper.clamp(evalFloat(args, 0), evalFloat(args, 1), evalFloat(args, 2));
+            case CLAMP -> Math.clamp(evalFloat(args, 0), evalFloat(args, 1), evalFloat(args, 2));
             case ABS -> MathHelper.abs(evalFloat(args, 0));
             case EXP -> (float) Math.exp(evalFloat(args, 0));
             case FLOOR -> MathHelper.floor(evalFloat(args, 0));

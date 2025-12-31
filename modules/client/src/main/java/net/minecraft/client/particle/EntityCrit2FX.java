@@ -34,7 +34,7 @@ public class EntityCrit2FX extends EntityFX {
     @Override
     public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
         float f = (this.particleAge + partialTicks) / this.particleMaxAge * 32.0F;
-        f = MathHelper.clamp(f, 0.0F, 1.0F);
+        f = Math.clamp(f, 0.0F, 1.0F);
         this.particleScale = this.field_174839_a * f;
         super.renderParticle(worldRendererIn, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
     }

@@ -455,8 +455,8 @@ public abstract class EntityLiving extends EntityLivingBase {
         }
 
         double d3 = MathHelper.sqrt(d0 * d0 + d1 * d1);
-        float f = (float) (MathHelper.atan2(d1, d0) * 180.0D / Math.PI) - 90.0F;
-        float f1 = (float) (-(MathHelper.atan2(d2, d3) * 180.0D / Math.PI));
+        float f = (float) (Math.atan2(d1, d0) * 180.0D / Math.PI) - 90.0F;
+        float f1 = (float) (-(Math.atan2(d2, d3) * 180.0D / Math.PI));
         this.rotationPitch = this.updateRotation(this.rotationPitch, f1, p_70625_3_);
         this.rotationYaw = this.updateRotation(this.rotationYaw, f, p_70625_2_);
     }

@@ -55,7 +55,7 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
         if (entityplayer != null) {
             double d0 = entityplayer.posX - (this.pos.getX() + 0.5F);
             double d1 = entityplayer.posZ - (this.pos.getZ() + 0.5F);
-            this.field_145924_q = (float) MathHelper.atan2(d1, d0);
+            this.field_145924_q = (float) Math.atan2(d1, d0);
             this.bookSpread += 0.1F;
 
             if (this.bookSpread < 0.5F || RANDOM.nextInt(40) == 0) {
@@ -97,12 +97,12 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
         }
 
         this.bookRotation += f2 * 0.4F;
-        this.bookSpread = MathHelper.clamp(this.bookSpread, 0.0F, 1.0F);
+        this.bookSpread = Math.clamp(this.bookSpread, 0.0F, 1.0F);
         ++this.tickCount;
         this.pageFlipPrev = this.pageFlip;
         float f = (this.field_145932_k - this.pageFlip) * 0.4F;
         float f3 = 0.2F;
-        f = MathHelper.clamp(f, -f3, f3);
+        f = Math.clamp(f, -f3, f3);
         this.field_145929_l += (f - this.field_145929_l) * 0.9F;
         this.pageFlip += this.field_145929_l;
     }

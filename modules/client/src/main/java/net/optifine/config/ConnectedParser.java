@@ -1,6 +1,8 @@
 package net.optifine.config;
 
-import it.unimi.dsi.fastutil.ints.*;
+import it.unimi.dsi.fastutil.ints.IntAVLTreeSet;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.properties.IProperty;
@@ -119,7 +121,7 @@ public class ConnectedParser {
     }
 
     private static int[] parseCareerIds(int prof, String str) {
-        IntSet set = new IntOpenHashSet();
+        IntOpenHashSet set = new IntOpenHashSet();
         String[] astring = Config.tokenize(str, ",");
 
         for (String s : astring) {
@@ -423,7 +425,7 @@ public class ConnectedParser {
                 if (map.isEmpty()) {
                     return null;
                 } else {
-                    IntList list1 = new IntArrayList();
+                    IntArrayList list1 = new IntArrayList();
 
                     for (int k = 0; k < 16; ++k) {
 
@@ -440,13 +442,7 @@ public class ConnectedParser {
                     if (list1.size() == 16) {
                         return null;
                     } else {
-                        int[] aint1 = new int[list1.size()];
-
-                        for (int i1 = 0; i1 < aint1.length; ++i1) {
-                            aint1[i1] = list1.getInt(i1);
-                        }
-
-                        return aint1;
+                        return list1.toIntArray();
                     }
                 }
             }
@@ -562,7 +558,7 @@ public class ConnectedParser {
         if (str == null) {
             return null;
         } else {
-            IntList list = new IntArrayList();
+            IntArrayList list = new IntArrayList();
             String[] astring = Config.tokenize(str, " ,");
 
             for (String s : astring) {
@@ -594,13 +590,7 @@ public class ConnectedParser {
                 }
             }
 
-            int[] aint = new int[list.size()];
-
-            for (int j1 = 0; j1 < aint.length; ++j1) {
-                aint[j1] = list.getInt(j1);
-            }
-
-            return aint;
+            return list.toIntArray();
         }
     }
 
@@ -901,7 +891,7 @@ public class ConnectedParser {
 
     public int[] parseItems(String str) {
         str = str.trim();
-        IntSet set = new IntAVLTreeSet();
+        IntAVLTreeSet set = new IntAVLTreeSet();
         String[] astring = Config.tokenize(str, " ");
 
         for (String s : astring) {

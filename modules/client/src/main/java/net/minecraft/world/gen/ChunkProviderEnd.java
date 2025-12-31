@@ -207,7 +207,7 @@ public class ChunkProviderEnd implements IChunkProvider {
 
                     if (l > p_73187_6_ / 2 - i1) {
                         double d6 = ((l - (p_73187_6_ / 2 - i1)) / 64.0F);
-                        d6 = MathHelper.clamp(d6, 0.0D, 1.0D);
+                        d6 = Math.clamp(d6, 0.0D, 1.0D);
                         d2 = d2 * (1.0D - d6) + -3000.0D * d6;
                     }
 

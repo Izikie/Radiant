@@ -23,7 +23,7 @@ public class BlockSeaLantern extends Block {
 
     @Override
     public int quantityDroppedWithBonus(int fortune, Random random) {
-        return MathHelper.clamp(this.quantityDropped(random) + random.nextInt(fortune + 1), 1, 5);
+        return Math.clamp(this.quantityDropped(random) + random.nextInt(fortune + 1), 1, 5);
     }
 
     @Override

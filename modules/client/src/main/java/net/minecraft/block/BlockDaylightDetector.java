@@ -54,7 +54,7 @@ public class BlockDaylightDetector extends BlockContainer {
             float f1 = f < (float) Math.PI ? 0.0F : ((float) Math.PI * 2.0F);
             f = f + (f1 - f) * 0.2F;
             i = Math.round(i * MathHelper.cos(f));
-            i = MathHelper.clamp(i, 0, 15);
+            i = Math.clamp(i, 0, 15);
 
             if (this.inverted) {
                 i = 15 - i;

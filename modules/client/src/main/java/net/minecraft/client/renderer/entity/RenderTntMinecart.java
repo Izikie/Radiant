@@ -20,7 +20,7 @@ public class RenderTntMinecart extends RenderMinecart<EntityMinecartTNT> {
 
         if (i > -1 && i - partialTicks + 1.0F < 10.0F) {
             float f = 1.0F - (i - partialTicks + 1.0F) / 10.0F;
-            f = MathHelper.clamp(f, 0.0F, 1.0F);
+            f = Math.clamp(f, 0.0F, 1.0F);
             f = f * f;
             f = f * f;
             float f1 = 1.0F + f * 0.3F;

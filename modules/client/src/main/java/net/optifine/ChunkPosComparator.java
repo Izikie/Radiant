@@ -15,7 +15,7 @@ public class ChunkPosComparator implements Comparator<ChunkCoordIntPair> {
         this.chunkPosX = chunkPosX;
         this.chunkPosZ = chunkPosZ;
         this.yawRad = yawRad;
-        this.pitchNorm = 1.0D - MathHelper.clamp(Math.abs(pitchRad) / (Math.PI / 2.0D), 0.0D, 1.0D);
+        this.pitchNorm = 1.0D - Math.clamp(Math.abs(pitchRad) / (Math.PI / 2.0D), 0.0D, 1.0D);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class ChunkPosComparator implements Comparator<ChunkCoordIntPair> {
         int i = cp.chunkXPos - this.chunkPosX;
         int j = cp.chunkZPos - this.chunkPosZ;
         int k = i * i + j * j;
-        double d0 = MathHelper.atan2(j, i);
+        double d0 = Math.atan2(j, i);
         double d1 = Math.abs(d0 - this.yawRad);
 
         if (d1 > Math.PI) {

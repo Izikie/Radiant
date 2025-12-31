@@ -229,7 +229,7 @@ public class EntityGhast extends EntityFlying implements IMob {
         @Override
         public void updateTask() {
             if (this.parentEntity.getAttackTarget() == null) {
-                this.parentEntity.renderYawOffset = this.parentEntity.rotationYaw = -((float) MathHelper.atan2(this.parentEntity.motionX, this.parentEntity.motionZ)) * 180.0F / (float) Math.PI;
+                this.parentEntity.renderYawOffset = this.parentEntity.rotationYaw = -((float) Math.atan2(this.parentEntity.motionX, this.parentEntity.motionZ)) * 180.0F / (float) Math.PI;
             } else {
                 EntityLivingBase entitylivingbase = this.parentEntity.getAttackTarget();
                 double d0 = 64.0D;
@@ -237,7 +237,7 @@ public class EntityGhast extends EntityFlying implements IMob {
                 if (entitylivingbase.getDistanceSqToEntity(this.parentEntity) < d0 * d0) {
                     double d1 = entitylivingbase.posX - this.parentEntity.posX;
                     double d2 = entitylivingbase.posZ - this.parentEntity.posZ;
-                    this.parentEntity.renderYawOffset = this.parentEntity.rotationYaw = -((float) MathHelper.atan2(d1, d2)) * 180.0F / (float) Math.PI;
+                    this.parentEntity.renderYawOffset = this.parentEntity.rotationYaw = -((float) Math.atan2(d1, d2)) * 180.0F / (float) Math.PI;
                 }
             }
         }

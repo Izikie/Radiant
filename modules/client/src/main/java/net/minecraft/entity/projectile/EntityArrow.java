@@ -71,8 +71,8 @@ public class EntityArrow extends Entity implements IProjectile {
         double d3 = MathHelper.sqrt(d0 * d0 + d2 * d2);
 
         if (d3 >= 1.0E-7D) {
-            float f = (float) (MathHelper.atan2(d2, d0) * 180.0D / Math.PI) - 90.0F;
-            float f1 = (float) (-(MathHelper.atan2(d1, d3) * 180.0D / Math.PI));
+            float f = (float) (Math.atan2(d2, d0) * 180.0D / Math.PI) - 90.0F;
+            float f1 = (float) (-(Math.atan2(d1, d3) * 180.0D / Math.PI));
             double d4 = d0 / d3;
             double d5 = d2 / d3;
             this.setLocationAndAngles(shooter.posX + d4, this.posY, shooter.posZ + d5, f, f1);
@@ -123,8 +123,8 @@ public class EntityArrow extends Entity implements IProjectile {
         this.motionY = y;
         this.motionZ = z;
         float f1 = MathHelper.sqrt(x * x + z * z);
-        this.prevRotationYaw = this.rotationYaw = (float) (MathHelper.atan2(x, z) * 180.0D / Math.PI);
-        this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.atan2(y, f1) * 180.0D / Math.PI);
+        this.prevRotationYaw = this.rotationYaw = (float) (Math.atan2(x, z) * 180.0D / Math.PI);
+        this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(y, f1) * 180.0D / Math.PI);
         this.ticksInGround = 0;
     }
 
@@ -142,8 +142,8 @@ public class EntityArrow extends Entity implements IProjectile {
 
         if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F) {
             float f = MathHelper.sqrt(x * x + z * z);
-            this.prevRotationYaw = this.rotationYaw = (float) (MathHelper.atan2(x, z) * 180.0D / Math.PI);
-            this.rotationPitch = (float) (MathHelper.atan2(y, f) * 180.0D / Math.PI);
+            this.prevRotationYaw = this.rotationYaw = (float) (Math.atan2(x, z) * 180.0D / Math.PI);
+            this.rotationPitch = (float) (Math.atan2(y, f) * 180.0D / Math.PI);
             this.prevRotationPitch = this.rotationPitch;
             this.prevRotationYaw = this.rotationYaw;
             this.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
@@ -157,8 +157,8 @@ public class EntityArrow extends Entity implements IProjectile {
 
         if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F) {
             float f = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
-            this.prevRotationYaw = this.rotationYaw = (float) (MathHelper.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
-            this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.atan2(this.motionY, f) * 180.0D / Math.PI);
+            this.prevRotationYaw = this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
+            this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(this.motionY, f) * 180.0D / Math.PI);
         }
 
         BlockPos blockpos = new BlockPos(this.xTile, this.yTile, this.zTile);
@@ -331,9 +331,9 @@ public class EntityArrow extends Entity implements IProjectile {
             this.posY += this.motionY;
             this.posZ += this.motionZ;
             float f3 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
-            this.rotationYaw = (float) (MathHelper.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
+            this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
 
-            for (this.rotationPitch = (float) (MathHelper.atan2(this.motionY, f3) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
+            for (this.rotationPitch = (float) (Math.atan2(this.motionY, f3) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
             }
 
             while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {

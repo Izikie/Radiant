@@ -1,6 +1,5 @@
 package net.optifine.entity.model;
 
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
@@ -11,17 +10,13 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.passive.EntityHorse;
 
 public class ModelAdapterHorse extends ModelAdapter {
-    private static Object2IntMap<String> mapPartFields = null;
+    private static Object2IntOpenHashMap<String> mapPartFields = null;
 
     public ModelAdapterHorse() {
         super(EntityHorse.class, "horse", 0.75F);
     }
 
-    protected ModelAdapterHorse(Class entityClass, String name, float shadowSize) {
-        super(entityClass, name, shadowSize);
-    }
-
-    private static Object2IntMap<String> getMapPartFields() {
+    private static Object2IntOpenHashMap<String> getMapPartFields() {
         if (mapPartFields == null) {
             mapPartFields = new Object2IntOpenHashMap<>();
             mapPartFields.put("head", 0);
@@ -75,10 +70,10 @@ public class ModelAdapterHorse extends ModelAdapter {
     @Override
     public ModelRenderer getModelRenderer(ModelBase model, String modelPart) {
         if (model instanceof ModelHorse modelhorse) {
-            Object2IntMap<String> map = getMapPartFields();
+            Object2IntOpenHashMap<String> map = getMapPartFields();
 
             if (map.containsKey(modelPart)) {
-                int i = map.get(modelPart);
+                int i = map.getInt(modelPart);
                 return switch (i) {
                     case 0 -> modelhorse.getHead();
                     case 1 -> modelhorse.getUpperMouth();

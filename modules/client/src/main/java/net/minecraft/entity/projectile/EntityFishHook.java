@@ -131,8 +131,8 @@ public class EntityFishHook extends Entity {
         this.motionY = p_146035_3_;
         this.motionZ = p_146035_5_;
         float f1 = MathHelper.sqrt(p_146035_1_ * p_146035_1_ + p_146035_5_ * p_146035_5_);
-        this.prevRotationYaw = this.rotationYaw = (float) (MathHelper.atan2(p_146035_1_, p_146035_5_) * 180.0D / Math.PI);
-        this.prevRotationPitch = this.rotationPitch = (float) (MathHelper.atan2(p_146035_3_, f1) * 180.0D / Math.PI);
+        this.prevRotationYaw = this.rotationYaw = (float) (Math.atan2(p_146035_1_, p_146035_5_) * 180.0D / Math.PI);
+        this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(p_146035_3_, f1) * 180.0D / Math.PI);
         this.ticksInGround = 0;
     }
 
@@ -267,9 +267,9 @@ public class EntityFishHook extends Entity {
             if (!this.inGround) {
                 this.moveEntity(this.motionX, this.motionY, this.motionZ);
                 float f5 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
-                this.rotationYaw = (float) (MathHelper.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
+                this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
 
-                for (this.rotationPitch = (float) (MathHelper.atan2(this.motionY, f5) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
+                for (this.rotationPitch = (float) (Math.atan2(this.motionY, f5) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
                 }
 
                 while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
@@ -487,8 +487,8 @@ public class EntityFishHook extends Entity {
         int j = EnchantmentHelper.getLureModifier(this.angler);
         float f1 = 0.1F - i * 0.025F - j * 0.01F;
         float f2 = 0.05F + i * 0.01F - j * 0.01F;
-        f1 = MathHelper.clamp(f1, 0.0F, 1.0F);
-        f2 = MathHelper.clamp(f2, 0.0F, 1.0F);
+        f1 = Math.clamp(f1, 0.0F, 1.0F);
+        f2 = Math.clamp(f2, 0.0F, 1.0F);
 
         if (f < f1) {
             this.angler.triggerAchievement(StatList.JUNK_FISHED_STAT);

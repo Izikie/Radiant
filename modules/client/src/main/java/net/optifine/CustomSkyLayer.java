@@ -254,7 +254,7 @@ public class CustomSkyLayer {
         float f1 = this.getWeatherBrightness(rainStrength, thunderStrength);
         float f2 = this.getFadeBrightness(timeOfDay);
         float f3 = f * f1 * f2;
-        f3 = Config.limit(f3, 0.0F, 1.0F);
+        f3 = Math.clamp(f3, 0.0F, 1.0F);
 
         if (f3 >= 1.0E-4F) {
             GlStateManager.bindTexture(this.textureId);
@@ -355,7 +355,7 @@ public class CustomSkyLayer {
             f2 += thunderStrength;
         }
 
-        f2 = MathHelper.clamp(f2, 0.0F, 1.0F);
+        f2 = Math.clamp(f2, 0.0F, 1.0F);
         return f2;
     }
 

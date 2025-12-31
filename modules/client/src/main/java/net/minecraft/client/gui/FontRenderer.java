@@ -113,7 +113,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
         int k = i / 16;
         int l = j / 16;
         float f = i / 128.0F;
-        float f1 = Config.limit(f, 1.0F, 2.0F);
+        float f1 = Math.clamp(f, 1.0F, 2.0F);
         this.offsetBold = 1.0F / f1;
         float f2 = FontUtils.readFloat(properties, "offsetBold", -1.0F);
 

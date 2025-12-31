@@ -947,7 +947,7 @@ public class GameSettings {
                     }
                 }
 
-                this.ofAaLevel = Config.limit(this.ofAaLevel, 0, 16);
+                this.ofAaLevel = Math.clamp(this.ofAaLevel, 0, 16);
             }
             case AF_LEVEL -> {
                 int valueInt = (int) value;
@@ -960,12 +960,12 @@ public class GameSettings {
                 for (this.ofAfLevel = 1; this.ofAfLevel * 2 <= valueInt; this.ofAfLevel *= 2) {
                 }
 
-                this.ofAfLevel = Config.limit(this.ofAfLevel, 1, 16);
+                this.ofAfLevel = Math.clamp(this.ofAfLevel, 1, 16);
                 this.mc.refreshResources();
             }
             case MIPMAP_TYPE -> {
                 int valueInt = (int) value;
-                this.ofMipmapType = Config.limit(valueInt, 0, 3);
+                this.ofMipmapType = Math.clamp(valueInt, 0, 3);
                 this.mc.refreshResources();
             }
             case FULLSCREEN_MODE -> {
@@ -1669,12 +1669,12 @@ public class GameSettings {
 
                     if (astring[0].equals("ofRenderDistanceChunks") && astring.length >= 2) {
                         this.renderDistanceChunks = Integer.parseInt(astring[1]);
-                        this.renderDistanceChunks = Config.limit(this.renderDistanceChunks, 2, 1024);
+                        this.renderDistanceChunks = Math.clamp(this.renderDistanceChunks, 2, 1024);
                     }
 
                     if (astring[0].equals("ofFogType") && astring.length >= 2) {
                         this.ofFogType = Integer.parseInt(astring[1]);
-                        this.ofFogType = Config.limit(this.ofFogType, 1, 3);
+                        this.ofFogType = Math.clamp(this.ofFogType, 1, 3);
                     }
 
                     if (astring[0].equals("ofFogStart") && astring.length >= 2) {
@@ -1691,7 +1691,7 @@ public class GameSettings {
 
                     if (astring[0].equals("ofMipmapType") && astring.length >= 2) {
                         this.ofMipmapType = Integer.parseInt(astring[1]);
-                        this.ofMipmapType = Config.limit(this.ofMipmapType, 0, 3);
+                        this.ofMipmapType = Math.clamp(this.ofMipmapType, 0, 3);
                     }
 
                     if (astring[0].equals("ofOcclusionFancy") && astring.length >= 2) {
@@ -1708,18 +1708,18 @@ public class GameSettings {
 
                     if (astring[0].equals("ofAoLevel") && astring.length >= 2) {
                         this.ofAoLevel = Float.parseFloat(astring[1]);
-                        this.ofAoLevel = Config.limit(this.ofAoLevel, 0.0F, 1.0F);
+                        this.ofAoLevel = Math.clamp(this.ofAoLevel, 0.0F, 1.0F);
                     }
 
                     if (astring[0].equals("ofClouds") && astring.length >= 2) {
                         this.ofClouds = Integer.parseInt(astring[1]);
-                        this.ofClouds = Config.limit(this.ofClouds, 0, 3);
+                        this.ofClouds = Math.clamp(this.ofClouds, 0, 3);
                         this.updateRenderClouds();
                     }
 
                     if (astring[0].equals("ofCloudsHeight") && astring.length >= 2) {
                         this.ofCloudsHeight = Float.parseFloat(astring[1]);
-                        this.ofCloudsHeight = Config.limit(this.ofCloudsHeight, 0.0F, 1.0F);
+                        this.ofCloudsHeight = Math.clamp(this.ofCloudsHeight, 0.0F, 1.0F);
                     }
 
                     if (astring[0].equals("ofTrees") && astring.length >= 2) {
@@ -1729,22 +1729,22 @@ public class GameSettings {
 
                     if (astring[0].equals("ofDroppedItems") && astring.length >= 2) {
                         this.ofDroppedItems = Integer.parseInt(astring[1]);
-                        this.ofDroppedItems = Config.limit(this.ofDroppedItems, 0, 2);
+                        this.ofDroppedItems = Math.clamp(this.ofDroppedItems, 0, 2);
                     }
 
                     if (astring[0].equals("ofRain") && astring.length >= 2) {
                         this.ofRain = Integer.parseInt(astring[1]);
-                        this.ofRain = Config.limit(this.ofRain, 0, 3);
+                        this.ofRain = Math.clamp(this.ofRain, 0, 3);
                     }
 
                     if (astring[0].equals("ofAnimatedWater") && astring.length >= 2) {
                         this.ofAnimatedWater = Integer.parseInt(astring[1]);
-                        this.ofAnimatedWater = Config.limit(this.ofAnimatedWater, 0, 2);
+                        this.ofAnimatedWater = Math.clamp(this.ofAnimatedWater, 0, 2);
                     }
 
                     if (astring[0].equals("ofAnimatedLava") && astring.length >= 2) {
                         this.ofAnimatedLava = Integer.parseInt(astring[1]);
-                        this.ofAnimatedLava = Config.limit(this.ofAnimatedLava, 0, 2);
+                        this.ofAnimatedLava = Math.clamp(this.ofAnimatedLava, 0, 2);
                     }
 
                     if (astring[0].equals("ofAnimatedFire") && astring.length >= 2) {
@@ -1813,17 +1813,17 @@ public class GameSettings {
 
                     if (astring[0].equals("ofAutoSaveTicks") && astring.length >= 2) {
                         this.ofAutoSaveTicks = Integer.parseInt(astring[1]);
-                        this.ofAutoSaveTicks = Config.limit(this.ofAutoSaveTicks, 40, 40000);
+                        this.ofAutoSaveTicks = Math.clamp(this.ofAutoSaveTicks, 40, 40000);
                     }
 
                     if (astring[0].equals("ofBetterGrass") && astring.length >= 2) {
                         this.ofBetterGrass = Integer.parseInt(astring[1]);
-                        this.ofBetterGrass = Config.limit(this.ofBetterGrass, 1, 3);
+                        this.ofBetterGrass = Math.clamp(this.ofBetterGrass, 1, 3);
                     }
 
                     if (astring[0].equals("ofConnectedTextures") && astring.length >= 2) {
                         this.ofConnectedTextures = Integer.parseInt(astring[1]);
-                        this.ofConnectedTextures = Config.limit(this.ofConnectedTextures, 1, 3);
+                        this.ofConnectedTextures = Math.clamp(this.ofConnectedTextures, 1, 3);
                     }
 
                     if (astring[0].equals("ofWeather") && astring.length >= 2) {
@@ -1844,12 +1844,12 @@ public class GameSettings {
 
                     if (astring[0].equals("ofVignette") && astring.length >= 2) {
                         this.ofVignette = Integer.parseInt(astring[1]);
-                        this.ofVignette = Config.limit(this.ofVignette, 0, 2);
+                        this.ofVignette = Math.clamp(this.ofVignette, 0, 2);
                     }
 
                     if (astring[0].equals("ofChunkUpdates") && astring.length >= 2) {
                         this.ofChunkUpdates = Integer.parseInt(astring[1]);
-                        this.ofChunkUpdates = Config.limit(this.ofChunkUpdates, 1, 5);
+                        this.ofChunkUpdates = Math.clamp(this.ofChunkUpdates, 1, 5);
                     }
 
                     if (astring[0].equals("ofChunkUpdatesDynamic") && astring.length >= 2) {
@@ -1858,7 +1858,7 @@ public class GameSettings {
 
                     if (astring[0].equals("ofTime") && astring.length >= 2) {
                         this.ofTime = Integer.parseInt(astring[1]);
-                        this.ofTime = Config.limit(this.ofTime, 0, 2);
+                        this.ofTime = Math.clamp(this.ofTime, 0, 2);
                     }
 
                     if (astring[0].equals("ofClearWater") && astring.length >= 2) {
@@ -1868,12 +1868,12 @@ public class GameSettings {
 
                     if (astring[0].equals("ofAaLevel") && astring.length >= 2) {
                         this.ofAaLevel = Integer.parseInt(astring[1]);
-                        this.ofAaLevel = Config.limit(this.ofAaLevel, 0, 16);
+                        this.ofAaLevel = Math.clamp(this.ofAaLevel, 0, 16);
                     }
 
                     if (astring[0].equals("ofAfLevel") && astring.length >= 2) {
                         this.ofAfLevel = Integer.parseInt(astring[1]);
-                        this.ofAfLevel = Config.limit(this.ofAfLevel, 1, 16);
+                        this.ofAfLevel = Math.clamp(this.ofAfLevel, 1, 16);
                     }
 
                     if (astring[0].equals("ofBetterSnow") && astring.length >= 2) {
@@ -1947,7 +1947,7 @@ public class GameSettings {
 
                     if (astring[0].equals("ofScreenshotSize") && astring.length >= 2) {
                         this.ofScreenshotSize = Integer.parseInt(astring[1]);
-                        this.ofScreenshotSize = Config.limit(this.ofScreenshotSize, 1, 4);
+                        this.ofScreenshotSize = Math.clamp(this.ofScreenshotSize, 1, 4);
                     }
 
                     if (astring[0].equals("ofCustomEntityModels") && astring.length >= 2) {
@@ -1977,7 +1977,7 @@ public class GameSettings {
 
                     if (astring[0].equals("ofTranslucentBlocks") && astring.length >= 2) {
                         this.ofTranslucentBlocks = Integer.parseInt(astring[1]);
-                        this.ofTranslucentBlocks = Config.limit(this.ofTranslucentBlocks, 0, 2);
+                        this.ofTranslucentBlocks = Math.clamp(this.ofTranslucentBlocks, 0, 2);
                     }
 
                     if (astring[0].equals("key_" + this.ofKeyBindZoom.getKeyDescription())) {
@@ -2416,16 +2416,16 @@ public class GameSettings {
         }
 
         public float normalizeValue(float value) {
-            return MathHelper.clamp((this.snapToStepClamp(value) - this.valueMin) / (this.valueMax - this.valueMin), 0.0F, 1.0F);
+            return Math.clamp((this.snapToStepClamp(value) - this.valueMin) / (this.valueMax - this.valueMin), 0.0F, 1.0F);
         }
 
         public float denormalizeValue(float value) {
-            return this.snapToStepClamp(this.valueMin + (this.valueMax - this.valueMin) * MathHelper.clamp(value, 0.0F, 1.0F));
+            return this.snapToStepClamp(this.valueMin + (this.valueMax - this.valueMin) * Math.clamp(value, 0.0F, 1.0F));
         }
 
         public float snapToStepClamp(float value) {
             value = this.snapToStep(value);
-            return MathHelper.clamp(value, this.valueMin, this.valueMax);
+            return Math.clamp(value, this.valueMin, this.valueMax);
         }
 
         private float snapToStep(float value) {

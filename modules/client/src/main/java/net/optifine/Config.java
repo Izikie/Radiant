@@ -49,7 +49,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-// TOOD: Unfuck
+// TODO: Unfuck
 public class Config {
     public static final String VERSION = "OptiFine 1.8.9 HD U M6-Pre2";
     public static final Float DEF_ALPHA_FUNC_LEVEL = 0.1F;
@@ -117,11 +117,9 @@ public class Config {
     }
 
     public static void checkInitialized() {
-        if (!initialized) {
-            if (Display.isCreated()) {
-                initialized = true;
-                checkOpenGlCaps();
-            }
+        if (!initialized && Display.isCreated()) {
+            initialized = true;
+            checkOpenGlCaps();
         }
     }
 
@@ -523,20 +521,8 @@ public class Config {
         return gameSettings.ofDroppedItems == 0 ? gameSettings.fancyGraphics : gameSettings.ofDroppedItems == 2;
     }
 
-    public static int limit(int p_limit_0_, int p_limit_1_, int p_limit_2_) {
-        return p_limit_0_ < p_limit_1_ ? p_limit_1_ : (p_limit_0_ > p_limit_2_ ? p_limit_2_ : p_limit_0_);
-    }
-
-    public static float limit(float p_limit_0_, float p_limit_1_, float p_limit_2_) {
-        return p_limit_0_ < p_limit_1_ ? p_limit_1_ : (p_limit_0_ > p_limit_2_ ? p_limit_2_ : p_limit_0_);
-    }
-
-    public static double limit(double p_limit_0_, double p_limit_2_, double p_limit_4_) {
-        return p_limit_0_ < p_limit_2_ ? p_limit_2_ : (p_limit_0_ > p_limit_4_ ? p_limit_4_ : p_limit_0_);
-    }
-
     public static float limitTo1(float p_limitTo1_0_) {
-        return p_limitTo1_0_ < 0.0F ? 0.0F : (p_limitTo1_0_ > 1.0F ? 1.0F : p_limitTo1_0_);
+        return p_limitTo1_0_ < 0.0F ? 0.0F : (Math.min(p_limitTo1_0_, 1.0F));
     }
 
     public static boolean isAnimatedWater() {

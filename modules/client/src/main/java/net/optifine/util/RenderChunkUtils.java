@@ -26,7 +26,7 @@ public class RenderChunkUtils {
         double d0 = blockCount / 4096.0D;
         d0 = d0 * 0.995D;
         double d1 = d0 * 2.0D - 1.0D;
-        d1 = MathHelper.clamp(d1, -1.0D, 1.0D);
+        d1 = Math.clamp(d1, -1.0D, 1.0D);
         return MathHelper.sqrt(1.0D - d1 * d1);
     }
 }

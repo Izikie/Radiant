@@ -163,7 +163,7 @@ public class DynamicLights {
                     double d7 = d4 * d4 + d5 * d5 + d6 * d6;
 
                     if (dynamicLight.isUnderwater() && !Config.isClearWater()) {
-                        k = Config.limit(k - 2, 0, 15);
+                        k = Math.clamp(k - 2, 0, 15);
                         d7 *= 2.0D;
                     }
 
@@ -180,7 +180,7 @@ public class DynamicLights {
             }
         }
 
-        return Config.limit(d0, 0.0D, 15.0D);
+        return Math.clamp(d0, 0.0D, 15.0D);
     }
 
     public static int getLightLevel(ItemStack itemStack) {

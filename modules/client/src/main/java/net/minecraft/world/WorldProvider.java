@@ -116,7 +116,7 @@ public abstract class WorldProvider {
 
     public Vec3 getFogColor(float p_76562_1_, float p_76562_2_) {
         float f = MathHelper.cos(p_76562_1_ * (float) Math.PI * 2.0F) * 2.0F + 0.5F;
-        f = MathHelper.clamp(f, 0.0F, 1.0F);
+        f = Math.clamp(f, 0.0F, 1.0F);
         float f1 = 0.7529412F;
         float f2 = 0.84705883F;
         float f3 = 1.0F;

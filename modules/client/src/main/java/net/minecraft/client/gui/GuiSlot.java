@@ -36,7 +36,7 @@ public abstract class GuiSlot {
     protected int headerPadding;
     private boolean enabled = true;
 
-    public GuiSlot(Minecraft mcIn, int width, int height, int topIn, int bottomIn, int slotHeightIn) {
+    protected GuiSlot(Minecraft mcIn, int width, int height, int topIn, int bottomIn, int slotHeightIn) {
         this.mc = mcIn;
         this.width = width;
         this.height = height;
@@ -109,7 +109,7 @@ public abstract class GuiSlot {
     }
 
     protected void bindAmountScrolled() {
-        this.amountScrolled = MathHelper.clamp(this.amountScrolled, 0.0F, this.func_148135_f());
+        this.amountScrolled = Math.clamp(this.amountScrolled, 0.0F, this.func_148135_f());
     }
 
     public int func_148135_f() {
@@ -172,13 +172,15 @@ public abstract class GuiSlot {
             if (!(mc.currentScreen instanceof GuiScreenResourcePacks)) {
                 this.overlayBackground(0, this.top, 255, 255);
                 this.overlayBackground(this.bottom, this.height, 255, 255);
+            }
 
-                GlStateManager.enableBlend();
-                GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ZERO, GL11.GL_ONE);
-                GlStateManager.disableAlpha();
-                GlStateManager.shadeModel(GL11.GL_SMOOTH);
-                GlStateManager.disableTexture2D();
+            GlStateManager.enableBlend();
+            GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ZERO, GL11.GL_ONE);
+            GlStateManager.disableAlpha();
+            GlStateManager.shadeModel(GL11.GL_SMOOTH);
+            GlStateManager.disableTexture2D();
 
+            if (!(mc.currentScreen instanceof GuiScreenResourcePacks)) {
                 // Top Gradient
                 renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
                 renderer.pos(this.left, this.top + i1, 0.0D).tex(0.0D, 1.0D).color(0, 0, 0, 0).endVertex();
@@ -200,7 +202,7 @@ public abstract class GuiSlot {
 
             if (j1 > 0) {
                 int k1 = (this.bottom - this.top) * (this.bottom - this.top) / this.getContentHeight();
-                k1 = MathHelper.clamp(k1, 32, this.bottom - this.top - 8);
+                k1 = Math.clamp(k1, 32, this.bottom - this.top - 8);
                 int l1 = (int) this.amountScrolled * (this.bottom - this.top - k1) / j1 + this.top;
 
                 if (l1 < this.top) {
@@ -288,7 +290,7 @@ public abstract class GuiSlot {
                             }
 
                             int l1 = (int) ((float) ((this.bottom - this.top) * (this.bottom - this.top)) / this.getContentHeight());
-                            l1 = MathHelper.clamp(l1, 32, this.bottom - this.top - 8);
+                            l1 = Math.clamp(l1, 32, this.bottom - this.top - 8);
                             this.scrollMultiplier /= (float) (this.bottom - this.top - l1) / k1;
                         } else {
                             this.scrollMultiplier = 1.0F;
@@ -379,7 +381,6 @@ public abstract class GuiSlot {
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         this.mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        float f = 32.0F;
         worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
         worldrenderer.pos(this.left, endY, 0.0D).tex(0.0D, endY / 32.0F).color(64, 64, 64, endAlpha).endVertex();
         worldrenderer.pos(this.left + this.width, endY, 0.0D).tex(this.width / 32.0F, endY / 32.0F).color(64, 64, 64, endAlpha).endVertex();

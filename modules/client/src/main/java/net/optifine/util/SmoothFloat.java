@@ -33,7 +33,7 @@ public class SmoothFloat {
                 float f5 = 10.0F;
                 float f6 = f3 - 1.0F / (f4 + f2 / f5);
                 float f7 = timeDeltaSec / timeFadeSec * f6;
-                f7 = MathHelper.clamp(f7, 0.0F, 1.0F);
+                f7 = Math.clamp(f7, 0.0F, 1.0F);
                 f1 = valPrev + f * f7;
             } else {
                 f1 = value;

@@ -58,7 +58,7 @@ public class GuiNewChat extends Gui {
                         double d0 = j1 / 200.0D;
                         d0 = 1.0D - d0;
                         d0 = d0 * 10.0D;
-                        d0 = MathHelper.clamp(d0, 0.0D, 1.0D);
+                        d0 = Math.clamp(d0, 0.0D, 1.0D);
                         d0 = d0 * d0;
                         int l1 = (int) (255.0D * d0);
 
