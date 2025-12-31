@@ -234,11 +234,6 @@ public class GuiScreenResourcePacks extends GuiScreen {
     }
 
     @Override
-    protected void mouseReleased(int mouseX, int mouseY, int state) {
-        super.mouseReleased(mouseX, mouseY, state);
-    }
-
-    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
 
@@ -279,7 +274,7 @@ public class GuiScreenResourcePacks extends GuiScreen {
         GlStateManager.disableBlend();
 
         this.overlayBackground(0, 0, this.width, 32, 255, 255);
-        this.overlayBackground(0, bottom, this.width,  this.height, 255, 255);
+        this.overlayBackground(0, bottom, this.width, this.height, 255, 255);
 
         if (isLoading) {
             Gui.drawCenteredString(this.fontRendererObj, "Loading...", this.width / 2, this.height - 60, 8421504);
@@ -316,7 +311,6 @@ public class GuiScreenResourcePacks extends GuiScreen {
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         this.mc.getTextureManager().bindTexture(Gui.OPTIONS_BACKGROUND);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        float f = 32.0F;
         worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
         worldrenderer.pos(startX, endY, 0.0D).tex(0.0D, endY / 32.0F).color(64, 64, 64, endAlpha).endVertex();
         worldrenderer.pos(startX + this.width, endY, 0.0D).tex(this.width / 32.0F, endY / 32.0F).color(64, 64, 64, endAlpha).endVertex();
