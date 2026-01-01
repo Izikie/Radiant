@@ -1,10 +1,12 @@
 package net.minecraft.block.properties;
 
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 
 import java.util.Collection;
+import java.util.Set;
 
 public class PropertyInteger extends PropertyHelper<Integer> {
     private final ImmutableSet<Integer> allowedValues;
@@ -17,9 +19,9 @@ public class PropertyInteger extends PropertyHelper<Integer> {
         } else if (max <= min) {
             throw new IllegalArgumentException("Max value of " + name + " must be greater than min (" + min + ")");
         } else {
-            IntSet set = new IntOpenHashSet();
-
-            for (int i = min; i <= max; ++i) {
+            Set<Integer> set = Sets.newHashSet(); // Fix: Revert to standard Set to avoid skipping numbers
+                                                  // Example: When interacting with Repeaters, the value would go from 4 -> 1 -> 3 -> 2
+            for (int i = min; i <= max; ++i) {    // not: 4 -> 1 -> 2 -> 3
                 set.add(i);
             }
 
