@@ -15,6 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.chat.Formatting;
 import net.minecraft.util.math.MathHelper;
 import net.radiant.lwjgl.input.Keyboard;
+import net.radiant.lwjgl.input.Mouse;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -458,6 +459,20 @@ public abstract class GuiContainer extends GuiScreen {
             } else if (keyCode == this.mc.gameSettings.keyBindDrop.getKeyCode()) {
                 this.handleMouseClick(this.theSlot, this.theSlot.slotNumber, isCtrlKeyDown() ? 1 : 0, 4);
             }
+        }
+    }
+
+    @Override
+    public void handleMouseInput() throws IOException {
+        super.handleMouseInput();
+
+        int button = Mouse.getEventButton();
+
+        if (button >= 2)
+            button = button - 100;
+
+        if (Mouse.getEventButtonState()) {
+            this.checkHotbarKeys(button);
         }
     }
 
