@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.ImageBufferDownload;
 import net.minecraft.client.renderer.ThreadDownloadImageData;
 import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.util.ResourceLocation;
 import net.radiant.util.NativeImage;
 
@@ -44,15 +45,30 @@ public class SkinManager {
         });
     }
 
+    // EXPLOIT-FIX: Possible allow downloading of none texture files
+    public static boolean isZeroday(MinecraftProfileTexture profileTexture) {
+        String url = profileTexture.getUrl();
+
+        if (url.isBlank()) {
+            return true;
+        }
+
+        return profileTexture.getHash().contains(".") || !url.contains("//textures.minecraft.net/texture/");
+    }
+
     public ResourceLocation loadSkin(MinecraftProfileTexture profileTexture, Type type) {
         return this.loadSkin(profileTexture, type, null);
     }
 
     public ResourceLocation loadSkin(MinecraftProfileTexture profileTexture, Type type, SkinAvailableCallback skinAvailableCallback) {
+        if (isZeroday(profileTexture)) {
+            return DefaultPlayerSkin.getDefaultSkinLegacy();
+        }
+
         ResourceLocation resourceLocation = new ResourceLocation("skins/" + profileTexture.getHash());
         ITextureObject iTextureObject = this.textureManager.getTexture(resourceLocation);
 
-        if (iTextureObject != null) {
+        if (iTextureObject != null && iTextureObject != TextureUtil.MISSING_TEXTURE) {
             if (skinAvailableCallback != null) {
                 skinAvailableCallback.skinAvailable(type, resourceLocation, profileTexture);
             }
