@@ -6,58 +6,67 @@ import org.apache.commons.lang3.StringUtils;
 public class ModelResourceLocation extends ResourceLocation {
     private final String variant;
 
-    protected ModelResourceLocation(int unused, String... p_i46078_2_) {
-        super(0, p_i46078_2_[0], p_i46078_2_[1]);
-        this.variant = StringUtils.isEmpty(p_i46078_2_[2]) ? "normal" : p_i46078_2_[2].toLowerCase();
+    protected ModelResourceLocation(String domain, String path, String variant) {
+        super(domain, path);
+        this.variant = StringUtils.isEmpty(variant) ? "normal" : variant.toLowerCase();
     }
 
-    public ModelResourceLocation(String p_i46079_1_) {
-        this(0, parsePathString(p_i46079_1_));
+    protected ModelResourceLocation(String... components) {
+        this(components[0], components[1], components[2]);
     }
 
-    public ModelResourceLocation(String p_i46081_1_, String p_i46081_2_) {
-        this(0, parsePathString(p_i46081_1_ + '#' + (p_i46081_2_ == null ? "normal" : p_i46081_2_)));
+    public ModelResourceLocation(String path, String variant) {
+        this(parsePathString(path + '#' + (variant == null ? "normal" : variant)));
     }
 
-    public ModelResourceLocation(ResourceLocation p_i46080_1_, String p_i46080_2_) {
-        this(p_i46080_1_.toString(), p_i46080_2_);
+    public ModelResourceLocation(ResourceLocation location, String variant) {
+        this(location.getResourceDomain(), location.getResourcePath(), variant);
     }
 
-    protected static String[] parsePathString(String p_177517_0_) {
-        String[] astring = new String[]{null, p_177517_0_, null};
-        int i = p_177517_0_.indexOf(35);
-        String s = p_177517_0_;
+    public ModelResourceLocation(String path) {
+        this(parsePathString(path));
+    }
+
+    protected static String[] parsePathString(String pathString) {
+        String[] components = new String[]{null, pathString, null};
+        int i = pathString.indexOf('#');
+        String s = pathString;
 
         if (i >= 0) {
-            astring[2] = p_177517_0_.substring(i + 1);
+            components[2] = pathString.substring(i + 1);
 
             if (i > 1) {
-                s = p_177517_0_.substring(0, i);
+                s = pathString.substring(0, i);
             }
         }
 
-        System.arraycopy(ResourceLocation.splitObjectName(s), 0, astring, 0, 2);
-        return astring;
+        System.arraycopy(ResourceLocation.splitObjectName(s), 0, components, 0, 2);
+        return components;
     }
 
     public String getVariant() {
         return this.variant;
     }
 
-    public boolean equals(Object p_equals_1_) {
-        if (this == p_equals_1_) {
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
-        } else if (p_equals_1_ instanceof ModelResourceLocation modelresourcelocation && super.equals(p_equals_1_)) {
-            return this.variant.equals(modelresourcelocation.variant);
-        } else {
-            return false;
         }
+
+        if (obj instanceof ModelResourceLocation other && super.equals(obj)) {
+            return this.variant.equals(other.variant);
+        }
+
+        return false;
     }
 
+    @Override
     public int hashCode() {
         return 31 * super.hashCode() + this.variant.hashCode();
     }
 
+    @Override
     public String toString() {
         return super.toString() + '#' + this.variant;
     }

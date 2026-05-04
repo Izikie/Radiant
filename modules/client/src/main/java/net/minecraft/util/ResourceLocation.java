@@ -8,33 +8,33 @@ public class ResourceLocation {
     protected final String resourceDomain;
     protected final String resourcePath;
 
-    protected ResourceLocation(int unused, String... resourceName) {
-        this.resourceDomain = StringUtils.isEmpty(resourceName[0]) ? "minecraft" : resourceName[0].toLowerCase();
-        this.resourcePath = resourceName[1];
+    public ResourceLocation(String domain, String path) {
+        this.resourceDomain = StringUtils.isEmpty(domain) ? "minecraft" : domain.toLowerCase();
+        this.resourcePath = path;
         Objects.requireNonNull(this.resourcePath);
     }
 
-    public ResourceLocation(String resourceName) {
-        this(0, splitObjectName(resourceName));
+    public ResourceLocation(String name) {
+        this(splitObjectName(name));
     }
 
-    public ResourceLocation(String resourceDomainIn, String resourcePathIn) {
-        this(0, resourceDomainIn, resourcePathIn);
+    protected ResourceLocation(String... components) {
+        this(components[0], components[1]);
     }
 
     protected static String[] splitObjectName(String toSplit) {
-        String[] astring = new String[]{null, toSplit};
-        int i = toSplit.indexOf(58);
+        String[] str = new String[]{null, toSplit};
+        int i = toSplit.indexOf(':');
 
         if (i >= 0) {
-            astring[1] = toSplit.substring(i + 1);
+            str[1] = toSplit.substring(i + 1);
 
             if (i > 1) {
-                astring[0] = toSplit.substring(0, i);
+                str[0] = toSplit.substring(0, i);
             }
         }
 
-        return astring;
+        return str;
     }
 
     public String getResourcePath() {
@@ -45,21 +45,26 @@ public class ResourceLocation {
         return this.resourceDomain;
     }
 
-    public String toString() {
-        return this.resourceDomain + ':' + this.resourcePath;
-    }
-
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
-        } else if (!(obj instanceof ResourceLocation resourcelocation)) {
-            return false;
-        } else {
-            return this.resourceDomain.equals(resourcelocation.resourceDomain) && this.resourcePath.equals(resourcelocation.resourcePath);
         }
+        if (!(obj instanceof ResourceLocation other)) {
+            return false;
+        }
+
+        return Objects.equals(this.resourceDomain, other.resourceDomain) &&
+                Objects.equals(this.resourcePath, other.resourcePath);
     }
 
+    @Override
     public int hashCode() {
         return 31 * this.resourceDomain.hashCode() + this.resourcePath.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return this.resourceDomain + ':' + this.resourcePath;
     }
 }
