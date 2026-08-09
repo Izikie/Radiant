@@ -172,11 +172,11 @@ public class ThreadDownloadImageData extends SimpleTexture {
             HttpRequest httprequest = HttpPipeline.makeRequest(this.imageUrl, Minecraft.get().getProxy());
             HttpResponse httpresponse = HttpPipeline.executeRequest(httprequest);
 
-            if (httpresponse.getStatus() / 100 != 2) {
+            if (httpresponse.status() / 100 != 2) {
                 return;
             }
 
-            byte[] abyte = httpresponse.getBody();
+            byte[] abyte = httpresponse.body();
             ByteArrayInputStream bytearrayinputstream = new ByteArrayInputStream(abyte);
             NativeImage image1;
 

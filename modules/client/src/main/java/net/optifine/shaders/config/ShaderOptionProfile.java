@@ -108,7 +108,7 @@ public class ShaderOptionProfile extends ShaderOption {
 
     @Override
     public String getValueColor(String val) {
-        return val.equals("<custom>") ? "\u00a7c" : "\u00a7a";
+        return val.equals("<custom>") ? "§c" : "§a";
     }
 
     @Override

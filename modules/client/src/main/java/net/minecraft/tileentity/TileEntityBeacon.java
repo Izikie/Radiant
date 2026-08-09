@@ -313,7 +313,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
     }
 
     @Override
-    public String getGuiID() {
+    public String guiID() {
         return "minecraft:beacon";
     }
 

@@ -39,8 +39,8 @@ public class SimpleTexture extends AbstractTexture {
                     TextureMetadataSection texturemetadatasection = iresource.getMetadata("texture");
 
                     if (texturemetadatasection != null) {
-                        flag = texturemetadatasection.getTextureBlur();
-                        flag1 = texturemetadatasection.getTextureClamp();
+                        flag = texturemetadatasection.textureBlur();
+                        flag1 = texturemetadatasection.textureClamp();
                     }
                 } catch (RuntimeException exception) {
                     LOGGER.warn("Failed reading metadata of: {}", this.textureLocation, exception);

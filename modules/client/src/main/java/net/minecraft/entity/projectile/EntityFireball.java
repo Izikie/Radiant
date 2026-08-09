@@ -112,7 +112,7 @@ public abstract class EntityFireball extends Entity {
             vec31 = new Vec3(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
 
             if (movingobjectposition != null) {
-                vec31 = new Vec3(movingobjectposition.hitVec.xCoord, movingobjectposition.hitVec.yCoord, movingobjectposition.hitVec.zCoord);
+                vec31 = new Vec3(movingobjectposition.hitVec.xCoord(), movingobjectposition.hitVec.yCoord(), movingobjectposition.hitVec.zCoord());
             }
 
             Entity entity = null;
@@ -254,9 +254,9 @@ public abstract class EntityFireball extends Entity {
                 Vec3 vec3 = source.getEntity().getLookVec();
 
                 if (vec3 != null) {
-                    this.motionX = vec3.xCoord;
-                    this.motionY = vec3.yCoord;
-                    this.motionZ = vec3.zCoord;
+                    this.motionX = vec3.xCoord();
+                    this.motionY = vec3.yCoord();
+                    this.motionZ = vec3.zCoord();
                     this.accelerationX = this.motionX * 0.1D;
                     this.accelerationY = this.motionY * 0.1D;
                     this.accelerationZ = this.motionZ * 0.1D;

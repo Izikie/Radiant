@@ -3,44 +3,24 @@ package net.minecraft.client.renderer.vertex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class VertexFormatElement {
+public record VertexFormatElement(int index, EnumType type, EnumUsage usage, int elementCount) {
     private static final Logger LOGGER = LoggerFactory.getLogger(VertexFormatElement.class);
-    private final EnumType type;
-    private final EnumUsage usage;
-    private final int index;
-    private final int elementCount;
 
-    public VertexFormatElement(int indexIn, EnumType typeIn, EnumUsage usageIn, int count) {
-        if (!this.func_177372_a(indexIn, usageIn)) {
+    public VertexFormatElement(int index, EnumType type, EnumUsage usage, int elementCount) {
+        this.index = index;
+        this.type = type;
+        this.elementCount = elementCount;
+
+        if (!isValidIndexAndUsage(index, usage)) {
             LOGGER.warn("Multiple vertex elements of the same type other than UVs are not supported. Forcing type to UV.");
             this.usage = EnumUsage.UV;
         } else {
-            this.usage = usageIn;
+            this.usage = usage;
         }
-
-        this.type = typeIn;
-        this.index = indexIn;
-        this.elementCount = count;
     }
 
-    private boolean func_177372_a(int p_177372_1_, EnumUsage p_177372_2_) {
-        return p_177372_1_ == 0 || p_177372_2_ == EnumUsage.UV;
-    }
-
-    public final EnumType getType() {
-        return this.type;
-    }
-
-    public final EnumUsage getUsage() {
-        return this.usage;
-    }
-
-    public final int getElementCount() {
-        return this.elementCount;
-    }
-
-    public final int getIndex() {
-        return this.index;
+    private static boolean isValidIndexAndUsage(int index, EnumUsage usage) {
+        return index == 0 || usage == EnumUsage.UV;
     }
 
     @Override
@@ -48,33 +28,28 @@ public class VertexFormatElement {
         return this.elementCount + "," + this.usage.getDisplayName() + "," + this.type.getDisplayName();
     }
 
-    public final int getSize() {
+    public int getSize() {
         return this.type.getSize() * this.elementCount;
     }
 
-    public final boolean isPositionElement() {
+    public boolean isPositionElement() {
         return this.usage == EnumUsage.POSITION;
     }
 
-    @Override
-    public boolean equals(Object p_equals_1_) {
-        if (this == p_equals_1_) {
-            return true;
-        } else if (p_equals_1_ != null && this.getClass() == p_equals_1_.getClass()) {
-            VertexFormatElement vertexformatelement = (VertexFormatElement) p_equals_1_;
-            return this.elementCount == vertexformatelement.elementCount && (this.index == vertexformatelement.index && (this.type == vertexformatelement.type && this.usage == vertexformatelement.usage));
-        } else {
-            return false;
-        }
+    public int getIndex() {
+        return index();
     }
 
-    @Override
-    public int hashCode() {
-        int i = this.type.hashCode();
-        i = 31 * i + this.usage.hashCode();
-        i = 31 * i + this.index;
-        i = 31 * i + this.elementCount;
-        return i;
+    public EnumType getType() {
+        return type();
+    }
+
+    public EnumUsage getUsage() {
+        return usage();
+    }
+
+    public int getElementCount() {
+        return elementCount();
     }
 
     public enum EnumType {

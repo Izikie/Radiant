@@ -114,7 +114,6 @@ public class NativeImage {
         float invSrcAlpha = 1.0f - srcAlpha;
 
         // Blend Alpha: GL_ONE, GL_ZERO = source alpha only
-        int outA = dstA;
 
         // Blend RGB
         int outR = Math.round(srcR * srcAlpha + dstR * invSrcAlpha);
@@ -127,7 +126,7 @@ public class NativeImage {
         outB = Math.clamp(outB, 0, 255);
 
         // Pack back into ARGB
-        return (outA << 24) | (outR << 16) | (outG << 8) | outB;
+        return (dstA << 24) | (outR << 16) | (outG << 8) | outB;
     }
 
     public byte[] getData() {

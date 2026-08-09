@@ -121,7 +121,7 @@ public abstract class PathNavigate {
                 Vec3 vec3 = this.getEntityPosition();
                 Vec3 vec31 = this.currentPath.getVectorFromIndex(this.theEntity, this.currentPath.getCurrentPathIndex());
 
-                if (vec3.yCoord > vec31.yCoord && !this.theEntity.onGround && MathHelper.floor(vec3.xCoord) == MathHelper.floor(vec31.xCoord) && MathHelper.floor(vec3.zCoord) == MathHelper.floor(vec31.zCoord)) {
+                if (vec3.yCoord() > vec31.yCoord() && !this.theEntity.onGround && MathHelper.floor(vec3.xCoord()) == MathHelper.floor(vec31.xCoord()) && MathHelper.floor(vec3.zCoord()) == MathHelper.floor(vec31.zCoord())) {
                     this.currentPath.setCurrentPathIndex(this.currentPath.getCurrentPathIndex() + 1);
                 }
             }
@@ -130,7 +130,7 @@ public abstract class PathNavigate {
                 Vec3 vec32 = this.currentPath.getPosition(this.theEntity);
 
                 if (vec32 != null) {
-                    AxisAlignedBB axisalignedbb1 = (new AxisAlignedBB(vec32.xCoord, vec32.yCoord, vec32.zCoord, vec32.xCoord, vec32.yCoord, vec32.zCoord)).expand(0.5D, 0.5D, 0.5D);
+                    AxisAlignedBB axisalignedbb1 = (new AxisAlignedBB(vec32.xCoord(), vec32.yCoord(), vec32.zCoord(), vec32.xCoord(), vec32.yCoord(), vec32.zCoord())).expand(0.5D, 0.5D, 0.5D);
                     List<AxisAlignedBB> list = this.worldObj.getCollidingBoundingBoxes(this.theEntity, axisalignedbb1.addCoord(0.0D, -1.0D, 0.0D));
                     double d0 = -1.0D;
                     axisalignedbb1 = axisalignedbb1.offset(0.0D, 1.0D, 0.0D);
@@ -139,7 +139,7 @@ public abstract class PathNavigate {
                         d0 = axisalignedbb.calculateYOffset(axisalignedbb1, d0);
                     }
 
-                    this.theEntity.getMoveHelper().setMoveTo(vec32.xCoord, vec32.yCoord + d0, vec32.zCoord, this.speed);
+                    this.theEntity.getMoveHelper().setMoveTo(vec32.xCoord(), vec32.yCoord() + d0, vec32.zCoord(), this.speed);
                 }
             }
         }
@@ -150,7 +150,7 @@ public abstract class PathNavigate {
         int i = this.currentPath.getCurrentPathLength();
 
         for (int j = this.currentPath.getCurrentPathIndex(); j < this.currentPath.getCurrentPathLength(); ++j) {
-            if (this.currentPath.getPathPointFromIndex(j).yCoord != (int) vec3.yCoord) {
+            if (this.currentPath.getPathPointFromIndex(j).yCoord != (int) vec3.yCoord()) {
                 i = j;
                 break;
             }

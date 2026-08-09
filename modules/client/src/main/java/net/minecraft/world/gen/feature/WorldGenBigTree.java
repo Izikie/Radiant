@@ -142,7 +142,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree {
         int i = MathHelper.abs(posIn.getX());
         int j = MathHelper.abs(posIn.getY());
         int k = MathHelper.abs(posIn.getZ());
-        return k > i && k > j ? k : (j > i ? j : i);
+        return k > i && k > j ? k : (Math.max(j, i));
     }
 
     private BlockLog.Axis func_175938_b(BlockPos p_175938_1_, BlockPos p_175938_2_) {

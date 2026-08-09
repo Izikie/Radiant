@@ -9,7 +9,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.util.RenderLayer;
-import net.minecraft.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +48,7 @@ public class ChunkRenderDispatcher {
         int j = Math.max(1, Math.clamp(Runtime.getRuntime().availableProcessors() - 2, 1, i / 5));
 
         if (p_i4_1_ < 0) {
-            this.countRenderBuilders = Math.clamp(j * 8, 1, i);
+            this.countRenderBuilders = Math.clamp(j * 8L, 1, i);
         } else {
             this.countRenderBuilders = p_i4_1_;
         }

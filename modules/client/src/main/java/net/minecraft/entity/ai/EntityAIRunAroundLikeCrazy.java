@@ -25,9 +25,9 @@ public class EntityAIRunAroundLikeCrazy extends EntityAIBase {
             if (vec3 == null) {
                 return false;
             } else {
-                this.targetX = vec3.xCoord;
-                this.targetY = vec3.yCoord;
-                this.targetZ = vec3.zCoord;
+                this.targetX = vec3.xCoord();
+                this.targetY = vec3.yCoord();
+                this.targetZ = vec3.zCoord();
                 return true;
             }
         } else {

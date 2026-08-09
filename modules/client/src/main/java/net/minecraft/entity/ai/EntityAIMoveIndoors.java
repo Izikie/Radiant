@@ -58,7 +58,7 @@ public class EntityAIMoveIndoors extends EntityAIBase {
             Vec3 vec3 = RandomPositionGenerator.findRandomTargetBlockTowards(this.entityObj, 14, 3, new Vec3(i + 0.5D, j, k + 0.5D));
 
             if (vec3 != null) {
-                this.entityObj.getNavigator().tryMoveToXYZ(vec3.xCoord, vec3.yCoord, vec3.zCoord, 1.0D);
+                this.entityObj.getNavigator().tryMoveToXYZ(vec3.xCoord(), vec3.yCoord(), vec3.zCoord(), 1.0D);
             }
         } else {
             this.entityObj.getNavigator().tryMoveToXYZ(i + 0.5D, j, k + 0.5D, 1.0D);

@@ -1,6 +1,5 @@
 package net.optifine;
 
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.ChunkCoordIntPair;
 
 import java.util.Comparator;

@@ -228,7 +228,6 @@ public abstract class BiomeGenBase {
             case CREATURE -> this.spawnableCreatureList;
             case WATER_CREATURE -> this.spawnableWaterCreatureList;
             case AMBIENT -> this.spawnableCaveCreatureList;
-            default -> Collections.emptyList();
         };
     }
 
@@ -434,14 +433,7 @@ public abstract class BiomeGenBase {
         DOUBLE_PLANT_GENERATOR = new WorldGenDoublePlant();
     }
 
-    public static class Height {
-        public final float rootHeight;
-        public final float variation;
-
-        public Height(float rootHeightIn, float variationIn) {
-            this.rootHeight = rootHeightIn;
-            this.variation = variationIn;
-        }
+    public record Height(float rootHeight, float variation) {
 
         public Height attenuate() {
             return new Height(this.rootHeight * 0.8F, this.variation * 0.6F);

@@ -113,9 +113,7 @@ public class CustomEntityModelParser {
                 }
 
                 copyJsonElements(jsonobject, elem);
-            } catch (IOException exception) {
-                Log.error(exception.getClass().getName() + ": " + exception.getMessage());
-            } catch (JsonParseException exception) {
+            } catch (IOException | JsonParseException exception) {
                 Log.error(exception.getClass().getName() + ": " + exception.getMessage());
             } catch (Exception exception) {
                 exception.printStackTrace();

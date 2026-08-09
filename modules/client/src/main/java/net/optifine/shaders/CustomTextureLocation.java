@@ -47,11 +47,11 @@ public class CustomTextureLocation implements ICustomTexture {
 
             if (multitexid != null) {
                 if (this.variant == 1) {
-                    return multitexid.norm;
+                    return multitexid.norm();
                 }
 
                 if (this.variant == 2) {
-                    return multitexid.spec;
+                    return multitexid.spec();
                 }
             }
         }

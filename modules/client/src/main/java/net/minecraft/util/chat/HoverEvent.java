@@ -3,23 +3,9 @@ package net.minecraft.util.chat;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HoverEvent {
-    private final Action action;
-    private final IChatComponent value;
+public record HoverEvent(Action action, IChatComponent value) {
 
-    public HoverEvent(Action actionIn, IChatComponent valueIn) {
-        this.action = actionIn;
-        this.value = valueIn;
-    }
-
-    public Action getAction() {
-        return this.action;
-    }
-
-    public IChatComponent getValue() {
-        return this.value;
-    }
-
+    @Override
     public boolean equals(Object p_equals_1_) {
         if (this == p_equals_1_) {
             return true;
@@ -31,21 +17,18 @@ public class HoverEvent {
             } else {
                 if (this.value != null) {
                     return this.value.equals(hoverevent.value);
-                } else return hoverevent.value == null;
+                } else {
+                    return hoverevent.value == null;
+                }
             }
         } else {
             return false;
         }
     }
 
+    @Override
     public String toString() {
         return "HoverEvent{action=" + this.action + ", value='" + this.value + '\'' + '}';
-    }
-
-    public int hashCode() {
-        int i = this.action.hashCode();
-        i = 31 * i + (this.value != null ? this.value.hashCode() : 0);
-        return i;
     }
 
     public enum Action {

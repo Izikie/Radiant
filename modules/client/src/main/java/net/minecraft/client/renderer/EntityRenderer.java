@@ -235,11 +235,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 this.theShaderGroup = new ShaderGroup(this.mc.getTextureManager(), this.resourceManager, this.mc.getFramebuffer(), resourceLocationIn);
                 this.theShaderGroup.createBindFramebuffers(this.mc.displayWidth, this.mc.displayHeight);
                 this.useShader = true;
-            } catch (IOException exception) {
-                LOGGER.warn("Failed to load shader: {}", resourceLocationIn, exception);
-                this.shaderIndex = SHADER_COUNT;
-                this.useShader = false;
-            } catch (JsonSyntaxException exception) {
+            } catch (IOException | JsonSyntaxException exception) {
                 LOGGER.warn("Failed to load shader: {}", resourceLocationIn, exception);
                 this.shaderIndex = SHADER_COUNT;
                 this.useShader = false;
@@ -356,11 +352,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             }
 
             Vec3 vec31 = entity.getLook(partialTicks);
-            Vec3 vec32 = vec3.addVector(vec31.xCoord * d0, vec31.yCoord * d0, vec31.zCoord * d0);
+            Vec3 vec32 = vec3.addVector(vec31.xCoord() * d0, vec31.yCoord() * d0, vec31.zCoord() * d0);
             this.pointedEntity = null;
             Vec3 vec33 = null;
             float f = 1.0F;
-            List<Entity> list = this.mc.world.getEntitiesInAABBexcluding(entity, entity.getEntityBoundingBox().addCoord(vec31.xCoord * d0, vec31.yCoord * d0, vec31.zCoord * d0).expand(f, f, f), Predicates.and(EntitySelectors.NOT_SPECTATING, Entity::canBeCollidedWith));
+            List<Entity> list = this.mc.world.getEntitiesInAABBexcluding(entity, entity.getEntityBoundingBox().addCoord(vec31.xCoord() * d0, vec31.yCoord() * d0, vec31.zCoord() * d0).expand(f, f, f), Predicates.and(EntitySelectors.NOT_SPECTATING, Entity::canBeCollidedWith));
             double d2 = d1;
 
             for (Entity entity1 : list) {
@@ -1592,11 +1588,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                             l2 = j2;
                         }
 
-                        int i3 = j2;
-
-                        if (j2 < l) {
-                            i3 = l;
-                        }
+                        int i3 = Math.max(j2, l);
 
                         if (k2 != l2) {
                             this.random.setSeed((long) l1 * l1 * 3121 + l1 * 45238971L ^ (long) k1 * k1 * 418711 + k1 * 13761L);
@@ -1689,14 +1681,14 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         f = 1.0F - (float) Math.pow(f, 0.25D);
         Vec3 vec3 = world.getSkyColor(this.mc.getRenderViewEntity(), partialTicks);
         vec3 = CustomColors.getWorldSkyColor(vec3, world, this.mc.getRenderViewEntity(), partialTicks);
-        float f1 = (float) vec3.xCoord;
-        float f2 = (float) vec3.yCoord;
-        float f3 = (float) vec3.zCoord;
+        float f1 = (float) vec3.xCoord();
+        float f2 = (float) vec3.yCoord();
+        float f3 = (float) vec3.zCoord();
         Vec3 vec31 = world.getFogColor(partialTicks);
         vec31 = CustomColors.getWorldFogColor(vec31, world, this.mc.getRenderViewEntity(), partialTicks);
-        this.fogColorRed = (float) vec31.xCoord;
-        this.fogColorGreen = (float) vec31.yCoord;
-        this.fogColorBlue = (float) vec31.zCoord;
+        this.fogColorRed = (float) vec31.xCoord();
+        this.fogColorGreen = (float) vec31.yCoord();
+        this.fogColorBlue = (float) vec31.zCoord();
 
         if (this.mc.gameSettings.renderDistanceChunks >= 4) {
             double d0 = -1.0D;
@@ -1745,9 +1737,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         if (this.cloudFog) {
             Vec3 vec33 = world.getCloudColour(partialTicks);
-            this.fogColorRed = (float) vec33.xCoord;
-            this.fogColorGreen = (float) vec33.yCoord;
-            this.fogColorBlue = (float) vec33.zCoord;
+            this.fogColorRed = (float) vec33.xCoord();
+            this.fogColorGreen = (float) vec33.yCoord();
+            this.fogColorBlue = (float) vec33.zCoord();
         } else if (block.getMaterial() == Material.WATER) {
             float f12 = EnchantmentHelper.getRespiration(entity) * 0.2F;
             f12 = Math.clamp(f12, 0.0F, 0.6F);
@@ -1762,9 +1754,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             Vec3 vec35 = CustomColors.getUnderwaterColor(this.mc.world, this.mc.getRenderViewEntity().posX, this.mc.getRenderViewEntity().posY + 1.0D, this.mc.getRenderViewEntity().posZ);
 
             if (vec35 != null) {
-                this.fogColorRed = (float) vec35.xCoord;
-                this.fogColorGreen = (float) vec35.yCoord;
-                this.fogColorBlue = (float) vec35.zCoord;
+                this.fogColorRed = (float) vec35.xCoord();
+                this.fogColorGreen = (float) vec35.yCoord();
+                this.fogColorBlue = (float) vec35.zCoord();
             }
         } else if (block.getMaterial() == Material.LAVA) {
             this.fogColorRed = 0.6F;
@@ -1773,9 +1765,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             Vec3 vec34 = CustomColors.getUnderlavaColor(this.mc.world, this.mc.getRenderViewEntity().posX, this.mc.getRenderViewEntity().posY + 1.0D, this.mc.getRenderViewEntity().posZ);
 
             if (vec34 != null) {
-                this.fogColorRed = (float) vec34.xCoord;
-                this.fogColorGreen = (float) vec34.yCoord;
-                this.fogColorBlue = (float) vec34.zCoord;
+                this.fogColorRed = (float) vec34.xCoord();
+                this.fogColorGreen = (float) vec34.yCoord();
+                this.fogColorBlue = (float) vec34.zCoord();
             }
         }
 

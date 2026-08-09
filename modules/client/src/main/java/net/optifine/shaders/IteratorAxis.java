@@ -36,7 +36,7 @@ public class IteratorAxis implements Iterator<BlockPos> {
         this.hasNext = this.xNext < this.xEnd && this.yNext < this.yEnd && this.zNext < this.zEnd;
     }
 
-    public static void main(String[] args) throws Exception {
+    static void main(String[] args) throws Exception {
         BlockPos blockpos = new BlockPos(-2, 10, 20);
         BlockPos blockpos1 = new BlockPos(2, 12, 22);
         double d0 = -0.5D;

@@ -84,9 +84,9 @@ public class ChunkLoader {
                 NBTTagCompound nbttagcompound = new NBTTagCompound();
                 nbttagcompound.setByte("Y", (byte) (j & 255));
                 nbttagcompound.setByteArray("Blocks", abyte1);
-                nbttagcompound.setByteArray("Data", nibblearray.getData());
-                nbttagcompound.setByteArray("SkyLight", nibblearray1.getData());
-                nbttagcompound.setByteArray("BlockLight", nibblearray2.getData());
+                nbttagcompound.setByteArray("Data", nibblearray.data());
+                nbttagcompound.setByteArray("SkyLight", nibblearray1.data());
+                nbttagcompound.setByteArray("BlockLight", nibblearray2.data());
                 nbttaglist.appendTag(nbttagcompound);
             }
         }

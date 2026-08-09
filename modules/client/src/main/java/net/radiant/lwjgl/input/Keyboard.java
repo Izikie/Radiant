@@ -7,6 +7,7 @@ import org.lwjgl.glfw.GLFW;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Objects;
 
 public class Keyboard {
 
@@ -270,11 +271,7 @@ public class Keyboard {
 
     public static int getKeyIndex(String keyName) {
         Integer ret = keyMap.get(keyName);
-        if (ret == null) {
-            return KEY_NONE;
-        } else {
-            return ret;
-        }
+        return Objects.requireNonNullElse(ret, KEY_NONE);
     }
 
     public static boolean isCreated() {

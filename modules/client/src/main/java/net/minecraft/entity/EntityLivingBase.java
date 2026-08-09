@@ -700,7 +700,7 @@ public abstract class EntityLivingBase extends Entity {
             vec31 = vec31.rotatePitch(-this.rotationPitch * (float) Math.PI / 180.0F);
             vec31 = vec31.rotateYaw(-this.rotationYaw * (float) Math.PI / 180.0F);
             vec31 = vec31.addVector(this.posX, this.posY + this.getEyeHeight(), this.posZ);
-            this.worldObj.spawnParticle(ParticleTypes.ITEM_CRACK, vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord + 0.05D, vec3.zCoord, Item.getIdFromItem(stack.getItem()));
+            this.worldObj.spawnParticle(ParticleTypes.ITEM_CRACK, vec31.xCoord(), vec31.yCoord(), vec31.zCoord(), vec3.xCoord(), vec3.yCoord() + 0.05D, vec3.zCoord(), Item.getIdFromItem(stack.getItem()));
         }
     }
 

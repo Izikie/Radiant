@@ -16,11 +16,6 @@ public abstract class EntityWaterMob extends EntityLiving implements IAnimals {
     }
 
     @Override
-    public boolean getCanSpawnHere() {
-        return true;
-    }
-
-    @Override
     public boolean isNotColliding() {
         return this.worldObj.checkNoEntityCollision(this.getEntityBoundingBox(), this);
     }
@@ -28,11 +23,6 @@ public abstract class EntityWaterMob extends EntityLiving implements IAnimals {
     @Override
     public int getTalkInterval() {
         return 120;
-    }
-
-    @Override
-    protected boolean canDespawn() {
-        return true;
     }
 
     @Override

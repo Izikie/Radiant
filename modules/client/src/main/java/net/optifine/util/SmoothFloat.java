@@ -1,7 +1,5 @@
 package net.optifine.util;
 
-import net.minecraft.util.math.MathHelper;
-
 public class SmoothFloat {
     private float valueLast;
     private float timeFadeUpSec;

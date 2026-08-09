@@ -42,11 +42,9 @@ public class ResourcePackListEntryDefault extends ResourcePackListEntry {
             PackMetadataSection packmetadatasection = this.field_148320_d.getPackMetadata(this.mc.getResourcePackRepository().rprMetadataSerializer, "pack");
 
             if (packmetadatasection != null) {
-                return packmetadatasection.getPackDescription().getFormattedText();
+                return packmetadatasection.packDescription().getFormattedText();
             }
-        } catch (JsonParseException exception) {
-            LOGGER.error("Couldn't load metadata info", exception);
-        } catch (IOException exception) {
+        } catch (JsonParseException | IOException exception) {
             LOGGER.error("Couldn't load metadata info", exception);
         }
 

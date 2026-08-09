@@ -1,26 +1,19 @@
 package net.minecraft.util.math;
 
-public class Vec3 {
-    public final double xCoord;
-    public final double yCoord;
-    public final double zCoord;
-
-    public Vec3(double x, double y, double z) {
-        if (x == -0.0D) {
-            x = 0.0D;
+public record Vec3(double xCoord, double yCoord, double zCoord) {
+    public Vec3 {
+        if (xCoord == -0.0D) {
+            xCoord = 0.0D;
         }
 
-        if (y == -0.0D) {
-            y = 0.0D;
+        if (yCoord == -0.0D) {
+            yCoord = 0.0D;
         }
 
-        if (z == -0.0D) {
-            z = 0.0D;
+        if (zCoord == -0.0D) {
+            zCoord = 0.0D;
         }
 
-        this.xCoord = x;
-        this.yCoord = y;
-        this.zCoord = z;
     }
 
     public Vec3(Vec3i p_i46377_1_) {
@@ -117,6 +110,7 @@ public class Vec3 {
         }
     }
 
+    @Override
     public String toString() {
         return "(" + this.xCoord + ", " + this.yCoord + ", " + this.zCoord + ")";
     }

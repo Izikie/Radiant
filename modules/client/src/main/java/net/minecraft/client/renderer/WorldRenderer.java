@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.RenderLayer;
-import net.minecraft.util.math.MathHelper;
 import net.optifine.Config;
 import net.optifine.SmartAnimations;
 import net.optifine.render.RenderEnv;
@@ -282,7 +281,7 @@ public class WorldRenderer {
 
         int i = this.vertexCount * this.vertexFormat.getNextOffset() + this.vertexFormat.getOffset(this.vertexFormatIndex);
 
-        switch (this.vertexFormatElement.getType()) {
+        switch (this.vertexFormatElement.type()) {
             case FLOAT:
                 this.byteBuffer.putFloat(i, (float) u);
                 this.byteBuffer.putFloat(i + 4, (float) v);
@@ -313,7 +312,7 @@ public class WorldRenderer {
     public WorldRenderer lightmap(int p_181671_1_, int p_181671_2_) {
         int i = this.vertexCount * this.vertexFormat.getNextOffset() + this.vertexFormat.getOffset(this.vertexFormatIndex);
 
-        switch (this.vertexFormatElement.getType()) {
+        switch (this.vertexFormatElement.type()) {
             case FLOAT:
                 this.byteBuffer.putFloat(i, p_181671_1_);
                 this.byteBuffer.putFloat(i + 4, p_181671_2_);
@@ -430,7 +429,7 @@ public class WorldRenderer {
         if (!this.noColor) {
             int i = this.vertexCount * this.vertexFormat.getNextOffset() + this.vertexFormat.getOffset(this.vertexFormatIndex);
 
-            switch (this.vertexFormatElement.getType()) {
+            switch (this.vertexFormatElement.type()) {
                 case FLOAT:
                     this.byteBuffer.putFloat(i, red / 255.0F);
                     this.byteBuffer.putFloat(i + 4, green / 255.0F);
@@ -507,7 +506,7 @@ public class WorldRenderer {
 
         int i = this.vertexCount * this.vertexFormat.getNextOffset() + this.vertexFormat.getOffset(this.vertexFormatIndex);
 
-        switch (this.vertexFormatElement.getType()) {
+        switch (this.vertexFormatElement.type()) {
             case FLOAT:
                 this.byteBuffer.putFloat(i, (float) (x + this.xOffset));
                 this.byteBuffer.putFloat(i + 4, (float) (y + this.yOffset));
@@ -557,7 +556,7 @@ public class WorldRenderer {
         this.vertexFormatIndex %= this.vertexFormat.getElementCount();
         this.vertexFormatElement = this.vertexFormat.getElement(this.vertexFormatIndex);
 
-        if (this.vertexFormatElement.getUsage() == VertexFormatElement.EnumUsage.PADDING) {
+        if (this.vertexFormatElement.usage() == VertexFormatElement.EnumUsage.PADDING) {
             this.nextVertexFormatIndex();
         }
     }
@@ -565,7 +564,7 @@ public class WorldRenderer {
     public WorldRenderer normal(float p_181663_1_, float p_181663_2_, float p_181663_3_) {
         int i = this.vertexCount * this.vertexFormat.getNextOffset() + this.vertexFormat.getOffset(this.vertexFormatIndex);
 
-        switch (this.vertexFormatElement.getType()) {
+        switch (this.vertexFormatElement.type()) {
             case FLOAT:
                 this.byteBuffer.putFloat(i, p_181663_1_);
                 this.byteBuffer.putFloat(i + 4, p_181663_2_);

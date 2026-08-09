@@ -84,7 +84,7 @@ public class ActiveRenderInfo {
 
             float f1 = (blockPos.getY() + 1) - f;
 
-            if (vec3.yCoord >= f1) {
+            if (vec3.yCoord() >= f1) {
                 block = world.getBlockState(blockPos.up()).getBlock();
             }
         }

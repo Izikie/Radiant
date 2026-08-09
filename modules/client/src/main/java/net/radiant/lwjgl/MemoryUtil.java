@@ -235,7 +235,7 @@ public final class MemoryUtil {
      * @return the encoded text or null
      * @see String#getBytes()
      */
-    public static ByteBuffer encodeASCII(final CharSequence text) {
+    public static ByteBuffer encodeASCII(CharSequence text) {
         return encode(text, ascii);
     }
 
@@ -247,7 +247,7 @@ public final class MemoryUtil {
      * @return the encoded text or null
      * @see String#getBytes()
      */
-    public static ByteBuffer encodeUTF8(final CharSequence text) {
+    public static ByteBuffer encodeUTF8(CharSequence text) {
         return encode(text, utf8);
     }
 
@@ -258,7 +258,7 @@ public final class MemoryUtil {
      * @param text the text to encode
      * @return the encoded text
      */
-    public static ByteBuffer encodeUTF16(final CharSequence text) {
+    public static ByteBuffer encodeUTF16(CharSequence text) {
         return encode(text, utf16);
     }
 
@@ -269,9 +269,10 @@ public final class MemoryUtil {
      * @param charset the charset to use for encoding
      * @return the encoded text
      */
-    private static ByteBuffer encode(final CharSequence text, final Charset charset) {
-        if (text == null)
+    private static ByteBuffer encode(CharSequence text, Charset charset) {
+        if (text == null) {
             return null;
+        }
 
         return encode(CharBuffer.wrap(new CharSequenceNT(text)), charset);
     }
@@ -282,23 +283,26 @@ public final class MemoryUtil {
      *
      * @see CharsetEncoder#encode(CharBuffer)
      */
-    private static ByteBuffer encode(final CharBuffer in, final Charset charset) {
-        final CharsetEncoder encoder = charset.newEncoder(); // encoders are not thread-safe, create a new one on every call
+    private static ByteBuffer encode(CharBuffer in, Charset charset) {
+        CharsetEncoder encoder = charset.newEncoder(); // encoders are not thread-safe, create a new one on every call
 
         int n = (int) (in.remaining() * encoder.averageBytesPerChar());
         ByteBuffer out = BufferUtils.createByteBuffer(n);
 
-        if (n == 0 && in.remaining() == 0)
+        if (n == 0 && in.remaining() == 0) {
             return out;
+        }
 
         encoder.reset();
         while (true) {
             CoderResult cr = in.hasRemaining() ? encoder.encode(in, out, true) : CoderResult.UNDERFLOW;
-            if (cr.isUnderflow())
+            if (cr.isUnderflow()) {
                 cr = encoder.flush(out);
+            }
 
-            if (cr.isUnderflow())
+            if (cr.isUnderflow()) {
                 break;
+            }
 
             if (cr.isOverflow()) {
                 n = 2 * n + 1;    // Ensure progress; n might be 0!
@@ -319,42 +323,46 @@ public final class MemoryUtil {
         return out;
     }
 
-    public static String decodeASCII(final ByteBuffer buffer) {
+    public static String decodeASCII(ByteBuffer buffer) {
         return decode(buffer, ascii);
     }
 
-    public static String decodeUTF8(final ByteBuffer buffer) {
+    public static String decodeUTF8(ByteBuffer buffer) {
         return decode(buffer, utf8);
     }
 
-    public static String decodeUTF16(final ByteBuffer buffer) {
+    public static String decodeUTF16(ByteBuffer buffer) {
         return decode(buffer, utf16);
     }
 
-    private static String decode(final ByteBuffer buffer, final Charset charset) {
-        if (buffer == null)
+    private static String decode(ByteBuffer buffer, Charset charset) {
+        if (buffer == null) {
             return null;
+        }
 
         return decodeImpl(buffer, charset);
     }
 
-    private static String decodeImpl(final ByteBuffer in, final Charset charset) {
-        final CharsetDecoder decoder = charset.newDecoder(); // decoders are not thread-safe, create a new one on every call
+    private static String decodeImpl(ByteBuffer in, Charset charset) {
+        CharsetDecoder decoder = charset.newDecoder(); // decoders are not thread-safe, create a new one on every call
 
         int n = (int) (in.remaining() * decoder.averageCharsPerByte());
         CharBuffer out = BufferUtils.createCharBuffer(n);
 
-        if ((n == 0) && (in.remaining() == 0))
+        if ((n == 0) && (in.remaining() == 0)) {
             return "";
+        }
 
         decoder.reset();
         for (; ; ) {
             CoderResult cr = in.hasRemaining() ? decoder.decode(in, out, true) : CoderResult.UNDERFLOW;
-            if (cr.isUnderflow())
+            if (cr.isUnderflow()) {
                 cr = decoder.flush(out);
+            }
 
-            if (cr.isUnderflow())
+            if (cr.isUnderflow()) {
                 break;
+            }
             if (cr.isOverflow()) {
                 n = 2 * n + 1;    // Ensure progress; n might be 0!
                 CharBuffer o = BufferUtils.createCharBuffer(n);
@@ -373,7 +381,7 @@ public final class MemoryUtil {
         return out.toString();
     }
 
-    private static Accessor loadAccessor(final String className) throws Exception {
+    private static Accessor loadAccessor(String className) throws Exception {
         return (Accessor) Class.forName(className).newInstance();
     }
 
@@ -381,7 +389,7 @@ public final class MemoryUtil {
         return getDeclaredFieldRecursive(ByteBuffer.class, "address");
     }
 
-    private static Field getDeclaredFieldRecursive(final Class<?> root, final String fieldName) throws NoSuchFieldException {
+    private static Field getDeclaredFieldRecursive(Class<?> root, String fieldName) throws NoSuchFieldException {
         Class<?> type = root;
 
         do {
@@ -404,13 +412,7 @@ public final class MemoryUtil {
     /**
      * A null-terminated CharSequence.
      */
-    private static class CharSequenceNT implements CharSequence {
-
-        final CharSequence source;
-
-        CharSequenceNT(CharSequence source) {
-            this.source = source;
-        }
+    private record CharSequenceNT(CharSequence source) implements CharSequence {
 
         @Override
         public int length() {
@@ -419,13 +421,13 @@ public final class MemoryUtil {
         }
 
         @Override
-        public char charAt(final int index) {
+        public char charAt(int index) {
             return index == source.length() ? '\0' : source.charAt(index);
 
         }
 
         @Override
-        public CharSequence subSequence(final int start, final int end) {
+        public CharSequence subSequence(int start, int end) {
             return new CharSequenceNT(source.subSequence(start, Math.min(end, source.length())));
         }
 
@@ -437,7 +439,7 @@ public final class MemoryUtil {
     private static class AccessorJNI implements Accessor {
 
         @Override
-        public long getAddress(final Buffer buffer) {
+        public long getAddress(Buffer buffer) {
             return BufferUtils.getBufferAddress(buffer);
         }
 
@@ -460,7 +462,7 @@ public final class MemoryUtil {
         }
 
         @Override
-        public long getAddress(final Buffer buffer) {
+        public long getAddress(Buffer buffer) {
             try {
                 return address.getLong(buffer);
             } catch (IllegalAccessException _) {

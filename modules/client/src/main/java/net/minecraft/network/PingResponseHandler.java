@@ -35,7 +35,7 @@ public class PingResponseHandler extends ChannelInboundHandlerAdapter {
                 switch (i) {
                     case 0 -> {
                         LOGGER.debug("Ping: (<1.3.x) from {}:{}", address.getAddress(), address.getPort());
-                        String format = String.format("%s\u00a7%d\u00a7%d", server.getMOTD(), server.getCurrentPlayerCount(), server.getMaxPlayers());
+                        String format = String.format("%s§%d§%d", server.getMOTD(), server.getCurrentPlayerCount(), server.getMaxPlayers());
                         this.writeAndFlush(ctx, this.getStringBuffer(format));
                     }
                     case 1 -> {
@@ -44,7 +44,7 @@ public class PingResponseHandler extends ChannelInboundHandlerAdapter {
                         }
 
                         LOGGER.debug("Ping: (1.4-1.5.x) from {}:{}", address.getAddress(), address.getPort());
-                        String format = String.format("\u00a71\u0000%d\u0000%s\u0000%s\u0000%d\u0000%d", 127, server.getMinecraftVersion(), server.getMOTD(), server.getCurrentPlayerCount(), server.getMaxPlayers());
+                        String format = String.format("§1\u0000%d\u0000%s\u0000%s\u0000%d\u0000%d", 127, server.getMinecraftVersion(), server.getMOTD(), server.getCurrentPlayerCount(), server.getMaxPlayers());
                         this.writeAndFlush(ctx, this.getStringBuffer(format));
                     }
                     default -> {
@@ -62,7 +62,7 @@ public class PingResponseHandler extends ChannelInboundHandlerAdapter {
                         }
 
                         LOGGER.debug("Ping: (1.6) from {}:{}", address.getAddress(), address.getPort());
-                        String format = String.format("\u00a71\u0000%d\u0000%s\u0000%s\u0000%d\u0000%d", 127, server.getMinecraftVersion(), server.getMOTD(), server.getCurrentPlayerCount(), server.getMaxPlayers());
+                        String format = String.format("§1\u0000%d\u0000%s\u0000%s\u0000%d\u0000%d", 127, server.getMinecraftVersion(), server.getMOTD(), server.getCurrentPlayerCount(), server.getMaxPlayers());
                         ByteBuf bytebuf1 = this.getStringBuffer(format);
 
                         try {

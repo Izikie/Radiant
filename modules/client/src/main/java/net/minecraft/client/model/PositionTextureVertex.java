@@ -2,11 +2,7 @@ package net.minecraft.client.model;
 
 import net.minecraft.util.math.Vec3;
 
-public class PositionTextureVertex {
-    public final Vec3 vector3D;
-    public final float texturePositionX;
-    public final float texturePositionY;
-
+public record PositionTextureVertex(Vec3 vector3D, float texturePositionX, float texturePositionY) {
     public PositionTextureVertex(float p_i1158_1_, float p_i1158_2_, float p_i1158_3_, float p_i1158_4_, float p_i1158_5_) {
         this(new Vec3(p_i1158_1_, p_i1158_2_, p_i1158_3_), p_i1158_4_, p_i1158_5_);
     }
@@ -16,14 +12,7 @@ public class PositionTextureVertex {
     }
 
     public PositionTextureVertex(PositionTextureVertex textureVertex, float texturePositionXIn, float texturePositionYIn) {
-        this.vector3D = textureVertex.vector3D;
-        this.texturePositionX = texturePositionXIn;
-        this.texturePositionY = texturePositionYIn;
+        this(textureVertex.vector3D, texturePositionXIn, texturePositionYIn);
     }
 
-    public PositionTextureVertex(Vec3 vector3DIn, float texturePositionXIn, float texturePositionYIn) {
-        this.vector3D = vector3DIn;
-        this.texturePositionX = texturePositionXIn;
-        this.texturePositionY = texturePositionYIn;
-    }
 }

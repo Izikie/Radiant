@@ -187,12 +187,12 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
 
         HoverEvent hoverEvent = component.getChatStyle().getChatHoverEvent();
 
-        switch (hoverEvent.getAction()) {
+        switch (hoverEvent.action()) {
             case SHOW_ITEM -> {
                 ItemStack stack = null;
 
                 try {
-                    NBTBase nbt = JsonToNBT.getTagFromJson(hoverEvent.getValue().getUnformattedText());
+                    NBTBase nbt = JsonToNBT.getTagFromJson(hoverEvent.value().getUnformattedText());
 
                     if (nbt instanceof NBTTagCompound tag) {
                         stack = ItemStack.loadItemStackFromNBT(tag);
@@ -209,7 +209,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
             case SHOW_ENTITY -> {
                 if (this.mc.gameSettings.advancedItemTooltips) {
                     try {
-                        NBTBase nbt = JsonToNBT.getTagFromJson(hoverEvent.getValue().getUnformattedText());
+                        NBTBase nbt = JsonToNBT.getTagFromJson(hoverEvent.value().getUnformattedText());
 
                         if (nbt instanceof NBTTagCompound tag) {
                             List<String> list1 = new ArrayList<>();
@@ -231,9 +231,9 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                 }
             }
             case SHOW_TEXT ->
-                    this.drawHoveringText(NEWLINE_SPLITTER.splitToList(hoverEvent.getValue().getFormattedText()), x, y);
+                    this.drawHoveringText(NEWLINE_SPLITTER.splitToList(hoverEvent.value().getFormattedText()), x, y);
             case SHOW_ACHIEVEMENT -> {
-                StatBase stat = StatList.getOneShotStat(hoverEvent.getValue().getUnformattedText());
+                StatBase stat = StatList.getOneShotStat(hoverEvent.value().getUnformattedText());
 
                 if (stat != null) {
                     IChatComponent ichatcomponent = stat.getStatName();
@@ -273,27 +273,27 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                 this.setText(component.getChatStyle().getInsertion(), false);
             }
         } else if (clickEvent != null) {
-            switch (clickEvent.getAction()) {
+            switch (clickEvent.action()) {
                 case OPEN_URL -> {
                     if (!this.mc.gameSettings.chatLinks) {
                         return false;
                     }
 
                     try {
-                        URI uri = new URI(clickEvent.getValue());
+                        URI uri = new URI(clickEvent.value());
                         String scheme = uri.getScheme();
 
                         if (scheme == null) {
-                            throw new URISyntaxException(clickEvent.getValue(), "Missing protocol");
+                            throw new URISyntaxException(clickEvent.value(), "Missing protocol");
                         }
 
                         if (!PROTOCOLS.contains(scheme.toLowerCase())) {
-                            throw new URISyntaxException(clickEvent.getValue(), "Unsupported protocol: " + scheme.toLowerCase());
+                            throw new URISyntaxException(clickEvent.value(), "Unsupported protocol: " + scheme.toLowerCase());
                         }
 
                         if (this.mc.gameSettings.chatLinksPrompt) {
                             this.clickedLinkURI = uri;
-                            this.mc.displayGuiScreen(new GuiConfirmOpenLink(this, clickEvent.getValue(), 31102009, false));
+                            this.mc.displayGuiScreen(new GuiConfirmOpenLink(this, clickEvent.value(), 31102009, false));
                         } else {
                             this.openWebLink(uri);
                         }
@@ -301,9 +301,9 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                         LOGGER.error("Can't open url for {}", clickEvent, exception);
                     }
                 }
-                case OPEN_FILE -> this.openWebLink(new File(clickEvent.getValue()).toURI());
-                case SUGGEST_COMMAND -> this.setText(clickEvent.getValue(), true);
-                case RUN_COMMAND -> this.sendChatMessage(clickEvent.getValue(), false);
+                case OPEN_FILE -> this.openWebLink(new File(clickEvent.value()).toURI());
+                case SUGGEST_COMMAND -> this.setText(clickEvent.value(), true);
+                case RUN_COMMAND -> this.sendChatMessage(clickEvent.value(), false);
                 case null, default -> LOGGER.error("Don't know how to handle {}", clickEvent);
             }
 

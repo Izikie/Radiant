@@ -161,7 +161,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
 
             while (true) {
                 if (this.writeNextIO()) {
-                    continue;
                 }
             }
         } finally {
@@ -209,18 +208,18 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO {
                 }
 
                 nbttagcompound.setByteArray("Blocks", abyte);
-                nbttagcompound.setByteArray("Data", nibblearray.getData());
+                nbttagcompound.setByteArray("Data", nibblearray.data());
 
                 if (nibblearray1 != null) {
-                    nbttagcompound.setByteArray("Add", nibblearray1.getData());
+                    nbttagcompound.setByteArray("Add", nibblearray1.data());
                 }
 
-                nbttagcompound.setByteArray("BlockLight", extendedblockstorage.getBlocklightArray().getData());
+                nbttagcompound.setByteArray("BlockLight", extendedblockstorage.getBlocklightArray().data());
 
                 if (flag) {
-                    nbttagcompound.setByteArray("SkyLight", extendedblockstorage.getSkylightArray().getData());
+                    nbttagcompound.setByteArray("SkyLight", extendedblockstorage.getSkylightArray().data());
                 } else {
-                    nbttagcompound.setByteArray("SkyLight", new byte[extendedblockstorage.getBlocklightArray().getData().length]);
+                    nbttagcompound.setByteArray("SkyLight", new byte[extendedblockstorage.getBlocklightArray().data().length]);
                 }
 
                 nbttaglist.appendTag(nbttagcompound);

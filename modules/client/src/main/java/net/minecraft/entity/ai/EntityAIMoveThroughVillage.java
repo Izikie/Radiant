@@ -63,7 +63,7 @@ public class EntityAIMoveThroughVillage extends EntityAIBase {
                             return false;
                         } else {
                             pathnavigateground.setBreakDoors(false);
-                            this.entityPathNavigate = this.theEntity.getNavigator().getPathToXYZ(vec3.xCoord, vec3.yCoord, vec3.zCoord);
+                            this.entityPathNavigate = this.theEntity.getNavigator().getPathToXYZ(vec3.xCoord(), vec3.yCoord(), vec3.zCoord());
                             pathnavigateground.setBreakDoors(flag);
                             return this.entityPathNavigate != null;
                         }

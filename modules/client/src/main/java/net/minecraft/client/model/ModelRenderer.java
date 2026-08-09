@@ -90,7 +90,7 @@ public class ModelRenderer {
     public ModelRenderer addBox(String partName, float offX, float offY, float offZ, int width, int height, int depth) {
         partName = this.boxName + "." + partName;
         TextureOffset textureoffset = this.baseModel.getTextureOffset(partName);
-        this.setTextureOffset(textureoffset.textureOffsetX, textureoffset.textureOffsetY);
+        this.setTextureOffset(textureoffset.textureOffsetX(), textureoffset.textureOffsetY());
         this.cubeList.add((new ModelBox(this, this.textureOffsetX, this.textureOffsetY, offX, offY, offZ, width, height, depth, 0.0F)).setBoxName(partName));
         return this;
     }
@@ -319,9 +319,8 @@ public class ModelRenderer {
             modelBox.render(worldrenderer, scale);
         }
 
-        for (Object o : this.spriteList) {
-            ModelSprite modelsprite = (ModelSprite) o;
-            modelsprite.render(Tessellator.get(), scale);
+        for (ModelSprite o : this.spriteList) {
+            o.render(Tessellator.get(), scale);
         }
 
         GL11.glEndList();

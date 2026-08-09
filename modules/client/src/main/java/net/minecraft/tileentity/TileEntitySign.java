@@ -197,8 +197,8 @@ public class TileEntitySign extends TileEntity {
             if (chatstyle != null && chatstyle.getChatClickEvent() != null) {
                 ClickEvent clickevent = chatstyle.getChatClickEvent();
 
-                if (clickevent.getAction() == ClickEvent.Action.RUN_COMMAND) {
-                    MinecraftServer.getServer().getCommandManager().executeCommand(icommandsender, clickevent.getValue());
+                if (clickevent.action() == ClickEvent.Action.RUN_COMMAND) {
+                    MinecraftServer.getServer().getCommandManager().executeCommand(icommandsender, clickevent.value());
                 }
             }
         }

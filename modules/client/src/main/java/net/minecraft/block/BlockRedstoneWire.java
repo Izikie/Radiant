@@ -13,7 +13,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.RenderLayer;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
@@ -222,7 +221,7 @@ public class BlockRedstoneWire extends Block {
             return strength;
         } else {
             int i = worldIn.getBlockState(pos).getValue(POWER);
-            return i > strength ? i : strength;
+            return Math.max(i, strength);
         }
     }
 

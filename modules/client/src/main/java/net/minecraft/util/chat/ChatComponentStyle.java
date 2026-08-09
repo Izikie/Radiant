@@ -54,7 +54,7 @@ public abstract class ChatComponentStyle implements IChatComponent {
 
     @Override
     public @NotNull Iterator<IChatComponent> iterator() {
-        return Iterators.concat(Iterators.<IChatComponent>forArray(new ChatComponentStyle[]{this}), createDeepCopyIterator(this.siblings));
+        return Iterators.concat(Iterators.<IChatComponent>forArray(this), createDeepCopyIterator(this.siblings));
     }
 
     @Override
@@ -91,6 +91,7 @@ public abstract class ChatComponentStyle implements IChatComponent {
         return iterator;
     }
 
+    @Override
     public boolean equals(Object p_equals_1_) {
         if (this == p_equals_1_) {
             return true;
@@ -101,10 +102,12 @@ public abstract class ChatComponentStyle implements IChatComponent {
         }
     }
 
+    @Override
     public int hashCode() {
         return 31 * this.style.hashCode() + this.siblings.hashCode();
     }
 
+    @Override
     public String toString() {
         return "BaseComponent{style=" + this.style + ", siblings=" + this.siblings + '}';
     }

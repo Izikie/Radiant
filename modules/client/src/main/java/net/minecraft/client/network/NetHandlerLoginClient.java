@@ -48,13 +48,13 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient {
 
         if (this.mc.getCurrentServerData() != null && this.mc.getCurrentServerData().isOnLAN()) {
             try {
-                this.getSessionService().joinServer(this.mc.getSession().getProfile(), this.mc.getSession().getToken(), s1);
+                this.getSessionService().joinServer(this.mc.getSession().getProfile(), this.mc.getSession().token(), s1);
             } catch (AuthenticationException exception) {
                 LOGGER.warn("Couldn't connect to auth servers but will continue to join LAN");
             }
         } else {
             try {
-                this.getSessionService().joinServer(this.mc.getSession().getProfile(), this.mc.getSession().getToken(), s1);
+                this.getSessionService().joinServer(this.mc.getSession().getProfile(), this.mc.getSession().token(), s1);
             } catch (AuthenticationUnavailableException exception) {
                 this.networkManager.closeChannel(new ChatComponentTranslation("disconnect.loginFailedInfo", new ChatComponentTranslation("disconnect.loginFailedInfo.serversUnavailable")));
                 return;

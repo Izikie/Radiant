@@ -195,7 +195,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                         TextureMetadataSection texturemetadatasection = iresource.getMetadata("texture");
 
                         if (texturemetadatasection != null) {
-                            IntList list1 = texturemetadatasection.getListMipmaps();
+                            IntList list1 = texturemetadatasection.listMipmaps();
 
                             if (!list1.isEmpty()) {
                                 int k1 = abufferedimage[0].getWidth();
@@ -376,7 +376,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 
             if (Objects.equals(System.getProperty("saveTextureMap"), "true")) {
                 Log.info("Exporting texture map: " + this.basePath);
-                TextureUtils.saveGlTexture("debug/" + this.basePath.replaceAll("/", "_"), this.getGlTextureId(), this.mipmapLevels, stitcher.getCurrentWidth(), stitcher.getCurrentHeight());
+                TextureUtils.saveGlTexture("debug/" + this.basePath.replace("/", "_"), this.getGlTextureId(), this.mipmapLevels, stitcher.getCurrentWidth(), stitcher.getCurrentHeight());
             }
 
             return;
@@ -450,7 +450,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 
         if (Config.isShaders()) {
             if (flag) {
-                TextureUtil.bindTexture(this.getMultiTexID().norm);
+                TextureUtil.bindTexture(this.getMultiTexID().norm());
 
                 for (TextureAtlasSprite textureatlassprite3 : this.listAnimatedSprites) {
                     if (textureatlassprite3.spriteNormal != null && this.isTerrainAnimationActive(textureatlassprite3)) {
@@ -468,7 +468,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
             }
 
             if (flag1) {
-                TextureUtil.bindTexture(this.getMultiTexID().spec);
+                TextureUtil.bindTexture(this.getMultiTexID().spec());
 
                 for (TextureAtlasSprite textureatlassprite4 : this.listAnimatedSprites) {
                     if (textureatlassprite4.spriteSpecular != null && this.isTerrainAnimationActive(textureatlassprite4)) {

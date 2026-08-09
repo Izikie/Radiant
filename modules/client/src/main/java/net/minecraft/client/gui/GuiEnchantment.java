@@ -51,8 +51,8 @@ public class GuiEnchantment extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        this.fontRendererObj.drawString(this.nameable.getDisplayName().getUnformattedText(), 12, 5, 4210752);
-        this.fontRendererObj.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRendererObj.drawString(this.nameable.displayName().getUnformattedText(), 12, 5, 4210752);
+        this.fontRendererObj.drawString(this.playerInventory.displayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
     }
 
     @Override

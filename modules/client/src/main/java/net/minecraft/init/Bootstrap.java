@@ -44,7 +44,7 @@ public class Bootstrap {
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.ARROW, new BehaviorProjectileDispense() {
             @Override
             protected IProjectile getProjectileEntity(World worldIn, IPosition position) {
-                EntityArrow arrow = new EntityArrow(worldIn, position.getX(), position.getY(), position.getZ());
+                EntityArrow arrow = new EntityArrow(worldIn, position.x(), position.y(), position.z());
                 arrow.canBePickedUp = 1;
                 return arrow;
             }
@@ -52,19 +52,19 @@ public class Bootstrap {
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.EGG, new BehaviorProjectileDispense() {
             @Override
             protected IProjectile getProjectileEntity(World worldIn, IPosition position) {
-                return new EntityEgg(worldIn, position.getX(), position.getY(), position.getZ());
+                return new EntityEgg(worldIn, position.x(), position.y(), position.z());
             }
         });
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.SNOWBALL, new BehaviorProjectileDispense() {
             @Override
             protected IProjectile getProjectileEntity(World worldIn, IPosition position) {
-                return new EntitySnowball(worldIn, position.getX(), position.getY(), position.getZ());
+                return new EntitySnowball(worldIn, position.x(), position.y(), position.z());
             }
         });
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.EXPERIENCE_BOTTLE, new BehaviorProjectileDispense() {
             @Override
             protected IProjectile getProjectileEntity(World worldIn, IPosition position) {
-                return new EntityExpBottle(worldIn, position.getX(), position.getY(), position.getZ());
+                return new EntityExpBottle(worldIn, position.x(), position.y(), position.z());
             }
 
             @Override
@@ -85,7 +85,7 @@ public class Bootstrap {
                 return ItemPotion.isSplash(stack.getMetadata()) ? (new BehaviorProjectileDispense() {
                     @Override
                     protected IProjectile getProjectileEntity(World worldIn, IPosition position) {
-                        return new EntityPotion(worldIn, position.getX(), position.getY(), position.getZ(), stack.copy());
+                        return new EntityPotion(worldIn, position.x(), position.y(), position.z(), stack.copy());
                     }
 
                     @Override
@@ -104,9 +104,9 @@ public class Bootstrap {
             @Override
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 Direction direction = BlockDispenser.getFacing(source.getBlockMetadata());
-                double x = source.getX() + direction.getFrontOffsetX();
+                double x = source.x() + direction.getFrontOffsetX();
                 double y = (source.getBlockPos().getY() + 0.2F);
-                double z = source.getZ() + direction.getFrontOffsetZ();
+                double z = source.z() + direction.getFrontOffsetZ();
                 Entity entity = ItemMonsterPlacer.spawnCreature(source.getWorld(), stack.getMetadata(), x, y, z);
 
                 if (entity instanceof EntityLivingBase && stack.hasDisplayName()) {
@@ -121,9 +121,9 @@ public class Bootstrap {
             @Override
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 Direction direction = BlockDispenser.getFacing(source.getBlockMetadata());
-                double d0 = source.getX() + direction.getFrontOffsetX();
+                double d0 = source.x() + direction.getFrontOffsetX();
                 double d1 = (source.getBlockPos().getY() + 0.2F);
-                double d2 = source.getZ() + direction.getFrontOffsetZ();
+                double d2 = source.z() + direction.getFrontOffsetZ();
                 EntityFireworkRocket entityfireworkrocket = new EntityFireworkRocket(source.getWorld(), d0, d1, d2, stack);
                 source.getWorld().spawnEntityInWorld(entityfireworkrocket);
                 stack.splitStack(1);
@@ -140,9 +140,9 @@ public class Bootstrap {
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 Direction direction = BlockDispenser.getFacing(source.getBlockMetadata());
                 IPosition position = BlockDispenser.getDispensePosition(source);
-                double x = position.getX() + (direction.getFrontOffsetX() * 0.3F);
-                double y = position.getY() + (direction.getFrontOffsetY() * 0.3F);
-                double z = position.getZ() + (direction.getFrontOffsetZ() * 0.3F);
+                double x = position.x() + (direction.getFrontOffsetX() * 0.3F);
+                double y = position.y() + (direction.getFrontOffsetY() * 0.3F);
+                double z = position.z() + (direction.getFrontOffsetZ() * 0.3F);
                 World world = source.getWorld();
                 Random random = world.rand;
                 double accelX = random.nextGaussian() * 0.05D + direction.getFrontOffsetX();
@@ -165,9 +165,9 @@ public class Bootstrap {
             public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 Direction direction = BlockDispenser.getFacing(source.getBlockMetadata());
                 World world = source.getWorld();
-                double x = source.getX() + (direction.getFrontOffsetX() * 1.125F);
-                double y = source.getY() + (direction.getFrontOffsetY() * 1.125F);
-                double z = source.getZ() + (direction.getFrontOffsetZ() * 1.125F);
+                double x = source.x() + (direction.getFrontOffsetX() * 1.125F);
+                double y = source.y() + (direction.getFrontOffsetY() * 1.125F);
+                double z = source.z() + (direction.getFrontOffsetZ() * 1.125F);
                 BlockPos blockPos = source.getBlockPos().offset(direction);
                 Material material = world.getBlockState(blockPos).getBlock().getMaterial();
                 double d3;
@@ -188,10 +188,6 @@ public class Bootstrap {
                 return stack;
             }
 
-            @Override
-            protected void playDispenseSound(IBlockSource source) {
-                source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
-            }
         });
         IBehaviorDispenseItem ibehaviordispenseitem = new BehaviorDefaultDispenseItem() {
             private final BehaviorDefaultDispenseItem field_150841_b = new BehaviorDefaultDispenseItem();
@@ -356,9 +352,9 @@ public class Bootstrap {
                                     }
                                 }
 
-                                ((TileEntitySkull) tileentity).setPlayerProfile(gameprofile);
+                                tileEntitySkull.setPlayerProfile(gameprofile);
                             } else {
-                                ((TileEntitySkull) tileentity).setType(stack.getMetadata());
+                                tileEntitySkull.setType(stack.getMetadata());
                             }
 
                             tileEntitySkull.setSkullRotation(enumfacing.getOpposite().getHorizontalIndex() * 4);

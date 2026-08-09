@@ -6,19 +6,8 @@ import net.minecraft.util.json.JsonUtils;
 
 import java.lang.reflect.Type;
 
-public class BlockPartFace {
+public record BlockPartFace(Direction cullFace, int tintIndex, String texture, BlockFaceUV blockFaceUV) {
     public static final Direction FACING_DEFAULT = null;
-    public final Direction cullFace;
-    public final int tintIndex;
-    public final String texture;
-    public final BlockFaceUV blockFaceUV;
-
-    public BlockPartFace(Direction cullFaceIn, int tintIndexIn, String textureIn, BlockFaceUV blockFaceUVIn) {
-        this.cullFace = cullFaceIn;
-        this.tintIndex = tintIndexIn;
-        this.texture = textureIn;
-        this.blockFaceUV = blockFaceUVIn;
-    }
 
     static class Deserializer implements JsonDeserializer<BlockPartFace> {
         @Override

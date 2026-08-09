@@ -209,7 +209,7 @@ public class StreamingSound implements ISoundSource, Runnable {
                     alSourcePlay(source);
                 }
 
-                int adaptive = Math.max(2, Math.min(MAX_WAIT_TIME, MAX_WAIT_TIME - queuedAfter));
+                int adaptive = Math.clamp(MAX_WAIT_TIME - queuedAfter, 2, MAX_WAIT_TIME);
                 Thread.sleep(adaptive);
             }
         } catch (InterruptedException _) {

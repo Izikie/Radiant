@@ -42,7 +42,7 @@ public abstract class TileEntityLockable extends TileEntity implements IInteract
     }
 
     @Override
-    public IChatComponent getDisplayName() {
+    public IChatComponent displayName() {
         return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName());
     }
 }

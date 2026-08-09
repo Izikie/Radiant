@@ -2,7 +2,6 @@ package net.minecraft.client.renderer.block.model;
 
 import com.google.gson.*;
 import net.minecraft.util.json.JsonUtils;
-import net.minecraft.util.math.MathHelper;
 import org.joml.Vector3f;
 
 import java.lang.reflect.Type;
@@ -16,6 +15,7 @@ public record ItemTransformVec3f(Vector3f rotation, Vector3f translation, Vector
         this.scale = new Vector3f(scale);
     }
 
+    @Override
     public boolean equals(Object p_equals_1_) {
         if (this == p_equals_1_) {
             return true;

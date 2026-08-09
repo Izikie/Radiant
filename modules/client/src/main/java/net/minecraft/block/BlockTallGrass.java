@@ -37,11 +37,6 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
     }
 
     @Override
-    public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
-        return this.canPlaceBlockOn(worldIn.getBlockState(pos.down()).getBlock());
-    }
-
-    @Override
     public boolean isReplaceable(World worldIn, BlockPos pos) {
         return true;
     }

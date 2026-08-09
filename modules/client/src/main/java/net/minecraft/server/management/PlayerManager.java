@@ -8,7 +8,6 @@ import net.minecraft.network.packet.impl.play.server.S22PacketMultiBlockChange;
 import net.minecraft.network.packet.impl.play.server.S23PacketBlockChange;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldServer;

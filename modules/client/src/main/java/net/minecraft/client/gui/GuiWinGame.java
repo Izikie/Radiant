@@ -64,11 +64,6 @@ public class GuiWinGame extends GuiScreen {
     }
 
     @Override
-    public boolean doesGuiPauseGame() {
-        return true;
-    }
-
-    @Override
     public void initGui() {
         if (this.field_146582_i == null) {
             this.field_146582_i = new ArrayList<>();
@@ -85,7 +80,7 @@ public class GuiWinGame extends GuiScreen {
                     String s2;
                     String s3;
 
-                    for (s = s.replaceAll("PLAYERNAME", this.mc.getSession().getUsername()); s.contains(s1); s = s2 + Formatting.WHITE + Formatting.OBFUSCATED + "XXXXXXXX".substring(0, random.nextInt(4) + 3) + s3) {
+                    for (s = s.replaceAll("PLAYERNAME", this.mc.getSession().username()); s.contains(s1); s = s2 + Formatting.WHITE + Formatting.OBFUSCATED + "XXXXXXXX".substring(0, random.nextInt(4) + 3) + s3) {
                         int j = s.indexOf(s1);
                         s2 = s.substring(0, j);
                         s3 = s.substring(j + s1.length());
@@ -105,8 +100,8 @@ public class GuiWinGame extends GuiScreen {
                 bufferedreader = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8));
 
                 while ((s = bufferedreader.readLine()) != null) {
-                    s = s.replaceAll("PLAYERNAME", this.mc.getSession().getUsername());
-                    s = s.replaceAll("\t", "    ");
+                    s = s.replaceAll("PLAYERNAME", this.mc.getSession().username());
+                    s = s.replace("\t", "    ");
                     this.field_146582_i.addAll(this.mc.fontRendererObj.listFormattedStringToWidth(s, i));
                     this.field_146582_i.add("");
                 }

@@ -89,12 +89,12 @@ public class S21PacketChunkData implements Packet<INetHandlerPlayClient> {
         }
 
         for (ExtendedBlockStorage extendedblockstorage2 : list) {
-            j = func_179757_a(extendedblockstorage2.getBlocklightArray().getData(), s21packetchunkdata$extracted.data, j);
+            j = func_179757_a(extendedblockstorage2.getBlocklightArray().data(), s21packetchunkdata$extracted.data, j);
         }
 
         if (p_179756_2_) {
             for (ExtendedBlockStorage extendedblockstorage3 : list) {
-                j = func_179757_a(extendedblockstorage3.getSkylightArray().getData(), s21packetchunkdata$extracted.data, j);
+                j = func_179757_a(extendedblockstorage3.getSkylightArray().data(), s21packetchunkdata$extracted.data, j);
             }
         }
 

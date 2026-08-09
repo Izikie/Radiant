@@ -5,7 +5,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.chat.ChatComponentText;
 import net.minecraft.util.chat.IChatComponent;
 import net.minecraft.util.input.MovingObjectPosition;
-import net.minecraft.util.math.MathHelper;
 import net.radiant.lwjgl.input.Keyboard;
 import net.radiant.lwjgl.input.Mouse;
 import org.apache.commons.lang3.StringUtils;

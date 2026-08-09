@@ -54,8 +54,8 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
                 }
 
                 float f7 = (float) (-(y + f3));
-                float f8 = f7 + (float) ActiveRenderInfo.getPosition().yCoord;
-                float f9 = f7 + f4 + (float) ActiveRenderInfo.getPosition().yCoord;
+                float f8 = f7 + (float) ActiveRenderInfo.getPosition().yCoord();
+                float f9 = f7 + f4 + (float) ActiveRenderInfo.getPosition().yCoord();
                 float f10 = f8 / f9;
                 f10 = (float) (y + f3) + f10;
                 GlStateManager.translate(f, f10, f2);
@@ -81,8 +81,8 @@ public class TileEntityEndPortalRenderer extends TileEntitySpecialRenderer<TileE
                 GlStateManager.rotate((i * i * 4321 + i * 9) * 2.0F, 0.0F, 0.0F, 1.0F);
                 GlStateManager.translate(-0.5F, -0.5F, 0.0F);
                 GlStateManager.translate(-f, -f2, -f1);
-                f8 = f7 + (float) ActiveRenderInfo.getPosition().yCoord;
-                GlStateManager.translate((float) ActiveRenderInfo.getPosition().xCoord * f4 / f8, (float) ActiveRenderInfo.getPosition().zCoord * f4 / f8, -f1);
+                f8 = f7 + (float) ActiveRenderInfo.getPosition().yCoord();
+                GlStateManager.translate((float) ActiveRenderInfo.getPosition().xCoord() * f4 / f8, (float) ActiveRenderInfo.getPosition().zCoord() * f4 / f8, -f1);
                 Tessellator tessellator = Tessellator.get();
                 WorldRenderer worldrenderer = tessellator.getWorldRenderer();
                 worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);

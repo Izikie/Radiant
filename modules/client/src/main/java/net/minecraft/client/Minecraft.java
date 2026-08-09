@@ -216,7 +216,7 @@ public class Minecraft implements IThreadListener {
         proxy = gameConfig.userInfo().proxy() == null ? Proxy.NO_PROXY : gameConfig.userInfo().proxy();
         sessionService = (new YggdrasilAuthenticationService(gameConfig.userInfo().proxy(), UUID.randomUUID().toString())).createMinecraftSessionService();
         session = gameConfig.userInfo().session();
-        LOGGER.info("Setting user: {}", session.getUsername());
+        LOGGER.info("Setting user: {}", session.username());
         LOGGER.info("(Session ID is {})", session.getSessionID());
         displayWidth = Math.max(1, gameConfig.displayInfo().width());
         displayHeight = Math.max(1, gameConfig.displayInfo().height());
@@ -558,10 +558,8 @@ public class Minecraft implements IThreadListener {
             });
         }).exceptionally(throwable -> {
             LOGGER.error("Failed to load resource packs asynchronously", throwable);
-            addScheduledTask(() -> {
-                displayGuiScreen(new GuiErrorScreen("Resource Pack Loading Error",
-                        "Failed to load resource packs: " + throwable.getMessage()));
-            });
+            addScheduledTask(() -> displayGuiScreen(new GuiErrorScreen("Resource Pack Loading Error",
+                    "Failed to load resource packs: " + throwable.getMessage())));
             return null;
         });
     }
@@ -1929,8 +1927,8 @@ public class Minecraft implements IThreadListener {
 
     public static Map<String, String> getSessionInfo() {
         return Map.of(
-                "X-Minecraft-Username", get().getSession().getUsername(),
-                "X-Minecraft-UUID", get().getSession().getPlayerID(),
+                "X-Minecraft-Username", get().getSession().username(),
+                "X-Minecraft-UUID", get().getSession().playerID(),
                 "X-Minecraft-Version", "1.8.9"
         );
     }

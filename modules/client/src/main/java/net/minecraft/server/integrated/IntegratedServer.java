@@ -47,7 +47,7 @@ public class IntegratedServer extends MinecraftServer {
 
     public IntegratedServer(Minecraft mcIn, String folderName, String worldName, WorldSettings settings) {
         super(new File(mcIn.mcDataDir, "saves"), mcIn.getProxy(), new File(mcIn.mcDataDir, USER_CACHE_FILE.getName()));
-        this.setServerOwner(mcIn.getSession().getUsername());
+        this.setServerOwner(mcIn.getSession().username());
         this.setFolderName(folderName);
         this.setWorldName(worldName);
         this.canCreateBonusChest(settings.isBonusChestEnabled());

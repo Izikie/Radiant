@@ -56,10 +56,10 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase {
 
             if (vec3 == null) {
                 return false;
-            } else if (this.closestLivingEntity.getDistanceSq(vec3.xCoord, vec3.yCoord, vec3.zCoord) < this.closestLivingEntity.getDistanceSqToEntity(this.theEntity)) {
+            } else if (this.closestLivingEntity.getDistanceSq(vec3.xCoord(), vec3.yCoord(), vec3.zCoord()) < this.closestLivingEntity.getDistanceSqToEntity(this.theEntity)) {
                 return false;
             } else {
-                this.entityPathEntity = this.entityPathNavigate.getPathToXYZ(vec3.xCoord, vec3.yCoord, vec3.zCoord);
+                this.entityPathEntity = this.entityPathNavigate.getPathToXYZ(vec3.xCoord(), vec3.yCoord(), vec3.zCoord());
                 return this.entityPathEntity != null && this.entityPathEntity.isDestinationSame(vec3);
             }
         }

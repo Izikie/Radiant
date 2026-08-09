@@ -134,9 +134,9 @@ public class CrashReportCategory {
 
         for (Entry entry : this.children) {
             builder.append("\n\t");
-            builder.append(entry.getKey());
+            builder.append(entry.key());
             builder.append(": ");
-            builder.append(entry.getValue());
+            builder.append(entry.value());
         }
 
         if (this.stackTrace != null && this.stackTrace.length > 0) {
@@ -153,8 +153,8 @@ public class CrashReportCategory {
         return this.stackTrace;
     }
 
-    public static void addBlockInfo(CrashReportCategory category, final BlockPos pos, final Block blockIn, final int blockData) {
-        final int blockID = Block.getIdFromBlock(blockIn);
+    public static void addBlockInfo(CrashReportCategory category, BlockPos pos, Block blockIn, int blockData) {
+        int blockID = Block.getIdFromBlock(blockIn);
         category.addCrashSectionCallable("Block Type", () -> {
             try {
                 return String.format("ID #%d (%s // %s)", blockID, blockIn.getUnlocalizedName(), blockIn.getClass().getCanonicalName());
@@ -173,33 +173,24 @@ public class CrashReportCategory {
         category.addCrashSectionCallable("Block Location", () -> CrashReportCategory.getCoordinateInfo(pos));
     }
 
-    public static void addBlockInfo(CrashReportCategory category, final BlockPos pos, final IBlockState state) {
+    public static void addBlockInfo(CrashReportCategory category, BlockPos pos, IBlockState state) {
         category.addCrashSectionCallable("Block", state::toString);
         category.addCrashSectionCallable("Block Location", () -> CrashReportCategory.getCoordinateInfo(pos));
     }
 
-    static class Entry {
-        private final String key;
-        private final String value;
-
+    record Entry(String key, String value) {
         public Entry(String key, Object value) {
-            this.key = key;
+            this(key, formatValue(value));
+        }
 
+        private static String formatValue(Object value) {
             if (value == null) {
-                this.value = "~~NULL~~";
+                return "~~NULL~~";
             } else if (value instanceof Throwable throwable) {
-                this.value = "~~ERROR~~ " + throwable.getClass().getSimpleName() + ": " + throwable.getMessage();
+                return "~~ERROR~~ " + throwable.getClass().getSimpleName() + ": " + throwable.getMessage();
             } else {
-                this.value = value.toString();
+                return value.toString();
             }
-        }
-
-        public String getKey() {
-            return this.key;
-        }
-
-        public String getValue() {
-            return this.value;
         }
     }
 }

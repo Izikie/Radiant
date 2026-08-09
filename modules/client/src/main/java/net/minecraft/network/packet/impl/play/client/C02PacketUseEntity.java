@@ -43,9 +43,9 @@ public class C02PacketUseEntity implements Packet<INetHandlerPlayServer> {
         buf.writeEnum(this.action);
 
         if (this.action == Action.INTERACT_AT) {
-            buf.writeFloat((float) this.hitVec.xCoord);
-            buf.writeFloat((float) this.hitVec.yCoord);
-            buf.writeFloat((float) this.hitVec.zCoord);
+            buf.writeFloat((float) this.hitVec.xCoord());
+            buf.writeFloat((float) this.hitVec.yCoord());
+            buf.writeFloat((float) this.hitVec.zCoord());
         }
     }
 

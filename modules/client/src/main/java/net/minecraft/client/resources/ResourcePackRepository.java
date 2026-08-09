@@ -25,7 +25,6 @@ import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.image.BufferedImage;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileFilter;
@@ -513,11 +512,11 @@ public class ResourcePackRepository {
         }
 
         public String getTexturePackDescription() {
-            return this.rePackMetadataSection == null ? Formatting.RED + "Invalid pack.mcmeta (or missing 'pack' section)" : this.rePackMetadataSection.getPackDescription().getFormattedText();
+            return this.rePackMetadataSection == null ? Formatting.RED + "Invalid pack.mcmeta (or missing 'pack' section)" : this.rePackMetadataSection.packDescription().getFormattedText();
         }
 
         public int func_183027_f() {
-            return this.rePackMetadataSection.getPackFormat();
+            return this.rePackMetadataSection.packFormat();
         }
 
         @Override

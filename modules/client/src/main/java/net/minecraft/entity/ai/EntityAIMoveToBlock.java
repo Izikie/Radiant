@@ -45,10 +45,6 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase {
     }
 
     @Override
-    public void resetTask() {
-    }
-
-    @Override
     public void updateTask() {
         if (this.theEntity.getDistanceSqToCenter(this.destinationBlock.up()) > 1.0D) {
             this.isAboveDestination = false;

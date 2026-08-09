@@ -130,16 +130,7 @@ public class GuiScreenCustomizePresets extends GuiScreen {
         field_175310_f.add(new Info(I18n.format("createWorld.customize.custom.preset.goodLuck"), resourcelocation, chunkprovidersettings$factory));
     }
 
-    static class Info {
-        public final String field_178955_a;
-        public final ResourceLocation field_178953_b;
-        public final ChunkProviderSettings.Factory field_178954_c;
-
-        public Info(String p_i45523_1_, ResourceLocation p_i45523_2_, ChunkProviderSettings.Factory p_i45523_3_) {
-            this.field_178955_a = p_i45523_1_;
-            this.field_178953_b = p_i45523_2_;
-            this.field_178954_c = p_i45523_3_;
-        }
+    record Info(String field_178955_a, ResourceLocation field_178953_b, ChunkProviderSettings.Factory field_178954_c) {
     }
 
     class ListPreset extends GuiSlot {

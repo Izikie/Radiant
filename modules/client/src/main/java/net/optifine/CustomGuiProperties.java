@@ -189,7 +189,6 @@ public class CustomGuiProperties {
                 case INVENTORY -> INVENTORY_GUI_TEXTURE;
                 case SHULKER_BOX -> SHULKER_BOX_GUI_TEXTURE;
                 case VILLAGER -> VILLAGER_GUI_TEXTURE;
-                default -> null;
             };
         }
     }
@@ -200,7 +199,7 @@ public class CustomGuiProperties {
 
     public static String getName(GuiScreen screen) {
         IWorldNameable iworldnameable = getWorldNameable(screen);
-        return iworldnameable == null ? null : iworldnameable.getDisplayName().getUnformattedText();
+        return iworldnameable == null ? null : iworldnameable.displayName().getUnformattedText();
     }
 
     private static IWorldNameable getWorldNameable(GuiScreen screen) {
@@ -217,8 +216,9 @@ public class CustomGuiProperties {
     }
 
     private static IWorldNameable getWorldNameable(Object obj) {
-        if (obj instanceof IWorldNameable iWorldNameable)
+        if (obj instanceof IWorldNameable iWorldNameable) {
             return iWorldNameable;
+        }
 
         return null;
     }
@@ -441,6 +441,7 @@ public class CustomGuiProperties {
         return resourcelocation == null ? loc : resourcelocation;
     }
 
+    @Override
     public String toString() {
         return "name: " + this.fileName + ", container: " + this.container + ", textures: " + this.textureLocations;
     }

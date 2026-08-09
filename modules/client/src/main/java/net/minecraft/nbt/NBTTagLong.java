@@ -30,6 +30,7 @@ public class NBTTagLong extends NBTBase.NBTPrimitive {
         return (byte) 4;
     }
 
+    @Override
     public String toString() {
         return this.data + "L";
     }
@@ -39,6 +40,7 @@ public class NBTTagLong extends NBTBase.NBTPrimitive {
         return new NBTTagLong(this.data);
     }
 
+    @Override
     public boolean equals(Object p_equals_1_) {
         if (super.equals(p_equals_1_)) {
             NBTTagLong nbttaglong = (NBTTagLong) p_equals_1_;
@@ -48,6 +50,7 @@ public class NBTTagLong extends NBTBase.NBTPrimitive {
         }
     }
 
+    @Override
     public int hashCode() {
         return super.hashCode() ^ Long.hashCode(this.data);
     }
@@ -59,7 +62,7 @@ public class NBTTagLong extends NBTBase.NBTPrimitive {
 
     @Override
     public int getInt() {
-        return (int) (this.data & -1L);
+        return (int) (this.data);
     }
 
     @Override

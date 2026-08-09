@@ -55,9 +55,9 @@ public class CommandParticle extends CommandBase {
             } else {
                 String s = args[0];
                 Vec3 vec3 = sender.getPositionVector();
-                double d6 = ((float) parseDouble(vec3.xCoord, args[1], true));
-                double d0 = ((float) parseDouble(vec3.yCoord, args[2], true));
-                double d1 = ((float) parseDouble(vec3.zCoord, args[3], true));
+                double d6 = ((float) parseDouble(vec3.xCoord(), args[1], true));
+                double d0 = ((float) parseDouble(vec3.yCoord(), args[2], true));
+                double d1 = ((float) parseDouble(vec3.zCoord(), args[3], true));
                 double d2 = ((float) parseDouble(args[4]));
                 double d3 = ((float) parseDouble(args[5]));
                 double d4 = ((float) parseDouble(args[6]));

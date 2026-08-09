@@ -6,14 +6,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.util.chat.IChatComponent;
 import net.minecraft.world.IInteractionObject;
 
-public class LocalBlockIntercommunication implements IInteractionObject {
-    private final String guiID;
-    private final IChatComponent displayName;
-
-    public LocalBlockIntercommunication(String guiIdIn, IChatComponent displayNameIn) {
-        this.guiID = guiIdIn;
-        this.displayName = displayNameIn;
-    }
+public record LocalBlockIntercommunication(String guiID, IChatComponent displayName) implements IInteractionObject {
 
     @Override
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
@@ -28,15 +21,5 @@ public class LocalBlockIntercommunication implements IInteractionObject {
     @Override
     public boolean hasCustomName() {
         return true;
-    }
-
-    @Override
-    public String getGuiID() {
-        return this.guiID;
-    }
-
-    @Override
-    public IChatComponent getDisplayName() {
-        return this.displayName;
     }
 }

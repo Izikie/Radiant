@@ -522,7 +522,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
     @Override
     public void displayGui(IInteractionObject guiOwner) {
         this.getNextWindowId();
-        this.playerNetServerHandler.sendPacket(new S2DPacketOpenWindow(this.currentWindowId, guiOwner.getGuiID(), guiOwner.getDisplayName()));
+        this.playerNetServerHandler.sendPacket(new S2DPacketOpenWindow(this.currentWindowId, guiOwner.guiID(), guiOwner.displayName()));
         this.openContainer = guiOwner.createContainer(this.inventory, this);
         this.openContainer.windowId = this.currentWindowId;
         this.openContainer.onCraftGuiOpened(this);
@@ -537,7 +537,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         if (chestInventory instanceof ILockableContainer ilockablecontainer) {
 
             if (ilockablecontainer.isLocked() && !this.canOpen(ilockablecontainer.getLockCode()) && !this.isSpectator()) {
-                this.playerNetServerHandler.sendPacket(new S02PacketChat(new ChatComponentTranslation("container.isLocked", chestInventory.getDisplayName()), (byte) 2));
+                this.playerNetServerHandler.sendPacket(new S02PacketChat(new ChatComponentTranslation("container.isLocked", chestInventory.displayName()), (byte) 2));
                 this.playerNetServerHandler.sendPacket(new S29PacketSoundEffect("random.door_close", this.posX, this.posY, this.posZ, 1.0F, 1.0F));
                 return;
             }
@@ -546,10 +546,10 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         this.getNextWindowId();
 
         if (chestInventory instanceof IInteractionObject iInteractionObject) {
-            this.playerNetServerHandler.sendPacket(new S2DPacketOpenWindow(this.currentWindowId, iInteractionObject.getGuiID(), chestInventory.getDisplayName(), chestInventory.getSizeInventory()));
+            this.playerNetServerHandler.sendPacket(new S2DPacketOpenWindow(this.currentWindowId, iInteractionObject.guiID(), chestInventory.displayName(), chestInventory.getSizeInventory()));
             this.openContainer = iInteractionObject.createContainer(this.inventory, this);
         } else {
-            this.playerNetServerHandler.sendPacket(new S2DPacketOpenWindow(this.currentWindowId, "minecraft:container", chestInventory.getDisplayName(), chestInventory.getSizeInventory()));
+            this.playerNetServerHandler.sendPacket(new S2DPacketOpenWindow(this.currentWindowId, "minecraft:container", chestInventory.displayName(), chestInventory.getSizeInventory()));
             this.openContainer = new ContainerChest(this.inventory, chestInventory, this);
         }
 
@@ -583,7 +583,7 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
         }
 
         this.getNextWindowId();
-        this.playerNetServerHandler.sendPacket(new S2DPacketOpenWindow(this.currentWindowId, "EntityHorse", horseInventory.getDisplayName(), horseInventory.getSizeInventory(), horse.getEntityId()));
+        this.playerNetServerHandler.sendPacket(new S2DPacketOpenWindow(this.currentWindowId, "EntityHorse", horseInventory.displayName(), horseInventory.getSizeInventory(), horse.getEntityId()));
         this.openContainer = new ContainerHorseInventory(this.inventory, horseInventory, horse, this);
         this.openContainer.windowId = this.currentWindowId;
         this.openContainer.onCraftGuiOpened(this);
@@ -840,11 +840,6 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting {
 
     public void loadResourcePack(String url, String hash) {
         this.playerNetServerHandler.sendPacket(new S48PacketResourcePackSend(url, hash));
-    }
-
-    @Override
-    public BlockPos getPosition() {
-        return new BlockPos(this.posX, this.posY + 0.5D, this.posZ);
     }
 
     public void markPlayerActive() {

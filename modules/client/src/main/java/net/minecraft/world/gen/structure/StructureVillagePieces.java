@@ -158,7 +158,7 @@ public class StructureVillagePieces {
                 int j = (structurecomponent.boundingBox.minZ + structurecomponent.boundingBox.maxZ) / 2;
                 int k = structurecomponent.boundingBox.maxX - structurecomponent.boundingBox.minX;
                 int l = structurecomponent.boundingBox.maxZ - structurecomponent.boundingBox.minZ;
-                int i1 = k > l ? k : l;
+                int i1 = Math.max(k, l);
 
                 if (start.getWorldChunkManager().areBiomesViable(i, j, i1 / 2 + 4, MapGenVillage.VILLAGE_SPAWN_BIOMES)) {
                     p_176066_1_.add(structurecomponent);
@@ -185,7 +185,7 @@ public class StructureVillagePieces {
                 int j = (structurecomponent.boundingBox.minZ + structurecomponent.boundingBox.maxZ) / 2;
                 int k = structurecomponent.boundingBox.maxX - structurecomponent.boundingBox.minX;
                 int l = structurecomponent.boundingBox.maxZ - structurecomponent.boundingBox.minZ;
-                int i1 = k > l ? k : l;
+                int i1 = Math.max(k, l);
 
                 if (start.getWorldChunkManager().areBiomesViable(i, j, i1 / 2 + 4, MapGenVillage.VILLAGE_SPAWN_BIOMES)) {
                     p_176069_1_.add(structurecomponent);

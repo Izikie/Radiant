@@ -82,11 +82,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
     }
 
     @Override
-    public AxisAlignedBB getCollisionBoundingBox() {
-        return null;
-    }
-
-    @Override
     public boolean canBePushed() {
         return true;
     }
@@ -461,7 +456,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
         Vec3 vec31 = this.func_70489_a(this.posX, this.posY, this.posZ);
 
         if (vec31 != null && vec3 != null) {
-            double d14 = (vec3.yCoord - vec31.yCoord) * 0.05D;
+            double d14 = (vec3.yCoord() - vec31.yCoord()) * 0.05D;
             d5 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
 
             if (d5 > 0.0D) {
@@ -469,7 +464,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                 this.motionZ = this.motionZ / d5 * (d5 + d14);
             }
 
-            this.setPosition(this.posX, vec31.yCoord, this.posZ);
+            this.setPosition(this.posX, vec31.yCoord(), this.posZ);
         }
 
         int j = MathHelper.floor(this.posX);
@@ -514,16 +509,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
             this.motionY *= 0.0D;
             this.motionZ *= 0.9599999785423279D;
         }
-    }
-
-    @Override
-    public void setPosition(double x, double y, double z) {
-        this.posX = x;
-        this.posY = y;
-        this.posZ = z;
-        float f = this.width / 2.0F;
-        float f1 = this.height;
-        this.setEntityBoundingBox(new AxisAlignedBB(x - f, y, z - f, x + f, y + f1, z + f));
     }
 
     public Vec3 func_70495_a(double p_70495_1_, double p_70495_3_, double p_70495_5_, double p_70495_7_) {
@@ -718,7 +703,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
                                 this.addVelocity(entityIn.motionX - d0, 0.0D, entityIn.motionZ - d1);
                                 entityIn.motionX *= 0.949999988079071D;
                                 entityIn.motionZ *= 0.949999988079071D;
-                            } else if (((EntityMinecart) entityIn).getMinecartType() != MinecartType.FURNACE && this.getMinecartType() == MinecartType.FURNACE) {
+                            } else if (entityMinecart.getMinecartType() != MinecartType.FURNACE && this.getMinecartType() == MinecartType.FURNACE) {
                                 entityIn.motionX *= 0.20000000298023224D;
                                 entityIn.motionZ *= 0.20000000298023224D;
                                 entityIn.addVelocity(this.motionX + d0, 0.0D, this.motionZ + d1);
@@ -845,7 +830,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
     }
 
     @Override
-    public IChatComponent getDisplayName() {
+    public IChatComponent displayName() {
         if (this.hasCustomName()) {
             ChatComponentText chatcomponenttext = new ChatComponentText(this.entityName);
             chatcomponenttext.getChatStyle().setChatHoverEvent(this.getHoverEvent());

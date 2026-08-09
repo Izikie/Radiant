@@ -38,7 +38,7 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase {
                 }
 
                 if (p_apply_1_.isInvisible()) {
-                    float f = ((EntityPlayer) p_apply_1_).getArmorVisibility();
+                    float f = entityPlayer.getArmorVisibility();
 
                     if (f < 0.1F) {
                         f = 0.1F;

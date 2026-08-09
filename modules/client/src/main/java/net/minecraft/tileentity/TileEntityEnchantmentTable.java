@@ -9,7 +9,6 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.chat.ChatComponentText;
 import net.minecraft.util.chat.ChatComponentTranslation;
 import net.minecraft.util.chat.IChatComponent;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IInteractionObject;
 
 import java.util.Random;
@@ -122,7 +121,7 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
     }
 
     @Override
-    public IChatComponent getDisplayName() {
+    public IChatComponent displayName() {
         return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName());
     }
 
@@ -132,7 +131,7 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
     }
 
     @Override
-    public String getGuiID() {
+    public String guiID() {
         return "minecraft:enchanting_table";
     }
 

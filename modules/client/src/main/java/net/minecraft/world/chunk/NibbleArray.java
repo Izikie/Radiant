@@ -1,17 +1,15 @@
 package net.minecraft.world.chunk;
 
-public class NibbleArray {
-    private final byte[] data;
-
+public record NibbleArray(byte[] data) {
     public NibbleArray() {
-        this.data = new byte[2048];
+        this(new byte[2048]);
     }
 
-    public NibbleArray(byte[] storageArray) {
-        this.data = storageArray;
+    public NibbleArray(byte[] data) {
+        this.data = data;
 
-        if (storageArray.length != 2048) {
-            throw new IllegalArgumentException("ChunkNibbleArrays should be 2048 bytes not: " + storageArray.length);
+        if (data.length != 2048) {
+            throw new IllegalArgumentException("ChunkNibbleArrays should be 2048 bytes not: " + data.length);
         }
     }
 
@@ -48,9 +46,5 @@ public class NibbleArray {
 
     private int getNibbleIndex(int index) {
         return index >> 1;
-    }
-
-    public byte[] getData() {
-        return this.data;
     }
 }

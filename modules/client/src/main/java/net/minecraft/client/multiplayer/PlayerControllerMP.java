@@ -267,9 +267,9 @@ public class PlayerControllerMP {
 
     public boolean onPlayerRightClick(EntityPlayerSP player, WorldClient worldIn, ItemStack heldStack, BlockPos hitPos, Direction side, Vec3 hitVec) {
         this.syncCurrentPlayItem();
-        float f = (float) (hitVec.xCoord - hitPos.getX());
-        float f1 = (float) (hitVec.yCoord - hitPos.getY());
-        float f2 = (float) (hitVec.zCoord - hitPos.getZ());
+        float f = (float) (hitVec.xCoord() - hitPos.getX());
+        float f1 = (float) (hitVec.yCoord() - hitPos.getY());
+        float f2 = (float) (hitVec.zCoord() - hitPos.getZ());
         boolean flag = false;
 
         if (!this.mc.world.getWorldBorder().contains(hitPos)) {
@@ -355,7 +355,7 @@ public class PlayerControllerMP {
 
     public boolean isPlayerRightClickingOnEntity(EntityPlayer player, Entity entityIn, MovingObjectPosition movingObject) {
         this.syncCurrentPlayItem();
-        Vec3 vec3 = new Vec3(movingObject.hitVec.xCoord - entityIn.posX, movingObject.hitVec.yCoord - entityIn.posY, movingObject.hitVec.zCoord - entityIn.posZ);
+        Vec3 vec3 = new Vec3(movingObject.hitVec.xCoord() - entityIn.posX, movingObject.hitVec.yCoord() - entityIn.posY, movingObject.hitVec.zCoord() - entityIn.posZ);
         this.netClientHandler.addToSendQueue(new C02PacketUseEntity(entityIn, vec3));
         return this.currentGameType != WorldSettings.GameType.SPECTATOR && entityIn.interactAt(player, vec3);
     }

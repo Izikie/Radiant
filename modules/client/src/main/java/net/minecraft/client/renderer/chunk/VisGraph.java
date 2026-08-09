@@ -143,7 +143,6 @@ public class VisGraph {
 
                 yield p_178603_1_ + field_178616_a;
             }
-            default -> -1;
         };
     }
 

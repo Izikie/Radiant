@@ -142,7 +142,7 @@ public class BlockAnvil extends BlockFalling {
         }
 
         @Override
-        public IChatComponent getDisplayName() {
+        public IChatComponent displayName() {
             return new ChatComponentTranslation(Blocks.ANVIL.getUnlocalizedName() + ".name");
         }
 
@@ -152,7 +152,7 @@ public class BlockAnvil extends BlockFalling {
         }
 
         @Override
-        public String getGuiID() {
+        public String guiID() {
             return "minecraft:anvil";
         }
     }

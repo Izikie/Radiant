@@ -24,14 +24,14 @@ public class FaceBakery {
         Direction enumfacing = getFacingFromVertexData(aint);
 
         if (uvLocked) {
-            this.lockUv(aint, enumfacing, face.blockFaceUV, sprite);
+            this.lockUv(aint, enumfacing, face.blockFaceUV(), sprite);
         }
 
         if (partRotation == null) {
             this.applyFacing(aint, enumfacing);
         }
 
-        return new BakedQuad(aint, face.tintIndex, enumfacing);
+        return new BakedQuad(aint, face.tintIndex(), enumfacing);
     }
 
     private int[] makeQuadVertexData(BlockPartFace face, TextureAtlasSprite sprite, Direction facing, float[] p_makeQuadVertexData_4_, ModelRotation modelRotationIn, BlockPartRotation partRotation, boolean uvLocked, boolean shade) {
@@ -80,7 +80,6 @@ public class FaceBakery {
 
                 yield 0.6F;
             }
-            default -> 1.0F;
         };
     }
 
@@ -103,7 +102,7 @@ public class FaceBakery {
         this.rotatePart(vector3f, partRotation);
         int j = this.rotateVertex(vector3f, face, p_fillVertexData_2_, modelRotationIn, uvLocked);
         BlockModelUtils.snapVertexPosition(vector3f);
-        this.storeVertexData(p_fillVertexData_1_, j, p_fillVertexData_2_, vector3f, i, sprite, p_fillVertexData_4_.blockFaceUV);
+        this.storeVertexData(p_fillVertexData_1_, j, p_fillVertexData_2_, vector3f, i, sprite, p_fillVertexData_4_.blockFaceUV());
     }
 
     private void storeVertexData(int[] faceData, int storeIndex, int vertexIndex, Vector3f position, int shadeColor, TextureAtlasSprite sprite, BlockFaceUV faceUV) {
@@ -124,9 +123,9 @@ public class FaceBakery {
 
         Matrix4f matrix = new Matrix4f();
         Vector3f scaleVector = new Vector3f(0.0F, 0.0F, 0.0F);
-        float angle = partRotation.angle * 0.017453292F;
+        float angle = partRotation.angle() * 0.017453292F;
 
-        switch (partRotation.axis) {
+        switch (partRotation.axis()) {
             case X -> {
                 matrix.rotateX(angle);
                 scaleVector.set(0.0F, 1.0F, 1.0F);
@@ -141,8 +140,8 @@ public class FaceBakery {
             }
         }
 
-        if (partRotation.rescale) {
-            if (Math.abs(partRotation.angle) == 22.5F) {
+        if (partRotation.rescale()) {
+            if (Math.abs(partRotation.angle()) == 22.5F) {
                 scaleVector.mul(SCALE_ROTATION_22_5);
             } else {
                 scaleVector.mul(SCALE_ROTATION_GENERAL);
@@ -153,7 +152,7 @@ public class FaceBakery {
             scaleVector.set(1.0F, 1.0F, 1.0F);
         }
 
-        this.rotateScale(point, new Vector3f(partRotation.origin), matrix, scaleVector);
+        this.rotateScale(point, new Vector3f(partRotation.origin()), matrix, scaleVector);
     }
 
     public int rotateVertex(Vector3f position, Direction facing, int vertexIndex, ModelRotation modelRotationIn, boolean uvLocked) {

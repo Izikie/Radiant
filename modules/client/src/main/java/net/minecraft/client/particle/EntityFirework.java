@@ -92,16 +92,6 @@ public class EntityFirework {
         }
 
         @Override
-        public AxisAlignedBB getCollisionBoundingBox() {
-            return null;
-        }
-
-        @Override
-        public boolean canBePushed() {
-            return false;
-        }
-
-        @Override
         public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
             if (!this.twinkle || this.particleAge < this.particleMaxAge / 3 || (this.particleAge + this.particleMaxAge) / 3 % 2 == 0) {
                 super.renderParticle(worldRendererIn, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
@@ -365,9 +355,5 @@ public class EntityFirework {
             }
         }
 
-        @Override
-        public int getFXLayer() {
-            return 0;
-        }
     }
 }

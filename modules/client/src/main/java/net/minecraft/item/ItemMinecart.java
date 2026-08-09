@@ -22,9 +22,9 @@ public class ItemMinecart extends Item {
         public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
             Direction enumfacing = BlockDispenser.getFacing(source.getBlockMetadata());
             World world = source.getWorld();
-            double d0 = source.getX() + enumfacing.getFrontOffsetX() * 1.125D;
-            double d1 = Math.floor(source.getY()) + enumfacing.getFrontOffsetY();
-            double d2 = source.getZ() + enumfacing.getFrontOffsetZ() * 1.125D;
+            double d0 = source.x() + enumfacing.getFrontOffsetX() * 1.125D;
+            double d1 = Math.floor(source.y()) + enumfacing.getFrontOffsetY();
+            double d2 = source.z() + enumfacing.getFrontOffsetZ() * 1.125D;
             BlockPos blockpos = source.getBlockPos().offset(enumfacing);
             IBlockState iblockstate = world.getBlockState(blockpos);
             BlockRailBase.RailShape railShape = iblockstate.getBlock() instanceof BlockRailBase railBase ? iblockstate.getValue(railBase.getShapeProperty()) : BlockRailBase.RailShape.NORTH_SOUTH;
@@ -62,10 +62,6 @@ public class ItemMinecart extends Item {
             return stack;
         }
 
-        @Override
-        protected void playDispenseSound(IBlockSource source) {
-            source.getWorld().playAuxSFX(1000, source.getBlockPos(), 0);
-        }
     };
     private final EntityMinecart.MinecartType minecartType;
 

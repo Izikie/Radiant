@@ -174,7 +174,7 @@ public class HttpPipelineConnection {
                 pr.setClosed(true);
                 String s = resp.getHeader("Location");
 
-                if (resp.getStatus() / 100 == 3 && s != null && pr.getHttpRequest().getRedirects() < 5) {
+                if (resp.status() / 100 == 3 && s != null && pr.getHttpRequest().getRedirects() < 5) {
                     try {
                         s = this.normalizeUrl(s, pr.getHttpRequest());
                         HttpRequest httprequest = HttpPipeline.makeRequest(s, pr.getHttpRequest().getProxy());

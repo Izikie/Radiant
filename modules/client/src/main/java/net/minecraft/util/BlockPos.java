@@ -33,7 +33,7 @@ public class BlockPos extends Vec3i {
     }
 
     public BlockPos(Vec3 source) {
-        this(source.xCoord, source.yCoord, source.zCoord);
+        this(source.xCoord(), source.yCoord(), source.zCoord());
     }
 
     public BlockPos(Vec3i source) {
@@ -129,8 +129,8 @@ public class BlockPos extends Vec3i {
     }
 
     public static Iterable<BlockPos> getAllInBox(BlockPos from, BlockPos to) {
-        final BlockPos blockpos = new BlockPos(Math.min(from.getX(), to.getX()), Math.min(from.getY(), to.getY()), Math.min(from.getZ(), to.getZ()));
-        final BlockPos blockpos1 = new BlockPos(Math.max(from.getX(), to.getX()), Math.max(from.getY(), to.getY()), Math.max(from.getZ(), to.getZ()));
+        BlockPos blockpos = new BlockPos(Math.min(from.getX(), to.getX()), Math.min(from.getY(), to.getY()), Math.min(from.getZ(), to.getZ()));
+        BlockPos blockpos1 = new BlockPos(Math.max(from.getX(), to.getX()), Math.max(from.getY(), to.getY()), Math.max(from.getZ(), to.getZ()));
         return new Iterable<>() {
             @Override
             public Iterator<BlockPos> iterator() {
@@ -170,8 +170,8 @@ public class BlockPos extends Vec3i {
     }
 
     public static Iterable<MutableBlockPos> getAllInBoxMutable(BlockPos from, BlockPos to) {
-        final BlockPos blockpos = new BlockPos(Math.min(from.getX(), to.getX()), Math.min(from.getY(), to.getY()), Math.min(from.getZ(), to.getZ()));
-        final BlockPos blockpos1 = new BlockPos(Math.max(from.getX(), to.getX()), Math.max(from.getY(), to.getY()), Math.max(from.getZ(), to.getZ()));
+        BlockPos blockpos = new BlockPos(Math.min(from.getX(), to.getX()), Math.min(from.getY(), to.getY()), Math.min(from.getZ(), to.getZ()));
+        BlockPos blockpos1 = new BlockPos(Math.max(from.getX(), to.getX()), Math.max(from.getY(), to.getY()), Math.max(from.getZ(), to.getZ()));
         return new Iterable<>() {
             @Override
             public @NotNull Iterator<MutableBlockPos> iterator() {

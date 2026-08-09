@@ -141,13 +141,13 @@ public class ShadersTex {
 
         if (multitexid != null) {
             atex.multiTex = null;
-            MULTI_TEX_MAP.remove(multitexid.base);
-            GlStateManager.deleteTexture(multitexid.norm);
-            GlStateManager.deleteTexture(multitexid.spec);
+            MULTI_TEX_MAP.remove(multitexid.base());
+            GlStateManager.deleteTexture(multitexid.norm());
+            GlStateManager.deleteTexture(multitexid.spec());
 
-            if (multitexid.base != texid) {
-                Log.warn("Error : MultiTexID.base mismatch: " + multitexid.base + ", texid: " + texid);
-                GlStateManager.deleteTexture(multitexid.base);
+            if (multitexid.base() != texid) {
+                Log.warn("Error : MultiTexID.base mismatch: " + multitexid.base() + ", texid: " + texid);
+                GlStateManager.deleteTexture(multitexid.base());
             }
         }
     }
@@ -163,7 +163,7 @@ public class ShadersTex {
     }
 
     public static void bindNSTextures(MultiTexID multiTex) {
-        bindNSTextures(multiTex.norm, multiTex.spec);
+        bindNSTextures(multiTex.norm(), multiTex.spec());
     }
 
     public static void bindTextures(int baseTex, int normTex, int specTex) {
@@ -182,18 +182,18 @@ public class ShadersTex {
         if (Shaders.isRenderingWorld && GlStateManager.getActiveTextureUnit() == 33984) {
             if (Shaders.configNormalMap) {
                 GlStateManager.setActiveTexture(33986);
-                GlStateManager.bindTexture(multiTex.norm);
+                GlStateManager.bindTexture(multiTex.norm());
             }
 
             if (Shaders.configSpecularMap) {
                 GlStateManager.setActiveTexture(33987);
-                GlStateManager.bindTexture(multiTex.spec);
+                GlStateManager.bindTexture(multiTex.spec());
             }
 
             GlStateManager.setActiveTexture(33984);
         }
 
-        GlStateManager.bindTexture(multiTex.base);
+        GlStateManager.bindTexture(multiTex.base());
     }
 
     public static void bindTexture(ITextureObject tex) {
@@ -229,27 +229,27 @@ public class ShadersTex {
         int i = width * height;
         Arrays.fill(aint, i, i * 2, -8421377);
         Arrays.fill(aint, i * 2, i * 3, 0);
-        TextureUtil.allocateTexture(multitexid.base, width, height);
+        TextureUtil.allocateTexture(multitexid.base(), width, height);
         TextureUtil.setTextureBlurMipmap(false, false);
         TextureUtil.setTextureClamped(false);
-        TextureUtil.allocateTexture(multitexid.norm, width, height);
+        TextureUtil.allocateTexture(multitexid.norm(), width, height);
         TextureUtil.setTextureBlurMipmap(false, false);
         TextureUtil.setTextureClamped(false);
-        TextureUtil.allocateTexture(multitexid.spec, width, height);
+        TextureUtil.allocateTexture(multitexid.spec(), width, height);
         TextureUtil.setTextureBlurMipmap(false, false);
         TextureUtil.setTextureClamped(false);
-        GlStateManager.bindTexture(multitexid.base);
+        GlStateManager.bindTexture(multitexid.base());
     }
 
     public static void updateDynamicTexture(int texID, int[] src, int width, int height, DynamicTexture tex) {
         MultiTexID multitexid = tex.getMultiTexID();
-        GlStateManager.bindTexture(multitexid.base);
+        GlStateManager.bindTexture(multitexid.base());
         updateDynTexSubImage1(src, width, height, 0, 0, 0);
-        GlStateManager.bindTexture(multitexid.norm);
+        GlStateManager.bindTexture(multitexid.norm());
         updateDynTexSubImage1(src, width, height, 0, 0, 1);
-        GlStateManager.bindTexture(multitexid.spec);
+        GlStateManager.bindTexture(multitexid.spec());
         updateDynTexSubImage1(src, width, height, 0, 0, 2);
-        GlStateManager.bindTexture(multitexid.base);
+        GlStateManager.bindTexture(multitexid.base());
     }
 
     public static void updateDynTexSubImage1(int[] src, int width, int height, int posX, int posY, int page) {
@@ -277,14 +277,14 @@ public class ShadersTex {
         tex.atlasWidth = width;
         tex.atlasHeight = height;
         MultiTexID multitexid = getMultiTexID(tex);
-        TextureUtil.allocateTextureImpl(multitexid.base, mipmapLevels, width, height);
+        TextureUtil.allocateTextureImpl(multitexid.base(), mipmapLevels, width, height);
 
         if (Shaders.configNormalMap) {
-            TextureUtil.allocateTextureImpl(multitexid.norm, mipmapLevels, width, height);
+            TextureUtil.allocateTextureImpl(multitexid.norm(), mipmapLevels, width, height);
         }
 
         if (Shaders.configSpecularMap) {
-            TextureUtil.allocateTextureImpl(multitexid.spec, mipmapLevels, width, height);
+            TextureUtil.allocateTextureImpl(multitexid.spec(), mipmapLevels, width, height);
         }
 
         GlStateManager.bindTexture(texID);
@@ -297,17 +297,17 @@ public class ShadersTex {
 
         if (Shaders.configNormalMap) {
             int[][] aint = readImageAndMipmaps(textureMap, iconName + "_n", width, height, data.length, flag, -8421377);
-            GlStateManager.bindTexture(multitexid.norm);
+            GlStateManager.bindTexture(multitexid.norm());
             TextureUtil.uploadTextureMipmap(aint, width, height, xoffset, yoffset, linear, clamp);
         }
 
         if (Shaders.configSpecularMap) {
             int[][] aint1 = readImageAndMipmaps(textureMap, iconName + "_s", width, height, data.length, flag, 0);
-            GlStateManager.bindTexture(multitexid.spec);
+            GlStateManager.bindTexture(multitexid.spec());
             TextureUtil.uploadTextureMipmap(aint1, width, height, xoffset, yoffset, linear, clamp);
         }
 
-        GlStateManager.bindTexture(multitexid.base);
+        GlStateManager.bindTexture(multitexid.base());
     }
 
     public static int[][] readImageAndMipmaps(TextureMap updatingTextureMap, String name, int width, int height, int numLevels, boolean border, int defColor) {
@@ -332,7 +332,7 @@ public class ShadersTex {
             Arrays.fill(aint1, defColor);
         }
 
-        GlStateManager.bindTexture(multitexid.spec);
+        GlStateManager.bindTexture(multitexid.spec());
         aint = genMipmapsSimple(aint.length - 1, width, aint);
         return aint;
     }
@@ -575,27 +575,27 @@ public class ShadersTex {
         IntBuffer intbuffer = getIntBuffer(k);
         intbuffer.clear();
         intbuffer.put(src, 0, k).position(0).limit(k);
-        GlStateManager.bindTexture(multiTex.base);
+        GlStateManager.bindTexture(multiTex.base());
         GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, width, height, 0, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, intbuffer);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, i);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, i);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, j);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, j);
         intbuffer.put(src, k, k).position(0).limit(k);
-        GlStateManager.bindTexture(multiTex.norm);
+        GlStateManager.bindTexture(multiTex.norm());
         GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, width, height, 0, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, intbuffer);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, i);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, i);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, j);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, j);
         intbuffer.put(src, k * 2, k).position(0).limit(k);
-        GlStateManager.bindTexture(multiTex.spec);
+        GlStateManager.bindTexture(multiTex.spec());
         GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, width, height, 0, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, intbuffer);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, i);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, i);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, j);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, j);
-        GlStateManager.bindTexture(multiTex.base);
+        GlStateManager.bindTexture(multiTex.base());
     }
 
     public static void updateSubImage(MultiTexID multiTex, int[] src, int width, int height, int posX, int posY, boolean linear, boolean clamp) {
@@ -604,7 +604,7 @@ public class ShadersTex {
         intbuffer.clear();
         intbuffer.put(src, 0, i);
         intbuffer.position(0).limit(i);
-        GlStateManager.bindTexture(multiTex.base);
+        GlStateManager.bindTexture(multiTex.base());
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
@@ -617,7 +617,7 @@ public class ShadersTex {
             intbuffer.position(0).limit(i);
         }
 
-        GlStateManager.bindTexture(multiTex.norm);
+        GlStateManager.bindTexture(multiTex.norm());
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
@@ -630,7 +630,7 @@ public class ShadersTex {
             intbuffer.position(0).limit(i);
         }
 
-        GlStateManager.bindTexture(multiTex.spec);
+        GlStateManager.bindTexture(multiTex.spec());
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
@@ -749,13 +749,13 @@ public class ShadersTex {
 
         if (itextureobject != null) {
             MultiTexID multitexid = itextureobject.getMultiTexID();
-            GlStateManager.bindTexture(multitexid.base);
+            GlStateManager.bindTexture(multitexid.base());
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, Shaders.TEX_MIN_FIL_VALUE[Shaders.configTexMinFilB]);
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, Shaders.TEX_MAG_FIL_VALUE[Shaders.configTexMagFilB]);
-            GlStateManager.bindTexture(multitexid.norm);
+            GlStateManager.bindTexture(multitexid.norm());
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, Shaders.TEX_MIN_FIL_VALUE[Shaders.configTexMinFilN]);
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, Shaders.TEX_MAG_FIL_VALUE[Shaders.configTexMagFilN]);
-            GlStateManager.bindTexture(multitexid.spec);
+            GlStateManager.bindTexture(multitexid.spec());
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, Shaders.TEX_MIN_FIL_VALUE[Shaders.configTexMinFilS]);
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, Shaders.TEX_MAG_FIL_VALUE[Shaders.configTexMagFilS]);
             GlStateManager.bindTexture(0);

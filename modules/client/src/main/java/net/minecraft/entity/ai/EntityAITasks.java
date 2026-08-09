@@ -106,13 +106,9 @@ public class EntityAITasks {
         return (taskEntry1.action.getMutexBits() & taskEntry2.action.getMutexBits()) == 0;
     }
 
-    static class EntityAITaskEntry {
-        public final EntityAIBase action;
-        public final int priority;
-
+    record EntityAITaskEntry(EntityAIBase action, int priority) {
         public EntityAITaskEntry(int priorityIn, EntityAIBase task) {
-            this.priority = priorityIn;
-            this.action = task;
+            this(task, priorityIn);
         }
     }
 }

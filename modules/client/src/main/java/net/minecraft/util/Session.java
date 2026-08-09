@@ -7,46 +7,22 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class Session {
-    private final String username;
-    private final String playerID;
-    private final String token;
-    private final Type sessionType;
-
+public record Session(String username, String playerID, String token, Type sessionType) {
     public Session(String username, String playerID, String token, String session) {
-        this.username = username;
-        this.playerID = playerID;
-        this.token = token;
-        this.sessionType = Type.setSessionType(session);
+        this(username, playerID, token, Type.setSessionType(session));
     }
 
     public String getSessionID() {
         return "token:" + this.token + ":" + this.playerID;
     }
 
-    public String getPlayerID() {
-        return this.playerID;
-    }
-
-    public String getUsername() {
-        return this.username;
-    }
-
-    public String getToken() {
-        return this.token;
-    }
-
     public GameProfile getProfile() {
         try {
-            UUID uuid = UUIDTypeAdapter.fromString(this.getPlayerID());
-            return new GameProfile(uuid, this.getUsername());
+            UUID uuid = UUIDTypeAdapter.fromString(this.playerID());
+            return new GameProfile(uuid, this.username());
         } catch (IllegalArgumentException exception) {
-            return new GameProfile(null, this.getUsername());
+            return new GameProfile(null, this.username());
         }
-    }
-
-    public Type getSessionType() {
-        return this.sessionType;
     }
 
     public enum Type {

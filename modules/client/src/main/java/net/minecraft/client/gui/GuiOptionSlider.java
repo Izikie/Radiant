@@ -3,7 +3,6 @@ package net.minecraft.client.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.util.math.MathHelper;
 
 public class GuiOptionSlider extends GuiButton {
     private float sliderValue;

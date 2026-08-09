@@ -106,6 +106,7 @@ public class ChatStyle {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public String toString() {
             return "Style.ROOT";
         }
@@ -254,20 +255,21 @@ public class ChatStyle {
         return this.parentStyle == null ? ROOT_STYLE : this.parentStyle;
     }
 
+    @Override
     public String toString() {
         return "Style{hasParent=" + (this.parentStyle != null) + ", color=" + this.color + ", bold=" + this.bold + ", italic=" + this.italic + ", underlined=" + this.underlined + ", obfuscated=" + this.obfuscated + ", clickEvent=" + this.getChatClickEvent() + ", hoverEvent=" + this.getChatHoverEvent() + ", insertion=" + this.getInsertion() + '}';
     }
 
+    @Override
     public boolean equals(Object p_equals_1_) {
         if (this == p_equals_1_) {
             return true;
-        } else if (!(p_equals_1_ instanceof ChatStyle)) {
+        } else if (!(p_equals_1_ instanceof ChatStyle chatstyle)) {
             return false;
         } else {
             boolean flag;
             label0:
             {
-                ChatStyle chatstyle = (ChatStyle) p_equals_1_;
 
                 if (this.getBold() == chatstyle.getBold() && this.getColor() == chatstyle.getColor() && this.getItalic() == chatstyle.getItalic() && this.getObfuscated() == chatstyle.getObfuscated() && this.getStrikethrough() == chatstyle.getStrikethrough() && this.getUnderlined() == chatstyle.getUnderlined()) {
                     label85:
@@ -306,6 +308,7 @@ public class ChatStyle {
         }
     }
 
+    @Override
     public int hashCode() {
         int i = this.color.hashCode();
         i = 31 * i + this.bold.hashCode();
@@ -459,15 +462,15 @@ public class ChatStyle {
 
                 if (p_serialize_1_.chatClickEvent != null) {
                     JsonObject jsonobject1 = new JsonObject();
-                    jsonobject1.addProperty("action", p_serialize_1_.chatClickEvent.getAction().getCanonicalName());
-                    jsonobject1.addProperty("value", p_serialize_1_.chatClickEvent.getValue());
+                    jsonobject1.addProperty("action", p_serialize_1_.chatClickEvent.action().getCanonicalName());
+                    jsonobject1.addProperty("value", p_serialize_1_.chatClickEvent.value());
                     jsonobject.add("clickEvent", jsonobject1);
                 }
 
                 if (p_serialize_1_.chatHoverEvent != null) {
                     JsonObject jsonobject2 = new JsonObject();
-                    jsonobject2.addProperty("action", p_serialize_1_.chatHoverEvent.getAction().getCanonicalName());
-                    jsonobject2.add("value", ctx.serialize(p_serialize_1_.chatHoverEvent.getValue()));
+                    jsonobject2.addProperty("action", p_serialize_1_.chatHoverEvent.action().getCanonicalName());
+                    jsonobject2.add("value", ctx.serialize(p_serialize_1_.chatHoverEvent.value()));
                     jsonobject.add("hoverEvent", jsonobject2);
                 }
 

@@ -7,5 +7,5 @@ public interface IWorldNameable {
 
     boolean hasCustomName();
 
-    IChatComponent getDisplayName();
+    IChatComponent displayName();
 }

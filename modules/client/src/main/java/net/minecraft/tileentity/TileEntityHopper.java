@@ -518,7 +518,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     }
 
     @Override
-    public String getGuiID() {
+    public String guiID() {
         return "minecraft:hopper";
     }
 

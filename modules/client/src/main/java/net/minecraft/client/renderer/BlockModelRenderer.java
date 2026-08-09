@@ -80,14 +80,14 @@ public class BlockModelRenderer {
         RenderEnv renderenv = p_renderModelSmooth_5_.getRenderEnv(p_renderModelSmooth_3_, p_renderModelSmooth_4_);
         RenderLayer enumworldblocklayer = p_renderModelSmooth_5_.getBlockLayer();
 
-        for (Direction enumfacing : Direction.VALUES) {
-            List<BakedQuad> list = p_renderModelSmooth_2_.getFaceQuads(enumfacing);
+        for (Direction direction : Direction.VALUES) {
+            List<BakedQuad> list = p_renderModelSmooth_2_.getFaceQuads(direction);
 
             if (!list.isEmpty()) {
-                BlockPos blockpos = p_renderModelSmooth_4_.offset(enumfacing);
+                BlockPos blockpos = p_renderModelSmooth_4_.offset(direction);
 
-                if (!p_renderModelSmooth_6_ || block.shouldSideBeRendered(p_renderModelSmooth_1_, blockpos, enumfacing)) {
-                    list = BlockModelCustomizer.getRenderQuads(list, p_renderModelSmooth_1_, p_renderModelSmooth_3_, p_renderModelSmooth_4_, enumfacing, enumworldblocklayer, 0L, renderenv);
+                if (!p_renderModelSmooth_6_ || block.shouldSideBeRendered(p_renderModelSmooth_1_, blockpos, direction)) {
+                    list = BlockModelCustomizer.getRenderQuads(list, p_renderModelSmooth_1_, p_renderModelSmooth_3_, p_renderModelSmooth_4_, direction, enumworldblocklayer, 0L, renderenv);
                     this.renderQuadsSmooth(p_renderModelSmooth_1_, p_renderModelSmooth_3_, p_renderModelSmooth_4_, p_renderModelSmooth_5_, list, renderenv);
                     flag = true;
                 }

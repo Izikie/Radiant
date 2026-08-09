@@ -53,7 +53,7 @@ public class GuiScreenCapeOF extends GuiScreenOF {
                 try {
                     String s = this.mc.getSession().getProfile().getName();
                     String s1 = this.mc.getSession().getProfile().getId().toString().replace("-", "");
-                    String s2 = this.mc.getSession().getToken();
+                    String s2 = this.mc.getSession().token();
                     Random random = new Random();
                     Random random1 = new Random(System.identityHashCode(new Object()));
                     BigInteger biginteger = new BigInteger(128, random);

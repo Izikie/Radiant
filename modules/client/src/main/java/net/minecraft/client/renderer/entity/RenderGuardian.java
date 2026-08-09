@@ -37,7 +37,7 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
                     Vec3 vec3 = this.func_177110_a(entitylivingbase, entitylivingbase.height * 0.5D, 1.0F);
                     Vec3 vec31 = this.func_177110_a(livingEntity, livingEntity.getEyeHeight(), 1.0F);
 
-                    return camera.isBoundingBoxInFrustum(AxisAlignedBB.fromBounds(vec31.xCoord, vec31.yCoord, vec31.zCoord, vec3.xCoord, vec3.yCoord, vec3.zCoord));
+                    return camera.isBoundingBoxInFrustum(AxisAlignedBB.fromBounds(vec31.xCoord(), vec31.yCoord(), vec31.zCoord(), vec3.xCoord(), vec3.yCoord(), vec3.zCoord()));
                 }
             }
 
@@ -86,8 +86,8 @@ public class RenderGuardian extends RenderLiving<EntityGuardian> {
             Vec3 vec32 = vec3.subtract(vec31);
             double d0 = vec32.lengthVector() + 1.0D;
             vec32 = vec32.normalize();
-            float f5 = (float) Math.acos(vec32.yCoord);
-            float f6 = (float) Math.atan2(vec32.zCoord, vec32.xCoord);
+            float f5 = (float) Math.acos(vec32.yCoord());
+            float f6 = (float) Math.atan2(vec32.zCoord(), vec32.xCoord());
             GlStateManager.rotate((((float) Math.PI / 2.0F) - f6) * (180.0F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
             GlStateManager.rotate(f5 * (180.0F / (float) Math.PI), 1.0F, 0.0F, 0.0F);
             int i = 1;

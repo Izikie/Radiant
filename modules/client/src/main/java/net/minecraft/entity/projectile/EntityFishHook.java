@@ -225,7 +225,7 @@ public class EntityFishHook extends Entity {
             vec3 = new Vec3(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
 
             if (movingobjectposition != null) {
-                vec3 = new Vec3(movingobjectposition.hitVec.xCoord, movingobjectposition.hitVec.yCoord, movingobjectposition.hitVec.zCoord);
+                vec3 = new Vec3(movingobjectposition.hitVec.xCoord(), movingobjectposition.hitVec.yCoord(), movingobjectposition.hitVec.zCoord());
             }
 
             Entity entity = null;

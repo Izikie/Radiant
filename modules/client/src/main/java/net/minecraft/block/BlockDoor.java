@@ -33,7 +33,7 @@ public class BlockDoor extends Block {
 
     @Override
     public String getLocalizedName() {
-        return StatCollector.translateToLocal((this.getUnlocalizedName() + ".name").replaceAll("tile", "item"));
+        return StatCollector.translateToLocal((this.getUnlocalizedName() + ".name").replace("tile", "item"));
     }
 
     @Override
@@ -342,6 +342,7 @@ public class BlockDoor extends Block {
         UPPER,
         LOWER;
 
+        @Override
         public String toString() {
             return this.getName();
         }
@@ -356,6 +357,7 @@ public class BlockDoor extends Block {
         LEFT,
         RIGHT;
 
+        @Override
         public String toString() {
             return this.getName();
         }

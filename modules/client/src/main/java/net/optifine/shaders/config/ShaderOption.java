@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Objects;
 
 public abstract class ShaderOption {
-    public static final String COLOR_GREEN = "\u00a7a";
-    public static final String COLOR_RED = "\u00a7c";
-    public static final String COLOR_BLUE = "\u00a79";
+    public static final String COLOR_GREEN = "§a";
+    public static final String COLOR_RED = "§c";
+    public static final String COLOR_BLUE = "§9";
     private final String name;
     private final String[] values;
     private final String valueDefault;

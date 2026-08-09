@@ -53,7 +53,7 @@ public class ShaderOptionSwitch extends ShaderOption {
 
     @Override
     public String getValueColor(String val) {
-        return isTrue(val) ? "\u00a7a" : "\u00a7c";
+        return isTrue(val) ? "§a" : "§c";
     }
 
     @Override

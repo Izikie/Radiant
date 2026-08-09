@@ -49,15 +49,15 @@ public class RenderMinecart<T extends EntityMinecart> extends Render<T> {
                 vec32 = vec3;
             }
 
-            x += vec3.xCoord - xPos;
-            y += (vec31.yCoord + vec32.yCoord) / 2.0D - yPos;
-            z += vec3.zCoord - zPos;
-            Vec3 vec33 = vec32.addVector(-vec31.xCoord, -vec31.yCoord, -vec31.zCoord);
+            x += vec3.xCoord() - xPos;
+            y += (vec31.yCoord() + vec32.yCoord()) / 2.0D - yPos;
+            z += vec3.zCoord() - zPos;
+            Vec3 vec33 = vec32.addVector(-vec31.xCoord(), -vec31.yCoord(), -vec31.zCoord());
 
             if (vec33.lengthVector() != 0.0D) {
                 vec33 = vec33.normalize();
-                entityYaw = (float) (Math.atan2(vec33.zCoord, vec33.xCoord) * 180.0D / Math.PI);
-                f3 = (float) (Math.atan(vec33.yCoord) * 73.0D);
+                entityYaw = (float) (Math.atan2(vec33.zCoord(), vec33.xCoord()) * 180.0D / Math.PI);
+                f3 = (float) (Math.atan(vec33.yCoord()) * 73.0D);
             }
         }
 

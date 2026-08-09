@@ -1081,8 +1081,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
         if (OpenGlHelper.useVbo()) {
             for (VertexFormatElement vertexformatelement : DefaultVertexFormats.BLOCK.getElements()) {
-                VertexFormatElement.EnumUsage vertexformatelement$enumusage = vertexformatelement.getUsage();
-                int i = vertexformatelement.getIndex();
+                VertexFormatElement.EnumUsage vertexformatelement$enumusage = vertexformatelement.usage();
+                int i = vertexformatelement.index();
 
                 switch (vertexformatelement$enumusage) {
                     case POSITION:
@@ -1179,9 +1179,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 if (Config.isCustomColors()) {
                     Vec3 vec3 = new Vec3(j / 255.0D, k / 255.0D, l / 255.0D);
                     vec3 = CustomColors.getWorldSkyColor(vec3, this.theWorld, this.mc.getRenderViewEntity(), 0.0F);
-                    j = (int) (vec3.xCoord * 255.0D);
-                    k = (int) (vec3.yCoord * 255.0D);
-                    l = (int) (vec3.zCoord * 255.0D);
+                    j = (int) (vec3.xCoord() * 255.0D);
+                    k = (int) (vec3.yCoord() * 255.0D);
+                    l = (int) (vec3.zCoord() * 255.0D);
                 }
 
                 worldrenderer.pos(-100.0D, -100.0D, -100.0D).tex(0.0D, 0.0D).color(j, k, l, 255).endVertex();
@@ -1217,9 +1217,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 Shaders.setSkyColor(vec3);
             }
 
-            float f = (float) vec3.xCoord;
-            float f1 = (float) vec3.yCoord;
-            float f2 = (float) vec3.zCoord;
+            float f = (float) vec3.xCoord();
+            float f1 = (float) vec3.yCoord();
+            float f2 = (float) vec3.zCoord();
 
             if (pass != 2) {
                 float f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
@@ -1405,7 +1405,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
 
             GlStateManager.color(0.0F, 0.0F, 0.0F);
-            double d0 = this.mc.player.getPositionEyes(partialTicks).yCoord - this.theWorld.getHorizon();
+            double d0 = this.mc.player.getPositionEyes(partialTicks).yCoord() - this.theWorld.getHorizon();
 
             // BUGFIX: (Credit: Patcher): Void Render Box
 
@@ -1466,9 +1466,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     GlStateManager.enableBlend();
                     GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
                     Vec3 vec3 = this.theWorld.getCloudColour(partialTicks);
-                    float f = (float) vec3.xCoord;
-                    float f1 = (float) vec3.yCoord;
-                    float f2 = (float) vec3.zCoord;
+                    float f = (float) vec3.xCoord();
+                    float f1 = (float) vec3.yCoord();
+                    float f2 = (float) vec3.zCoord();
                     this.cloudRenderer.prepareToRender(false, this.cloudTickCounter, f9, vec3);
 
                     if (this.cloudRenderer.shouldUpdateGlList()) {
@@ -1545,9 +1545,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
         Vec3 vec3 = this.theWorld.getCloudColour(partialTicks);
-        float f4 = (float) vec3.xCoord;
-        float f5 = (float) vec3.yCoord;
-        float f6 = (float) vec3.zCoord;
+        float f4 = (float) vec3.xCoord();
+        float f5 = (float) vec3.yCoord();
+        float f6 = (float) vec3.zCoord();
         this.cloudRenderer.prepareToRender(true, this.cloudTickCounter, partialTicks, vec3);
 
         if (pass != 2) {

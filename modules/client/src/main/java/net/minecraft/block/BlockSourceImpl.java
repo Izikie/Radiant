@@ -21,17 +21,17 @@ public class BlockSourceImpl implements IBlockSource {
     }
 
     @Override
-    public double getX() {
+    public double x() {
         return this.pos.getX() + 0.5D;
     }
 
     @Override
-    public double getY() {
+    public double y() {
         return this.pos.getY() + 0.5D;
     }
 
     @Override
-    public double getZ() {
+    public double z() {
         return this.pos.getZ() + 0.5D;
     }
 

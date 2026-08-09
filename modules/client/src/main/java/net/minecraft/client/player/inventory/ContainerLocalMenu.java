@@ -48,7 +48,7 @@ public class ContainerLocalMenu extends InventoryBasic implements ILockableConta
     }
 
     @Override
-    public String getGuiID() {
+    public String guiID() {
         return this.guiID;
     }
 

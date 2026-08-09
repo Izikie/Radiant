@@ -19,11 +19,6 @@ public class EmptyChunk extends Chunk {
     }
 
     @Override
-    public boolean isAtLocation(int x, int z) {
-        return x == this.xPosition && z == this.zPosition;
-    }
-
-    @Override
     public int getHeightValue(int x, int z) {
         return 0;
     }

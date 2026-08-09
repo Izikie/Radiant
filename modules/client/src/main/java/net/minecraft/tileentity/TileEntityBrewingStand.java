@@ -291,7 +291,7 @@ public class TileEntityBrewingStand extends TileEntityLockable implements ITicka
     }
 
     @Override
-    public String getGuiID() {
+    public String guiID() {
         return "minecraft:brewing_stand";
     }
 

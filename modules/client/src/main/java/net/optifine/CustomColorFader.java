@@ -16,15 +16,15 @@ public class CustomColorFader {
             if (j != 0L) {
                 this.timeUpdate = i;
 
-                if (!(Math.abs(x - this.color.xCoord) < 0.004D) || !(Math.abs(y - this.color.yCoord) < 0.004D) || !(Math.abs(z - this.color.zCoord) < 0.004D)) {
+                if (!(Math.abs(x - this.color.xCoord()) < 0.004D) || !(Math.abs(y - this.color.yCoord()) < 0.004D) || !(Math.abs(z - this.color.zCoord()) < 0.004D)) {
                     double d0 = j * 0.001D;
                     d0 = Math.clamp(d0, 0.0D, 1.0D);
-                    double d1 = x - this.color.xCoord;
-                    double d2 = y - this.color.yCoord;
-                    double d3 = z - this.color.zCoord;
-                    double d4 = this.color.xCoord + d1 * d0;
-                    double d5 = this.color.yCoord + d2 * d0;
-                    double d6 = this.color.zCoord + d3 * d0;
+                    double d1 = x - this.color.xCoord();
+                    double d2 = y - this.color.yCoord();
+                    double d3 = z - this.color.zCoord();
+                    double d4 = this.color.xCoord() + d1 * d0;
+                    double d5 = this.color.yCoord() + d2 * d0;
+                    double d6 = this.color.zCoord() + d3 * d0;
                     this.color = new Vec3(d4, d5, d6);
                 }
             }

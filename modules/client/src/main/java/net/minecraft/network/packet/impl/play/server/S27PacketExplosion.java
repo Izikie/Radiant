@@ -31,9 +31,9 @@ public class S27PacketExplosion implements Packet<INetHandlerPlayClient> {
         this.affectedBlockPositions = new ArrayList<>(affectedBlocksIn);
 
         if (p_i45193_9_ != null) {
-            this.field_149152_f = (float) p_i45193_9_.xCoord;
-            this.field_149153_g = (float) p_i45193_9_.yCoord;
-            this.field_149159_h = (float) p_i45193_9_.zCoord;
+            this.field_149152_f = (float) p_i45193_9_.xCoord();
+            this.field_149153_g = (float) p_i45193_9_.yCoord();
+            this.field_149159_h = (float) p_i45193_9_.zCoord();
         }
     }
 

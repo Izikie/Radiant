@@ -60,6 +60,7 @@ public class JsonBlendingMode {
         }
     }
 
+    @Override
     public boolean equals(Object p_equals_1_) {
         if (this == p_equals_1_) {
             return true;
@@ -70,6 +71,7 @@ public class JsonBlendingMode {
         }
     }
 
+    @Override
     public int hashCode() {
         int i = this.field_148116_b;
         i = 31 * i + this.field_148117_c;
@@ -152,10 +154,10 @@ public class JsonBlendingMode {
 
     private static int func_148107_b(String p_148107_0_) {
         String s = p_148107_0_.trim().toLowerCase();
-        s = s.replaceAll("_", "");
-        s = s.replaceAll("one", "1");
-        s = s.replaceAll("zero", "0");
-        s = s.replaceAll("minus", "-");
+        s = s.replace("_", "");
+        s = s.replace("one", "1");
+        s = s.replace("zero", "0");
+        s = s.replace("minus", "-");
         return s.equals("0") ? 0 : (s.equals("1") ? 1 : (s.equals("srccolor") ? 768 : (s.equals("1-srccolor") ? 769 : (s.equals("dstcolor") ? 774 : (s.equals("1-dstcolor") ? 775 : (s.equals("srcalpha") ? 770 : (s.equals("1-srcalpha") ? 771 : (s.equals("dstalpha") ? 772 : (s.equals("1-dstalpha") ? 773 : -1)))))))));
     }
 }

@@ -208,15 +208,6 @@ public class CommandClone extends CommandBase {
         return args.length > 0 && args.length <= 3 ? func_175771_a(args, 0, pos) : (args.length > 3 && args.length <= 6 ? func_175771_a(args, 3, pos) : (args.length > 6 && args.length <= 9 ? func_175771_a(args, 6, pos) : (args.length == 10 ? getListOfStringsMatchingLastWord(args, "replace", "masked", "filtered") : (args.length == 11 ? getListOfStringsMatchingLastWord(args, "normal", "force", "move") : (args.length == 12 && "filtered".equals(args[9]) ? getListOfStringsMatchingLastWord(args, Block.blockRegistry.getKeys()) : null)))));
     }
 
-    static class StaticCloneData {
-        public final BlockPos pos;
-        public final IBlockState blockState;
-        public final NBTTagCompound compound;
-
-        public StaticCloneData(BlockPos posIn, IBlockState stateIn, NBTTagCompound compoundIn) {
-            this.pos = posIn;
-            this.blockState = stateIn;
-            this.compound = compoundIn;
-        }
+    record StaticCloneData(BlockPos pos, IBlockState blockState, NBTTagCompound compound) {
     }
 }

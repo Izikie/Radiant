@@ -18,8 +18,4 @@ public class EnchantmentArrowInfinite extends Enchantment {
         return 50;
     }
 
-    @Override
-    public int getMaxLevel() {
-        return 1;
-    }
 }

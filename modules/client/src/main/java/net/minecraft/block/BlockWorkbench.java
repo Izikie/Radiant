@@ -51,7 +51,7 @@ public class BlockWorkbench extends Block {
         }
 
         @Override
-        public IChatComponent getDisplayName() {
+        public IChatComponent displayName() {
             return new ChatComponentTranslation(Blocks.CRAFTING_TABLE.getUnlocalizedName() + ".name");
         }
 
@@ -61,7 +61,7 @@ public class BlockWorkbench extends Block {
         }
 
         @Override
-        public String getGuiID() {
+        public String guiID() {
             return "minecraft:crafting_table";
         }
     }

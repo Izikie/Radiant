@@ -47,11 +47,6 @@ public class EntityWitch extends EntityMob implements IRangedAttackMob {
     }
 
     @Override
-    protected String getLivingSound() {
-        return null;
-    }
-
-    @Override
     protected String getHurtSound() {
         return null;
     }

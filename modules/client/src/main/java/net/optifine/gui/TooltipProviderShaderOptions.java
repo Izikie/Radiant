@@ -32,20 +32,20 @@ public class TooltipProviderShaderOptions extends TooltipProviderOptions {
         String s2 = null;
 
         if (!s.equals(so.getName()) && gamesettings.advancedItemTooltips) {
-            s2 = "\u00a78" + Lang.get("of.general.id") + ": " + so.getName();
+            s2 = "§8" + Lang.get("of.general.id") + ": " + so.getName();
         }
 
         String s3 = null;
 
         if (so.getPaths() != null && gamesettings.advancedItemTooltips) {
-            s3 = "\u00a78" + Lang.get("of.general.from") + ": " + Config.arrayToString(so.getPaths());
+            s3 = "§8" + Lang.get("of.general.from") + ": " + Config.arrayToString(so.getPaths());
         }
 
         String s4 = null;
 
         if (so.getValueDefault() != null && gamesettings.advancedItemTooltips) {
             String s5 = so.isEnabled() ? so.getValueText(so.getValueDefault()) : Lang.get("of.general.ambiguous");
-            s4 = "\u00a78" + Lang.getDefault() + ": " + s5;
+            s4 = "§8" + Lang.getDefault() + ": " + s5;
         }
 
         List<String> list = new ArrayList<>();

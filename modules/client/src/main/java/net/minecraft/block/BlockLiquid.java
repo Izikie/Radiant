@@ -11,7 +11,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.util.RenderLayer;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.ParticleTypes;
@@ -174,7 +173,7 @@ public abstract class BlockLiquid extends Block {
         int l = j & 255;
         int i1 = i >> 16 & 255;
         int j1 = j >> 16 & 255;
-        return (k > l ? k : l) | (i1 > j1 ? i1 : j1) << 16;
+        return (Math.max(k, l)) | (Math.max(i1, j1)) << 16;
     }
 
     @Override
@@ -233,7 +232,7 @@ public abstract class BlockLiquid extends Block {
 
     public static double getFlowDirection(IBlockAccess worldIn, BlockPos pos, Material materialIn) {
         Vec3 vec3 = getFlowingBlock(materialIn).getFlowVector(worldIn, pos);
-        return vec3.xCoord == 0.0D && vec3.zCoord == 0.0D ? -1000.0D : Math.atan2(vec3.zCoord, vec3.xCoord) - (Math.PI / 2.0D);
+        return vec3.xCoord() == 0.0D && vec3.zCoord() == 0.0D ? -1000.0D : Math.atan2(vec3.zCoord(), vec3.xCoord()) - (Math.PI / 2.0D);
     }
 
     @Override

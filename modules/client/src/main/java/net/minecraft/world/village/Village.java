@@ -15,7 +15,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.PlayerProfileCache;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3;
 import net.minecraft.world.World;
 
@@ -69,7 +68,7 @@ public class Village {
 
             if (vec3 != null) {
                 EntityIronGolem entityirongolem = new EntityIronGolem(this.worldObj);
-                entityirongolem.setPosition(vec3.xCoord, vec3.yCoord, vec3.zCoord);
+                entityirongolem.setPosition(vec3.xCoord(), vec3.yCoord(), vec3.zCoord());
                 this.worldObj.spawnEntityInWorld(entityirongolem);
                 ++this.numIronGolems;
             }

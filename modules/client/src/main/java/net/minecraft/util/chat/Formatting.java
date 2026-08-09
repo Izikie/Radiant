@@ -28,7 +28,7 @@ public enum Formatting {
     RESET("RESET", 'r', -1);
 
     private static final Map<String, Formatting> nameMapping = new HashMap<>();
-    private static final Pattern FORMATTING_CODE_PATTERN = Pattern.compile("(?i)" + '\u00a7' + "[0-9A-FK-OR]");
+    private static final Pattern FORMATTING_CODE_PATTERN = Pattern.compile("(?i)" + '§' + "[0-9A-FK-OR]");
     private final String name;
     private final char formattingCode;
     private final boolean fancyStyling;
@@ -52,7 +52,7 @@ public enum Formatting {
         this.formattingCode = formattingCodeIn;
         this.fancyStyling = fancyStylingIn;
         this.colorIndex = colorIndex;
-        this.controlString = "\u00a7" + formattingCodeIn;
+        this.controlString = "§" + formattingCodeIn;
     }
 
     public int getColorIndex() {
@@ -71,6 +71,7 @@ public enum Formatting {
         return this.name().toLowerCase();
     }
 
+    @Override
     public String toString() {
         return this.controlString;
     }

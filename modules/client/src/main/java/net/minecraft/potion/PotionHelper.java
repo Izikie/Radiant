@@ -162,7 +162,7 @@ public class PotionHelper {
                     return l1;
                 } else {
                     int j2 = parsePotionEffects(p_77912_0_, i + 1, p_77912_2_, p_77912_3_);
-                    return j2 > 0 ? j2 : 0;
+                    return Math.max(j2, 0);
                 }
             } else {
                 int j = p_77912_0_.indexOf(38, p_77912_1_);
@@ -174,7 +174,7 @@ public class PotionHelper {
                         return 0;
                     } else {
                         int k2 = parsePotionEffects(p_77912_0_, j + 1, p_77912_2_, p_77912_3_);
-                        return k2 <= 0 ? 0 : (i2 > k2 ? i2 : k2);
+                        return k2 <= 0 ? 0 : (Math.max(i2, k2));
                     }
                 } else {
                     boolean flag = false;

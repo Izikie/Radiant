@@ -21,21 +21,15 @@ public class BlockOldLog extends BlockLog {
     public MapColor getMapColor(IBlockState state) {
         BlockPlanks.WoodType blockplanks$enumtype = state.getValue(VARIANT);
 
-        switch (state.getValue(LOG_AXIS)) {
-            case Y:
-                return blockplanks$enumtype.getMapColor();
-
-            case X:
-            case Z:
-            case NONE:
-            default:
-                return switch (blockplanks$enumtype) {
-                    case SPRUCE -> BlockPlanks.WoodType.DARK_OAK.getMapColor();
-                    case BIRCH -> MapColor.QUARTZ_COLOR;
-                    case JUNGLE -> BlockPlanks.WoodType.SPRUCE.getMapColor();
-                    default -> BlockPlanks.WoodType.SPRUCE.getMapColor();
-                };
-        }
+        return switch (state.getValue(LOG_AXIS)) {
+            case Y -> blockplanks$enumtype.getMapColor();
+            default -> switch (blockplanks$enumtype) {
+                case SPRUCE -> BlockPlanks.WoodType.DARK_OAK.getMapColor();
+                case BIRCH -> MapColor.QUARTZ_COLOR;
+                case JUNGLE -> BlockPlanks.WoodType.SPRUCE.getMapColor();
+                default -> BlockPlanks.WoodType.SPRUCE.getMapColor();
+            };
+        };
     }
 
     @Override

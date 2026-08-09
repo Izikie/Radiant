@@ -334,7 +334,6 @@ public class ConnectedTextures {
                 case WEST -> 4;
                 case NORTH -> 2;
                 case SOUTH -> 3;
-                default -> -1;
             };
         }
     }
@@ -467,31 +466,24 @@ public class ConnectedTextures {
     }
 
     private static int fixSideByAxis(int side, int vertAxis) {
-        switch (vertAxis) {
-            case 0:
-                return side;
-
-            case 1:
-                return switch (side) {
-                    case 0 -> 2;
-                    case 1 -> 3;
-                    case 2 -> 1;
-                    case 3 -> 0;
-                    default -> side;
-                };
-
-            case 2:
-                return switch (side) {
-                    case 0 -> 4;
-                    case 1 -> 5;
-                    case 4 -> 1;
-                    case 5 -> 0;
-                    default -> side;
-                };
-
-            default:
-                return side;
-        }
+        return switch (vertAxis) {
+            case 0 -> side;
+            case 1 -> switch (side) {
+                case 0 -> 2;
+                case 1 -> 3;
+                case 2 -> 1;
+                case 3 -> 0;
+                default -> side;
+            };
+            case 2 -> switch (side) {
+                case 0 -> 4;
+                case 1 -> 5;
+                case 4 -> 1;
+                case 5 -> 0;
+                default -> side;
+            };
+            default -> side;
+        };
     }
 
     private static int getWoodAxis(int side, int metadata) {

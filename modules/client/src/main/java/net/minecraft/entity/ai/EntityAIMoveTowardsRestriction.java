@@ -28,9 +28,9 @@ public class EntityAIMoveTowardsRestriction extends EntityAIBase {
             if (vec3 == null) {
                 return false;
             } else {
-                this.movePosX = vec3.xCoord;
-                this.movePosY = vec3.yCoord;
-                this.movePosZ = vec3.zCoord;
+                this.movePosX = vec3.xCoord();
+                this.movePosY = vec3.yCoord();
+                this.movePosZ = vec3.zCoord();
                 return true;
             }
         }

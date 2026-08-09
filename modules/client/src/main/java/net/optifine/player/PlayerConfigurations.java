@@ -37,7 +37,7 @@ public class PlayerConfigurations {
         if (s1 == null) {
             return null;
         } else {
-            PlayerConfiguration playerconfiguration = (PlayerConfiguration) getMapConfigurations().get(s1);
+            PlayerConfiguration playerconfiguration = getMapConfigurations().get(s1);
 
             if (playerconfiguration == null) {
                 playerconfiguration = new PlayerConfiguration();

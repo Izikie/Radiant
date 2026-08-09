@@ -67,11 +67,6 @@ public class EntityEndermite extends EntityMob {
     }
 
     @Override
-    protected Item getDropItem() {
-        return null;
-    }
-
-    @Override
     public void readEntityFromNBT(NBTTagCompound tagCompund) {
         super.readEntityFromNBT(tagCompund);
         this.lifetime = tagCompund.getInteger("Lifetime");

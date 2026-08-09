@@ -339,7 +339,7 @@ public class RenderManager {
             Vec3 vec3 = entityIn.getLook(partialTicks);
             worldrenderer.begin(3, DefaultVertexFormats.POSITION_COLOR);
             worldrenderer.pos(x, y + entityIn.getEyeHeight(), z).color(0, 0, 255, 255).endVertex();
-            worldrenderer.pos(x + vec3.xCoord * 2.0D, y + entityIn.getEyeHeight() + vec3.yCoord * 2.0D, z + vec3.zCoord * 2.0D).color(0, 0, 255, 255).endVertex();
+            worldrenderer.pos(x + vec3.xCoord() * 2.0D, y + entityIn.getEyeHeight() + vec3.yCoord() * 2.0D, z + vec3.zCoord() * 2.0D).color(0, 0, 255, 255).endVertex();
             tessellator.draw();
             GlStateManager.enableTexture2D();
             GlStateManager.enableLighting();

@@ -28,7 +28,7 @@ public class MovingObjectPosition {
         this.typeOfHit = typeOfHitIn;
         this.blockPos = blockPosIn;
         this.sideHit = sideHitIn;
-        this.hitVec = new Vec3(hitVecIn.xCoord, hitVecIn.yCoord, hitVecIn.zCoord);
+        this.hitVec = new Vec3(hitVecIn.xCoord(), hitVecIn.yCoord(), hitVecIn.zCoord());
     }
 
     public MovingObjectPosition(Entity entityHitIn, Vec3 hitVecIn) {
@@ -41,6 +41,7 @@ public class MovingObjectPosition {
         return this.blockPos;
     }
 
+    @Override
     public String toString() {
         return "HitResult{type=" + this.typeOfHit + ", blockpos=" + this.blockPos + ", f=" + this.sideHit + ", pos=" + this.hitVec + ", entity=" + this.entityHit + '}';
     }

@@ -1,7 +1,5 @@
 package net.minecraft.entity.ai.attributes;
 
-import net.minecraft.util.math.MathHelper;
-
 public class RangedAttribute extends BaseAttribute {
     private final double minimumValue;
     private final double maximumValue;

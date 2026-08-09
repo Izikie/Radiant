@@ -23,8 +23,8 @@ public class PackMetadataSectionSerializer extends BaseMetadataSectionSerializer
     @Override
     public JsonElement serialize(PackMetadataSection p_serialize_1_, Type type, JsonSerializationContext ctx) {
         JsonObject jsonobject = new JsonObject();
-        jsonobject.addProperty("pack_format", p_serialize_1_.getPackFormat());
-        jsonobject.add("description", ctx.serialize(p_serialize_1_.getPackDescription()));
+        jsonobject.addProperty("pack_format", p_serialize_1_.packFormat());
+        jsonobject.add("description", ctx.serialize(p_serialize_1_.packDescription()));
         return jsonobject;
     }
 

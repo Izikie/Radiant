@@ -566,7 +566,6 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                     case NEVER -> false;
                     case HIDE_FOR_OTHER_TEAMS -> team1 == null || team.isSameTeam(team1);
                     case HIDE_FOR_OWN_TEAM -> team1 == null || !team.isSameTeam(team1);
-                    default -> true;
                 };
             }
         }

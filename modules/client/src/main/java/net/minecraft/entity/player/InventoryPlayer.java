@@ -218,11 +218,7 @@ public class InventoryPlayer implements IInventory {
                 }
             }
 
-            int k = i;
-
-            if (i > this.mainInventory[j].getMaxStackSize() - this.mainInventory[j].stackSize) {
-                k = this.mainInventory[j].getMaxStackSize() - this.mainInventory[j].stackSize;
-            }
+            int k = Math.min(i, this.mainInventory[j].getMaxStackSize() - this.mainInventory[j].stackSize);
 
             if (k > this.getInventoryStackLimit() - this.mainInventory[j].stackSize) {
                 k = this.getInventoryStackLimit() - this.mainInventory[j].stackSize;
@@ -264,7 +260,7 @@ public class InventoryPlayer implements IInventory {
         return i >= 0;
     }
 
-    public boolean addItemStackToInventory(final ItemStack itemStackIn) {
+    public boolean addItemStackToInventory(ItemStack itemStackIn) {
         if (itemStackIn != null && itemStackIn.stackSize != 0 && itemStackIn.getItem() != null) {
             try {
                 if (itemStackIn.isItemDamaged()) {
@@ -449,7 +445,7 @@ public class InventoryPlayer implements IInventory {
     }
 
     @Override
-    public IChatComponent getDisplayName() {
+    public IChatComponent displayName() {
         return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName());
     }
 

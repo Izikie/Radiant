@@ -1396,13 +1396,6 @@ public class EntityHorse extends EntityAnimal implements IInvBasic {
         }
     }
 
-    public static class GroupData implements IEntityLivingData {
-        public final int horseType;
-        public final int horseVariant;
-
-        public GroupData(int type, int variant) {
-            this.horseType = type;
-            this.horseVariant = variant;
-        }
+    public record GroupData(int horseType, int horseVariant) implements IEntityLivingData {
     }
 }

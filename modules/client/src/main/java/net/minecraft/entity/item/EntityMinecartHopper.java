@@ -51,15 +51,6 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
     }
 
     @Override
-    public boolean interactFirst(EntityPlayer playerIn) {
-        if (!this.worldObj.isRemote) {
-            playerIn.displayGUIChest(this);
-        }
-
-        return true;
-    }
-
-    @Override
     public void onActivatorRailPass(int x, int y, int z, boolean receivingPower) {
         boolean flag = !receivingPower;
 
@@ -164,7 +155,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
     }
 
     @Override
-    public String getGuiID() {
+    public String guiID() {
         return "minecraft:hopper";
     }
 

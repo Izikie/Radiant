@@ -321,7 +321,7 @@ public class EntityArmorStand extends EntityLivingBase {
             double d2 = 1.6D;
             int j = 0;
             boolean flag1 = this.isSmall();
-            double d3 = flag1 ? targetVec3.yCoord * 2.0D : targetVec3.yCoord;
+            double d3 = flag1 ? targetVec3.yCoord() * 2.0D : targetVec3.yCoord();
 
             if (d3 >= 0.1D && d3 < 0.1D + (flag1 ? 0.8D : 0.45D) && this.contents[1] != null) {
                 j = 1;

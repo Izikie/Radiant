@@ -21,19 +21,13 @@ public class BlockNewLog extends BlockLog {
     public MapColor getMapColor(IBlockState state) {
         BlockPlanks.WoodType woodType = state.getValue(VARIANT);
 
-        switch (state.getValue(LOG_AXIS)) {
-            case Y:
-                return woodType.getMapColor();
-
-            case X:
-            case Z:
-            case NONE:
-            default:
-                return switch (woodType) {
-                    case DARK_OAK -> BlockPlanks.WoodType.DARK_OAK.getMapColor();
-                    default -> MapColor.STONE_COLOR;
-                };
-        }
+        return switch (state.getValue(LOG_AXIS)) {
+            case Y -> woodType.getMapColor();
+            default -> switch (woodType) {
+                case DARK_OAK -> BlockPlanks.WoodType.DARK_OAK.getMapColor();
+                default -> MapColor.STONE_COLOR;
+            };
+        };
     }
 
     @Override

@@ -1,7 +1,5 @@
 package net.minecraft.world;
 
-import net.minecraft.util.math.MathHelper;
-
 public class DifficultyInstance {
     private final Difficulty worldDifficulty;
     private final float additionalDifficulty;

@@ -46,7 +46,7 @@ public class RandomPositionGenerator {
             int k1 = random.nextInt(2 * y + 1) - y;
             int i1 = random.nextInt(2 * xz + 1) - xz;
 
-            if (targetVec3 == null || l * targetVec3.xCoord + i1 * targetVec3.zCoord >= 0.0D) {
+            if (targetVec3 == null || l * targetVec3.xCoord() + i1 * targetVec3.zCoord() >= 0.0D) {
                 if (entitycreatureIn.hasHome() && xz > 1) {
                     BlockPos blockpos = entitycreatureIn.getHomePosition();
 

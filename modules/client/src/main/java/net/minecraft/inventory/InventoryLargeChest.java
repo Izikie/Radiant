@@ -55,7 +55,7 @@ public class InventoryLargeChest implements ILockableContainer {
     }
 
     @Override
-    public IChatComponent getDisplayName() {
+    public IChatComponent displayName() {
         return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName());
     }
 
@@ -147,8 +147,8 @@ public class InventoryLargeChest implements ILockableContainer {
     }
 
     @Override
-    public String getGuiID() {
-        return this.upperChest.getGuiID();
+    public String guiID() {
+        return this.upperChest.guiID();
     }
 
     @Override

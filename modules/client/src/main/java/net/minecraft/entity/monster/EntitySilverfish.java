@@ -88,11 +88,6 @@ public class EntitySilverfish extends EntityMob {
     }
 
     @Override
-    protected Item getDropItem() {
-        return null;
-    }
-
-    @Override
     public void onUpdate() {
         this.renderYawOffset = this.rotationYaw;
         super.onUpdate();

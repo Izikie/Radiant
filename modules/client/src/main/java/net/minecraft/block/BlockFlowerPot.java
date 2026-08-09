@@ -273,7 +273,6 @@ public class BlockFlowerPot extends BlockContainer {
                         case JUNGLE -> FlowerType.JUNGLE_SAPLING;
                         case ACACIA -> FlowerType.ACACIA_SAPLING;
                         case DARK_OAK -> FlowerType.DARK_OAK_SAPLING;
-                        default -> FlowerType.EMPTY;
                     };
                 } else if (block == Blocks.TALL_GRASS) {
                     blockflowerpot$enumflowertype = switch (i) {
@@ -346,6 +345,7 @@ public class BlockFlowerPot extends BlockContainer {
             this.name = name;
         }
 
+        @Override
         public String toString() {
             return this.name;
         }

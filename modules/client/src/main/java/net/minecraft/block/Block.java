@@ -534,15 +534,15 @@ public class Block {
     }
 
     private boolean isVecInsideYZBounds(Vec3 point) {
-        return point != null && point.yCoord >= this.minY && point.yCoord <= this.maxY && point.zCoord >= this.minZ && point.zCoord <= this.maxZ;
+        return point != null && point.yCoord() >= this.minY && point.yCoord() <= this.maxY && point.zCoord() >= this.minZ && point.zCoord() <= this.maxZ;
     }
 
     private boolean isVecInsideXZBounds(Vec3 point) {
-        return point != null && point.xCoord >= this.minX && point.xCoord <= this.maxX && point.zCoord >= this.minZ && point.zCoord <= this.maxZ;
+        return point != null && point.xCoord() >= this.minX && point.xCoord() <= this.maxX && point.zCoord() >= this.minZ && point.zCoord() <= this.maxZ;
     }
 
     private boolean isVecInsideXYBounds(Vec3 point) {
-        return point != null && point.xCoord >= this.minX && point.xCoord <= this.maxX && point.yCoord >= this.minY && point.yCoord <= this.maxY;
+        return point != null && point.xCoord() >= this.minX && point.xCoord() <= this.maxX && point.yCoord() >= this.minY && point.yCoord() <= this.maxY;
     }
 
     public void onBlockDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn) {

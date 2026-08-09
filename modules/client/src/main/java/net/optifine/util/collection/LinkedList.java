@@ -146,10 +146,6 @@ public class LinkedList<T> {
                 return node;
             }
 
-            @Override
-            public void remove() {
-                throw new UnsupportedOperationException("remove");
-            }
         };
     }
 
@@ -169,6 +165,7 @@ public class LinkedList<T> {
         return this.size <= 0;
     }
 
+    @Override
     public String toString() {
         StringBuilder stringbuffer = new StringBuilder();
 
@@ -218,6 +215,7 @@ public class LinkedList<T> {
             this.parent = parent;
         }
 
+        @Override
         public String toString() {
             return "" + this.item;
         }

@@ -72,9 +72,8 @@ public class RandomEntities {
         if (newWorld != null) {
             List<Entity> list = newWorld.getLoadedEntityList();
 
-            for (Object o : list) {
-                Entity entity = (Entity) o;
-                entityLoaded(entity, newWorld);
+            for (Entity o : list) {
+                entityLoaded(o, newWorld);
             }
         }
 

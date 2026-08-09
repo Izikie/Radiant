@@ -269,11 +269,8 @@ public class Chunk {
 
     private void relightBlock(int x, int y, int z) {
         int i = this.heightMap[z << 4 | x] & 255;
-        int j = i;
 
-        if (y > i) {
-            j = y;
-        }
+        int j = Math.max(y, i);
 
         while (j > 0 && this.getBlockLightOpacity(x, j - 1, z) == 0) {
             --j;
@@ -954,8 +951,8 @@ public class Chunk {
         for (int l = 0; l < this.storageArrays.length; ++l) {
             if ((p_177439_2_ & 1 << l) != 0 && this.storageArrays[l] != null) {
                 NibbleArray nibblearray = this.storageArrays[l].getBlocklightArray();
-                System.arraycopy(p_177439_1_, i, nibblearray.getData(), 0, nibblearray.getData().length);
-                i += nibblearray.getData().length;
+                System.arraycopy(p_177439_1_, i, nibblearray.data(), 0, nibblearray.data().length);
+                i += nibblearray.data().length;
             }
         }
 
@@ -963,8 +960,8 @@ public class Chunk {
             for (int i1 = 0; i1 < this.storageArrays.length; ++i1) {
                 if ((p_177439_2_ & 1 << i1) != 0 && this.storageArrays[i1] != null) {
                     NibbleArray nibblearray1 = this.storageArrays[i1].getSkylightArray();
-                    System.arraycopy(p_177439_1_, i, nibblearray1.getData(), 0, nibblearray1.getData().length);
-                    i += nibblearray1.getData().length;
+                    System.arraycopy(p_177439_1_, i, nibblearray1.data(), 0, nibblearray1.data().length);
+                    i += nibblearray1.data().length;
                 }
             }
         }

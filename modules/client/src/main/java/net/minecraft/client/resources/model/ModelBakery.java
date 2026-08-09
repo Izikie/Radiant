@@ -384,12 +384,12 @@ public class ModelBakery {
         SimpleBakedModel.Builder simplebakedmodel$builder = (new SimpleBakedModel.Builder(modelBlockIn)).setTexture(textureatlassprite);
 
         for (BlockPart blockpart : modelBlockIn.getElements()) {
-            for (Direction enumfacing : blockpart.mapFaces.keySet()) {
-                BlockPartFace blockpartface = blockpart.mapFaces.get(enumfacing);
-                TextureAtlasSprite textureatlassprite1 = this.sprites.get(new ResourceLocation(modelBlockIn.resolveTextureName(blockpartface.texture)));
+            for (Direction enumfacing : blockpart.mapFaces().keySet()) {
+                BlockPartFace blockpartface = blockpart.mapFaces().get(enumfacing);
+                TextureAtlasSprite textureatlassprite1 = this.sprites.get(new ResourceLocation(modelBlockIn.resolveTextureName(blockpartface.texture())));
 
-                if (blockpartface.cullFace != null) {
-                    simplebakedmodel$builder.addFaceQuad(modelRotationIn.rotateFace(blockpartface.cullFace), this.makeBakedQuad(blockpart, blockpartface, textureatlassprite1, enumfacing, modelRotationIn, uvLocked));
+                if (blockpartface.cullFace() != null) {
+                    simplebakedmodel$builder.addFaceQuad(modelRotationIn.rotateFace(blockpartface.cullFace()), this.makeBakedQuad(blockpart, blockpartface, textureatlassprite1, enumfacing, modelRotationIn, uvLocked));
                 } else {
                     simplebakedmodel$builder.addGeneralQuad(this.makeBakedQuad(blockpart, blockpartface, textureatlassprite1, enumfacing, modelRotationIn, uvLocked));
                 }
@@ -400,7 +400,7 @@ public class ModelBakery {
     }
 
     private BakedQuad makeBakedQuad(BlockPart p_177589_1_, BlockPartFace p_177589_2_, TextureAtlasSprite p_177589_3_, Direction p_177589_4_, ModelRotation p_177589_5_, boolean p_177589_6_) {
-        return this.faceBakery.makeBakedQuad(p_177589_1_.positionFrom, p_177589_1_.positionTo, p_177589_2_, p_177589_3_, p_177589_4_, p_177589_5_, p_177589_1_.partRotation, p_177589_6_, p_177589_1_.shade);
+        return this.faceBakery.makeBakedQuad(p_177589_1_.positionFrom(), p_177589_1_.positionTo(), p_177589_2_, p_177589_3_, p_177589_4_, p_177589_5_, p_177589_1_.partRotation(), p_177589_6_, p_177589_1_.shade());
     }
 
     private void loadModelsCheck() {
@@ -476,8 +476,8 @@ public class ModelBakery {
         Set<ResourceLocation> set = new HashSet<>();
 
         for (BlockPart blockpart : p_177585_1_.getElements()) {
-            for (BlockPartFace blockpartface : blockpart.mapFaces.values()) {
-                ResourceLocation resourcelocation = new ResourceLocation(p_177585_1_.resolveTextureName(blockpartface.texture));
+            for (BlockPartFace blockpartface : blockpart.mapFaces().values()) {
+                ResourceLocation resourcelocation = new ResourceLocation(p_177585_1_.resolveTextureName(blockpartface.texture()));
                 set.add(resourcelocation);
             }
         }
@@ -523,8 +523,8 @@ public class ModelBakery {
                     }
                 } else if (!this.isCustomRenderer(modelblock)) {
                     for (BlockPart blockpart : modelblock.getElements()) {
-                        for (BlockPartFace blockpartface : blockpart.mapFaces.values()) {
-                            ResourceLocation resourcelocation1 = new ResourceLocation(modelblock.resolveTextureName(blockpartface.texture));
+                        for (BlockPartFace blockpartface : blockpart.mapFaces().values()) {
+                            ResourceLocation resourcelocation1 = new ResourceLocation(modelblock.resolveTextureName(blockpartface.texture()));
                             set.add(resourcelocation1);
                         }
                     }

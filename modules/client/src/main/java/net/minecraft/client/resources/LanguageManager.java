@@ -30,15 +30,13 @@ public class LanguageManager implements IResourceManagerReloadListener {
                 LanguageMetadataSection languagemetadatasection = iresourcepack.getPackMetadata(this.theMetadataSerializer, "language");
 
                 if (languagemetadatasection != null) {
-                    for (Language language : languagemetadatasection.getLanguages()) {
+                    for (Language language : languagemetadatasection.languages()) {
                         if (!this.languageMap.containsKey(language.getLanguageCode())) {
                             this.languageMap.put(language.getLanguageCode(), language);
                         }
                     }
                 }
-            } catch (RuntimeException exception) {
-                LOGGER.warn("Unable to parse metadata section of resourcepack: {}", iresourcepack.getPackName(), exception);
-            } catch (IOException exception) {
+            } catch (RuntimeException | IOException exception) {
                 LOGGER.warn("Unable to parse metadata section of resourcepack: {}", iresourcepack.getPackName(), exception);
             }
         }

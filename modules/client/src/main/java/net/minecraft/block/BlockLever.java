@@ -89,7 +89,6 @@ public class BlockLever extends Block {
             case SOUTH -> 3;
             case WEST -> 2;
             case EAST -> 1;
-            default -> -1;
         };
     }
 

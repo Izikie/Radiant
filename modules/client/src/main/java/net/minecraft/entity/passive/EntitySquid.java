@@ -46,11 +46,6 @@ public class EntitySquid extends EntityWaterMob {
     }
 
     @Override
-    protected String getLivingSound() {
-        return null;
-    }
-
-    @Override
     protected String getHurtSound() {
         return null;
     }
@@ -63,11 +58,6 @@ public class EntitySquid extends EntityWaterMob {
     @Override
     protected float getSoundVolume() {
         return 0.4F;
-    }
-
-    @Override
-    protected Item getDropItem() {
-        return null;
     }
 
     @Override

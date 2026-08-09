@@ -2,8 +2,6 @@ package net.minecraft.block.properties;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
-import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
-import it.unimi.dsi.fastutil.ints.IntSet;
 
 import java.util.Collection;
 import java.util.Set;
@@ -20,7 +18,7 @@ public class PropertyInteger extends PropertyHelper<Integer> {
             throw new IllegalArgumentException("Max value of " + name + " must be greater than min (" + min + ")");
         } else {
             Set<Integer> set = Sets.newHashSet(); // Fix: Revert to standard Set to avoid skipping numbers
-                                                  // Example: When interacting with Repeaters, the value would go from 4 -> 1 -> 3 -> 2
+            // Example: When interacting with Repeaters, the value would go from 4 -> 1 -> 3 -> 2
             for (int i = min; i <= max; ++i) {    // not: 4 -> 1 -> 2 -> 3
                 set.add(i);
             }
@@ -34,6 +32,7 @@ public class PropertyInteger extends PropertyHelper<Integer> {
         return this.allowedValues;
     }
 
+    @Override
     public boolean equals(Object p_equals_1_) {
         if (this == p_equals_1_) {
             return true;
@@ -49,6 +48,7 @@ public class PropertyInteger extends PropertyHelper<Integer> {
         }
     }
 
+    @Override
     public int hashCode() {
         int i = super.hashCode();
         i = 31 * i + this.allowedValues.hashCode();

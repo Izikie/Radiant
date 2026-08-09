@@ -11,26 +11,21 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class BlockPart {
-    public final Vector3f positionFrom;
-    public final Vector3f positionTo;
-    public final Map<Direction, BlockPartFace> mapFaces;
-    public final BlockPartRotation partRotation;
-    public final boolean shade;
-
-    public BlockPart(Vector3f positionFromIn, Vector3f positionToIn, Map<Direction, BlockPartFace> mapFacesIn, BlockPartRotation partRotationIn, boolean shadeIn) {
-        this.positionFrom = positionFromIn;
-        this.positionTo = positionToIn;
-        this.mapFaces = mapFacesIn;
-        this.partRotation = partRotationIn;
-        this.shade = shadeIn;
+public record BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<Direction, BlockPartFace> mapFaces,
+                        BlockPartRotation partRotation, boolean shade) {
+    public BlockPart(Vector3f positionFrom, Vector3f positionTo, Map<Direction, BlockPartFace> mapFaces, BlockPartRotation partRotation, boolean shade) {
+        this.positionFrom = positionFrom;
+        this.positionTo = positionTo;
+        this.mapFaces = mapFaces;
+        this.partRotation = partRotation;
+        this.shade = shade;
         this.setDefaultUvs();
     }
 
     private void setDefaultUvs() {
         for (Entry<Direction, BlockPartFace> entry : this.mapFaces.entrySet()) {
             float[] afloat = this.getFaceUvs(entry.getKey());
-            entry.getValue().blockFaceUV.setUvs(afloat);
+            entry.getValue().blockFaceUV().setUvs(afloat);
         }
     }
 

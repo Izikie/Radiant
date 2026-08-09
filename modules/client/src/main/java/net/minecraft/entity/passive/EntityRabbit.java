@@ -16,7 +16,6 @@ import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.StatCollector;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.ParticleTypes;
@@ -151,7 +150,7 @@ public class EntityRabbit extends EntityAnimal {
                         vec3 = pathentity.getPosition(this);
                     }
 
-                    this.calculateRotationYaw(vec3.xCoord, vec3.zCoord);
+                    this.calculateRotationYaw(vec3.xCoord(), vec3.zCoord());
                     this.doMovementAction(this.moveType);
                 }
             } else if (!entityrabbit$rabbitjumphelper.func_180065_d()) {
@@ -577,11 +576,6 @@ public class EntityRabbit extends EntityAnimal {
         }
     }
 
-    public static class RabbitTypeData implements IEntityLivingData {
-        public final int typeData;
-
-        public RabbitTypeData(int type) {
-            this.typeData = type;
-        }
+    public record RabbitTypeData(int typeData) implements IEntityLivingData {
     }
 }

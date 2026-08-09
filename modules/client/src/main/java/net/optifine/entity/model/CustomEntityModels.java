@@ -113,10 +113,7 @@ public class CustomEntityModels {
         try {
             JsonObject jsonobject = CustomEntityModelParser.loadJson(location);
             return parseEntityRender(jsonobject, location.getResourcePath());
-        } catch (IOException exception) {
-            Log.error(exception.getClass().getName() + ": " + exception.getMessage());
-            return null;
-        } catch (JsonParseException exception) {
+        } catch (IOException | JsonParseException exception) {
             Log.error(exception.getClass().getName() + ": " + exception.getMessage());
             return null;
         } catch (Exception exception) {
@@ -205,18 +202,11 @@ public class CustomEntityModels {
 
                 if (modelrenderer.childModels != null) {
                     ModelRenderer[] amodelrenderer = modelAdapter.getModelRenderers(model);
-                    Set<ModelRenderer> set = Collections.<ModelRenderer>newSetFromMap(new IdentityHashMap<>());
+                    Set<ModelRenderer> set = Collections.newSetFromMap(new IdentityHashMap<>());
                     set.addAll(Arrays.asList(amodelrenderer));
                     List<ModelRenderer> list = modelrenderer.childModels;
-                    Iterator<ModelRenderer> iterator = list.iterator();
 
-                    while (iterator.hasNext()) {
-                        ModelRenderer modelrenderer1 = iterator.next();
-
-                        if (!set.contains(modelrenderer1)) {
-                            iterator.remove();
-                        }
-                    }
+                    list.removeIf(modelrenderer1 -> !set.contains(modelrenderer1));
                 }
             }
 

@@ -498,7 +498,7 @@ public class CustomItems {
                 }
 
                 String s1 = stringbuffer.toString();
-                ResourceLocation resourcelocation = (ResourceLocation) customitemproperties.mapTextureLocations.get(s1);
+                ResourceLocation resourcelocation = customitemproperties.mapTextureLocations.get(s1);
                 return resourcelocation == null ? customitemproperties.textureLocation : resourcelocation;
             }
         }

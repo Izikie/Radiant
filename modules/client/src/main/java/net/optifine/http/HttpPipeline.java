@@ -107,16 +107,16 @@ public class HttpPipeline {
             HttpRequest httprequest = makeRequest(urlStr, proxy);
             HttpResponse httpresponse = executeRequest(httprequest);
 
-            if (httpresponse.getStatus() / 100 != 2) {
-                throw new IOException("HTTP response: " + httpresponse.getStatus());
+            if (httpresponse.status() / 100 != 2) {
+                throw new IOException("HTTP response: " + httpresponse.status());
             } else {
-                return httpresponse.getBody();
+                return httpresponse.body();
             }
         }
     }
 
     public static HttpResponse executeRequest(HttpRequest req) throws IOException {
-        final Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         String s = "Response";
         String s1 = "Exception";
         HttpListener httplistener = new HttpListener() {

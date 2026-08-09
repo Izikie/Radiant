@@ -193,15 +193,15 @@ public class EntityGhast extends EntityFlying implements IMob {
                 if (this.attackTimer == 20) {
                     double d1 = 4.0D;
                     Vec3 vec3 = this.parentEntity.getLook(1.0F);
-                    double d2 = entitylivingbase.posX - (this.parentEntity.posX + vec3.xCoord * d1);
+                    double d2 = entitylivingbase.posX - (this.parentEntity.posX + vec3.xCoord() * d1);
                     double d3 = entitylivingbase.getEntityBoundingBox().minY + (entitylivingbase.height / 2.0F) - (0.5D + this.parentEntity.posY + (this.parentEntity.height / 2.0F));
-                    double d4 = entitylivingbase.posZ - (this.parentEntity.posZ + vec3.zCoord * d1);
+                    double d4 = entitylivingbase.posZ - (this.parentEntity.posZ + vec3.zCoord() * d1);
                     world.playAuxSFXAtEntity(null, 1008, new BlockPos(this.parentEntity), 0);
                     EntityLargeFireball entitylargefireball = new EntityLargeFireball(world, this.parentEntity, d2, d3, d4);
                     entitylargefireball.explosionPower = this.parentEntity.getFireballStrength();
-                    entitylargefireball.posX = this.parentEntity.posX + vec3.xCoord * d1;
+                    entitylargefireball.posX = this.parentEntity.posX + vec3.xCoord() * d1;
                     entitylargefireball.posY = this.parentEntity.posY + (this.parentEntity.height / 2.0F) + 0.5D;
-                    entitylargefireball.posZ = this.parentEntity.posZ + vec3.zCoord * d1;
+                    entitylargefireball.posZ = this.parentEntity.posZ + vec3.zCoord() * d1;
                     world.spawnEntityInWorld(entitylargefireball);
                     this.attackTimer = -40;
                 }

@@ -39,12 +39,12 @@ public class TexturedQuad {
     }
 
     public void draw(WorldRenderer renderer, float scale) {
-        Vec3 vec3 = this.vertexPositions[1].vector3D.subtractReverse(this.vertexPositions[0].vector3D);
-        Vec3 vec31 = this.vertexPositions[1].vector3D.subtractReverse(this.vertexPositions[2].vector3D);
+        Vec3 vec3 = this.vertexPositions[1].vector3D().subtractReverse(this.vertexPositions[0].vector3D());
+        Vec3 vec31 = this.vertexPositions[1].vector3D().subtractReverse(this.vertexPositions[2].vector3D());
         Vec3 vec32 = vec31.crossProduct(vec3).normalize();
-        float f = (float) vec32.xCoord;
-        float f1 = (float) vec32.yCoord;
-        float f2 = (float) vec32.zCoord;
+        float f = (float) vec32.xCoord();
+        float f1 = (float) vec32.yCoord();
+        float f2 = (float) vec32.zCoord();
 
         if (this.invertNormal) {
             f = -f;
@@ -60,10 +60,10 @@ public class TexturedQuad {
 
         for (int i = 0; i < 4; ++i) {
             PositionTextureVertex positiontexturevertex = this.vertexPositions[i];
-            renderer.pos(positiontexturevertex.vector3D.xCoord * scale,
-                            positiontexturevertex.vector3D.yCoord * scale,
-                            positiontexturevertex.vector3D.zCoord * scale)
-                    .tex(positiontexturevertex.texturePositionX, positiontexturevertex.texturePositionY)
+            renderer.pos(positiontexturevertex.vector3D().xCoord() * scale,
+                            positiontexturevertex.vector3D().yCoord() * scale,
+                            positiontexturevertex.vector3D().zCoord() * scale)
+                    .tex(positiontexturevertex.texturePositionX(), positiontexturevertex.texturePositionY())
                     .normal(f, f1, f2)
                     .endVertex();
         }

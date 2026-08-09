@@ -703,14 +703,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
         this.careerLevel = careerLevel;
     }
 
-    static class EmeraldForItems implements ITradeList {
-        public final Item sellItem;
-        public final PriceInfo price;
-
-        public EmeraldForItems(Item itemIn, PriceInfo priceIn) {
-            this.sellItem = itemIn;
-            this.price = priceIn;
-        }
+    record EmeraldForItems(Item sellItem, PriceInfo price) implements ITradeList {
 
         @Override
         public void modifyMerchantRecipeList(MerchantRecipeList recipeList, Random random) {
@@ -728,17 +721,10 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
         void modifyMerchantRecipeList(MerchantRecipeList recipeList, Random random);
     }
 
-    static class ItemAndEmeraldToItem implements ITradeList {
-        public final ItemStack buyingItemStack;
-        public final PriceInfo buyingPriceInfo;
-        public final ItemStack sellingItemstack;
-        public final PriceInfo field_179408_d;
-
+    record ItemAndEmeraldToItem(ItemStack buyingItemStack, PriceInfo buyingPriceInfo, ItemStack sellingItemstack,
+                                PriceInfo field_179408_d) implements ITradeList {
         public ItemAndEmeraldToItem(Item p_i45813_1_, PriceInfo p_i45813_2_, Item p_i45813_3_, PriceInfo p_i45813_4_) {
-            this.buyingItemStack = new ItemStack(p_i45813_1_);
-            this.buyingPriceInfo = p_i45813_2_;
-            this.sellingItemstack = new ItemStack(p_i45813_3_);
-            this.field_179408_d = p_i45813_4_;
+            this(new ItemStack(p_i45813_1_), p_i45813_2_, new ItemStack(p_i45813_3_), p_i45813_4_);
         }
 
         @Override
@@ -775,13 +761,9 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
         }
     }
 
-    static class ListEnchantedItemForEmeralds implements ITradeList {
-        public final ItemStack enchantedItemStack;
-        public final PriceInfo priceInfo;
-
+    record ListEnchantedItemForEmeralds(ItemStack enchantedItemStack, PriceInfo priceInfo) implements ITradeList {
         public ListEnchantedItemForEmeralds(Item p_i45814_1_, PriceInfo p_i45814_2_) {
-            this.enchantedItemStack = new ItemStack(p_i45814_1_);
-            this.priceInfo = p_i45814_2_;
+            this(new ItemStack(p_i45814_1_), p_i45814_2_);
         }
 
         @Override
@@ -799,18 +781,9 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc {
         }
     }
 
-    static class ListItemForEmeralds implements ITradeList {
-        public final ItemStack itemToBuy;
-        public final PriceInfo priceInfo;
-
+    record ListItemForEmeralds(ItemStack itemToBuy, PriceInfo priceInfo) implements ITradeList {
         public ListItemForEmeralds(Item par1Item, PriceInfo priceInfo) {
-            this.itemToBuy = new ItemStack(par1Item);
-            this.priceInfo = priceInfo;
-        }
-
-        public ListItemForEmeralds(ItemStack stack, PriceInfo priceInfo) {
-            this.itemToBuy = stack;
-            this.priceInfo = priceInfo;
+            this(new ItemStack(par1Item), priceInfo);
         }
 
         @Override

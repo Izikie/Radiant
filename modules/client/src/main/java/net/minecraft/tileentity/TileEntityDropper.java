@@ -7,7 +7,7 @@ public class TileEntityDropper extends TileEntityDispenser {
     }
 
     @Override
-    public String getGuiID() {
+    public String guiID() {
         return "minecraft:dropper";
     }
 }

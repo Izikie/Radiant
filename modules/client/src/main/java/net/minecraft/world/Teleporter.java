@@ -110,16 +110,16 @@ public class Teleporter {
             BlockPattern.PatternHelper blockpattern$patternhelper = Blocks.PORTAL.func_181089_f(this.worldServerInstance, blockpos);
             boolean flag1 = blockpattern$patternhelper.getFinger().rotateY().getAxisDirection() == Direction.AxisDirection.NEGATIVE;
             double d2 = blockpattern$patternhelper.getFinger().getAxis() == Direction.Axis.X ? blockpattern$patternhelper.getPos().getZ() : blockpattern$patternhelper.getPos().getX();
-            d6 = (blockpattern$patternhelper.getPos().getY() + 1) - entityIn.func_181014_aG().yCoord * blockpattern$patternhelper.func_181119_e();
+            d6 = (blockpattern$patternhelper.getPos().getY() + 1) - entityIn.func_181014_aG().yCoord() * blockpattern$patternhelper.func_181119_e();
 
             if (flag1) {
                 ++d2;
             }
 
             if (blockpattern$patternhelper.getFinger().getAxis() == Direction.Axis.X) {
-                d7 = d2 + (1.0D - entityIn.func_181014_aG().xCoord) * blockpattern$patternhelper.func_181118_d() * blockpattern$patternhelper.getFinger().rotateY().getAxisDirection().getOffset();
+                d7 = d2 + (1.0D - entityIn.func_181014_aG().xCoord()) * blockpattern$patternhelper.func_181118_d() * blockpattern$patternhelper.getFinger().rotateY().getAxisDirection().getOffset();
             } else {
-                d5 = d2 + (1.0D - entityIn.func_181014_aG().xCoord) * blockpattern$patternhelper.func_181118_d() * blockpattern$patternhelper.getFinger().rotateY().getAxisDirection().getOffset();
+                d5 = d2 + (1.0D - entityIn.func_181014_aG().xCoord()) * blockpattern$patternhelper.func_181118_d() * blockpattern$patternhelper.getFinger().rotateY().getAxisDirection().getOffset();
             }
 
             float f = 0.0F;
