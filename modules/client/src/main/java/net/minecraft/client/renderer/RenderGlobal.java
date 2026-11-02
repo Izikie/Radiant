@@ -1456,8 +1456,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 if (Config.isCloudsFancy()) {
                     this.renderCloudsFancy(partialTicks, pass);
                 } else {
-                    float f9 = partialTicks;
-                    partialTicks = 0.0F;
                     GlStateManager.disableCull();
                     float f10 = (float) (this.mc.getRenderViewEntity().lastTickPosY + (this.mc.getRenderViewEntity().posY - this.mc.getRenderViewEntity().lastTickPosY) * partialTicks);
                     Tessellator tessellator = Tessellator.get();
@@ -1469,7 +1467,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     float f = (float) vec3.xCoord();
                     float f1 = (float) vec3.yCoord();
                     float f2 = (float) vec3.zCoord();
-                    this.cloudRenderer.prepareToRender(false, this.cloudTickCounter, f9, vec3);
+                    this.cloudRenderer.prepareToRender(false, this.cloudTickCounter, partialTicks, vec3);
 
                     if (this.cloudRenderer.shouldUpdateGlList()) {
                         this.cloudRenderer.startUpdateGlList();
@@ -1527,7 +1525,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     }
 
     private void renderCloudsFancy(float partialTicks, int pass) {
-        partialTicks = 0.0F;
         GlStateManager.disableCull();
         float f = (float) (this.mc.getRenderViewEntity().lastTickPosY + (this.mc.getRenderViewEntity().posY - this.mc.getRenderViewEntity().lastTickPosY) * partialTicks);
         Tessellator tessellator = Tessellator.get();
