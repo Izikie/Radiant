@@ -7,18 +7,8 @@ import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.IBlockAccess;
 
 public class SwimNodeProcessor extends NodeProcessor {
-    @Override
-    public void initProcessor(IBlockAccess iblockaccessIn, Entity entityIn) {
-        super.initProcessor(iblockaccessIn, entityIn);
-    }
-
-    @Override
-    public void postProcess() {
-        super.postProcess();
-    }
 
     @Override
     public PathPoint getPathPointTo(Entity entityIn) {

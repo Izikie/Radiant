@@ -379,11 +379,6 @@ public class EntityRabbit extends EntityAnimal {
             super(rabbit, p_i46403_2_, p_i46403_3_, p_i46403_4_, p_i46403_6_);
             this.entityInstance = rabbit;
         }
-
-        @Override
-        public void updateTask() {
-            super.updateTask();
-        }
     }
 
     static class AIEvilAttack extends EntityAIAttackOnCollide {
@@ -439,16 +434,6 @@ public class EntityRabbit extends EntityAnimal {
         @Override
         public boolean continueExecuting() {
             return this.field_179499_e && super.continueExecuting();
-        }
-
-        @Override
-        public void startExecuting() {
-            super.startExecuting();
-        }
-
-        @Override
-        public void resetTask() {
-            super.resetTask();
         }
 
         @Override

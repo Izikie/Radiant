@@ -52,11 +52,6 @@ public class EntityPigZombie extends EntityZombie {
     }
 
     @Override
-    public void onUpdate() {
-        super.onUpdate();
-    }
-
-    @Override
     protected void updateAITasks() {
         IAttributeInstance iattributeinstance = this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
 

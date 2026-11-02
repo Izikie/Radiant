@@ -160,11 +160,6 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable {
     }
 
     @Override
-    public void setDead() {
-        super.setDead();
-    }
-
-    @Override
     public void onUpdate() {
         if (this.getRollingAmplitude() > 0) {
             this.setRollingAmplitude(this.getRollingAmplitude() - 1);

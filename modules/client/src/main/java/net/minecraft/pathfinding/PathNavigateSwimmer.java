@@ -49,11 +49,6 @@ public class PathNavigateSwimmer extends PathNavigate {
     }
 
     @Override
-    protected void removeSunnyPath() {
-        super.removeSunnyPath();
-    }
-
-    @Override
     protected boolean isDirectPathBetweenPoints(Vec3 posVec31, Vec3 posVec32, int sizeX, int sizeY, int sizeZ) {
         MovingObjectPosition movingobjectposition = this.worldObj.rayTraceBlocks(posVec31, new Vec3(posVec32.xCoord(), posVec32.yCoord() + this.theEntity.height * 0.5D, posVec32.zCoord()), false, true, false);
         return movingobjectposition == null || movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.MISS;

@@ -75,11 +75,6 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     }
 
     @Override
-    public void markDirty() {
-        super.markDirty();
-    }
-
-    @Override
     public int getSizeInventory() {
         return this.inventory.length;
     }

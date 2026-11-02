@@ -25,11 +25,6 @@ public class EntityLeashKnot extends EntityHanging {
     }
 
     @Override
-    protected void entityInit() {
-        super.entityInit();
-    }
-
-    @Override
     public void updateFacingWithBoundingBox(Direction facingDirectionIn) {
     }
 

@@ -40,11 +40,6 @@ public class ContainerMerchant extends Container {
     }
 
     @Override
-    public void detectAndSendChanges() {
-        super.detectAndSendChanges();
-    }
-
-    @Override
     public void onCraftMatrixChanged(IInventory inventoryIn) {
         this.merchantInventory.resetRecipeAndSlots();
         super.onCraftMatrixChanged(inventoryIn);

@@ -24,11 +24,6 @@ public class EntityAIOcelotSit extends EntityAIMoveToBlock {
     }
 
     @Override
-    public boolean continueExecuting() {
-        return super.continueExecuting();
-    }
-
-    @Override
     public void startExecuting() {
         super.startExecuting();
         this.ocelot.getAISit().setSitting(false);
