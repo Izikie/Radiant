@@ -887,7 +887,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.playerEntity.getServerForPlayer());
 
         if ("MC|BEdit".equals(packet.getChannel())) {
-            PacketBuffer buffer = new PacketBuffer(Unpooled.wrappedBuffer(packet.getData()));
+            PacketBuffer buffer = new PacketBuffer(Unpooled.wrappedBuffer(packet.getData().getByteBuf()));
 
             try {
                 ItemStack itemStack = buffer.readItemStack();
@@ -913,7 +913,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable {
                 buffer.release();
             }
         } else if ("MC|BSign".equals(packet.getChannel())) {
-            PacketBuffer buffer = new PacketBuffer(Unpooled.wrappedBuffer(packet.getData()));
+            PacketBuffer buffer = new PacketBuffer(Unpooled.wrappedBuffer(packet.getData().getByteBuf()));
 
             try {
                 ItemStack itemStack = buffer.readItemStack();
