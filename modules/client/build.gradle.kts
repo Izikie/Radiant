@@ -9,8 +9,14 @@ dependencies {
         impl("io.netty:$module:$nettyVer", transitive = true)
     }
 
+    // Linux native transport (Epoll)
     listOf("linux-x86_64", "linux-aarch_64").forEach { arch ->
         impl("io.netty:netty-transport-native-epoll:$nettyVer:$arch", transitive = true)
+    }
+
+    // macOS native transport (KQueue)
+    listOf("osx-x86_64", "osx-aarch_64").forEach { arch ->
+        impl("io.netty:netty-transport-native-kqueue:$nettyVer:$arch", transitive = true)
     }
 
     // --- Graphics & Math ---
