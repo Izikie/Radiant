@@ -209,12 +209,8 @@ public class DynamicLights {
                 } else if (item == Items.NETHER_STAR) {
                     return Blocks.BEACON.getLightValue() / 2;
                 } else {
-                    if (!ITEM_LIGHT_LEVELS.isEmpty()) {
-                        Integer integer = ITEM_LIGHT_LEVELS.get(item);
-
-                        if (integer != null) {
-                            return integer;
-                        }
+                    if (!ITEM_LIGHT_LEVELS.isEmpty() && ITEM_LIGHT_LEVELS.containsKey(item)) {
+                        return ITEM_LIGHT_LEVELS.getInt(item);
                     }
 
                     return 0;
@@ -239,12 +235,8 @@ public class DynamicLights {
             if (entity.isBurning()) {
                 return 15;
             } else {
-                if (!ENTITY_LIGHT_LEVELS.isEmpty()) {
-                    Integer integer = ENTITY_LIGHT_LEVELS.get(entity.getClass());
-
-                    if (integer != null) {
-                        return integer;
-                    }
+                if (!ENTITY_LIGHT_LEVELS.isEmpty() && ENTITY_LIGHT_LEVELS.containsKey(entity.getClass())) {
+                    return ENTITY_LIGHT_LEVELS.getInt(entity.getClass());
                 }
 
                 switch (entity) {

@@ -230,13 +230,11 @@ public class BlockFire extends Block {
     }
 
     private int getFlammability(Block blockIn) {
-        Integer integer = this.flammabilities.get(blockIn);
-        return integer == null ? 0 : integer;
+        return this.flammabilities.getInt(blockIn);
     }
 
     private int getEncouragement(Block blockIn) {
-        Integer integer = this.encouragements.get(blockIn);
-        return integer == null ? 0 : integer;
+        return this.encouragements.getInt(blockIn);
     }
 
     private void catchOnFire(World worldIn, BlockPos pos, int chance, Random random, int age) {

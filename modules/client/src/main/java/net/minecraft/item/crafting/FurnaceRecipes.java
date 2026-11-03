@@ -90,9 +90,9 @@ public class FurnaceRecipes {
     }
 
     public float getSmeltingExperience(ItemStack stack) {
-        for (Entry<ItemStack, Float> entry : this.experienceList.entrySet()) {
+        for (Object2FloatMap.Entry<ItemStack> entry : this.experienceList.object2FloatEntrySet()) {
             if (this.compareItemStacks(stack, entry.getKey())) {
-                return entry.getValue();
+                return entry.getFloatValue();
             }
         }
 

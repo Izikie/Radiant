@@ -270,8 +270,7 @@ public class Keyboard {
     }
 
     public static int getKeyIndex(String keyName) {
-        Integer ret = keyMap.get(keyName);
-        return Objects.requireNonNullElse(ret, KEY_NONE);
+        return keyMap.getInt(keyName);
     }
 
     public static boolean isCreated() {

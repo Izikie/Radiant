@@ -4,6 +4,7 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.mojang.authlib.GameProfile;
 import io.netty.buffer.Unpooled;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.block.Block;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
@@ -931,9 +932,9 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         PacketThreadUtil.checkThreadAndEnqueue(packet, this, this.gameController);
         boolean flag = false;
 
-        for (Entry<StatBase, Integer> entry : packet.func_148974_c().entrySet()) {
+        for (Object2IntMap.Entry<StatBase> entry : packet.func_148974_c().object2IntEntrySet()) {
             StatBase statbase = entry.getKey();
-            int i = entry.getValue();
+            int i = entry.getIntValue();
 
             if (statbase.isAchievement() && i > 0) {
                 if (this.field_147308_k && this.gameController.player.getStatFileWriter().readStat(statbase) == 0) {

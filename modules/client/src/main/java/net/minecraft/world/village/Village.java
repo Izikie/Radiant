@@ -316,8 +316,7 @@ public class Village {
     }
 
     public int getReputationForPlayer(String p_82684_1_) {
-        Integer integer = this.playerReputation.get(p_82684_1_);
-        return integer != null ? integer : 0;
+        return this.playerReputation.getInt(p_82684_1_);
     }
 
     public int setReputationForPlayer(String p_82688_1_, int p_82688_2_) {
@@ -402,7 +401,7 @@ public class Village {
 
             if (gameprofile != null) {
                 nbttagcompound1.setString("UUID", gameprofile.getId().toString());
-                nbttagcompound1.setInteger("S", this.playerReputation.get(s));
+                nbttagcompound1.setInteger("S", this.playerReputation.getInt(s));
                 nbttaglist1.appendTag(nbttagcompound1);
             }
         }

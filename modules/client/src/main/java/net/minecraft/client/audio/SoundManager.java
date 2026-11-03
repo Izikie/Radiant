@@ -148,7 +148,7 @@ public class SoundManager {
             ISound isound = entry.getValue();
 
             if (!this.sndSystem.playing(s1)) {
-                int i = this.playingSoundsStopTime.get(s1);
+                int i = this.playingSoundsStopTime.getInt(s1);
 
                 if (i <= this.playTime) {
                     int j = isound.getRepeatDelay();
@@ -159,7 +159,7 @@ public class SoundManager {
                     iterator.remove();
                     LOGGER.debug(LOG_MARKER, "Removed channel {} because it's not playing anymore", s1);
                     this.sndSystem.removeSource(s1);
-                    this.playingSoundsStopTime.remove(s1);
+                    this.playingSoundsStopTime.removeInt(s1);
                     this.playingSoundPoolEntries.remove(isound);
 
                     try {
@@ -174,12 +174,12 @@ public class SoundManager {
             }
         }
 
-        Iterator<Entry<ISound, Integer>> iterator1 = this.delayedSounds.entrySet().iterator();
+        Iterator<Object2IntMap.Entry<ISound>> iterator1 = this.delayedSounds.object2IntEntrySet().iterator();
 
         while (iterator1.hasNext()) {
-            Entry<ISound, Integer> entry1 = iterator1.next();
+            Object2IntMap.Entry<ISound> entry1 = iterator1.next();
 
-            if (this.playTime >= entry1.getValue()) {
+            if (this.playTime >= entry1.getIntValue()) {
                 ISound isound1 = entry1.getKey();
 
                 if (isound1 instanceof ITickableSound iTickableSound) {
@@ -197,7 +197,7 @@ public class SoundManager {
             return false;
         } else {
             String s = this.invPlayingSounds.get(sound);
-            return s != null && (this.sndSystem.playing(s) || this.playingSoundsStopTime.containsKey(s) && this.playingSoundsStopTime.get(s) <= this.playTime);
+            return s != null && (this.sndSystem.playing(s) || this.playingSoundsStopTime.containsKey(s) && this.playingSoundsStopTime.getInt(s) <= this.playTime);
         }
     }
 

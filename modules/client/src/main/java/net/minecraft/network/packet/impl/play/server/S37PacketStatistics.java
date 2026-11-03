@@ -9,7 +9,6 @@ import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
 
 import java.io.IOException;
-import java.util.Map.Entry;
 
 public class S37PacketStatistics implements Packet<INetHandlerPlayClient> {
     private Object2IntMap<StatBase> field_148976_a;
@@ -45,9 +44,9 @@ public class S37PacketStatistics implements Packet<INetHandlerPlayClient> {
     public void write(PacketBuffer buf) throws IOException {
         buf.writeVarInt(this.field_148976_a.size());
 
-        for (Entry<StatBase, Integer> entry : this.field_148976_a.entrySet()) {
+        for (Object2IntMap.Entry<StatBase> entry : this.field_148976_a.object2IntEntrySet()) {
             buf.writeString(entry.getKey().statId);
-            buf.writeVarInt(entry.getValue());
+            buf.writeVarInt(entry.getIntValue());
         }
     }
 

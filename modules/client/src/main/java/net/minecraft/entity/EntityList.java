@@ -132,8 +132,7 @@ public class EntityList {
     }
 
     public static int getIDFromString(String entityName) {
-        Integer integer = stringToIDMapping.get(entityName);
-        return integer == null ? 90 : integer;
+        return stringToIDMapping.getOrDefault(entityName, 90);
     }
 
     public static String getStringFromID(int entityID) {

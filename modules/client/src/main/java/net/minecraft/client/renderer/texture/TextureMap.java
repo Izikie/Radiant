@@ -1,8 +1,6 @@
 package net.minecraft.client.renderer.texture;
 
-import it.unimi.dsi.fastutil.ints.Int2IntMap;
-import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
-import it.unimi.dsi.fastutil.ints.IntList;
+import it.unimi.dsi.fastutil.ints.*;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.StitcherException;
 import net.minecraft.client.resources.IResource;
@@ -639,31 +637,24 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 
                 if (dimension != null) {
                     int size = MathHelper.roundUpToPowerOfTwo(dimension.x);
-
-                    if (!map.containsKey(size)) {
-                        map.put(size, 1);
-                    } else {
-                        int k = map.get(size);
-                        map.put(size, k + 1);
-                    }
+                    map.put(size, map.get(size) + 1);
                 }
             } catch (Exception _) {
             }
         }
 
         int l = 0;
-        Set<Integer> set1 = new TreeSet<>(map.keySet());
-        int l1;
+        IntSortedSet set1 = new IntRBTreeSet(map.keySet());
 
-        for (Iterator<Integer> iterator = set1.iterator(); iterator.hasNext(); l += l1) {
-            l1 = map.get(iterator.next());
+        for (int i2 : set1) {
+            l += map.get(i2);
         }
 
         int i1 = 16;
         int k1 = 0;
-        l1 = l * p_detectMinimumSpriteSize_3_ / 100;
+        int threshold = l * p_detectMinimumSpriteSize_3_ / 100;
 
-        for (Integer i2 : set1) {
+        for (int i2 : set1) {
             int j2 = map.get(i2);
             k1 += j2;
 
@@ -671,7 +662,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                 i1 = i2;
             }
 
-            if (k1 > l1) {
+            if (k1 > threshold) {
                 return i1;
             }
         }

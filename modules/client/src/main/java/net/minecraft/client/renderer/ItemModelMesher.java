@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.IBakedModel;
@@ -12,7 +13,6 @@ import net.optifine.CustomItems;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class ItemModelMesher {
     private final Int2ObjectOpenHashMap<ModelResourceLocation> simpleShapes = new Int2ObjectOpenHashMap<>();
@@ -83,8 +83,8 @@ public class ItemModelMesher {
     public void rebuildCache() {
         this.simpleShapesCache.clear();
 
-        for (Entry<Integer, ModelResourceLocation> entry : this.simpleShapes.entrySet()) {
-            this.simpleShapesCache.put(entry.getKey(), this.modelManager.getModel(entry.getValue()));
+        for (Int2ObjectMap.Entry<ModelResourceLocation> entry : this.simpleShapes.int2ObjectEntrySet()) {
+            this.simpleShapesCache.put(entry.getIntKey(), this.modelManager.getModel(entry.getValue()));
         }
     }
 }

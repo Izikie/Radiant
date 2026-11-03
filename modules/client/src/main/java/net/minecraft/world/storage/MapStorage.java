@@ -128,14 +128,7 @@ public class MapStorage {
     }
 
     public int getUniqueDataId(String key) {
-        Short oshort = this.idCounts.get(key);
-
-        if (oshort == null) {
-            oshort = (short) 0;
-        } else {
-            oshort = (short) (oshort + 1);
-        }
-
+        short oshort = this.idCounts.containsKey(key) ? (short) (this.idCounts.getShort(key) + 1) : (short) 0;
         this.idCounts.put(key, oshort);
 
         if (this.saveHandler != null) {
@@ -145,9 +138,8 @@ public class MapStorage {
                 if (file1 != null) {
                     NBTTagCompound nbttagcompound = new NBTTagCompound();
 
-                    for (String s : this.idCounts.keySet()) {
-                        short short1 = this.idCounts.get(s);
-                        nbttagcompound.setShort(s, short1);
+                    for (Object2ShortMap.Entry<String> entry : this.idCounts.object2ShortEntrySet()) {
+                        nbttagcompound.setShort(entry.getKey(), entry.getShortValue());
                     }
 
                     DataOutputStream dataoutputstream = new DataOutputStream(new FileOutputStream(file1));
@@ -157,8 +149,8 @@ public class MapStorage {
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
-
         }
+
         return oshort;
     }
 }

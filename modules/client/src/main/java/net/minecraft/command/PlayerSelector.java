@@ -215,7 +215,7 @@ public class PlayerSelector {
             list.add(p_apply_1_ -> {
                 Scoreboard scoreboard = MinecraftServer.getServer().worldServerForDimension(0).getScoreboard();
 
-                for (Entry<String, Integer> entry : map.entrySet()) {
+                for (Object2IntMap.Entry<String> entry : map.object2IntEntrySet()) {
                     String s = entry.getKey();
                     boolean flag = false;
 
@@ -239,11 +239,11 @@ public class PlayerSelector {
                     Score score = scoreboard.getValueFromObjective(s1, scoreobjective);
                     int i = score.getScorePoints();
 
-                    if (i < entry.getValue() && flag) {
+                    if (i < entry.getIntValue() && flag) {
                         return false;
                     }
 
-                    if (i > entry.getValue() && !flag) {
+                    if (i > entry.getIntValue() && !flag) {
                         return false;
                     }
                 }

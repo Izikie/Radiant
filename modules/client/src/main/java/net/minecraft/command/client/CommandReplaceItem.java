@@ -141,7 +141,7 @@ public class CommandReplaceItem extends CommandBase {
         if (!SHORTCUTS.containsKey(shortcut)) {
             throw new CommandException("commands.generic.parameter.invalid", shortcut);
         } else {
-            return SHORTCUTS.get(shortcut);
+            return SHORTCUTS.getInt(shortcut);
         }
     }
 

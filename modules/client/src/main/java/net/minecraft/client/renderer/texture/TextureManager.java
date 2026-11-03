@@ -94,14 +94,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
             texture = Config.getMojangLogoTexture(texture);
         }
 
-        Integer integer = this.mapTextureCounters.get(name);
-
-        if (integer == null) {
-            integer = 1;
-        } else {
-            integer = integer + 1;
-        }
-
+        int integer = this.mapTextureCounters.getInt(name) + 1;
         this.mapTextureCounters.put(name, integer);
         ResourceLocation resourcelocation = new ResourceLocation(String.format("dynamic/%s_%d", name, integer));
         this.loadTexture(resourcelocation, texture);
