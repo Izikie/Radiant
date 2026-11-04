@@ -2,14 +2,10 @@ import org.gradle.internal.os.OperatingSystem
 
 plugins {
     id("java-library")
-    id("org.openjfx.javafxplugin") version "0.1.0"
+    alias(libs.plugins.javafx)
 }
 
-@Suppress("UNCHECKED_CAST")
-val lwjglModules = rootProject.extra["lwjglModules"] as List<String>
-val lwjglNatives = rootProject.extra["lwjglNatives"] as String
-val lwjglVer = rootProject.extra["lwjglVer"] as String
-val javafxVer = rootProject.extra["javafxVer"] as String
+val javafxVer = libs.versions.javafx.version.get()
 
 // 1. Create a shared configuration for LWJGL natives
 val lwjglNativesConfig = configurations.create("lwjglNativesConfig") {
@@ -36,33 +32,15 @@ javafx {
 dependencies {
     implementation(project(":client"))
 
-    // 3. Declare the dependency ONCE; it automatically applies to both configurations
+    @Suppress("UNCHECKED_CAST")
+    val lwjglModules = rootProject.extra["lwjglModules"] as List<String>
+    val lwjglVer = libs.versions.lwjgl.get()
+    val lwjglNatives = rootProject.extra["lwjglNatives"] as String
+
+    // Add LWJGL natives to the shared config
     lwjglModules.distinct().forEach { module ->
         val notation = "org.lwjgl:$module:$lwjglVer:$lwjglNatives"
         lwjglNativesConfig(notation)
-    }
-
-    val osClassifier = when {
-        OperatingSystem.current().isWindows -> "win"
-        OperatingSystem.current().isLinux -> "linux"
-        OperatingSystem.current().isMacOsX -> {
-            if (System.getProperty("os.arch") == "aarch64") "mac-aarch64" else "mac"
-        }
-
-        else -> error("Unsupported OS for JavaFX")
-    }
-
-    val javafxModules = listOf(
-        "javafx-base",
-        "javafx-controls",
-        "javafx-graphics",
-        "javafx-swing",
-        "javafx-web",
-        "javafx-media"
-    )
-
-    javafxModules.forEach {
-        implementation("org.openjfx:$it:$javafxVer:$osClassifier")
     }
 }
 

@@ -1,15 +1,6 @@
-plugins {
-    `java-library`
-}
-
 group = "com.github.izikie"
 version = "1.0"
 description = "Optimized Minecraft Java Client for 1.8.9"
-
-extra["lwjglVer"] = libs.versions.lwjgl.get()
-extra["nettyVer"] = libs.versions.netty.get()
-extra["slf4jVer"] = libs.versions.slf4j.get()
-extra["javafxVer"] = libs.versions.javafx.get()
 
 allprojects {
     plugins.withType<JavaPlugin> {

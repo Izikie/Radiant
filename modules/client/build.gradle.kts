@@ -1,57 +1,61 @@
 plugins {
-    `java-library`
+    id("java-library")
 }
 
-@Suppress("UNCHECKED_CAST")
-val lwjglModules = rootProject.extra["lwjglModules"] as List<String>
-val lwjglVer = rootProject.extra["lwjglVer"] as String
-val nettyVer = rootProject.extra["nettyVer"] as String
-val slf4jVer = rootProject.extra["slf4jVer"] as String
-
 dependencies {
-    // --- Networking ---
-    listOf("netty-buffer", "netty-handler", "netty-transport", "netty-common", "netty-codec").forEach { module ->
-        impl("io.netty:$module:$nettyVer", transitive = true)
+    val nettyVer = libs.versions.netty.get()
+    val lwjglVer = libs.versions.lwjgl.get()
+
+    @Suppress("UNCHECKED_CAST")
+    val lwjglModules = rootProject.extra["lwjglModules"] as List<String>
+
+    // --- Networking (Netty Core & Native Transports) ---
+    val nettyModules = listOf("buffer", "handler", "transport", "common", "codec")
+    val nettyNatives = listOf("linux-x86_64", "linux-aarch_64", "osx-x86_64", "osx-aarch_64")
+
+    nettyModules.forEach { module ->
+        impl("io.netty:netty-$module:$nettyVer", transitive = true)
     }
 
-    // Linux native transport (Epoll)
-    listOf("linux-x86_64", "linux-aarch_64").forEach { arch ->
-        impl("io.netty:netty-transport-native-epoll:$nettyVer:$arch", transitive = true)
-    }
-
-    // macOS native transport (KQueue)
-    listOf("osx-x86_64", "osx-aarch_64").forEach { arch ->
-        impl("io.netty:netty-transport-native-kqueue:$nettyVer:$arch", transitive = true)
+    nettyNatives.forEach { arch ->
+        val prefix = if (arch.startsWith("linux")) "epoll" else "kqueue"
+        impl("io.netty:netty-transport-native-$prefix:$nettyVer:$arch", transitive = true)
     }
 
     // --- Graphics & Math ---
     lwjglModules.forEach { module ->
         impl("org.lwjgl:$module:$lwjglVer")
     }
-    impl("org.joml:joml:1.10.8")
+    impl(libs.joml)
 
     // --- Collections & Utilities ---
-    impl("com.google.guava:guava:33.4.8-jre", transitive = true)
-    impl("it.unimi.dsi:fastutil:8.5.16")
-    impl("com.ibm.icu:icu4j:77.1")
-    impl("net.sf.jopt-simple:jopt-simple:5.0.4")
+    impl(libs.guava, transitive = true)
+    impl(libs.fastutil)
+    impl(libs.icu4j)
+    impl(libs.jopt.simple)
 
     // --- Mojang & JSON ---
-    impl("com.mojang:authlib:3.18.38")
-    impl("com.google.code.gson:gson:2.13.1")
+    impl(libs.authlib)
+    impl(libs.gson)
 
     // --- Apache Commons ---
-    impl("org.apache.commons:commons-lang3:3.18.0")
-    impl("org.apache.commons:commons-compress:1.28.0")
-    impl("org.apache.commons:commons-text:1.14.0")
-    impl("commons-io:commons-io:2.20.0")
-    impl("commons-codec:commons-codec:1.19.0")
+    impl(libs.commons.lang3)
+    impl(libs.commons.compress)
+    impl(libs.commons.text)
+    impl(libs.commons.io)
+    impl(libs.commons.codec)
 
     // --- Logger ---
-    impl("org.slf4j:slf4j-api:$slf4jVer")
+    impl(libs.slf4j.api)
 }
 
 fun DependencyHandler.impl(notation: String, transitive: Boolean = false) {
+    api(notation) {
+        isTransitive = transitive
+    }
+}
+
+fun DependencyHandler.impl(notation: Provider<*>, transitive: Boolean = false) {
     api(notation) {
         isTransitive = transitive
     }

@@ -1,7 +1,56 @@
 [versions]
-lwjgl = "3.3.6"
+# --- Development Environment ---
+javafx-version = "23"
+javafx-plugin = "0.1.0"
+
+# --- Core Runtimes & Engines ---
 netty = "4.2.3.Final"
+lwjgl = "3.3.6"
+joml = "1.10.8"
+
+# --- Collections & Utilities ---
+guava = "33.4.8-jre"
+fastutil = "8.5.16"
+icu4j = "77.1"
+jopt-simple = "5.0.4"
+
+# --- Mojang & JSON ---
+authlib = "3.18.38"
+gson = "2.13.1"
+
+# --- Apache Commons ---
+commons-lang3 = "3.18.0"
+commons-compress = "1.28.0"
+commons-text = "1.14.0"
+commons-io = "2.20.0"
+commons-codec = "1.19.0"
+
+# --- Logger ---
 slf4j = "2.0.17"
-javafx = "23"
 
 [libraries]
+# --- Graphics & Math ---
+joml = { module = "org.joml:joml", version.ref = "joml" }
+
+# --- Collections & Utilities ---
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+fastutil = { module = "it.unimi.dsi:fastutil", version.ref = "fastutil" }
+icu4j = { module = "com.ibm.icu:icu4j", version.ref = "icu4j" }
+jopt-simple = { module = "net.sf.jopt-simple:jopt-simple", version.ref = "jopt-simple" }
+
+# --- Mojang & JSON ---
+authlib = { module = "com.mojang:authlib", version.ref = "authlib" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+
+# --- Apache Commons ---
+commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commons-lang3" }
+commons-compress = { module = "org.apache.commons:commons-compress", version.ref = "commons-compress" }
+commons-text = { module = "org.apache.commons:commons-text", version.ref = "commons-text" }
+commons-io = { module = "commons-io:commons-io", version.ref = "commons-io" }
+commons-codec = { module = "commons-codec:commons-codec", version.ref = "commons-codec" }
+
+# --- Logger ---
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+
+[plugins]
+javafx = { id = "org.openjfx.javafxplugin", version.ref = "javafx-plugin" }
