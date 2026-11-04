@@ -6,32 +6,32 @@ group = "com.github.izikie"
 version = "1.0"
 description = "Optimized Minecraft Java Client for 1.8.9"
 
-extra["lwjglVer"] = project.property("lwjgl_version") as String
-extra["nettyVer"] = project.property("netty_version") as String
-extra["slf4jVer"] = project.property("slf4j_version") as String
-extra["javafxVer"] = project.property("javafx_version") as String
+extra["lwjglVer"] = libs.versions.lwjgl.get()
+extra["nettyVer"] = libs.versions.netty.get()
+extra["slf4jVer"] = libs.versions.slf4j.get()
+extra["javafxVer"] = libs.versions.javafx.get()
 
-subprojects {
-    apply<JavaLibraryPlugin>()
-
-    configure<JavaPluginExtension> {
-        toolchain {
-            languageVersion.set(JavaLanguageVersion.of(25))
+allprojects {
+    plugins.withType<JavaPlugin> {
+        extensions.configure<JavaPluginExtension> {
+            toolchain {
+                languageVersion.set(JavaLanguageVersion.of(25))
+            }
         }
-    }
 
-    tasks.withType<JavaCompile>().configureEach {
-        options.encoding = "UTF-8"
-        options.release.set(25)
-        options.isIncremental = true
-    }
+        tasks.withType<JavaCompile>().configureEach {
+            options.encoding = "UTF-8"
+            options.release.set(25)
+            options.isIncremental = true
+        }
 
-    repositories {
-        mavenCentral()
-        maven("https://libraries.minecraft.net")
-    }
+        repositories {
+            mavenCentral()
+            maven("https://libraries.minecraft.net")
+        }
 
-    dependencies {
-        "compileOnly"("org.jetbrains:annotations:26.0.2-1")
+        dependencies {
+            "compileOnly"("org.jetbrains:annotations:26.0.2-1")
+        }
     }
 }

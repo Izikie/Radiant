@@ -1,0 +1,7 @@
+[versions]
+lwjgl = "3.3.6"
+netty = "4.2.3.Final"
+slf4j = "2.0.17"
+javafx = "23"
+
+[libraries]

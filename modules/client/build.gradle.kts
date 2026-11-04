@@ -1,7 +1,12 @@
-val lwjglModules: List<String> by rootProject.extra
-val lwjglVer: String by rootProject.extra
-val nettyVer: String by rootProject.extra
-val slf4jVer: String by rootProject.extra
+plugins {
+    `java-library`
+}
+
+@Suppress("UNCHECKED_CAST")
+val lwjglModules = rootProject.extra["lwjglModules"] as List<String>
+val lwjglVer = rootProject.extra["lwjglVer"] as String
+val nettyVer = rootProject.extra["nettyVer"] as String
+val slf4jVer = rootProject.extra["slf4jVer"] as String
 
 dependencies {
     // --- Networking ---

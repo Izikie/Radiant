@@ -1,30 +1,45 @@
 import org.gradle.internal.os.OperatingSystem
 
 plugins {
+    id("java-library")
     id("org.openjfx.javafxplugin") version "0.1.0"
 }
 
-val lwjglVer: String by rootProject.extra
-val lwjglModules: List<String> by rootProject.extra
-val lwjglNatives: String by rootProject.extra
-val javafxVer: String by rootProject.extra
+@Suppress("UNCHECKED_CAST")
+val lwjglModules = rootProject.extra["lwjglModules"] as List<String>
+val lwjglNatives = rootProject.extra["lwjglNatives"] as String
+val lwjglVer = rootProject.extra["lwjglVer"] as String
+val javafxVer = rootProject.extra["javafxVer"] as String
 
-val lwjglExtract: Configuration by configurations.creating {
-    isCanBeResolved = true
+// 1. Create a shared configuration for LWJGL natives
+val lwjglNativesConfig = configurations.create("lwjglNativesConfig") {
+    isCanBeResolved = false
     isCanBeConsumed = false
 }
 
+// 2. Make extraction and runtime configurations inherit from it
+val lwjglExtract = configurations.create("lwjglExtract") {
+    isCanBeResolved = true
+    isCanBeConsumed = false
+    extendsFrom(lwjglNativesConfig)
+}
+
+configurations.named("runtimeOnly") {
+    extendsFrom(lwjglNativesConfig)
+}
+
 javafx {
+    version = javafxVer
     modules("javafx.base", "javafx.controls", "javafx.graphics", "javafx.swing", "javafx.web", "javafx.media")
 }
 
 dependencies {
     implementation(project(":client"))
 
-    lwjglModules.forEach { module ->
+    // 3. Declare the dependency ONCE; it automatically applies to both configurations
+    lwjglModules.distinct().forEach { module ->
         val notation = "org.lwjgl:$module:$lwjglVer:$lwjglNatives"
-        runtimeOnly(notation)
-        lwjglExtract(notation)
+        lwjglNativesConfig(notation)
     }
 
     val osClassifier = when {
