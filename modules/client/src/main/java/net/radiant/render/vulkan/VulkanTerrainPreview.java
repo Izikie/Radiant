@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,9 @@ import static org.lwjgl.system.MemoryUtil.memFree;
 public final class VulkanTerrainPreview implements AutoCloseable {
     public static final boolean ENABLED = Boolean.getBoolean("radiant.vulkan.terrain");
     private static final Logger LOGGER = LoggerFactory.getLogger(VulkanTerrainPreview.class);
-    private static final RenderLayer[] OPAQUE_LAYERS = {RenderLayer.SOLID, RenderLayer.CUTOUT_MIPPED, RenderLayer.CUTOUT};
+    private static final RenderLayer[] LAYERS = RenderLayer.values();
+    private static final Comparator<VulkanTerrainScene.Draw> FAR_TO_NEAR =
+            Comparator.comparingDouble(VulkanTerrainScene.Draw::distanceSquared).reversed();
     private static VulkanTerrainPreview active;
     private static boolean manuallyClosed;
     private static boolean unsupportedSettings;
@@ -101,7 +104,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
 
     public static void upload(RenderChunk chunk, CompiledChunk compiled, RenderLayer layer, WorldRenderer mesh) {
         VulkanTerrainPreview preview = active;
-        if (preview == null || layer == RenderLayer.TRANSLUCENT || compiled.isLayerEmpty(layer)) {
+        if (preview == null || compiled.isLayerEmpty(layer)) {
             return;
         }
         if (Config.isShaders() || Config.isMultiTexture()) {
@@ -113,7 +116,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
                 || vertexCount == 0 || vertexCount % 4 != 0 || vertices.remaining() != vertexCount * VulkanTerrainMeshes.STRIDE) {
             throw new IllegalStateException("Unexpected chunk vertex buffer for Vulkan terrain");
         }
-        Mesh[] layers = preview.sections.computeIfAbsent(chunk, unused -> new Mesh[OPAQUE_LAYERS.length]);
+        Mesh[] layers = preview.sections.computeIfAbsent(chunk, unused -> new Mesh[LAYERS.length]);
         int index = layer.ordinal();
         Mesh previous = layers[index];
         if (previous != null) {
@@ -157,7 +160,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         }
     }
 
-    public static Extraction extract(Minecraft mc, double x, double y, double z, int[] lightmap) {
+    public static Extraction extract(Minecraft mc, double x, double y, double z, float eyeHeight, int[] lightmap) {
         VulkanTerrainPreview preview = active;
         if (preview == null) {
             return null;
@@ -172,7 +175,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             Matrix4f projection = new Matrix4f().set(matrix);
             glGetFloatv(GL_MODELVIEW_MATRIX, matrix);
             projection.mul(new Matrix4f().set(matrix));
-            return new Extraction(preview, x, y, z, projection, lightmap.clone(), captureFog(mc),
+            return new Extraction(preview, x, y, z, eyeHeight, projection, lightmap.clone(), captureFog(mc),
                     Config.isRenderRegions(), mc.displayWidth, mc.displayHeight);
         }
     }
@@ -246,7 +249,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             if (preview.presenter.present(fog.red(), fog.green(), fog.blue())) {
                 preview.frames++;
                 preview.drawCalls += preview.terrain.drawCalls();
-                ClientBenchmark.recordVulkanTerrainFrame(preview.terrain.drawCalls(), preview.terrain.quads(), preview.terrain.cutoutQuads());
+                ClientBenchmark.recordVulkanTerrainFrame(preview.terrain.drawCalls(), preview.terrain.quads(),
+                        preview.terrain.cutoutQuads(), preview.terrain.translucentQuads());
             }
         } finally {
             preview.terrain.setFrame(null);
@@ -280,20 +284,23 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         private final double x;
         private final double y;
         private final double z;
+        private final double eyeY;
         private final Matrix4f matrix;
         private final int[] lightmap;
         private final VulkanTerrainScene.Fog fog;
         private final boolean renderRegions;
         private final int width;
         private final int height;
-        private final List<VulkanTerrainScene.Draw> draws = new ArrayList<>();
+        private final List<VulkanTerrainScene.Draw> opaque = new ArrayList<>();
+        private final List<VulkanTerrainScene.Draw> translucent = new ArrayList<>();
 
-        private Extraction(VulkanTerrainPreview preview, double x, double y, double z, Matrix4f matrix,
+        private Extraction(VulkanTerrainPreview preview, double x, double y, double z, float eyeHeight, Matrix4f matrix,
                            int[] lightmap, VulkanTerrainScene.Fog fog, boolean renderRegions, int width, int height) {
             this.preview = preview;
             this.x = x;
             this.y = y;
             this.z = z;
+            this.eyeY = y + eyeHeight;
             this.matrix = matrix;
             this.lightmap = lightmap;
             this.fog = fog;
@@ -312,17 +319,28 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             float offsetY = (float) ((renderRegions ? 0 : origin.getY()) - y);
             float offsetZ = (float) ((renderRegions ? chunk.regionZ : origin.getZ()) - z);
             CompiledChunk compiled = chunk.getCompiledChunk();
-            for (RenderLayer layer : OPAQUE_LAYERS) {
+            for (RenderLayer layer : LAYERS) {
                 int index = layer.ordinal();
                 Mesh mesh = layers[index];
                 if (mesh != null && mesh.compiled == compiled && !compiled.isLayerEmpty(layer)) {
-                    draws.add(new VulkanTerrainScene.Draw(mesh.slice, offsetX, offsetY, offsetZ, index));
+                    if (layer == RenderLayer.TRANSLUCENT) {
+                        double dx = origin.getX() + 8.0 - x;
+                        double dy = origin.getY() + 8.0 - eyeY;
+                        double dz = origin.getZ() + 8.0 - z;
+                        // The legacy worker already sorts the quads within each uploaded section.
+                        translucent.add(new VulkanTerrainScene.Draw(mesh.slice, offsetX, offsetY, offsetZ,
+                                index, dx * dx + dy * dy + dz * dz));
+                    } else {
+                        opaque.add(new VulkanTerrainScene.Draw(mesh.slice, offsetX, offsetY, offsetZ, index, 0));
+                    }
                 }
             }
         }
 
         public void finish() {
-            preview.pendingFrame = new VulkanTerrainScene.Frame(matrix, lightmap, fog, List.copyOf(draws), width, height);
+            translucent.sort(FAR_TO_NEAR);
+            preview.pendingFrame = new VulkanTerrainScene.Frame(matrix, lightmap, fog,
+                    List.copyOf(opaque), List.copyOf(translucent), width, height);
         }
     }
 }

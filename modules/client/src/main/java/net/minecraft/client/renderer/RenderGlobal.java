@@ -749,7 +749,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         double x = view.lastTickPosX + (view.posX - view.lastTickPosX) * partialTicks;
         double y = view.lastTickPosY + (view.posY - view.lastTickPosY) * partialTicks;
         double z = view.lastTickPosZ + (view.posZ - view.lastTickPosZ) * partialTicks;
-        VulkanTerrainPreview.Extraction frame = VulkanTerrainPreview.extract(this.mc, x, y, z, lightmap);
+        VulkanTerrainPreview.Extraction frame = VulkanTerrainPreview.extract(this.mc, x, y, z, view.getEyeHeight(), lightmap);
         if (frame != null) {
             for (ContainerLocalRenderInformation visible : this.renderInfos) {
                 frame.add(visible.renderChunk);

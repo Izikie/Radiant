@@ -12,7 +12,7 @@ final class VulkanGraphics {
     private VulkanGraphics() {
     }
 
-    static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology,
+    static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology, boolean translucent,
                          VkPipelineVertexInputStateCreateInfo vertexInput, String vertexSource, String fragmentSource) {
         long vertex = shader(stack, device, vertexSource, shaderc_glsl_vertex_shader, "scene.vert");
         long fragment = 0;
@@ -25,19 +25,29 @@ final class VulkanGraphics {
                     .pColorAttachmentFormats(stack.ints(colorFormat)).depthAttachmentFormat(depthFormat);
             VkPipelineColorBlendAttachmentState.Buffer blend = VkPipelineColorBlendAttachmentState.calloc(1, stack);
             blend.get(0).colorWriteMask(VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT);
+            VkPipelineRasterizationStateCreateInfo rasterization = VkPipelineRasterizationStateCreateInfo.calloc(stack)
+                    .sType$Default().lineWidth(1.0f);
+            if (translucent) {
+                blend.get(0).blendEnable(true)
+                        .srcColorBlendFactor(VK_BLEND_FACTOR_SRC_ALPHA).dstColorBlendFactor(VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA)
+                        .colorBlendOp(VK_BLEND_OP_ADD)
+                        .srcAlphaBlendFactor(VK_BLEND_FACTOR_ONE).dstAlphaBlendFactor(VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA)
+                        .alphaBlendOp(VK_BLEND_OP_ADD);
+                rasterization.cullMode(VK_CULL_MODE_BACK_BIT).frontFace(VK_FRONT_FACE_COUNTER_CLOCKWISE);
+            }
             VkGraphicsPipelineCreateInfo.Buffer configurations = VkGraphicsPipelineCreateInfo.calloc(1, stack);
             VkGraphicsPipelineCreateInfo config = configurations.get(0).sType$Default().pNext(rendering.address())
                     .pStages(stages).layout(layout).pVertexInputState(vertexInput)
                     .pInputAssemblyState(VkPipelineInputAssemblyStateCreateInfo.calloc(stack).sType$Default().topology(topology))
                     .pViewportState(VkPipelineViewportStateCreateInfo.calloc(stack).sType$Default().viewportCount(1).scissorCount(1))
-                    .pRasterizationState(VkPipelineRasterizationStateCreateInfo.calloc(stack).sType$Default().lineWidth(1.0f))
+                    .pRasterizationState(rasterization)
                     .pMultisampleState(VkPipelineMultisampleStateCreateInfo.calloc(stack).sType$Default().rasterizationSamples(VK_SAMPLE_COUNT_1_BIT))
                     .pColorBlendState(VkPipelineColorBlendStateCreateInfo.calloc(stack).sType$Default().pAttachments(blend))
                     .pDynamicState(VkPipelineDynamicStateCreateInfo.calloc(stack).sType$Default()
                             .pDynamicStates(stack.ints(VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR)));
             if (depthFormat != VK_FORMAT_UNDEFINED) {
                 config.pDepthStencilState(VkPipelineDepthStencilStateCreateInfo.calloc(stack).sType$Default()
-                        .depthTestEnable(true).depthWriteEnable(true).depthCompareOp(VK_COMPARE_OP_LESS_OR_EQUAL));
+                        .depthTestEnable(true).depthWriteEnable(!translucent).depthCompareOp(VK_COMPARE_OP_LESS_OR_EQUAL));
             }
             LongBuffer handle = stack.mallocLong(1);
             VulkanPresenter.check(vkCreateGraphicsPipelines(device, 0, configurations, null, handle), "create graphics pipeline");

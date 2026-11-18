@@ -28,6 +28,7 @@ final class VulkanTerrainScene implements VulkanScene {
     private int drawCalls;
     private int quads;
     private int cutoutQuads;
+    private int translucentQuads;
 
     @Override
     public void initialize(VkPhysicalDevice physicalDevice, VkDevice device, VkQueue queue, VkCommandBuffer commands) {
@@ -81,6 +82,7 @@ final class VulkanTerrainScene implements VulkanScene {
         drawCalls = 0;
         quads = 0;
         cutoutQuads = 0;
+        translucentQuads = 0;
     }
 
     @Override
@@ -109,7 +111,7 @@ final class VulkanTerrainScene implements VulkanScene {
 
     @Override
     public void draw(MemoryStack stack, VkCommandBuffer commands, int width, int height) {
-        if (frame == null || atlas == null || frame.draws.isEmpty()) {
+        if (frame == null || atlas == null || (frame.opaque.isEmpty() && frame.translucent.isEmpty())) {
             return;
         }
         float scale = Math.min((float) width / frame.width, (float) height / frame.height);
@@ -117,13 +119,18 @@ final class VulkanTerrainScene implements VulkanScene {
         int viewHeight = Math.clamp(Math.round(frame.height * scale), 1, height);
         VulkanGraphics.viewport(stack, commands, (width - viewWidth) / 2, (height - viewHeight) / 2, viewWidth, viewHeight);
         pipeline.begin(stack, commands);
-        drawCalls = pipeline.draw(stack, commands, frame.draws);
-        for (Draw draw : frame.draws) {
+        drawCalls = pipeline.draw(stack, commands, frame.opaque, false)
+                + pipeline.draw(stack, commands, frame.translucent, true);
+        for (Draw draw : frame.opaque) {
             quads += draw.mesh.quads();
             if (draw.layer != 0) {
                 cutoutQuads += draw.mesh.quads();
             }
         }
+        for (Draw draw : frame.translucent) {
+            translucentQuads += draw.mesh.quads();
+        }
+        quads += translucentQuads;
     }
 
     int drawCalls() {
@@ -138,6 +145,10 @@ final class VulkanTerrainScene implements VulkanScene {
         return cutoutQuads;
     }
 
+    int translucentQuads() {
+        return translucentQuads;
+    }
+
     @Override
     public void close() {
         setAtlas(null);
@@ -146,13 +157,14 @@ final class VulkanTerrainScene implements VulkanScene {
         if (meshes != null) meshes.close();
     }
 
-    record Frame(Matrix4fc viewProjection, int[] lightmap, Fog fog, List<Draw> draws, int width, int height) {
+    record Frame(Matrix4fc viewProjection, int[] lightmap, Fog fog, List<Draw> opaque, List<Draw> translucent,
+                 int width, int height) {
     }
 
     record Fog(float red, float green, float blue, float mode, float start, float end, float density) {
     }
 
-    record Draw(VulkanTerrainMeshes.Slice mesh, float x, float y, float z, int layer) {
+    record Draw(VulkanTerrainMeshes.Slice mesh, float x, float y, float z, int layer, double distanceSquared) {
     }
 
     record Atlas(int width, int height, ByteBuffer[] levels) implements AutoCloseable {
