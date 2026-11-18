@@ -45,7 +45,16 @@ task group in your IDE or via CLI.
 Run `:dev:RunVulkanSmoke` to draw a textured quad and test Vulkan presentation, minimize and restore, resize,
 and shutdown on Windows. The test requires Vulkan 1.3 and dynamic rendering.
 It opens a separate test window and enables Khronos API and synchronization validation. Use
-`-PvulkanValidation=false` to run without the LunarG SDK. `RunClient` still uses the existing renderer.
+`-PvulkanValidation=false` to run without the LunarG SDK.
+
+Add `-PvulkanTerrain=true` to `:dev:RunClient` or `:dev:RunClientBenchmark` to open a Vulkan terrain preview
+after joining a world. Leave shader packs, antialiasing, and anisotropic filtering off for the preview.
+It draws solid and cutout blocks from the game's visible section meshes, with the block atlas, lightmap, depth,
+and fog. The main client still draws through OpenGL. The preview captures atlas pixels on load and reload.
+Animated textures stay on their captured frame.
+
+The benchmark report shows Vulkan frames, terrain draw calls, and total and cutout quads when the preview runs.
+Use these counts to verify scene coverage. Frame times include both windows in preview mode.
 
 ## Performance benchmarks
 

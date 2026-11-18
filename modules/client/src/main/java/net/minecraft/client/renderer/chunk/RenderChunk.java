@@ -27,6 +27,7 @@ import net.optifine.override.ChunkCacheOF;
 import net.optifine.render.AabbFrame;
 import net.optifine.render.RenderEnv;
 import net.optifine.shaders.SVertexBuilder;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.FloatBuffer;
@@ -364,6 +365,9 @@ public class RenderChunk {
 
     public void stopCompileTask() {
         this.finishCompileTask();
+        if (VulkanTerrainPreview.ENABLED) {
+            VulkanTerrainPreview.remove(this);
+        }
         this.compiledChunk = CompiledChunk.DUMMY;
     }
 

@@ -222,6 +222,16 @@ public final class ClientBenchmark {
         }
     }
 
+    public static void recordVulkanTerrainFrame(int draws, int quads, int cutoutQuads) {
+        Capture capture = active;
+        if (capture != null) {
+            capture.vulkanTerrainFrames++;
+            capture.vulkanTerrainDraws += draws;
+            capture.vulkanTerrainQuads += quads;
+            capture.vulkanTerrainCutoutQuads += cutoutQuads;
+        }
+    }
+
     private static ThreadMXBean allocationTracker() {
         if (ManagementFactory.getThreadMXBean() instanceof ThreadMXBean bean
                 && bean.isThreadAllocatedMemorySupported()) {
@@ -263,6 +273,10 @@ public final class ClientBenchmark {
         private int frameCount;
         private int tickCount;
         private long drawCalls;
+        private long vulkanTerrainFrames;
+        private long vulkanTerrainDraws;
+        private long vulkanTerrainQuads;
+        private long vulkanTerrainCutoutQuads;
         private long buildCount;
         private long buildNanos;
         private long uploadCount;
@@ -334,6 +348,12 @@ public final class ClientBenchmark {
             report.add("integratedServerTickTime", summarizeTimes(ticks, tickCount));
             report.addProperty("glDrawSubmissions", drawCalls);
             report.addProperty("glDrawSubmissionsPerFrame", (double) drawCalls / frameCount);
+            if (vulkanTerrainFrames > 0) {
+                report.addProperty("vulkanTerrainFrames", vulkanTerrainFrames);
+                report.addProperty("vulkanTerrainDrawCalls", vulkanTerrainDraws);
+                report.addProperty("vulkanTerrainQuads", vulkanTerrainQuads);
+                report.addProperty("vulkanTerrainCutoutQuads", vulkanTerrainCutoutQuads);
+            }
             report.addProperty("chunkBuildCount", buildCount);
             report.addProperty("chunkBuildTotalMs", buildNanos / 1_000_000.0);
             report.addProperty("chunkLayerUploadCount", uploadCount);

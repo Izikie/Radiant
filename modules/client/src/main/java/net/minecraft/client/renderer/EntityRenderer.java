@@ -68,6 +68,7 @@ import net.optifine.util.MemoryMonitor;
 import net.optifine.util.TextureUtils;
 import net.optifine.util.TimedEvent;
 import net.radiant.benchmark.ClientBenchmark;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.radiant.lwjgl.input.Keyboard;
 import net.radiant.lwjgl.input.Mouse;
 import net.radiant.lwjgl.opengl.Display;
@@ -1241,6 +1242,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         if (pass == 0 || pass == 2) {
             this.mc.renderGlobal.updateChunks(finishTimeNano);
+        }
+
+        if (VulkanTerrainPreview.ENABLED && pass == 2) {
+            renderglobal.extractVulkanTerrain(entity, partialTicks, this.lightmapColors);
         }
 
         if (this.mc.gameSettings.ofSmoothFps && pass > 0) {

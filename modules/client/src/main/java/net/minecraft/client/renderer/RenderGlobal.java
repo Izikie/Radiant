@@ -52,6 +52,7 @@ import net.minecraft.util.input.MovingObjectPosition;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.minecraft.world.IWorldAccess;
 import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.border.WorldBorder;
@@ -413,6 +414,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
 
             this.viewFrustum = null;
+            if (VulkanTerrainPreview.ENABLED) {
+                VulkanTerrainPreview.leaveWorld();
+            }
         }
     }
 
@@ -451,6 +455,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
 
             this.stopChunkUpdates();
+            if (VulkanTerrainPreview.ENABLED) {
+                VulkanTerrainPreview.invalidateTerrain();
+            }
 
             synchronized (this.setTileEntities) {
                 this.setTileEntities.clear();
@@ -738,9 +745,25 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         return "E: " + this.countEntitiesRendered + "/" + this.countEntitiesTotal + ", B: " + this.countEntitiesHidden + ", I: " + (this.countEntitiesTotal - this.countEntitiesHidden - this.countEntitiesRendered) + Config.getVersionDebug();
     }
 
+    public void extractVulkanTerrain(Entity view, float partialTicks, int[] lightmap) {
+        double x = view.lastTickPosX + (view.posX - view.lastTickPosX) * partialTicks;
+        double y = view.lastTickPosY + (view.posY - view.lastTickPosY) * partialTicks;
+        double z = view.lastTickPosZ + (view.posZ - view.lastTickPosZ) * partialTicks;
+        VulkanTerrainPreview.Extraction frame = VulkanTerrainPreview.extract(this.mc, x, y, z, lightmap);
+        if (frame != null) {
+            for (ContainerLocalRenderInformation visible : this.renderInfos) {
+                frame.add(visible.renderChunk);
+            }
+            frame.finish();
+        }
+    }
+
     public void setupTerrain(Entity viewEntity, double partialTicks, ICamera camera, int frameCount, boolean playerSpectator) {
         if (this.mc.gameSettings.renderDistanceChunks != this.renderDistanceChunks) {
             this.loadRenderers();
+        }
+        if (VulkanTerrainPreview.ENABLED) {
+            VulkanTerrainPreview.openIfNeeded(this.mc);
         }
 
         double d0 = viewEntity.posX - this.frustumUpdatePosX;

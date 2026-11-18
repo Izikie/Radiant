@@ -75,6 +75,15 @@ tasks.withType<JavaExec>().configureEach {
             args("--gameDir", minecraftDir)
         }
     }
+    if ((name == "RunClient" || name == "RunClientBenchmark") &&
+        providers.gradleProperty("vulkanTerrain").orNull == "true"
+    ) {
+        systemProperty("radiant.vulkan.terrain", "true")
+        jvmArgs("--enable-native-access=ALL-UNNAMED")
+        providers.gradleProperty("vulkanValidation").orNull?.let {
+            systemProperty("radiant.vulkan.validation", it)
+        }
+    }
 }
 
 tasks.register<JavaExec>("RunClient") {
