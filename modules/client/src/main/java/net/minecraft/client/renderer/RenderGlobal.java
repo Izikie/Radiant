@@ -765,6 +765,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         double yPos = viewEntity.lastTickPosY + (viewEntity.posY - viewEntity.lastTickPosY) * partialTicks;
         double zPos = viewEntity.lastTickPosZ + (viewEntity.posZ - viewEntity.lastTickPosZ) * partialTicks;
         this.renderContainer.initialize(xPos, yPos, zPos);
+        this.renderDispatcher.setCameraPosition(new Vec3(xPos, yPos + viewEntity.getEyeHeight(), zPos));
 
         BlockPos blockpos = new BlockPos(xPos, yPos + viewEntity.getEyeHeight(), zPos);
         RenderChunk renderchunk = this.viewFrustum.getRenderChunk(blockpos);
