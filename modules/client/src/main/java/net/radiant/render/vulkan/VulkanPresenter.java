@@ -28,6 +28,7 @@ import static org.lwjgl.vulkan.VK13.vkCmdEndRendering;
 public final class VulkanPresenter implements AutoCloseable {
     private final Thread owner = Thread.currentThread();
     private final long window;
+    private final VulkanScene scene;
     private final AtomicInteger validationErrors = new AtomicInteger();
     private VkInstance instance;
     private VkDebugUtilsMessengerCallbackEXT debugCallback;
@@ -50,11 +51,15 @@ public final class VulkanPresenter implements AutoCloseable {
     private int imageWidth;
     private int imageHeight;
     private int pipelineFormat;
-    private VulkanTexture texture;
-    private VulkanQuadPipeline quad;
+    private VulkanDepthTarget depth;
 
     public VulkanPresenter(long window) {
+        this(window, new VulkanQuadScene());
+    }
+
+    VulkanPresenter(long window, VulkanScene scene) {
         this.window = window;
+        this.scene = scene;
     }
 
     public void initialize(boolean validation) {
@@ -108,8 +113,7 @@ public final class VulkanPresenter implements AutoCloseable {
             selectDevice(stack);
             createDevice(stack);
             createFrameResources(stack);
-            texture = new VulkanTexture(device);
-            texture.initialize(physicalDevice, queue, commands);
+            scene.initialize(physicalDevice, device, queue, commands);
         }
     }
 
@@ -198,7 +202,8 @@ public final class VulkanPresenter implements AutoCloseable {
 
     private void createFrameResources(MemoryStack stack) {
         LongBuffer handle = stack.mallocLong(1);
-        VkCommandPoolCreateInfo poolInfo = VkCommandPoolCreateInfo.calloc(stack).sType$Default().queueFamilyIndex(queueFamily);
+        VkCommandPoolCreateInfo poolInfo = VkCommandPoolCreateInfo.calloc(stack).sType$Default()
+                .queueFamilyIndex(queueFamily).flags(VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT);
         check(vkCreateCommandPool(device, poolInfo, null, handle), "create command pool");
         commandPool = handle.get(0);
         VkCommandBufferAllocateInfo commandInfo = VkCommandBufferAllocateInfo.calloc(stack).sType$Default()
@@ -268,7 +273,7 @@ public final class VulkanPresenter implements AutoCloseable {
         renderFinished = new long[images.length];
         for (int i = 0; i < images.length; i++) {
             images[i] = swapchainImages.get(i);
-            imageViews[i] = VulkanTexture.createImageView(stack, device, images[i], info.imageFormat());
+            imageViews[i] = VulkanMemory.createImageView(stack, device, images[i], info.imageFormat(), VK_IMAGE_ASPECT_COLOR_BIT);
             // The presentation engine finishes waiting before it gives us this image again.
             renderFinished[i] = createSemaphore(stack, handle);
         }
@@ -276,12 +281,12 @@ public final class VulkanPresenter implements AutoCloseable {
         framebufferHeight = height;
         imageWidth = info.imageExtent().width();
         imageHeight = info.imageExtent().height();
-        if (quad == null || pipelineFormat != info.imageFormat()) {
-            if (quad != null) {
-                quad.close();
-            }
-            quad = new VulkanQuadPipeline(device);
-            quad.initialize(info.imageFormat(), texture);
+        if (scene.depthFormat() != VK_FORMAT_UNDEFINED) {
+            depth = new VulkanDepthTarget(device);
+            depth.initialize(stack, physicalDevice, scene.depthFormat(), imageWidth, imageHeight);
+        }
+        if (pipelineFormat != info.imageFormat()) {
+            scene.configureTarget(info.imageFormat());
             pipelineFormat = info.imageFormat();
         }
     }
@@ -289,6 +294,8 @@ public final class VulkanPresenter implements AutoCloseable {
     public boolean present(float red, float green, float blue) {
         requireOwner();
         try (MemoryStack stack = MemoryStack.stackPush()) {
+            check(vkWaitForFences(device, frameFence, true, -1L), "wait for frame fence");
+            scene.releaseCompletedResources();
             IntBuffer width = stack.mallocInt(1);
             IntBuffer height = stack.mallocInt(1);
             glfwGetFramebufferSize(window, width, height);
@@ -300,7 +307,7 @@ public final class VulkanPresenter implements AutoCloseable {
                 createSwapchain(stack, width.get(0), height.get(0));
             }
 
-            check(vkWaitForFences(device, frameFence, true, -1L), "wait for frame fence");
+            scene.prepareFrame();
             IntBuffer imageIndex = stack.mallocInt(1);
             int acquire = vkAcquireNextImageKHR(device, swapchain, -1L, imageAvailable, 0, imageIndex);
             if (acquire == VK_ERROR_OUT_OF_DATE_KHR) {
@@ -354,8 +361,11 @@ public final class VulkanPresenter implements AutoCloseable {
         color.clearValue().color().float32(0, red).float32(1, green).float32(2, blue).float32(3, 1);
         VkRenderingInfo pass = VkRenderingInfo.calloc(stack).sType$Default().layerCount(1).pColorAttachments(colorTargets);
         pass.renderArea().extent().set(imageWidth, imageHeight);
+        if (depth != null) {
+            pass.pDepthAttachment(depth.attachment(stack, commands));
+        }
         vkCmdBeginRendering(commands, pass);
-        quad.draw(stack, commands, imageWidth, imageHeight);
+        scene.draw(stack, commands, imageWidth, imageHeight);
         vkCmdEndRendering(commands);
         transition.oldLayout(VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL).newLayout(VK_IMAGE_LAYOUT_PRESENT_SRC_KHR)
                 .srcAccessMask(VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT).dstAccessMask(0);
@@ -385,6 +395,10 @@ public final class VulkanPresenter implements AutoCloseable {
                 }
                 imageViews = null;
             }
+            if (depth != null) {
+                depth.close();
+                depth = null;
+            }
             vkDestroySwapchainKHR(device, swapchain, null);
             swapchain = 0;
         }
@@ -396,8 +410,7 @@ public final class VulkanPresenter implements AutoCloseable {
         destroySwapchain();
         if (device != null) {
             vkDeviceWaitIdle(device);
-            if (quad != null) quad.close();
-            if (texture != null) texture.close();
+            scene.close();
             if (imageAvailable != 0) vkDestroySemaphore(device, imageAvailable, null);
             if (frameFence != 0) vkDestroyFence(device, frameFence, null);
             if (commandPool != 0) vkDestroyCommandPool(device, commandPool, null);
