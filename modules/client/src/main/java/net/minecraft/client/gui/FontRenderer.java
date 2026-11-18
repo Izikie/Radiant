@@ -18,6 +18,7 @@ import net.optifine.CustomColors;
 import net.optifine.render.GlBlendState;
 import net.optifine.util.FontUtils;
 import net.radiant.benchmark.ClientBenchmark;
+import net.radiant.render.vulkan.VulkanObjectCapture;
 import net.radiant.util.NativeImage;
 import org.lwjgl.opengl.GL11;
 
@@ -211,6 +212,8 @@ public class FontRenderer implements IResourceManagerReloadListener {
         GL11.glVertex3f(this.posX + f1 - 1.0F - italicStyle, this.posY + 7.99F, 0.0F);
 
         GL11.glEnd();
+        VulkanObjectCapture.drawGlyph(this.posX, this.posY, f1 - 1.0F, italicStyle,
+                i / 128.0F, j / 128.0F, (i + f1 - 1.0F) / 128.0F, (j + 7.99F) / 128.0F);
         return charWidth;
     }
 
@@ -257,6 +260,8 @@ public class FontRenderer implements IResourceManagerReloadListener {
             GL11.glVertex3f(this.posX + combinedGlyphSize / 2.0F - italicStyle, this.posY + 7.99F, 0.0F);
 
             GL11.glEnd();
+            VulkanObjectCapture.drawGlyph(this.posX, this.posY, combinedGlyphSize / 2.0F, italicStyle,
+                    f2 / 256.0F, f3 / 256.0F, (f2 + combinedGlyphSize) / 256.0F, (f3 + 15.98F) / 256.0F);
             return (modifiedY - glyphX) / 2.0F + 1.0F;
         }
     }

@@ -68,6 +68,7 @@ import net.optifine.util.MemoryMonitor;
 import net.optifine.util.TextureUtils;
 import net.optifine.util.TimedEvent;
 import net.radiant.benchmark.ClientBenchmark;
+import net.radiant.render.vulkan.VulkanObjectCapture;
 import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.radiant.lwjgl.input.Keyboard;
 import net.radiant.lwjgl.input.Mouse;
@@ -1292,7 +1293,15 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GlStateManager.pushMatrix();
             RenderHelper.enableStandardItemLighting();
 
-            renderglobal.renderEntities(entity, icamera, partialTicks);
+            boolean captureObjects = VulkanTerrainPreview.ENABLED && pass == 2 && VulkanTerrainPreview.beginObjects(
+                    this.lightmapColors, this.mc.getTextureMapBlocks().getGlTextureId());
+            try {
+                renderglobal.renderEntities(entity, icamera, partialTicks);
+            } finally {
+                if (captureObjects) {
+                    VulkanObjectCapture.end();
+                }
+            }
 
             RenderHelper.disableStandardItemLighting();
             this.disableLightmap();

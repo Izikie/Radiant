@@ -233,6 +233,15 @@ public final class ClientBenchmark {
         }
     }
 
+    public static void recordVulkanObjectFrame(int entityTriangles, int blockEntityTriangles, int blockEntityGlyphs) {
+        Capture capture = active;
+        if (capture != null) {
+            capture.vulkanEntityTriangles += entityTriangles;
+            capture.vulkanBlockEntityTriangles += blockEntityTriangles;
+            capture.vulkanBlockEntityGlyphs += blockEntityGlyphs;
+        }
+    }
+
     public static void recordVulkanAtlasUpload(int sprites, int water, int lava, int bytes) {
         Capture capture = active;
         if (capture != null) {
@@ -301,6 +310,9 @@ public final class ClientBenchmark {
         private long vulkanTerrainQuads;
         private long vulkanTerrainCutoutQuads;
         private long vulkanTerrainTranslucentQuads;
+        private long vulkanEntityTriangles;
+        private long vulkanBlockEntityTriangles;
+        private long vulkanBlockEntityGlyphs;
         private long vulkanAtlasSpriteUpdates;
         private long vulkanWaterSpriteUpdates;
         private long vulkanLavaSpriteUpdates;
@@ -386,6 +398,9 @@ public final class ClientBenchmark {
                 report.addProperty("vulkanTerrainQuads", vulkanTerrainQuads);
                 report.addProperty("vulkanTerrainCutoutQuads", vulkanTerrainCutoutQuads);
                 report.addProperty("vulkanTerrainTranslucentQuads", vulkanTerrainTranslucentQuads);
+                report.addProperty("vulkanEntityTriangles", vulkanEntityTriangles);
+                report.addProperty("vulkanBlockEntityTriangles", vulkanBlockEntityTriangles);
+                report.addProperty("vulkanBlockEntityGlyphs", vulkanBlockEntityGlyphs);
                 report.addProperty("vulkanAtlasSpriteUpdates", vulkanAtlasSpriteUpdates);
                 report.addProperty("vulkanWaterSpriteUpdates", vulkanWaterSpriteUpdates);
                 report.addProperty("vulkanLavaSpriteUpdates", vulkanLavaSpriteUpdates);

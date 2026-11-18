@@ -7,6 +7,7 @@ import net.optifine.render.GlBlendState;
 import net.optifine.shaders.Shaders;
 import net.optifine.util.LockCounter;
 import net.radiant.benchmark.ClientBenchmark;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
 
@@ -322,12 +323,19 @@ public class GlStateManager {
         textureState[activeTextureUnit].texture2DState.setDisabled();
     }
 
+    public static boolean isLightmapTextureEnabled() {
+        return textureState[OpenGlHelper.lightmapTexUnit - OpenGlHelper.defaultTexUnit].texture2DState.currentState;
+    }
+
     public static int generateTexture() {
         return GL11.glGenTextures();
     }
 
     public static void deleteTexture(int texture) {
         if (texture != 0) {
+            if (VulkanTerrainPreview.ENABLED) {
+                VulkanTerrainPreview.invalidateObjectTexture(texture);
+            }
             GL11.glDeleteTextures(texture);
 
             for (TextureState glstatemanager$texturestate : textureState) {

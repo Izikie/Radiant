@@ -71,7 +71,10 @@ final class VulkanGraphics {
         OPAQUE(true, true, false, false),
         TRANSLUCENT(true, false, true, true),
         SKY(false, false, false, false),
-        CLOUDS(true, true, true, false);
+        BLENDED_DEPTH_WRITE(true, true, true, false),
+        OBJECT_BLEND(true, false, true, false),
+        OBJECT_READ_DEPTH(true, false, false, false),
+        OBJECT_OVERLAY(false, false, true, false);
 
         private final boolean depthTest;
         private final boolean depthWrite;

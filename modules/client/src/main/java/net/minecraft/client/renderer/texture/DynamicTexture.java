@@ -1,6 +1,7 @@
 package net.minecraft.client.renderer.texture;
 
 import net.minecraft.client.resources.IResourceManager;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.radiant.util.NativeImage;
 
 import java.io.IOException;
@@ -28,7 +29,11 @@ public class DynamicTexture extends AbstractTexture {
     }
 
     public void updateDynamicTexture() {
-        TextureUtil.uploadTexture(this.getGlTextureId(), this.dynamicTextureData, this.width, this.height);
+        int texture = this.getGlTextureId();
+        TextureUtil.uploadTexture(texture, this.dynamicTextureData, this.width, this.height);
+        if (VulkanTerrainPreview.ENABLED) {
+            VulkanTerrainPreview.invalidateObjectTexture(texture);
+        }
     }
 
     public int[] getTextureData() {

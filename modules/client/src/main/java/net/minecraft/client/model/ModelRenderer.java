@@ -6,6 +6,7 @@ import net.optifine.Config;
 import net.optifine.entity.model.anim.ModelUpdater;
 import net.optifine.model.ModelSprite;
 import net.optifine.shaders.Shaders;
+import net.radiant.render.vulkan.VulkanObjectCapture;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -147,7 +148,7 @@ public class ModelRenderer {
                         GlStateManager.scale(this.scaleX, this.scaleY, this.scaleZ);
                     }
 
-                    GlStateManager.callList(this.displayList);
+                    this.drawDisplayList();
 
                     if (this.childModels != null) {
                         for (ModelRenderer childModel : this.childModels) {
@@ -165,7 +166,7 @@ public class ModelRenderer {
                         GlStateManager.scale(this.scaleX, this.scaleY, this.scaleZ);
                     }
 
-                    GlStateManager.callList(this.displayList);
+                    this.drawDisplayList();
 
                     if (this.childModels != null) {
                         for (ModelRenderer childModel : this.childModels) {
@@ -199,7 +200,7 @@ public class ModelRenderer {
                     GlStateManager.scale(this.scaleX, this.scaleY, this.scaleZ);
                 }
 
-                GlStateManager.callList(this.displayList);
+                this.drawDisplayList();
 
                 if (this.childModels != null) {
                     for (ModelRenderer childModel : this.childModels) {
@@ -261,7 +262,7 @@ public class ModelRenderer {
                 GlStateManager.scale(this.scaleX, this.scaleY, this.scaleZ);
             }
 
-            GlStateManager.callList(this.displayList);
+            this.drawDisplayList();
 
             if (this.childModels != null) {
                 for (ModelRenderer childModel : this.childModels) {
@@ -307,23 +308,30 @@ public class ModelRenderer {
         }
     }
 
+    private void drawDisplayList() {
+        VulkanObjectCapture.drawModel(this);
+        GlStateManager.callList(this.displayList);
+    }
+
     private void compileDisplayList(float scale) {
         if (this.displayList == 0) {
             this.displayList = GLAllocation.generateDisplayLists(1);
         }
 
         GL11.glNewList(this.displayList, GL11.GL_COMPILE);
-        WorldRenderer worldrenderer = Tessellator.get().getWorldRenderer();
-
-        for (ModelBox modelBox : this.cubeList) {
-            modelBox.render(worldrenderer, scale);
+        VulkanObjectCapture.beginModel(this);
+        try {
+            WorldRenderer worldrenderer = Tessellator.get().getWorldRenderer();
+            for (ModelBox modelBox : this.cubeList) {
+                modelBox.render(worldrenderer, scale);
+            }
+            for (ModelSprite sprite : this.spriteList) {
+                sprite.render(Tessellator.get(), scale);
+            }
+        } finally {
+            VulkanObjectCapture.endModel();
+            GL11.glEndList();
         }
-
-        for (ModelSprite o : this.spriteList) {
-            o.render(Tessellator.get(), scale);
-        }
-
-        GL11.glEndList();
         this.compiled = true;
     }
 
