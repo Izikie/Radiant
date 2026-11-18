@@ -40,6 +40,12 @@ stability, and the overall Minecraft experience.
 To run the client in development, use the `RunClient` Gradle task located in the `Dev` module under the `RadiantMCP`
 task group in your IDE or via CLI.
 
+## Vulkan development
+
+Run `:dev:RunVulkanSmoke` to test Vulkan presentation, minimize and restore, resize, and shutdown on Windows.
+It opens a separate test window and enables Khronos API and synchronization validation. Use
+`-PvulkanValidation=false` to run without the LunarG SDK. `RunClient` still uses the existing renderer.
+
 ## Performance benchmarks
 
 Run `:dev:RunClientBenchmark` to start an instrumented client. On Windows:

@@ -26,6 +26,7 @@ dependencies {
     lwjglModules.forEach { module ->
         impl("org.lwjgl:$module:$lwjglVer")
     }
+    impl("org.lwjgl:lwjgl-vulkan:$lwjglVer")
     impl(libs.joml)
 
     // --- Collections & Utilities ---
