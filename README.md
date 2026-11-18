@@ -42,7 +42,8 @@ task group in your IDE or via CLI.
 
 ## Vulkan development
 
-Run `:dev:RunVulkanSmoke` to test Vulkan presentation, minimize and restore, resize, and shutdown on Windows.
+Run `:dev:RunVulkanSmoke` to draw a textured quad and test Vulkan presentation, minimize and restore, resize,
+and shutdown on Windows. The test requires Vulkan 1.3 and dynamic rendering.
 It opens a separate test window and enables Khronos API and synchronization validation. Use
 `-PvulkanValidation=false` to run without the LunarG SDK. `RunClient` still uses the existing renderer.
 

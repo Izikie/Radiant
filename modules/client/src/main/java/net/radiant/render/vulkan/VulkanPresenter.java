@@ -15,10 +15,14 @@ import static org.lwjgl.glfw.GLFW.glfwGetFramebufferSize;
 import static org.lwjgl.glfw.GLFW.glfwGetWindowAttrib;
 import static org.lwjgl.glfw.GLFWVulkan.*;
 import static org.lwjgl.vulkan.EXTDebugUtils.*;
+import static org.lwjgl.vulkan.EXTValidationFeatures.*;
 import static org.lwjgl.vulkan.KHRSurface.*;
 import static org.lwjgl.vulkan.KHRSwapchain.*;
-import static org.lwjgl.vulkan.EXTValidationFeatures.*;
 import static org.lwjgl.vulkan.VK10.*;
+import static org.lwjgl.vulkan.VK11.vkGetPhysicalDeviceFeatures2;
+import static org.lwjgl.vulkan.VK13.VK_API_VERSION_1_3;
+import static org.lwjgl.vulkan.VK13.vkCmdBeginRendering;
+import static org.lwjgl.vulkan.VK13.vkCmdEndRendering;
 
 /** Owns the surface, graphics queue and swapchain on the presentation thread. */
 public final class VulkanPresenter implements AutoCloseable {
@@ -39,9 +43,15 @@ public final class VulkanPresenter implements AutoCloseable {
     private long frameFence;
     private long swapchain;
     private long[] images;
+    private long[] imageViews;
     private long[] renderFinished;
     private int framebufferWidth;
     private int framebufferHeight;
+    private int imageWidth;
+    private int imageHeight;
+    private int pipelineFormat;
+    private VulkanTexture texture;
+    private VulkanQuadPipeline quad;
 
     public VulkanPresenter(long window) {
         this.window = window;
@@ -62,7 +72,7 @@ public final class VulkanPresenter implements AutoCloseable {
             }
             extensions.flip();
             VkApplicationInfo app = VkApplicationInfo.calloc(stack).sType$Default()
-                    .pApplicationName(stack.UTF8("Radiant")).apiVersion(VK11.VK_API_VERSION_1_1);
+                    .pApplicationName(stack.UTF8("Radiant")).apiVersion(VK_API_VERSION_1_3);
             VkInstanceCreateInfo info = VkInstanceCreateInfo.calloc(stack).sType$Default()
                     .pApplicationInfo(app).ppEnabledExtensionNames(extensions);
             VkDebugUtilsMessengerCreateInfoEXT debug = null;
@@ -98,6 +108,8 @@ public final class VulkanPresenter implements AutoCloseable {
             selectDevice(stack);
             createDevice(stack);
             createFrameResources(stack);
+            texture = new VulkanTexture(device);
+            texture.initialize(physicalDevice, queue, commands);
         }
     }
 
@@ -113,12 +125,22 @@ public final class VulkanPresenter implements AutoCloseable {
         for (int i = 0; i < count.get(0); i++) {
             try (MemoryStack local = MemoryStack.stackPush()) {
                 VkPhysicalDevice candidate = new VkPhysicalDevice(devices.get(i), instance);
+                VkPhysicalDeviceProperties properties = VkPhysicalDeviceProperties.malloc(local);
+                vkGetPhysicalDeviceProperties(candidate, properties);
+                if (properties.apiVersion() < VK_API_VERSION_1_3) {
+                    continue;
+                }
+                VkPhysicalDeviceVulkan13Features renderFeatures = VkPhysicalDeviceVulkan13Features.calloc(local).sType$Default();
+                VkPhysicalDeviceFeatures2 features = VkPhysicalDeviceFeatures2.calloc(local).sType$Default()
+                        .pNext(renderFeatures.address());
+                vkGetPhysicalDeviceFeatures2(candidate, features);
+                if (!renderFeatures.dynamicRendering()) {
+                    continue;
+                }
                 int family = findPresentQueue(candidate, local);
                 if (family == -1) {
                     continue;
                 }
-                VkPhysicalDeviceProperties properties = VkPhysicalDeviceProperties.malloc(local);
-                vkGetPhysicalDeviceProperties(candidate, properties);
                 int score = properties.deviceType() == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU ? 2 : 1;
                 if (score > bestScore) {
                     bestScore = score;
@@ -128,7 +150,7 @@ public final class VulkanPresenter implements AutoCloseable {
             }
         }
         if (physicalDevice == null) {
-            throw new IllegalStateException("No Vulkan device with swapchain support and a graphics/present queue");
+            throw new IllegalStateException("No Vulkan 1.3 device with dynamic rendering and a graphics/present queue");
         }
         VkPhysicalDeviceProperties properties = VkPhysicalDeviceProperties.malloc(stack);
         vkGetPhysicalDeviceProperties(physicalDevice, properties);
@@ -164,6 +186,9 @@ public final class VulkanPresenter implements AutoCloseable {
         VkDeviceCreateInfo info = VkDeviceCreateInfo.calloc(stack).sType$Default()
                 .pQueueCreateInfos(queues)
                 .ppEnabledExtensionNames(stack.pointers(stack.UTF8(VK_KHR_SWAPCHAIN_EXTENSION_NAME)));
+        VkPhysicalDeviceVulkan13Features renderFeatures = VkPhysicalDeviceVulkan13Features.calloc(stack).sType$Default()
+                .dynamicRendering(true);
+        info.pNext(renderFeatures.address());
         PointerBuffer pointer = stack.mallocPointer(1);
         check(vkCreateDevice(physicalDevice, info, null, pointer), "create Vulkan device");
         device = new VkDevice(pointer.get(0), physicalDevice, info);
@@ -196,8 +221,8 @@ public final class VulkanPresenter implements AutoCloseable {
     private void createSwapchain(MemoryStack stack, int width, int height) {
         VkSurfaceCapabilitiesKHR caps = VkSurfaceCapabilitiesKHR.malloc(stack);
         check(vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, surface, caps), "query surface capabilities");
-        if ((caps.supportedUsageFlags() & VK_IMAGE_USAGE_TRANSFER_DST_BIT) == 0) {
-            throw new IllegalStateException("Vulkan surface does not support transfer writes");
+        if ((caps.supportedUsageFlags() & VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT) == 0) {
+            throw new IllegalStateException("Vulkan surface does not support rendering as a color attachment");
         }
         IntBuffer count = stack.mallocInt(1);
         check(vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, count, null), "count surface formats");
@@ -222,7 +247,7 @@ public final class VulkanPresenter implements AutoCloseable {
                 .surface(surface).minImageCount(imageCount)
                 .imageFormat(format.format() == VK_FORMAT_UNDEFINED ? VK_FORMAT_B8G8R8A8_SRGB : format.format())
                 .imageColorSpace(format.colorSpace()).imageArrayLayers(1)
-                .imageUsage(VK_IMAGE_USAGE_TRANSFER_DST_BIT).imageSharingMode(VK_SHARING_MODE_EXCLUSIVE)
+                .imageUsage(VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT).imageSharingMode(VK_SHARING_MODE_EXCLUSIVE)
                 .preTransform(caps.currentTransform()).compositeAlpha(Integer.lowestOneBit(caps.supportedCompositeAlpha()))
                 .presentMode(VK_PRESENT_MODE_FIFO_KHR).clipped(true);
         if (caps.currentExtent().width() == -1) {
@@ -239,14 +264,26 @@ public final class VulkanPresenter implements AutoCloseable {
         LongBuffer swapchainImages = stack.mallocLong(count.get(0));
         check(vkGetSwapchainImagesKHR(device, swapchain, count, swapchainImages), "query swapchain images");
         images = new long[count.get(0)];
+        imageViews = new long[images.length];
         renderFinished = new long[images.length];
         for (int i = 0; i < images.length; i++) {
             images[i] = swapchainImages.get(i);
+            imageViews[i] = VulkanTexture.createImageView(stack, device, images[i], info.imageFormat());
             // The presentation engine finishes waiting before it gives us this image again.
             renderFinished[i] = createSemaphore(stack, handle);
         }
         framebufferWidth = width;
         framebufferHeight = height;
+        imageWidth = info.imageExtent().width();
+        imageHeight = info.imageExtent().height();
+        if (quad == null || pipelineFormat != info.imageFormat()) {
+            if (quad != null) {
+                quad.close();
+            }
+            quad = new VulkanQuadPipeline(device);
+            quad.initialize(info.imageFormat(), texture);
+            pipelineFormat = info.imageFormat();
+        }
     }
 
     public boolean present(float red, float green, float blue) {
@@ -275,10 +312,10 @@ public final class VulkanPresenter implements AutoCloseable {
             }
             int index = imageIndex.get(0);
             check(vkResetCommandPool(device, commandPool, 0), "reset command pool");
-            recordClear(stack, images[index], red, green, blue);
+            recordFrame(stack, index, red, green, blue);
             VkSubmitInfo submit = VkSubmitInfo.calloc(stack).sType$Default()
                     .waitSemaphoreCount(1).pWaitSemaphores(stack.longs(imageAvailable))
-                    .pWaitDstStageMask(stack.ints(VK_PIPELINE_STAGE_TRANSFER_BIT))
+                    .pWaitDstStageMask(stack.ints(VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT))
                     .pCommandBuffers(stack.pointers(commands)).pSignalSemaphores(stack.longs(renderFinished[index]));
             check(vkResetFences(device, frameFence), "reset frame fence");
             check(vkQueueSubmit(queue, submit, frameFence), "submit frame");
@@ -298,24 +335,32 @@ public final class VulkanPresenter implements AutoCloseable {
         }
     }
 
-    private void recordClear(MemoryStack stack, long image, float red, float green, float blue) {
+    private void recordFrame(MemoryStack stack, int index, float red, float green, float blue) {
         VkCommandBufferBeginInfo begin = VkCommandBufferBeginInfo.calloc(stack).sType$Default()
                 .flags(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
         check(vkBeginCommandBuffer(commands, begin), "begin frame commands");
         VkImageMemoryBarrier.Buffer barrier = VkImageMemoryBarrier.calloc(1, stack);
-        VkImageMemoryBarrier transition = barrier.get(0).sType$Default().image(image)
+        VkImageMemoryBarrier transition = barrier.get(0).sType$Default().image(images[index])
                 .srcQueueFamilyIndex(VK_QUEUE_FAMILY_IGNORED).dstQueueFamilyIndex(VK_QUEUE_FAMILY_IGNORED)
-                .oldLayout(VK_IMAGE_LAYOUT_UNDEFINED).newLayout(VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL)
-                .dstAccessMask(VK_ACCESS_TRANSFER_WRITE_BIT);
+                .oldLayout(VK_IMAGE_LAYOUT_UNDEFINED).newLayout(VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
+                .dstAccessMask(VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT);
         transition.subresourceRange().aspectMask(VK_IMAGE_ASPECT_COLOR_BIT).levelCount(1).layerCount(1);
-        vkCmdPipelineBarrier(commands, VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT, 0, null, null, barrier);
-        VkClearColorValue color = VkClearColorValue.calloc(stack).float32(0, red).float32(1, green).float32(2, blue).float32(3, 1);
-        VkImageSubresourceRange.Buffer range = VkImageSubresourceRange.calloc(1, stack);
-        range.get(0).set(transition.subresourceRange());
-        vkCmdClearColorImage(commands, image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, color, range);
-        transition.oldLayout(VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL).newLayout(VK_IMAGE_LAYOUT_PRESENT_SRC_KHR)
-                .srcAccessMask(VK_ACCESS_TRANSFER_WRITE_BIT).dstAccessMask(0);
-        vkCmdPipelineBarrier(commands, VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT, 0, null, null, barrier);
+        vkCmdPipelineBarrier(commands, VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT, VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
+                0, null, null, barrier);
+        VkRenderingAttachmentInfo.Buffer colorTargets = VkRenderingAttachmentInfo.calloc(1, stack);
+        VkRenderingAttachmentInfo color = colorTargets.get(0).sType$Default().imageView(imageViews[index])
+                .imageLayout(VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL)
+                .loadOp(VK_ATTACHMENT_LOAD_OP_CLEAR).storeOp(VK_ATTACHMENT_STORE_OP_STORE);
+        color.clearValue().color().float32(0, red).float32(1, green).float32(2, blue).float32(3, 1);
+        VkRenderingInfo pass = VkRenderingInfo.calloc(stack).sType$Default().layerCount(1).pColorAttachments(colorTargets);
+        pass.renderArea().extent().set(imageWidth, imageHeight);
+        vkCmdBeginRendering(commands, pass);
+        quad.draw(stack, commands, imageWidth, imageHeight);
+        vkCmdEndRendering(commands);
+        transition.oldLayout(VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL).newLayout(VK_IMAGE_LAYOUT_PRESENT_SRC_KHR)
+                .srcAccessMask(VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT).dstAccessMask(0);
+        vkCmdPipelineBarrier(commands, VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT, VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT,
+                0, null, null, barrier);
         check(vkEndCommandBuffer(commands), "end frame commands");
     }
 
@@ -334,6 +379,12 @@ public final class VulkanPresenter implements AutoCloseable {
                 }
                 renderFinished = null;
             }
+            if (imageViews != null) {
+                for (long view : imageViews) {
+                    if (view != 0) vkDestroyImageView(device, view, null);
+                }
+                imageViews = null;
+            }
             vkDestroySwapchainKHR(device, swapchain, null);
             swapchain = 0;
         }
@@ -345,6 +396,8 @@ public final class VulkanPresenter implements AutoCloseable {
         destroySwapchain();
         if (device != null) {
             vkDeviceWaitIdle(device);
+            if (quad != null) quad.close();
+            if (texture != null) texture.close();
             if (imageAvailable != 0) vkDestroySemaphore(device, imageAvailable, null);
             if (frameFence != 0) vkDestroyFence(device, frameFence, null);
             if (commandPool != 0) vkDestroyCommandPool(device, commandPool, null);
@@ -369,7 +422,7 @@ public final class VulkanPresenter implements AutoCloseable {
         }
     }
 
-    private static void check(int result, String operation) {
+    static void check(int result, String operation) {
         if (result != VK_SUCCESS) {
             throw new IllegalStateException("Could not " + operation + " (VkResult " + result + ")");
         }
