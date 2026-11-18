@@ -3,21 +3,28 @@ package net.radiant.render.vulkan;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.chunk.CompiledChunk;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.RenderLayer;
+import net.minecraft.util.math.Vec3;
 import net.optifine.Config;
+import net.optifine.CustomColors;
 import net.radiant.benchmark.ClientBenchmark;
+import net.radiant.util.NativeImage;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.system.MemoryStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
@@ -174,13 +181,15 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         }
     }
 
-    public static Extraction extract(Minecraft mc, double x, double y, double z, float eyeHeight, int[] lightmap) {
+    public static Extraction extract(Minecraft mc, Entity view, double x, double y, double z, float partialTicks,
+                                     int cloudTick, int[] lightmap) {
         VulkanTerrainPreview preview = active;
         if (preview == null) {
             return null;
         }
         if (preview.atlasDirty) {
             preview.terrain.setAtlas(captureAtlas(mc.getTextureMapBlocks()));
+            preview.terrain.setEnvironmentImages(loadEnvironmentImages());
             preview.atlasDirty = false;
         }
         try (MemoryStack stack = MemoryStack.stackPush()) {
@@ -189,9 +198,49 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             Matrix4f projection = new Matrix4f().set(matrix);
             glGetFloatv(GL_MODELVIEW_MATRIX, matrix);
             projection.mul(new Matrix4f().set(matrix));
-            return new Extraction(preview, x, y, z, eyeHeight, projection, lightmap.clone(), captureFog(mc),
-                    Config.isRenderRegions(), mc.displayWidth, mc.displayHeight);
+            VulkanEnvironment.Frame environment = captureEnvironment(mc, view, x, y, z, partialTicks, cloudTick);
+            return new Extraction(preview, x, y, z, view.getEyeHeight(), projection, lightmap.clone(), captureFog(mc),
+                    environment, Config.isRenderRegions(), mc.displayWidth, mc.displayHeight);
         }
+    }
+
+    private static VulkanEnvironment.Images loadEnvironmentImages() {
+        try {
+            return new VulkanEnvironment.Images(NativeImage.loadFromResourceLocation(RenderGlobal.LOCATION_CLOUDS_PNG),
+                    NativeImage.loadFromResourceLocation(RenderGlobal.LOCATION_SUN_PNG),
+                    NativeImage.loadFromResourceLocation(RenderGlobal.LOCATION_MOON_PHASES_PNG));
+        } catch (IOException e) {
+            throw new UncheckedIOException("Could not load Vulkan sky and cloud textures", e);
+        }
+    }
+
+    private static VulkanEnvironment.Frame captureEnvironment(Minecraft mc, Entity view, double x, double y, double z,
+                                                               float partialTicks, int cloudTick) {
+        var world = mc.world;
+        if (!world.provider.isSurfaceWorld()) {
+            return null;
+        }
+        Vec3 sky = CustomColors.getSkyColor(world.getSkyColor(view, partialTicks), world, view.posX, view.posY + 1, view.posZ);
+        float angle = world.getCelestialAngle(partialTicks);
+        double radians = angle * Math.TAU;
+        float rainVisibility = 1 - world.getRainStrength(partialTicks);
+        float stars = Config.isStarsEnabled() ? world.getStarBrightness(partialTicks) * rainVisibility : 0;
+        float[] sunrise = Config.isSunMoonEnabled() ? world.provider.calcSunriseSunsetColors(angle, partialTicks) : null;
+        int mode = Config.isCloudsOff() || mc.gameSettings.renderDistanceChunks < 4 ? 0 : Config.isCloudsFancy() ? 2 : 1;
+        Vec3 cloudColor = mode == 0 ? new Vec3(0, 0, 0) : world.getCloudColour(partialTicks);
+        double period = mode == 2 ? 3072.0 : 2048.0;
+        float cloudX = wrapCloudOffset(x + (cloudTick + partialTicks) * 0.03, period);
+        float cloudZ = wrapCloudOffset(z + (mode == 2 ? 3.96 : 0.0), period);
+        float cloudHeight = (float) (world.provider.getCloudHeight() + mc.gameSettings.ofCloudsHeight * 128 + 0.33 - y);
+        return new VulkanEnvironment.Frame(Config.isSkyEnabled(), (float) sky.xCoord(), (float) sky.yCoord(), (float) sky.zCoord(),
+                stars, sunrise == null ? 0 : sunrise[0], sunrise == null ? 0 : sunrise[1],
+                sunrise == null ? 0 : sunrise[2], sunrise == null ? 0 : sunrise[3],
+                (float) Math.sin(radians), (float) Math.cos(radians), Config.isSunMoonEnabled() ? rainVisibility : 0, world.getMoonPhase(),
+                mode, (float) cloudColor.xCoord(), (float) cloudColor.yCoord(), (float) cloudColor.zCoord(), cloudX, cloudZ, cloudHeight);
+    }
+
+    private static float wrapCloudOffset(double position, double period) {
+        return (float) (position - Math.floor(position / period) * period);
     }
 
     private static VulkanTerrainScene.Fog captureFog(Minecraft mc) {
@@ -265,6 +314,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
                 preview.drawCalls += preview.terrain.drawCalls();
                 ClientBenchmark.recordVulkanTerrainFrame(preview.terrain.drawCalls(), preview.terrain.quads(),
                         preview.terrain.cutoutQuads(), preview.terrain.translucentQuads());
+                ClientBenchmark.recordVulkanEnvironmentFrame(preview.terrain.skyDrawn(), preview.terrain.cloudsDrawn());
             }
         } finally {
             preview.terrain.setFrame(null);
@@ -302,6 +352,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         private final Matrix4f matrix;
         private final int[] lightmap;
         private final VulkanTerrainScene.Fog fog;
+        private final VulkanEnvironment.Frame environment;
         private final boolean renderRegions;
         private final int width;
         private final int height;
@@ -309,7 +360,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         private final List<VulkanTerrainScene.Draw> translucent = new ArrayList<>();
 
         private Extraction(VulkanTerrainPreview preview, double x, double y, double z, float eyeHeight, Matrix4f matrix,
-                           int[] lightmap, VulkanTerrainScene.Fog fog, boolean renderRegions, int width, int height) {
+                           int[] lightmap, VulkanTerrainScene.Fog fog, VulkanEnvironment.Frame environment,
+                           boolean renderRegions, int width, int height) {
             this.preview = preview;
             this.x = x;
             this.y = y;
@@ -318,6 +370,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             this.matrix = matrix;
             this.lightmap = lightmap;
             this.fog = fog;
+            this.environment = environment;
             this.renderRegions = renderRegions;
             this.width = width;
             this.height = height;
@@ -353,7 +406,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
 
         public void finish() {
             translucent.sort(FAR_TO_NEAR);
-            preview.pendingFrame = new VulkanTerrainScene.Frame(matrix, lightmap, fog,
+            preview.pendingFrame = new VulkanTerrainScene.Frame(matrix, lightmap, fog, environment,
                     List.copyOf(opaque), List.copyOf(translucent), width, height);
         }
     }

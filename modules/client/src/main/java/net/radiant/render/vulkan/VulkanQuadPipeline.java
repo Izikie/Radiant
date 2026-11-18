@@ -47,7 +47,8 @@ final class VulkanQuadPipeline implements AutoCloseable {
             pipelineLayout = handle.get(0);
 
             pipeline = VulkanGraphics.pipeline(stack, device, pipelineLayout, format, VK_FORMAT_UNDEFINED,
-                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP, false, VkPipelineVertexInputStateCreateInfo.calloc(stack).sType$Default(),
+                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP, VulkanGraphics.Pass.OPAQUE,
+                    VkPipelineVertexInputStateCreateInfo.calloc(stack).sType$Default(),
                     VERTEX_SHADER, FRAGMENT_SHADER);
         }
     }

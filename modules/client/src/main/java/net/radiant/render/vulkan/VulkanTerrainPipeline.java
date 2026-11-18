@@ -118,11 +118,11 @@ final class VulkanTerrainPipeline implements AutoCloseable {
             attributes.get(3).location(3).format(VK_FORMAT_R16G16_SINT).offset(24);
             VkPipelineVertexInputStateCreateInfo vertexInput = VkPipelineVertexInputStateCreateInfo.calloc(stack).sType$Default()
                     .pVertexBindingDescriptions(bindings).pVertexAttributeDescriptions(attributes);
-            String fragment = "#version 450\n#define SRGB_TARGET " + (isSrgb(colorFormat) ? "1\n" : "0\n") + FRAGMENT_SHADER;
+            String fragment = "#version 450\n#define SRGB_TARGET " + (VulkanGraphics.isSrgb(colorFormat) ? "1\n" : "0\n") + FRAGMENT_SHADER;
             opaquePipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
-                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, false, vertexInput, VERTEX_SHADER, fragment);
+                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Pass.OPAQUE, vertexInput, VERTEX_SHADER, fragment);
             translucentPipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
-                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, true, vertexInput, VERTEX_SHADER, fragment);
+                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Pass.TRANSLUCENT, vertexInput, VERTEX_SHADER, fragment);
         }
     }
 
@@ -200,11 +200,6 @@ final class VulkanTerrainPipeline implements AutoCloseable {
             }
         }
         return calls;
-    }
-
-    private static boolean isSrgb(int format) {
-        return format == VK_FORMAT_B8G8R8A8_SRGB || format == VK_FORMAT_R8G8B8A8_SRGB
-                || format == VK_FORMAT_A8B8G8R8_SRGB_PACK32;
     }
 
     @Override
