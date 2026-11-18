@@ -207,11 +207,19 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     }
 
     public static boolean beginObjects(int[] lightmap, int atlas) {
+        return beginObjects(lightmap, atlas, VulkanObjectCapture.Phase.ENTITIES);
+    }
+
+    public static boolean beginParticles(int[] lightmap, int atlas) {
+        return beginObjects(lightmap, atlas, VulkanObjectCapture.Phase.LIT_PARTICLES);
+    }
+
+    private static boolean beginObjects(int[] lightmap, int atlas, VulkanObjectCapture.Phase phase) {
         VulkanTerrainPreview preview = active;
         if (preview == null || preview.pendingFrame == null) {
             return false;
         }
-        preview.objects.begin(lightmap, atlas);
+        preview.objects.begin(lightmap, atlas, phase);
         return true;
     }
 
@@ -335,6 +343,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
                 ClientBenchmark.recordVulkanEnvironmentFrame(preview.terrain.skyDrawn(), preview.terrain.cloudsDrawn());
                 ClientBenchmark.recordVulkanObjectFrame(preview.objects.entityTriangles(), preview.objects.blockEntityTriangles(),
                         preview.objects.blockEntityGlyphs());
+                ClientBenchmark.recordVulkanParticleFrame(preview.objects.particleTriangles(), preview.objects.terrainParticleTriangles(),
+                        preview.objects.translucentParticleTriangles(), preview.objects.litParticleTriangles());
             }
         } finally {
             preview.terrain.setFrame(null);

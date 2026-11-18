@@ -1350,15 +1350,24 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 Shaders.beginLitParticles();
             }
 
-            effectrenderer.renderLitParticles(entity, partialTicks);
-            RenderHelper.disableStandardItemLighting();
-            this.setupFog(0, partialTicks);
+            boolean captureParticles = VulkanTerrainPreview.ENABLED && pass == 2 && VulkanTerrainPreview.beginParticles(
+                    this.lightmapColors, this.mc.getTextureMapBlocks().getGlTextureId());
+            try {
+                effectrenderer.renderLitParticles(entity, partialTicks);
+                RenderHelper.disableStandardItemLighting();
+                this.setupFog(0, partialTicks);
 
-            if (flag) {
-                Shaders.beginParticles();
+                if (flag) {
+                    Shaders.beginParticles();
+                }
+
+                VulkanObjectCapture.beginParticleBillboards();
+                effectrenderer.renderParticles(entity, partialTicks);
+            } finally {
+                if (captureParticles) {
+                    VulkanObjectCapture.end();
+                }
             }
-
-            effectrenderer.renderParticles(entity, partialTicks);
 
             if (flag) {
                 Shaders.endParticles();

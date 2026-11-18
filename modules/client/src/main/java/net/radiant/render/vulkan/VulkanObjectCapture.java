@@ -53,7 +53,11 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private int entityTriangles;
     private int blockEntityTriangles;
     private int blockEntityGlyphs;
-    private boolean blockEntities;
+    private int particleTriangles;
+    private int terrainParticleTriangles;
+    private int translucentParticleTriangles;
+    private int litParticleTriangles;
+    private Phase phase;
 
     void reset() {
         releaseRetiredImages();
@@ -62,12 +66,16 @@ public final class VulkanObjectCapture implements AutoCloseable {
         entityTriangles = 0;
         blockEntityTriangles = 0;
         blockEntityGlyphs = 0;
-        blockEntities = false;
+        particleTriangles = 0;
+        terrainParticleTriangles = 0;
+        translucentParticleTriangles = 0;
+        litParticleTriangles = 0;
     }
 
-    void begin(int[] lightmap, int atlasId) {
+    void begin(int[] lightmap, int atlasId, Phase phase) {
         this.lightmap = lightmap;
         this.atlasId = atlasId;
+        this.phase = phase;
         try (MemoryStack stack = MemoryStack.stackPush()) {
             FloatBuffer matrix = stack.mallocFloat(16);
             glGetFloatv(GL_PROJECTION_MATRIX, matrix);
@@ -79,8 +87,14 @@ public final class VulkanObjectCapture implements AutoCloseable {
 
     public static void beginBlockEntities() {
         if (active != null) {
-            active.blockEntities = true;
+            active.phase = Phase.BLOCK_ENTITIES;
             active.readLights();
+        }
+    }
+
+    public static void beginParticleBillboards() {
+        if (active != null) {
+            active.phase = Phase.PARTICLE_BILLBOARDS;
         }
     }
 
@@ -165,7 +179,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         putGlyphVertex(data, x + width + skew, y, u1, v0);
         putGlyphVertex(data, x + width - skew, y + 7.99f, u1, v1);
         active.append(new Mesh(data, Layout.GLYPH, GL_TRIANGLE_STRIP, 4), active.material());
-        if (active.blockEntities) {
+        if (active.phase == Phase.BLOCK_ENTITIES) {
             active.blockEntityGlyphs++;
         }
     }
@@ -257,10 +271,22 @@ public final class VulkanObjectCapture implements AutoCloseable {
         } else {
             draws.add(new Draw(material, firstVertex, triangles * 3));
         }
-        if (blockEntities) {
-            blockEntityTriangles += triangles;
-        } else {
-            entityTriangles += triangles;
+        switch (phase) {
+            case ENTITIES -> entityTriangles += triangles;
+            case BLOCK_ENTITIES -> blockEntityTriangles += triangles;
+            case LIT_PARTICLES -> {
+                particleTriangles += triangles;
+                litParticleTriangles += triangles;
+            }
+            case PARTICLE_BILLBOARDS -> {
+                particleTriangles += triangles;
+                if (material.image == atlas) {
+                    terrainParticleTriangles += triangles;
+                }
+                if (material.pass == VulkanGraphics.Pass.OBJECT_BLEND) {
+                    translucentParticleTriangles += triangles;
+                }
+            }
         }
     }
 
@@ -343,12 +369,32 @@ public final class VulkanObjectCapture implements AutoCloseable {
         return blockEntityGlyphs;
     }
 
+    int particleTriangles() {
+        return particleTriangles;
+    }
+
+    int terrainParticleTriangles() {
+        return terrainParticleTriangles;
+    }
+
+    int translucentParticleTriangles() {
+        return translucentParticleTriangles;
+    }
+
+    int litParticleTriangles() {
+        return litParticleTriangles;
+    }
+
     @Override
     public void close() {
         releaseRetiredImages();
         textures.values().forEach(Image::releasePixels);
         white.releasePixels();
         memFree(vertices);
+    }
+
+    enum Phase {
+        ENTITIES, BLOCK_ENTITIES, LIT_PARTICLES, PARTICLE_BILLBOARDS
     }
 
     private record Layout(int stride, int position, int uv, int color, int light, int normal) {
