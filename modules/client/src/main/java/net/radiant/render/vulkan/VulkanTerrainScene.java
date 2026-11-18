@@ -17,6 +17,7 @@ import static org.lwjgl.vulkan.VK10.*;
 final class VulkanTerrainScene implements VulkanScene {
     private final VulkanAtlasUpdates atlasUpdates = new VulkanAtlasUpdates();
     private final VulkanEnvironment environment = new VulkanEnvironment();
+    private final VulkanObjectCapture objectCapture;
     private VkPhysicalDevice physicalDevice;
     private VkDevice device;
     private VkQueue queue;
@@ -24,6 +25,7 @@ final class VulkanTerrainScene implements VulkanScene {
     private int depthFormat;
     private VulkanTerrainMeshes meshes;
     private VulkanTerrainPipeline pipeline;
+    private VulkanObjectRenderer objects;
     private VulkanTexture atlas;
     private Atlas pendingAtlas;
     private Frame frame;
@@ -33,6 +35,10 @@ final class VulkanTerrainScene implements VulkanScene {
     private int translucentQuads;
     private boolean skyDrawn;
     private boolean cloudsDrawn;
+
+    VulkanTerrainScene(VulkanObjectCapture objectCapture) {
+        this.objectCapture = objectCapture;
+    }
 
     @Override
     public void initialize(VkPhysicalDevice physicalDevice, VkDevice device, VkQueue queue, VkCommandBuffer commands) {
@@ -47,6 +53,7 @@ final class VulkanTerrainScene implements VulkanScene {
                     ? VK_FORMAT_D32_SFLOAT : VK_FORMAT_D16_UNORM;
         }
         meshes = new VulkanTerrainMeshes(physicalDevice, device);
+        objects = new VulkanObjectRenderer(physicalDevice, device);
     }
 
     VulkanTerrainMeshes.Slice upload(ByteBuffer data) {
@@ -94,6 +101,7 @@ final class VulkanTerrainScene implements VulkanScene {
         pipeline = new VulkanTerrainPipeline(device);
         pipeline.initialize(physicalDevice, colorFormat, depthFormat());
         environment.configureTarget(physicalDevice, device, colorFormat, depthFormat());
+        objects.configureTarget(colorFormat, depthFormat());
         if (atlas != null) {
             pipeline.bindAtlas(atlas);
         }
@@ -130,6 +138,7 @@ final class VulkanTerrainScene implements VulkanScene {
         }
         if (frame != null && atlas != null) {
             pipeline.updateFrame(frame.viewProjection, frame.lightmap, frame.fog);
+            objects.prepare(queue, commands, objectCapture, atlas);
             if (frame.environment != null) {
                 environment.prepare(queue, commands, frame.viewProjection, frame.fog, frame.environment);
             }
@@ -151,11 +160,12 @@ final class VulkanTerrainScene implements VulkanScene {
         }
         pipeline.begin(stack, commands);
         drawCalls = pipeline.draw(stack, commands, frame.opaque, false);
+        objects.draw(stack, commands, objectCapture, frame.fog);
         if (frame.environment != null && frame.environment.cloudMode() != 0) {
             environment.drawClouds(stack, commands);
             cloudsDrawn = true;
-            pipeline.begin(stack, commands);
         }
+        pipeline.begin(stack, commands);
         drawCalls += pipeline.draw(stack, commands, frame.translucent, true);
         for (Draw draw : frame.opaque) {
             quads += draw.mesh.quads();
@@ -198,6 +208,7 @@ final class VulkanTerrainScene implements VulkanScene {
         setAtlas(null);
         atlasUpdates.close();
         environment.close();
+        if (objects != null) objects.close();
         if (pipeline != null) pipeline.close();
         if (atlas != null) atlas.close();
         if (meshes != null) meshes.close();

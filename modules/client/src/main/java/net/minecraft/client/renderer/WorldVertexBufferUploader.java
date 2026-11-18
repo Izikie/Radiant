@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.optifine.Config;
 import net.optifine.shaders.SVertexBuilder;
 import net.radiant.benchmark.ClientBenchmark;
+import net.radiant.render.vulkan.VulkanObjectCapture;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.ByteBuffer;
@@ -14,6 +15,7 @@ public class WorldVertexBufferUploader {
 
     public void draw(WorldRenderer p_181679_1_) {
         if (p_181679_1_.getVertexCount() > 0) {
+            VulkanObjectCapture.draw(p_181679_1_);
             if (p_181679_1_.getDrawMode() == 7 && Config.isQuadsToTriangles()) {
                 p_181679_1_.quadsToTriangles();
             }

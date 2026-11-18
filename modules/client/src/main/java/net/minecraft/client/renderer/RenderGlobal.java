@@ -52,6 +52,7 @@ import net.minecraft.util.input.MovingObjectPosition;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3;
+import net.radiant.render.vulkan.VulkanObjectCapture;
 import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.minecraft.world.IWorldAccess;
 import net.minecraft.world.ParticleTypes;
@@ -543,13 +544,18 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 RenderHelper.disableStandardItemLighting();
                 this.renderManager.setRenderOutlines(true);
 
-                for (Entity entity3 : list) {
-                    boolean flag2 = this.mc.getRenderViewEntity() instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPlayerSleeping();
-                    boolean flag3 = entity3.isInRangeToRender3d(d0, d1, d2) && (entity3.ignoreFrustumCheck || camera.isBoundingBoxInFrustum(entity3.getEntityBoundingBox()) || entity3.riddenByEntity == this.mc.player) && entity3 instanceof EntityPlayer;
+                VulkanObjectCapture capture = VulkanObjectCapture.suspend();
+                try {
+                    for (Entity entity3 : list) {
+                        boolean flag2 = this.mc.getRenderViewEntity() instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPlayerSleeping();
+                        boolean flag3 = entity3.isInRangeToRender3d(d0, d1, d2) && (entity3.ignoreFrustumCheck || camera.isBoundingBoxInFrustum(entity3.getEntityBoundingBox()) || entity3.riddenByEntity == this.mc.player) && entity3 instanceof EntityPlayer;
 
-                    if ((entity3 != this.mc.getRenderViewEntity() || this.mc.gameSettings.thirdPersonView != GameSettings.Perspective.FIRST_PERSON || flag2) && flag3) {
-                        this.renderManager.renderEntitySimple(entity3, partialTicks);
+                        if ((entity3 != this.mc.getRenderViewEntity() || this.mc.gameSettings.thirdPersonView != GameSettings.Perspective.FIRST_PERSON || flag2) && flag3) {
+                            this.renderManager.renderEntitySimple(entity3, partialTicks);
+                        }
                     }
+                } finally {
+                    VulkanObjectCapture.resume(capture);
                 }
 
                 this.renderManager.setRenderOutlines(false);
@@ -642,6 +648,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
             RenderHelper.enableStandardItemLighting();
 
+            VulkanObjectCapture.beginBlockEntities();
             TileEntitySignRenderer.updateTextRenderDistance();
             label1408:
 

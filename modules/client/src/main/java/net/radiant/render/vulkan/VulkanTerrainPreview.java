@@ -50,7 +50,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     private static boolean unsupportedSettings;
 
     private final long window;
-    private final VulkanTerrainScene terrain = new VulkanTerrainScene();
+    private final VulkanObjectCapture objects = new VulkanObjectCapture();
+    private final VulkanTerrainScene terrain = new VulkanTerrainScene(objects);
     private final VulkanPresenter presenter;
     private final Map<RenderChunk, Mesh[]> sections = new IdentityHashMap<>();
     private boolean atlasDirty = true;
@@ -187,6 +188,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         if (preview == null) {
             return null;
         }
+        preview.objects.reset();
         if (preview.atlasDirty) {
             preview.terrain.setAtlas(captureAtlas(mc.getTextureMapBlocks()));
             preview.terrain.setEnvironmentImages(loadEnvironmentImages());
@@ -201,6 +203,22 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             VulkanEnvironment.Frame environment = captureEnvironment(mc, view, x, y, z, partialTicks, cloudTick);
             return new Extraction(preview, x, y, z, view.getEyeHeight(), projection, lightmap.clone(), captureFog(mc),
                     environment, Config.isRenderRegions(), mc.displayWidth, mc.displayHeight);
+        }
+    }
+
+    public static boolean beginObjects(int[] lightmap, int atlas) {
+        VulkanTerrainPreview preview = active;
+        if (preview == null || preview.pendingFrame == null) {
+            return false;
+        }
+        preview.objects.begin(lightmap, atlas);
+        return true;
+    }
+
+    public static void invalidateObjectTexture(int texture) {
+        VulkanTerrainPreview preview = active;
+        if (preview != null) {
+            preview.objects.invalidateTexture(texture);
         }
     }
 
@@ -315,6 +333,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
                 ClientBenchmark.recordVulkanTerrainFrame(preview.terrain.drawCalls(), preview.terrain.quads(),
                         preview.terrain.cutoutQuads(), preview.terrain.translucentQuads());
                 ClientBenchmark.recordVulkanEnvironmentFrame(preview.terrain.skyDrawn(), preview.terrain.cloudsDrawn());
+                ClientBenchmark.recordVulkanObjectFrame(preview.objects.entityTriangles(), preview.objects.blockEntityTriangles(),
+                        preview.objects.blockEntityGlyphs());
             }
         } finally {
             preview.terrain.setFrame(null);
@@ -334,6 +354,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         try {
             presenter.close();
         } finally {
+            objects.close();
             glfwDestroyWindow(window);
             LOGGER.info("Vulkan terrain preview presented {} frames and {} terrain draws with {} validation errors",
                     frames, drawCalls, presenter.validationErrors());
