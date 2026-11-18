@@ -69,15 +69,27 @@ tasks.withType<JavaExec>().configureEach {
     classpath = sourceSets["main"].runtimeClasspath
     mainClass.set("net.radiant.dev.start.LaunchWrapper")
 
-    args("--accessToken", "0", "--userProperties", "{}")
-    if (name != "RunClientBenchmark") {
-        args("--gameDir", minecraftDir)
+    if (name != "RunVulkanSmoke") {
+        args("--accessToken", "0", "--userProperties", "{}")
+        if (name != "RunClientBenchmark") {
+            args("--gameDir", minecraftDir)
+        }
     }
 }
 
 tasks.register<JavaExec>("RunClient") {
     group = "RadiantMCP"
     description = "Starts the Minecraft client."
+}
+
+tasks.register<JavaExec>("RunVulkanSmoke") {
+    group = "RadiantMCP"
+    description = "Validates Vulkan presentation, resize, and shutdown on Windows."
+    mainClass.set("net.radiant.dev.VulkanSmoke")
+    jvmArgs("--enable-native-access=ALL-UNNAMED")
+    providers.gradleProperty("vulkanValidation").orNull?.let {
+        systemProperty("radiant.vulkan.validation", it)
+    }
 }
 
 tasks.register<JavaExec>("RunClientBenchmark") {
