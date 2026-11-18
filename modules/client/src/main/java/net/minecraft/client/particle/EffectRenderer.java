@@ -209,15 +209,19 @@ public class EffectRenderer {
         }
     }
 
+    private static void updateCameraPosition(Entity camera, float partialTicks) {
+        EntityFX.interpPosX = camera.lastTickPosX + (camera.posX - camera.lastTickPosX) * partialTicks;
+        EntityFX.interpPosY = camera.lastTickPosY + (camera.posY - camera.lastTickPosY) * partialTicks;
+        EntityFX.interpPosZ = camera.lastTickPosZ + (camera.posZ - camera.lastTickPosZ) * partialTicks;
+    }
+
     public void renderParticles(Entity entityIn, float partialTicks) {
         float f = ActiveRenderInfo.getRotationX();
         float f1 = ActiveRenderInfo.getRotationZ();
         float f2 = ActiveRenderInfo.getRotationYZ();
         float f3 = ActiveRenderInfo.getRotationXY();
         float f4 = ActiveRenderInfo.getRotationXZ();
-        EntityFX.interpPosX = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * partialTicks;
-        EntityFX.interpPosY = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * partialTicks;
-        EntityFX.interpPosZ = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * partialTicks;
+        updateCameraPosition(entityIn, partialTicks);
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GlStateManager.alphaFunc(GL11.GL_GREATER, 0.003921569F);
@@ -286,6 +290,7 @@ public class EffectRenderer {
     }
 
     public void renderLitParticles(Entity entityIn, float partialTick) {
+        updateCameraPosition(entityIn, partialTick);
         float f = 0.017453292F;
         float f1 = MathHelper.cos(entityIn.rotationYaw * 0.017453292F);
         float f2 = MathHelper.sin(entityIn.rotationYaw * 0.017453292F);

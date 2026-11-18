@@ -4,6 +4,7 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -29,6 +30,7 @@ final class BenchmarkSuite {
     private static final Logger LOGGER = LoggerFactory.getLogger(BenchmarkSuite.class);
     private static final long PREPARATION_TIMEOUT = TimeUnit.SECONDS.toNanos(90);
     private static final int EXHIBIT_Y = BenchmarkWorld.FLOOR_Y + 1;
+    private static final int PARTICLE_WORKLOAD_VERSION = 2;
     private static final Phase[] ROUTE = Phase.values();
 
     private final IntegratedServer server;
@@ -165,6 +167,7 @@ final class BenchmarkSuite {
                         result.addProperty("inventoryOpens", inventoryOpens);
                     }
                     if (phase == Phase.PARTICLES) {
+                        result.addProperty("particleWorkloadVersion", PARTICLE_WORKLOAD_VERSION);
                         result.addProperty("particleSpawnAttempts", particleSpawnAttempts);
                     }
                     reports.add(result);
@@ -272,14 +275,25 @@ final class BenchmarkSuite {
                 || ROUTE[routeIndex] != Phase.PARTICLES || mc.world != world || mc.currentScreen != null) {
             return;
         }
-        for (int i = 0; i < 36; i++) {
+        int attempts = 36;
+        int blockState = Block.getStateId(Blocks.REDSTONE_BLOCK.getDefaultState());
+        for (int i = 0; i < attempts; i++) {
             double x = BenchmarkWorld.PARTICLE_X - 8 + i % 12 * 1.5;
+            double y = EXHIBIT_Y + 0.4;
             double z = 5 + i / 12 * 5 + particleTick % 5 * 0.2;
-            ParticleTypes type = i % 2 == 0 ? ParticleTypes.FLAME : ParticleTypes.SMOKE_NORMAL;
-            world.spawnParticle(type, x, EXHIBIT_Y + 0.4, z, 0, 0.04, 0);
+            switch (i % 6) {
+                case 1 -> world.spawnParticle(ParticleTypes.SMOKE_NORMAL, x, y, z, 0, 0.04, 0);
+                case 3 -> world.spawnParticle(ParticleTypes.BLOCK_CRACK, x, y, z, 0, 0.04, 0, blockState);
+                case 5 -> world.spawnParticle(ParticleTypes.SPELL_MOB_AMBIENT, x, y, z, 0.15, 0.6, 0.95);
+                default -> world.spawnParticle(ParticleTypes.FLAME, x, y, z, 0, 0.04, 0);
+            }
+        }
+        if (particleTick % 16 == 0) {
+            world.spawnParticle(ParticleTypes.EXPLOSION_LARGE, BenchmarkWorld.PARTICLE_X + 0.5, EXHIBIT_Y + 1.2, 12, 1, 0, 0);
+            attempts++;
         }
         if (stage == Stage.CAPTURING) {
-            particleSpawnAttempts += 36;
+            particleSpawnAttempts += attempts;
         }
         particleTick++;
     }
