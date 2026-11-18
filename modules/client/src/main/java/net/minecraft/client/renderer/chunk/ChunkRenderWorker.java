@@ -6,8 +6,8 @@ import com.google.common.util.concurrent.ListenableFuture;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RegionRenderCacheBuilder;
 import net.minecraft.crash.CrashReport;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.RenderLayer;
+import net.minecraft.util.math.Vec3;
 import net.radiant.benchmark.ClientBenchmark;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,15 +63,15 @@ public class ChunkRenderWorker implements Runnable {
             generator.getLock().unlock();
         }
 
-        Entity lvt_2_1_ = Minecraft.get().getRenderViewEntity();
+        Vec3 camera = this.chunkRenderDispatcher.getCameraPosition();
 
-        if (lvt_2_1_ == null) {
+        if (camera == null) {
             generator.finish();
         } else {
             generator.setRegionRenderCacheBuilder(this.getRegionRenderCacheBuilder());
-            float f = (float) lvt_2_1_.posX;
-            float f1 = (float) lvt_2_1_.posY + lvt_2_1_.getEyeHeight();
-            float f2 = (float) lvt_2_1_.posZ;
+            float f = (float) camera.xCoord();
+            float f1 = (float) camera.yCoord();
+            float f2 = (float) camera.zCoord();
             ChunkCompileTaskGenerator.Type chunkcompiletaskgenerator$type = generator.getType();
 
             if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK) {

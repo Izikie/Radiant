@@ -1,6 +1,8 @@
 package net.minecraft.client.renderer.chunk;
 
 import net.minecraft.client.renderer.RegionRenderCacheBuilder;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,10 @@ public class ChunkCompileTaskGenerator {
     private final ReentrantLock lock = new ReentrantLock();
     private final List<Runnable> listFinishRunnables = new ArrayList<>();
     private final Type type;
+    private final int originX;
+    private final int originY;
+    private final int originZ;
+    private final boolean recompile;
     private RegionRenderCacheBuilder regionRenderCacheBuilder;
     private CompiledChunk compiledChunk;
     private Status status = Status.PENDING;
@@ -19,6 +25,22 @@ public class ChunkCompileTaskGenerator {
     public ChunkCompileTaskGenerator(RenderChunk renderChunkIn, Type typeIn) {
         this.renderChunk = renderChunkIn;
         this.type = typeIn;
+        BlockPos origin = renderChunkIn.getPosition();
+        this.originX = origin.getX();
+        this.originY = origin.getY();
+        this.originZ = origin.getZ();
+        this.recompile = typeIn == Type.RESORT_TRANSPARENCY || renderChunkIn.getCompiledChunk() != CompiledChunk.DUMMY;
+    }
+
+    double distanceSquaredTo(Vec3 camera) {
+        double x = originX + 8.0 - camera.xCoord();
+        double y = originY + 8.0 - camera.yCoord();
+        double z = originZ + 8.0 - camera.zCoord();
+        return x * x + y * y + z * z;
+    }
+
+    boolean isRecompile() {
+        return recompile;
     }
 
     public Status getStatus() {

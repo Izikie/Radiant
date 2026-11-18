@@ -9,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.util.RenderLayer;
+import net.minecraft.util.math.Vec3;
 import net.radiant.benchmark.ClientBenchmark;
 import org.lwjgl.opengl.GL11;
 import org.slf4j.Logger;
@@ -25,7 +26,7 @@ public class ChunkRenderDispatcher {
     private static final Logger LOGGER = LoggerFactory.getLogger(ChunkRenderDispatcher.class);
     private static final ThreadFactory THREAD_FACTORY = (new ThreadFactoryBuilder()).setNameFormat("Chunk Batcher %d").setDaemon(true).build();
     private final List<ChunkRenderWorker> listThreadedWorkers;
-    private final BlockingQueue<ChunkCompileTaskGenerator> queueChunkUpdates;
+    private final ChunkCompileQueue queueChunkUpdates = new ChunkCompileQueue();
     private final BlockingQueue<RegionRenderCacheBuilder> queueFreeRenderBuilders;
     private final WorldVertexBufferUploader worldVertexUploader;
     private final VertexBufferUploader vertexUploader;
@@ -40,7 +41,6 @@ public class ChunkRenderDispatcher {
 
     public ChunkRenderDispatcher(int p_i4_1_) {
         this.listThreadedWorkers = new ArrayList<>();
-        this.queueChunkUpdates = Queues.newArrayBlockingQueue(100);
         this.worldVertexUploader = new WorldVertexBufferUploader();
         this.vertexUploader = new VertexBufferUploader();
         this.queueChunkUploads = Queues.newArrayDeque();
@@ -148,20 +148,8 @@ public class ChunkRenderDispatcher {
 
     public void stopChunkUpdates() {
         this.clearChunkUpdates();
-
-        while (this.runChunkUploads(0L)) {
-        }
-
-        List<RegionRenderCacheBuilder> list = new ArrayList<>();
-
-        while (list.size() != this.countRenderBuilders) {
-            try {
-                list.add(this.allocateRenderBuilder());
-            } catch (InterruptedException _) {
-            }
-        }
-
-        this.queueFreeRenderBuilders.addAll(list);
+        this.pauseChunkUpdates();
+        this.resumeChunkUpdates();
     }
 
     public void freeRenderBuilder(RegionRenderCacheBuilder p_178512_1_) {
@@ -176,6 +164,14 @@ public class ChunkRenderDispatcher {
         return this.queueChunkUpdates.take();
     }
 
+    public void setCameraPosition(Vec3 camera) {
+        this.queueChunkUpdates.setCamera(camera);
+    }
+
+    Vec3 getCameraPosition() {
+        return this.queueChunkUpdates.getCamera();
+    }
+
     public boolean updateTransparencyLater(RenderChunk chunkRenderer) {
         chunkRenderer.getLockCompileTask().lock();
         boolean flag1;
@@ -185,7 +181,11 @@ public class ChunkRenderDispatcher {
 
             if (chunkcompiletaskgenerator != null) {
                 chunkcompiletaskgenerator.addFinishRunnable(() -> ChunkRenderDispatcher.this.queueChunkUpdates.remove(chunkcompiletaskgenerator));
-                return this.queueChunkUpdates.offer(chunkcompiletaskgenerator);
+                if (this.queueChunkUpdates.offer(chunkcompiletaskgenerator)) {
+                    return true;
+                }
+                chunkcompiletaskgenerator.finish();
+                return false;
             }
 
             flag1 = true;
@@ -235,17 +235,15 @@ public class ChunkRenderDispatcher {
     }
 
     public void clearChunkUpdates() {
-        while (!this.queueChunkUpdates.isEmpty()) {
-            ChunkCompileTaskGenerator chunkcompiletaskgenerator = this.queueChunkUpdates.poll();
-
-            if (chunkcompiletaskgenerator != null) {
-                chunkcompiletaskgenerator.finish();
-            }
+        for (ChunkCompileTaskGenerator task : this.queueChunkUpdates.drain()) {
+            task.finish();
         }
     }
 
     public boolean hasChunkUpdates() {
-        return this.queueChunkUpdates.isEmpty() && this.queueChunkUploads.isEmpty();
+        synchronized (this.queueChunkUploads) {
+            return this.queueChunkUpdates.size() == 0 && this.queueChunkUploads.isEmpty();
+        }
     }
 
     public void pauseChunkUpdates() {
