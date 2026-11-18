@@ -44,7 +44,7 @@ public class TextureClock extends TextureAtlasSprite {
 
             if (i != this.frameCounter) {
                 this.frameCounter = i;
-                TextureUtil.uploadTextureMipmap(this.framesTextureData.get(this.frameCounter), this.width, this.height, this.originX, this.originY, false, false);
+                this.uploadAnimationFrame(this.framesTextureData.get(this.frameCounter), false);
             }
         }
     }

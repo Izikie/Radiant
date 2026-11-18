@@ -15,6 +15,7 @@ import static org.lwjgl.system.MemoryUtil.memFree;
 import static org.lwjgl.vulkan.VK10.*;
 
 final class VulkanTerrainScene implements VulkanScene {
+    private final VulkanAtlasUpdates atlasUpdates = new VulkanAtlasUpdates();
     private VkPhysicalDevice physicalDevice;
     private VkDevice device;
     private VkQueue queue;
@@ -58,6 +59,18 @@ final class VulkanTerrainScene implements VulkanScene {
             pendingAtlas.close();
         }
         pendingAtlas = snapshot;
+        atlasUpdates.clear();
+    }
+
+    void updateSprite(String name, int x, int y, int width, int height, int[][] pixels) {
+        atlasUpdates.update(name, x, y, width, height, pixels);
+    }
+
+    @Override
+    public void recordUploads(MemoryStack stack, VkCommandBuffer commands) {
+        if (atlas != null) {
+            atlasUpdates.record(stack, physicalDevice, device, commands, atlas);
+        }
     }
 
     @Override
@@ -152,6 +165,7 @@ final class VulkanTerrainScene implements VulkanScene {
     @Override
     public void close() {
         setAtlas(null);
+        atlasUpdates.close();
         if (pipeline != null) pipeline.close();
         if (atlas != null) atlas.close();
         if (meshes != null) meshes.close();
