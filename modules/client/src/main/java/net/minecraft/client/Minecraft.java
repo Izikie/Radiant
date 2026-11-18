@@ -81,6 +81,7 @@ import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
 import net.optifine.Lang;
 import net.radiant.benchmark.ClientBenchmark;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.radiant.lwjgl.LWJGLException;
 import net.radiant.lwjgl.input.Keyboard;
 import net.radiant.lwjgl.input.Mouse;
@@ -773,7 +774,13 @@ public class Minecraft implements IThreadListener {
 
             mcSoundHandler.unloadSounds();
         } finally {
-            Display.destroy();
+            try {
+                if (VulkanTerrainPreview.ENABLED) {
+                    VulkanTerrainPreview.shutdown();
+                }
+            } finally {
+                Display.destroy();
+            }
 
             if (!hasCrashed) {
                 System.exit(0);
@@ -838,6 +845,9 @@ public class Minecraft implements IThreadListener {
         framebufferMc.framebufferRender(displayWidth, displayHeight);
         GlStateManager.popMatrix();
 
+        if (VulkanTerrainPreview.ENABLED) {
+            VulkanTerrainPreview.present();
+        }
         updateDisplay();
         if (ClientBenchmark.ENABLED) {
             ClientBenchmark.recordMainMenuPresented(currentScreen);
