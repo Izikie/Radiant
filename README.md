@@ -52,10 +52,12 @@ after joining a world. Leave shader packs, antialiasing, and anisotropic filteri
 It draws solid, cutout, and sorted translucent blocks from the game's visible section meshes, with the block
 atlas, lightmap, depth, and fog. The main client still draws through OpenGL. The preview captures atlas pixels
 on load and reload, then copies changed sprite rectangles and mip levels as the existing texture tick advances them.
+In the Overworld, it also draws the sky, sun, moon phases, and stars. Clouds use the active pack's cloud texture
+and honor the Off, Fast, and Fancy settings.
 
 The benchmark report shows Vulkan frames, terrain draw calls, and total, cutout, and translucent quads when the
 preview runs. It also reports animated sprite updates and uploaded bytes, with separate water and lava counts.
-Frame times include both windows in preview mode.
+Sky and cloud frame counts are reported separately. Frame times include both windows in preview mode.
 
 ## Performance benchmarks
 
@@ -67,8 +69,9 @@ Run `:dev:RunClientBenchmark` to start an instrumented client. On Windows:
 
 Click **Benchmark Suite** on the main menu to generate a fresh fixed-seed world and run the same route every time.
 The suite teleports to previously unseen terrain, pans across a block gallery and a translucency exhibit with
-water, lava, stained glass, and ice, holds the camera still to measure animation, pans across partially occluded mobs,
-paintings, and block entities, renders particle emitters, then cycles the creative inventory open and closed.
+water, lava, stained glass, and ice, holds the camera still to measure animation, captures the day and night sky from
+below cloud level, pans across partially occluded mobs, paintings, and block entities, renders particle emitters, then
+cycles the creative inventory open and closed.
 Leave the window focused and avoid input during the route. The terrain phase warms up at a fixed staging point
 and measures the teleport and chunk streaming. Other phases wait for arrival before warming up.
 The suite controls player movement and camera input while the route runs.

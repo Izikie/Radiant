@@ -16,12 +16,13 @@ import net.minecraft.world.WorldServer;
 
 final class BenchmarkWorld {
     static final long SEED = 681889L;
-    static final int LAYOUT_VERSION = 3;
+    static final int LAYOUT_VERSION = 4;
     static final int FLOOR_Y = 192;
     static final int GALLERY_X = 0;
     static final int ENTITY_X = 64;
     static final int PARTICLE_X = 128;
     static final int TRANSLUCENT_X = 192;
+    static final int SKY_X = -64;
 
     private BenchmarkWorld() {
     }
@@ -41,6 +42,7 @@ final class BenchmarkWorld {
         buildFloor(world, ENTITY_X);
         buildFloor(world, PARTICLE_X);
         buildFloor(world, TRANSLUCENT_X);
+        world.setBlockState(new BlockPos(SKY_X, FLOOR_Y, 0), Blocks.STONEBRICK.getDefaultState(), 2);
         buildGallery(world);
         buildEntityScene(world);
         buildTranslucencyScene(world);

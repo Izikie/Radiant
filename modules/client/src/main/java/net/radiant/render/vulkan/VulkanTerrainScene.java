@@ -16,6 +16,7 @@ import static org.lwjgl.vulkan.VK10.*;
 
 final class VulkanTerrainScene implements VulkanScene {
     private final VulkanAtlasUpdates atlasUpdates = new VulkanAtlasUpdates();
+    private final VulkanEnvironment environment = new VulkanEnvironment();
     private VkPhysicalDevice physicalDevice;
     private VkDevice device;
     private VkQueue queue;
@@ -30,6 +31,8 @@ final class VulkanTerrainScene implements VulkanScene {
     private int quads;
     private int cutoutQuads;
     private int translucentQuads;
+    private boolean skyDrawn;
+    private boolean cloudsDrawn;
 
     @Override
     public void initialize(VkPhysicalDevice physicalDevice, VkDevice device, VkQueue queue, VkCommandBuffer commands) {
@@ -60,6 +63,11 @@ final class VulkanTerrainScene implements VulkanScene {
         }
         pendingAtlas = snapshot;
         atlasUpdates.clear();
+        environment.setImages(null);
+    }
+
+    void setEnvironmentImages(VulkanEnvironment.Images images) {
+        environment.setImages(images);
     }
 
     void updateSprite(String name, int x, int y, int width, int height, int[][] pixels) {
@@ -85,6 +93,7 @@ final class VulkanTerrainScene implements VulkanScene {
         }
         pipeline = new VulkanTerrainPipeline(device);
         pipeline.initialize(physicalDevice, colorFormat, depthFormat());
+        environment.configureTarget(physicalDevice, device, colorFormat, depthFormat());
         if (atlas != null) {
             pipeline.bindAtlas(atlas);
         }
@@ -96,6 +105,8 @@ final class VulkanTerrainScene implements VulkanScene {
         quads = 0;
         cutoutQuads = 0;
         translucentQuads = 0;
+        skyDrawn = false;
+        cloudsDrawn = false;
     }
 
     @Override
@@ -119,21 +130,33 @@ final class VulkanTerrainScene implements VulkanScene {
         }
         if (frame != null && atlas != null) {
             pipeline.updateFrame(frame.viewProjection, frame.lightmap, frame.fog);
+            if (frame.environment != null) {
+                environment.prepare(queue, commands, frame.viewProjection, frame.fog, frame.environment);
+            }
         }
     }
 
     @Override
     public void draw(MemoryStack stack, VkCommandBuffer commands, int width, int height) {
-        if (frame == null || atlas == null || (frame.opaque.isEmpty() && frame.translucent.isEmpty())) {
+        if (frame == null || atlas == null) {
             return;
         }
         float scale = Math.min((float) width / frame.width, (float) height / frame.height);
         int viewWidth = Math.clamp(Math.round(frame.width * scale), 1, width);
         int viewHeight = Math.clamp(Math.round(frame.height * scale), 1, height);
         VulkanGraphics.viewport(stack, commands, (width - viewWidth) / 2, (height - viewHeight) / 2, viewWidth, viewHeight);
+        if (frame.environment != null) {
+            environment.drawSky(stack, commands);
+            skyDrawn = true;
+        }
         pipeline.begin(stack, commands);
-        drawCalls = pipeline.draw(stack, commands, frame.opaque, false)
-                + pipeline.draw(stack, commands, frame.translucent, true);
+        drawCalls = pipeline.draw(stack, commands, frame.opaque, false);
+        if (frame.environment != null && frame.environment.cloudMode() != 0) {
+            environment.drawClouds(stack, commands);
+            cloudsDrawn = true;
+            pipeline.begin(stack, commands);
+        }
+        drawCalls += pipeline.draw(stack, commands, frame.translucent, true);
         for (Draw draw : frame.opaque) {
             quads += draw.mesh.quads();
             if (draw.layer != 0) {
@@ -162,16 +185,26 @@ final class VulkanTerrainScene implements VulkanScene {
         return translucentQuads;
     }
 
+    boolean skyDrawn() {
+        return skyDrawn;
+    }
+
+    boolean cloudsDrawn() {
+        return cloudsDrawn;
+    }
+
     @Override
     public void close() {
         setAtlas(null);
         atlasUpdates.close();
+        environment.close();
         if (pipeline != null) pipeline.close();
         if (atlas != null) atlas.close();
         if (meshes != null) meshes.close();
     }
 
-    record Frame(Matrix4fc viewProjection, int[] lightmap, Fog fog, List<Draw> opaque, List<Draw> translucent,
+    record Frame(Matrix4fc viewProjection, int[] lightmap, Fog fog, VulkanEnvironment.Frame environment,
+                 List<Draw> opaque, List<Draw> translucent,
                  int width, int height) {
     }
 

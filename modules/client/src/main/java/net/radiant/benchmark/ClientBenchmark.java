@@ -243,6 +243,18 @@ public final class ClientBenchmark {
         }
     }
 
+    public static void recordVulkanEnvironmentFrame(boolean sky, boolean clouds) {
+        Capture capture = active;
+        if (capture != null) {
+            if (sky) {
+                capture.vulkanSkyFrames++;
+            }
+            if (clouds) {
+                capture.vulkanCloudFrames++;
+            }
+        }
+    }
+
     private static ThreadMXBean allocationTracker() {
         if (ManagementFactory.getThreadMXBean() instanceof ThreadMXBean bean
                 && bean.isThreadAllocatedMemorySupported()) {
@@ -293,6 +305,8 @@ public final class ClientBenchmark {
         private long vulkanWaterSpriteUpdates;
         private long vulkanLavaSpriteUpdates;
         private long vulkanAtlasUploadBytes;
+        private long vulkanSkyFrames;
+        private long vulkanCloudFrames;
         private long buildCount;
         private long buildNanos;
         private long uploadCount;
@@ -316,6 +330,7 @@ public final class ClientBenchmark {
             report.addProperty("glVersion", Config.openGlVersion);
             report.addProperty("integratedServer", server != null);
             report.addProperty("dimension", mc.player.dimension);
+            report.addProperty("worldTime", mc.world.getWorldTime());
             JsonObject camera = new JsonObject();
             camera.addProperty("x", mc.player.posX);
             camera.addProperty("y", mc.player.posY);
@@ -329,6 +344,7 @@ public final class ClientBenchmark {
             graphics.addProperty("width", width);
             graphics.addProperty("height", height);
             graphics.addProperty("renderDistanceChunks", settings.renderDistanceChunks);
+            graphics.addProperty("ofClouds", settings.ofClouds);
             graphics.addProperty("vsync", settings.enableVsync);
             graphics.addProperty("fpsLimit", settings.limitFramerate);
             graphics.addProperty("fancyGraphics", settings.fancyGraphics);
@@ -374,6 +390,8 @@ public final class ClientBenchmark {
                 report.addProperty("vulkanWaterSpriteUpdates", vulkanWaterSpriteUpdates);
                 report.addProperty("vulkanLavaSpriteUpdates", vulkanLavaSpriteUpdates);
                 report.addProperty("vulkanAtlasUploadBytes", vulkanAtlasUploadBytes);
+                report.addProperty("vulkanSkyFrames", vulkanSkyFrames);
+                report.addProperty("vulkanCloudFrames", vulkanCloudFrames);
             }
             report.addProperty("chunkBuildCount", buildCount);
             report.addProperty("chunkBuildTotalMs", buildNanos / 1_000_000.0);

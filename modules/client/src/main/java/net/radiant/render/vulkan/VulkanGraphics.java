@@ -12,7 +12,12 @@ final class VulkanGraphics {
     private VulkanGraphics() {
     }
 
-    static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology, boolean translucent,
+    static boolean isSrgb(int format) {
+        return format == VK_FORMAT_B8G8R8A8_SRGB || format == VK_FORMAT_R8G8B8A8_SRGB
+                || format == VK_FORMAT_A8B8G8R8_SRGB_PACK32;
+    }
+
+    static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology, Pass pass,
                          VkPipelineVertexInputStateCreateInfo vertexInput, String vertexSource, String fragmentSource) {
         long vertex = shader(stack, device, vertexSource, shaderc_glsl_vertex_shader, "scene.vert");
         long fragment = 0;
@@ -27,12 +32,14 @@ final class VulkanGraphics {
             blend.get(0).colorWriteMask(VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT);
             VkPipelineRasterizationStateCreateInfo rasterization = VkPipelineRasterizationStateCreateInfo.calloc(stack)
                     .sType$Default().lineWidth(1.0f);
-            if (translucent) {
+            if (pass.blend) {
                 blend.get(0).blendEnable(true)
                         .srcColorBlendFactor(VK_BLEND_FACTOR_SRC_ALPHA).dstColorBlendFactor(VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA)
                         .colorBlendOp(VK_BLEND_OP_ADD)
                         .srcAlphaBlendFactor(VK_BLEND_FACTOR_ONE).dstAlphaBlendFactor(VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA)
                         .alphaBlendOp(VK_BLEND_OP_ADD);
+            }
+            if (pass.cull) {
                 rasterization.cullMode(VK_CULL_MODE_BACK_BIT).frontFace(VK_FRONT_FACE_COUNTER_CLOCKWISE);
             }
             VkGraphicsPipelineCreateInfo.Buffer configurations = VkGraphicsPipelineCreateInfo.calloc(1, stack);
@@ -47,7 +54,7 @@ final class VulkanGraphics {
                             .pDynamicStates(stack.ints(VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR)));
             if (depthFormat != VK_FORMAT_UNDEFINED) {
                 config.pDepthStencilState(VkPipelineDepthStencilStateCreateInfo.calloc(stack).sType$Default()
-                        .depthTestEnable(true).depthWriteEnable(!translucent).depthCompareOp(VK_COMPARE_OP_LESS_OR_EQUAL));
+                        .depthTestEnable(pass.depthTest).depthWriteEnable(pass.depthWrite).depthCompareOp(VK_COMPARE_OP_LESS_OR_EQUAL));
             }
             LongBuffer handle = stack.mallocLong(1);
             VulkanPresenter.check(vkCreateGraphicsPipelines(device, 0, configurations, null, handle), "create graphics pipeline");
@@ -57,6 +64,25 @@ final class VulkanGraphics {
                 vkDestroyShaderModule(device, fragment, null);
             }
             vkDestroyShaderModule(device, vertex, null);
+        }
+    }
+
+    enum Pass {
+        OPAQUE(true, true, false, false),
+        TRANSLUCENT(true, false, true, true),
+        SKY(false, false, false, false),
+        CLOUDS(true, true, true, false);
+
+        private final boolean depthTest;
+        private final boolean depthWrite;
+        private final boolean blend;
+        private final boolean cull;
+
+        Pass(boolean depthTest, boolean depthWrite, boolean blend, boolean cull) {
+            this.depthTest = depthTest;
+            this.depthWrite = depthWrite;
+            this.blend = blend;
+            this.cull = cull;
         }
     }
 

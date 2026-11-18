@@ -10,6 +10,7 @@ import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
+import net.minecraft.network.packet.impl.play.server.S03PacketTimeUpdate;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.ParticleTypes;
@@ -131,7 +132,7 @@ final class BenchmarkSuite {
             }
             case TRAVELLING -> {
                 BlockPos floor = new BlockPos(warmupLocation.x, BenchmarkWorld.FLOOR_Y, warmupLocation.z);
-                if (pending == null && atDestination(mc, warmupLocation)
+                if (pending == null && atDestination(mc, warmupLocation) && world.getWorldTime() == warmupLocation.worldTime
                         && world.getBlockState(floor).getBlock() == Blocks.STONEBRICK) {
                     enter(Stage.WARMING_UP, now);
                 }
@@ -214,7 +215,12 @@ final class BenchmarkSuite {
             }
             player.capabilities.isFlying = true;
             player.sendPlayerAbilities();
-            player.playerNetServerHandler.setPlayerLocation(phase.x + 0.5, phase.y, phase.z + 0.5, 0, phase.pitch);
+            var serverWorld = player.getServerForPlayer();
+            if (serverWorld.getWorldTime() != phase.worldTime) {
+                serverWorld.setWorldTime(phase.worldTime);
+                player.playerNetServerHandler.sendPacket(new S03PacketTimeUpdate(serverWorld.getTotalWorldTime(), phase.worldTime, false));
+            }
+            player.playerNetServerHandler.setPlayerLocation(phase.x + 0.5, phase.y, phase.z + 0.5, phase.yaw, phase.pitch);
         });
     }
 
@@ -243,7 +249,7 @@ final class BenchmarkSuite {
         }
         long elapsed = ClientBenchmark.phaseElapsedNanos();
         double secondsElapsed = elapsed / 1_000_000_000.0;
-        float yaw = (float) Math.sin(secondsElapsed * Math.PI / 3.0) * phase.sweep;
+        float yaw = phase.yaw + (float) Math.sin(secondsElapsed * Math.PI / 3.0) * phase.sweep;
         mc.player.rotationYaw = yaw;
         mc.player.prevRotationYaw = yaw;
         mc.player.rotationPitch = phase.pitch;
@@ -317,6 +323,8 @@ final class BenchmarkSuite {
         BLOCK_GALLERY("block-gallery", BenchmarkWorld.GALLERY_X, EXHIBIT_Y, 0, 4, 42),
         TRANSLUCENCY("translucency", BenchmarkWorld.TRANSLUCENT_X, EXHIBIT_Y + 3, 0, 20, 24),
         ANIMATED_TEXTURES("animated-textures", BenchmarkWorld.TRANSLUCENT_X, EXHIBIT_Y + 3, 0, 20, 0),
+        DAY_SKY("day-sky", BenchmarkWorld.SKY_X, 108, 0, -30, 0, -90, 500),
+        NIGHT_SKY("night-sky", BenchmarkWorld.SKY_X, 108, 0, -30, 0, -90, 15_000),
         ENTITIES("entities-and-block-entities", BenchmarkWorld.ENTITY_X, EXHIBIT_Y, 0, 3, 36),
         PARTICLES("particles", BenchmarkWorld.PARTICLE_X, EXHIBIT_Y, 0, 3, 22),
         CREATIVE_INVENTORY("creative-inventory", BenchmarkWorld.GALLERY_X, EXHIBIT_Y, 0, 4, 0);
@@ -327,14 +335,22 @@ final class BenchmarkSuite {
         private final int z;
         private final float pitch;
         private final float sweep;
+        private final float yaw;
+        private final long worldTime;
 
         Phase(String scenario, int x, int y, int z, float pitch, float sweep) {
+            this(scenario, x, y, z, pitch, sweep, 0, 6000);
+        }
+
+        Phase(String scenario, int x, int y, int z, float pitch, float sweep, float yaw, long worldTime) {
             this.scenario = scenario;
             this.x = x;
             this.y = y;
             this.z = z;
             this.pitch = pitch;
             this.sweep = sweep;
+            this.yaw = yaw;
+            this.worldTime = worldTime;
         }
     }
 }
