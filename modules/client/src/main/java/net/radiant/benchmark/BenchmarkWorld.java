@@ -16,11 +16,12 @@ import net.minecraft.world.WorldServer;
 
 final class BenchmarkWorld {
     static final long SEED = 681889L;
-    static final int LAYOUT_VERSION = 1;
+    static final int LAYOUT_VERSION = 2;
     static final int FLOOR_Y = 192;
     static final int GALLERY_X = 0;
     static final int ENTITY_X = 64;
     static final int PARTICLE_X = 128;
+    static final int TRANSLUCENT_X = 192;
 
     private BenchmarkWorld() {
     }
@@ -39,8 +40,10 @@ final class BenchmarkWorld {
         buildFloor(world, GALLERY_X);
         buildFloor(world, ENTITY_X);
         buildFloor(world, PARTICLE_X);
+        buildFloor(world, TRANSLUCENT_X);
         buildGallery(world);
         buildEntityScene(world);
+        buildTranslucencyScene(world);
     }
 
     private static void buildFloor(WorldServer world, int center) {
@@ -70,6 +73,35 @@ final class BenchmarkWorld {
                     world.setBlockState(new BlockPos(x, FLOOR_Y + y, z), material.getStateFromMeta(metadata), 2);
                     world.setBlockState(new BlockPos(x + 1, FLOOR_Y + y, z), material.getStateFromMeta(metadata), 2);
                 }
+            }
+        }
+    }
+
+    private static void buildTranslucencyScene(WorldServer world) {
+        int center = TRANSLUCENT_X;
+        for (int x = center - 6; x <= center + 2; x++) {
+            for (int z = 4; z <= 12; z++) {
+                boolean edge = x == center - 6 || x == center + 2 || z == 4 || z == 12;
+                Block base = ((x + z) & 1) == 0 ? Blocks.SEA_LANTERN : Blocks.PRISMARINE;
+                world.setBlockState(new BlockPos(x, FLOOR_Y, z), base.getDefaultState(), 2);
+                world.setBlockState(new BlockPos(x, FLOOR_Y + 1, z),
+                        edge ? Blocks.STONEBRICK.getDefaultState() : Blocks.WATER.getDefaultState(), 2);
+            }
+        }
+
+        for (int x = center + 4; x <= center + 7; x++) {
+            world.setBlockState(new BlockPos(x, FLOOR_Y + 1, 7), Blocks.ICE.getDefaultState(), 2);
+            world.setBlockState(new BlockPos(x, FLOOR_Y + 2, 7), Blocks.ICE.getDefaultState(), 2);
+            world.setBlockState(new BlockPos(x, FLOOR_Y + 1, 8), Blocks.GLOWSTONE.getDefaultState(), 2);
+        }
+
+        // Put the overlapping panels in adjacent sections so section order and alpha blending are both visible.
+        for (int x = center - 4; x <= center + 4; x++) {
+            for (int y = FLOOR_Y + 1; y <= FLOOR_Y + 4; y++) {
+                world.setBlockState(new BlockPos(x, y, 15), Blocks.STAINED_GLASS.getStateFromMeta(DyeColor.CYAN.getMetadata()), 2);
+                world.setBlockState(new BlockPos(x + 2, y, 17), Blocks.STAINED_GLASS.getStateFromMeta(DyeColor.MAGENTA.getMetadata()), 2);
+                Block backdrop = ((x + y) & 1) == 0 ? Blocks.QUARTZ_BLOCK : Blocks.STONEBRICK;
+                world.setBlockState(new BlockPos(x + 1, y, 20), backdrop.getDefaultState(), 2);
             }
         }
     }

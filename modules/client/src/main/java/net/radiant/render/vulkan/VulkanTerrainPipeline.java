@@ -72,7 +72,7 @@ final class VulkanTerrainPipeline implements AutoCloseable {
                 #if SRGB_TARGET
                 rgb = mix(rgb / 12.92, pow((rgb + 0.055) / 1.055, vec3(2.4)), greaterThan(rgb, vec3(0.04045)));
                 #endif
-                color = vec4(rgb, 1.0);
+                color = vec4(rgb, layer == 3.0 ? lit.a : 1.0);
             }
             """;
     private static final int DRAW_STAGES = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
@@ -84,7 +84,8 @@ final class VulkanTerrainPipeline implements AutoCloseable {
     private long descriptorPool;
     private long descriptorSet;
     private long layout;
-    private long pipeline;
+    private long opaquePipeline;
+    private long translucentPipeline;
 
     VulkanTerrainPipeline(VkDevice device) {
         this.device = device;
@@ -118,8 +119,10 @@ final class VulkanTerrainPipeline implements AutoCloseable {
             VkPipelineVertexInputStateCreateInfo vertexInput = VkPipelineVertexInputStateCreateInfo.calloc(stack).sType$Default()
                     .pVertexBindingDescriptions(bindings).pVertexAttributeDescriptions(attributes);
             String fragment = "#version 450\n#define SRGB_TARGET " + (isSrgb(colorFormat) ? "1\n" : "0\n") + FRAGMENT_SHADER;
-            pipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
-                    vertexInput, VERTEX_SHADER, fragment);
+            opaquePipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
+                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, false, vertexInput, VERTEX_SHADER, fragment);
+            translucentPipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
+                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, true, vertexInput, VERTEX_SHADER, fragment);
         }
     }
 
@@ -171,12 +174,15 @@ final class VulkanTerrainPipeline implements AutoCloseable {
     }
 
     void begin(MemoryStack stack, VkCommandBuffer commands) {
-        vkCmdBindPipeline(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline);
         vkCmdBindDescriptorSets(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 0, stack.longs(descriptorSet), null);
         vkCmdBindIndexBuffer(commands, indices.handle(), 0, VK_INDEX_TYPE_UINT32);
     }
 
-    int draw(MemoryStack stack, VkCommandBuffer commands, List<VulkanTerrainScene.Draw> draws) {
+    int draw(MemoryStack stack, VkCommandBuffer commands, List<VulkanTerrainScene.Draw> draws, boolean translucent) {
+        if (draws.isEmpty()) {
+            return 0;
+        }
+        vkCmdBindPipeline(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, translucent ? translucentPipeline : opaquePipeline);
         FloatBuffer constants = stack.mallocFloat(4);
         LongBuffer buffer = stack.mallocLong(1);
         LongBuffer offset = stack.mallocLong(1);
@@ -203,7 +209,8 @@ final class VulkanTerrainPipeline implements AutoCloseable {
 
     @Override
     public void close() {
-        if (pipeline != 0) vkDestroyPipeline(device, pipeline, null);
+        if (translucentPipeline != 0) vkDestroyPipeline(device, translucentPipeline, null);
+        if (opaquePipeline != 0) vkDestroyPipeline(device, opaquePipeline, null);
         if (layout != 0) vkDestroyPipelineLayout(device, layout, null);
         if (descriptorPool != 0) vkDestroyDescriptorPool(device, descriptorPool, null);
         if (descriptorLayout != 0) vkDestroyDescriptorSetLayout(device, descriptorLayout, null);

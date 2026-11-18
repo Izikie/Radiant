@@ -222,13 +222,14 @@ public final class ClientBenchmark {
         }
     }
 
-    public static void recordVulkanTerrainFrame(int draws, int quads, int cutoutQuads) {
+    public static void recordVulkanTerrainFrame(int draws, int quads, int cutoutQuads, int translucentQuads) {
         Capture capture = active;
         if (capture != null) {
             capture.vulkanTerrainFrames++;
             capture.vulkanTerrainDraws += draws;
             capture.vulkanTerrainQuads += quads;
             capture.vulkanTerrainCutoutQuads += cutoutQuads;
+            capture.vulkanTerrainTranslucentQuads += translucentQuads;
         }
     }
 
@@ -277,6 +278,7 @@ public final class ClientBenchmark {
         private long vulkanTerrainDraws;
         private long vulkanTerrainQuads;
         private long vulkanTerrainCutoutQuads;
+        private long vulkanTerrainTranslucentQuads;
         private long buildCount;
         private long buildNanos;
         private long uploadCount;
@@ -353,6 +355,7 @@ public final class ClientBenchmark {
                 report.addProperty("vulkanTerrainDrawCalls", vulkanTerrainDraws);
                 report.addProperty("vulkanTerrainQuads", vulkanTerrainQuads);
                 report.addProperty("vulkanTerrainCutoutQuads", vulkanTerrainCutoutQuads);
+                report.addProperty("vulkanTerrainTranslucentQuads", vulkanTerrainTranslucentQuads);
             }
             report.addProperty("chunkBuildCount", buildCount);
             report.addProperty("chunkBuildTotalMs", buildNanos / 1_000_000.0);

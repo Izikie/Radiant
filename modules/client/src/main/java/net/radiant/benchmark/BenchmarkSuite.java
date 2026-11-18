@@ -130,7 +130,7 @@ final class BenchmarkSuite {
                 }
             }
             case TRAVELLING -> {
-                BlockPos floor = new BlockPos(warmupLocation.x, warmupLocation.y - 1, warmupLocation.z);
+                BlockPos floor = new BlockPos(warmupLocation.x, BenchmarkWorld.FLOOR_Y, warmupLocation.z);
                 if (pending == null && atDestination(mc, warmupLocation)
                         && world.getBlockState(floor).getBlock() == Blocks.STONEBRICK) {
                     enter(Stage.WARMING_UP, now);
@@ -315,6 +315,7 @@ final class BenchmarkSuite {
     private enum Phase {
         TERRAIN_STREAMING("terrain-streaming", 4096, EXHIBIT_Y, 4096, 50, 55),
         BLOCK_GALLERY("block-gallery", BenchmarkWorld.GALLERY_X, EXHIBIT_Y, 0, 4, 42),
+        TRANSLUCENCY("translucency", BenchmarkWorld.TRANSLUCENT_X, EXHIBIT_Y + 3, 0, 20, 24),
         ENTITIES("entities-and-block-entities", BenchmarkWorld.ENTITY_X, EXHIBIT_Y, 0, 3, 36),
         PARTICLES("particles", BenchmarkWorld.PARTICLE_X, EXHIBIT_Y, 0, 3, 22),
         CREATIVE_INVENTORY("creative-inventory", BenchmarkWorld.GALLERY_X, EXHIBIT_Y, 0, 4, 0);

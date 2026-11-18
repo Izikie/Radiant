@@ -49,12 +49,12 @@ It opens a separate test window and enables Khronos API and synchronization vali
 
 Add `-PvulkanTerrain=true` to `:dev:RunClient` or `:dev:RunClientBenchmark` to open a Vulkan terrain preview
 after joining a world. Leave shader packs, antialiasing, and anisotropic filtering off for the preview.
-It draws solid and cutout blocks from the game's visible section meshes, with the block atlas, lightmap, depth,
-and fog. The main client still draws through OpenGL. The preview captures atlas pixels on load and reload.
-Animated textures stay on their captured frame.
+It draws solid, cutout, and sorted translucent blocks from the game's visible section meshes, with the block
+atlas, lightmap, depth, and fog. The main client still draws through OpenGL. The preview captures atlas pixels
+on load and reload. Animated textures stay on their captured frame.
 
-The benchmark report shows Vulkan frames, terrain draw calls, and total and cutout quads when the preview runs.
-Use these counts to verify scene coverage. Frame times include both windows in preview mode.
+The benchmark report shows Vulkan frames, terrain draw calls, and total, cutout, and translucent quads when the
+preview runs. Frame times include both windows in preview mode.
 
 ## Performance benchmarks
 
@@ -65,9 +65,10 @@ Run `:dev:RunClientBenchmark` to start an instrumented client. On Windows:
 ```
 
 Click **Benchmark Suite** on the main menu to generate a fresh fixed-seed world and run the same route every time.
-The suite teleports to previously unseen terrain, pans across a block gallery, pans across named mobs, paintings,
-and block entities with partial occlusion, renders particle emitters, then cycles the creative inventory open and
-closed. Leave the window focused and avoid input during the route. The terrain phase warms up at a fixed staging
+The suite teleports to previously unseen terrain, pans across a block gallery and a translucency exhibit with
+water, stained glass, and ice, pans across partially occluded mobs, paintings, and block entities, renders
+particle emitters, then cycles the creative inventory open and closed. Leave the window focused and avoid
+input during the route. The terrain phase warms up at a fixed staging
 point and measures the teleport and chunk streaming. Other phases wait for arrival before warming up.
 The suite controls player movement and camera input while the route runs.
 
