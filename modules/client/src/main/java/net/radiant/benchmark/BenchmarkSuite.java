@@ -316,6 +316,7 @@ final class BenchmarkSuite {
         TERRAIN_STREAMING("terrain-streaming", 4096, EXHIBIT_Y, 4096, 50, 55),
         BLOCK_GALLERY("block-gallery", BenchmarkWorld.GALLERY_X, EXHIBIT_Y, 0, 4, 42),
         TRANSLUCENCY("translucency", BenchmarkWorld.TRANSLUCENT_X, EXHIBIT_Y + 3, 0, 20, 24),
+        ANIMATED_TEXTURES("animated-textures", BenchmarkWorld.TRANSLUCENT_X, EXHIBIT_Y + 3, 0, 20, 0),
         ENTITIES("entities-and-block-entities", BenchmarkWorld.ENTITY_X, EXHIBIT_Y, 0, 3, 36),
         PARTICLES("particles", BenchmarkWorld.PARTICLE_X, EXHIBIT_Y, 0, 3, 22),
         CREATIVE_INVENTORY("creative-inventory", BenchmarkWorld.GALLERY_X, EXHIBIT_Y, 0, 4, 0);

@@ -12,6 +12,7 @@ import net.optifine.SmartAnimations;
 import net.optifine.shaders.Shaders;
 import net.optifine.util.CounterInt;
 import net.optifine.util.TextureUtils;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.radiant.util.NativeImage;
 
 import java.io.IOException;
@@ -191,15 +192,13 @@ public class TextureAtlasSprite {
                 this.frameCounter = (this.frameCounter + 1) % j;
                 this.tickCounter = 0;
                 int k = this.animationMetadata.getFrameIndex(this.frameCounter);
-                boolean flag = false;
-                boolean flag1 = this.isSpriteSingle;
 
                 if (!this.animationActive) {
                     return;
                 }
 
                 if (i != k && k >= 0 && k < this.framesTextureData.size()) {
-                    TextureUtil.uploadTextureMipmap(this.framesTextureData.get(k), this.width, this.height, this.originX, this.originY, flag, flag1);
+                    this.uploadAnimationFrame(this.framesTextureData.get(k), this.isSpriteSingle);
                 }
             } else if (this.animationMetadata.isInterpolate()) {
                 if (!this.animationActive) {
@@ -242,12 +241,19 @@ public class TextureAtlasSprite {
                 }
             }
 
-            TextureUtil.uploadTextureMipmap(this.interpolatedFrameData, this.width, this.height, this.originX, this.originY, false, false);
+            this.uploadAnimationFrame(this.interpolatedFrameData, false);
         }
     }
 
     public int[][] getFrameTextureData(int index) {
         return this.framesTextureData.get(index);
+    }
+
+    protected void uploadAnimationFrame(int[][] pixels, boolean clamp) {
+        TextureUtil.uploadTextureMipmap(pixels, this.width, this.height, this.originX, this.originY, false, clamp);
+        if (VulkanTerrainPreview.ENABLED) {
+            VulkanTerrainPreview.updateSprite(this, pixels);
+        }
     }
 
     public int getFrameCount() {

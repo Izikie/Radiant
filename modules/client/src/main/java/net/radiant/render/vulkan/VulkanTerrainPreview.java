@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.chunk.CompiledChunk;
 import net.minecraft.client.renderer.chunk.RenderChunk;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.RenderLayer;
@@ -149,6 +150,19 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.sections.values().forEach(preview::retire);
             preview.sections.clear();
             preview.atlasDirty = true;
+            preview.terrain.setAtlas(null);
+        }
+    }
+
+    public static void updateSprite(TextureAtlasSprite sprite, int[][] pixels) {
+        VulkanTerrainPreview preview = active;
+        if (preview == null || preview.atlasDirty) {
+            return;
+        }
+        String name = sprite.getIconName();
+        if (Minecraft.get().getTextureMapBlocks().getAtlasSprite(name) == sprite) {
+            preview.terrain.updateSprite(name, sprite.getOriginX(), sprite.getOriginY(),
+                    sprite.getIconWidth(), sprite.getIconHeight(), pixels);
         }
     }
 

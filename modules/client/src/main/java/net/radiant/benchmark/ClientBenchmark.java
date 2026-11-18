@@ -233,6 +233,16 @@ public final class ClientBenchmark {
         }
     }
 
+    public static void recordVulkanAtlasUpload(int sprites, int water, int lava, int bytes) {
+        Capture capture = active;
+        if (capture != null) {
+            capture.vulkanAtlasSpriteUpdates += sprites;
+            capture.vulkanWaterSpriteUpdates += water;
+            capture.vulkanLavaSpriteUpdates += lava;
+            capture.vulkanAtlasUploadBytes += bytes;
+        }
+    }
+
     private static ThreadMXBean allocationTracker() {
         if (ManagementFactory.getThreadMXBean() instanceof ThreadMXBean bean
                 && bean.isThreadAllocatedMemorySupported()) {
@@ -279,6 +289,10 @@ public final class ClientBenchmark {
         private long vulkanTerrainQuads;
         private long vulkanTerrainCutoutQuads;
         private long vulkanTerrainTranslucentQuads;
+        private long vulkanAtlasSpriteUpdates;
+        private long vulkanWaterSpriteUpdates;
+        private long vulkanLavaSpriteUpdates;
+        private long vulkanAtlasUploadBytes;
         private long buildCount;
         private long buildNanos;
         private long uploadCount;
@@ -356,6 +370,10 @@ public final class ClientBenchmark {
                 report.addProperty("vulkanTerrainQuads", vulkanTerrainQuads);
                 report.addProperty("vulkanTerrainCutoutQuads", vulkanTerrainCutoutQuads);
                 report.addProperty("vulkanTerrainTranslucentQuads", vulkanTerrainTranslucentQuads);
+                report.addProperty("vulkanAtlasSpriteUpdates", vulkanAtlasSpriteUpdates);
+                report.addProperty("vulkanWaterSpriteUpdates", vulkanWaterSpriteUpdates);
+                report.addProperty("vulkanLavaSpriteUpdates", vulkanLavaSpriteUpdates);
+                report.addProperty("vulkanAtlasUploadBytes", vulkanAtlasUploadBytes);
             }
             report.addProperty("chunkBuildCount", buildCount);
             report.addProperty("chunkBuildTotalMs", buildNanos / 1_000_000.0);

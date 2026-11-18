@@ -346,6 +346,7 @@ public final class VulkanPresenter implements AutoCloseable {
         VkCommandBufferBeginInfo begin = VkCommandBufferBeginInfo.calloc(stack).sType$Default()
                 .flags(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
         check(vkBeginCommandBuffer(commands, begin), "begin frame commands");
+        scene.recordUploads(stack, commands);
         VkImageMemoryBarrier.Buffer barrier = VkImageMemoryBarrier.calloc(1, stack);
         VkImageMemoryBarrier transition = barrier.get(0).sType$Default().image(images[index])
                 .srcQueueFamilyIndex(VK_QUEUE_FAMILY_IGNORED).dstQueueFamilyIndex(VK_QUEUE_FAMILY_IGNORED)

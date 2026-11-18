@@ -18,6 +18,9 @@ interface VulkanScene extends AutoCloseable {
 
     void prepareFrame();
 
+    default void recordUploads(MemoryStack stack, VkCommandBuffer commands) {
+    }
+
     void draw(MemoryStack stack, VkCommandBuffer commands, int width, int height);
 
     @Override
