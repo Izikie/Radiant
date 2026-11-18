@@ -4,6 +4,7 @@ import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.optifine.Config;
 import net.optifine.shaders.SVertexBuilder;
+import net.radiant.benchmark.ClientBenchmark;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.ByteBuffer;
@@ -60,6 +61,7 @@ public class WorldVertexBufferUploader {
                 SVertexBuilder.drawArrays(p_181679_1_.getDrawMode(), 0, p_181679_1_.getVertexCount(), p_181679_1_);
             } else {
                 GL11.glDrawArrays(p_181679_1_.getDrawMode(), 0, p_181679_1_.getVertexCount());
+                ClientBenchmark.recordDrawCall();
             }
 
             int j1 = 0;

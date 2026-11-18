@@ -7,6 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.util.Session;
+import net.radiant.benchmark.ClientBenchmark;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +17,7 @@ import java.util.concurrent.Executors;
 
 public final class DevGuiMainMenu extends GuiMainMenu {
 
+    private static final int BENCHMARK_BUTTON = -998;
     private static final Logger LOGGER = LoggerFactory.getLogger(DevGuiMainMenu.class);
 
     private final MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
@@ -27,10 +29,17 @@ public final class DevGuiMainMenu extends GuiMainMenu {
 
         int j = this.height / 4 + 48;
         this.buttonList.add(new GuiButton(-999, this.width / 2 - 100, j + 24 * 2, "Login"));
+        if (ClientBenchmark.ENABLED) {
+            this.buttonList.add(new GuiButton(BENCHMARK_BUTTON, 4, 4, 112, 20, "Benchmark Suite"));
+        }
     }
 
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
+        if (button.id == BENCHMARK_BUTTON) {
+            ClientBenchmark.launchSuite(this.mc);
+            return;
+        }
         super.actionPerformed(button);
 
         if (button.id != -999) {

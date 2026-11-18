@@ -1,6 +1,7 @@
 package net.minecraft.util.input;
 
 import net.minecraft.client.settings.GameSettings;
+import net.radiant.benchmark.ClientBenchmark;
 
 public class MovementInputFromOptions extends MovementInput {
     private final GameSettings gameSettings;
@@ -13,6 +14,11 @@ public class MovementInputFromOptions extends MovementInput {
     public void updatePlayerMoveState() {
         this.moveStrafe = 0.0F;
         this.moveForward = 0.0F;
+        if (ClientBenchmark.controlsCamera()) {
+            this.jump = false;
+            this.sneak = false;
+            return;
+        }
 
         if (this.gameSettings.keyBindForward.isKeyDown()) {
             ++this.moveForward;

@@ -1,0 +1,348 @@
+package net.radiant.benchmark;
+
+import com.google.gson.JsonArray;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.sun.management.ThreadMXBean;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiMainMenu;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.settings.GameSettings;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.integrated.IntegratedServer;
+import net.optifine.Config;
+import net.optifine.shaders.Shaders;
+import net.radiant.lwjgl.opengl.Display;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
+
+public final class ClientBenchmark {
+    public static final boolean ENABLED = Boolean.getBoolean("radiant.benchmark");
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ClientBenchmark.class);
+    private static final int MAX_FRAME_SAMPLES = 250_000;
+    private static final int MAX_TICK_SAMPLES = 20_000;
+
+    private static long startupMillis = -1;
+    private static int warmupSeconds;
+    private static long warmupStart;
+    private static WorldClient captureWorld;
+    private static volatile Capture active;
+    private static BenchmarkSuite suite;
+    private static boolean autoStart = ENABLED && Boolean.getBoolean("radiant.benchmark.autoStart");
+
+    private ClientBenchmark() {
+    }
+
+    public static void toggle(Minecraft mc) {
+        if (suite != null) {
+            stopSuite(mc, "cancelled with F8");
+        } else if (captureWorld != null) {
+            cancel("cancelled with F8");
+        } else if (isInWorld(mc)) {
+            captureWorld = mc.world;
+            warmupSeconds = Math.clamp(Integer.getInteger("radiant.benchmark.warmup", 5), 0, 120);
+            warmupStart = System.nanoTime();
+            LOGGER.info("Benchmark armed. Capture starts in {} seconds.", warmupSeconds);
+        }
+    }
+
+    public static void launchSuite(Minecraft mc) {
+        if (ENABLED && suite == null && mc.world == null && mc.currentScreen instanceof GuiMainMenu) {
+            boolean exitAfterSuite = autoStart;
+            autoStart = false;
+            suite = BenchmarkSuite.launch(mc, exitAfterSuite);
+        }
+    }
+
+    public static void tick(Minecraft mc) {
+        if (suite != null) {
+            suite.tick(mc);
+        }
+    }
+
+    public static void beforeRender(Minecraft mc) {
+        if (suite != null) {
+            suite.beforeRender(mc);
+        }
+    }
+
+    public static boolean controlsCamera() {
+        return ENABLED && suite != null;
+    }
+
+    static void stopSuite(Minecraft mc, String reason) {
+        active = null;
+        BenchmarkSuite finished = suite;
+        suite = null;
+        finished.finish(mc, reason);
+        LOGGER.info("Benchmark suite ended: {}", reason);
+    }
+
+    public static void recordMainMenuPresented(GuiScreen screen) {
+        if (startupMillis < 0 && screen instanceof GuiMainMenu) {
+            startupMillis = ManagementFactory.getRuntimeMXBean().getUptime();
+            LOGGER.info("Benchmark startup to first main menu frame: {} ms", startupMillis);
+        }
+    }
+
+    public static void endFrame(Minecraft mc, long frameStart) {
+        if (autoStart && startupMillis >= 0) {
+            launchSuite(mc);
+        }
+        if (suite != null) {
+            suite.endFrame(mc, frameStart);
+            return;
+        }
+        if (captureWorld == null) {
+            return;
+        }
+        if (mc.world != captureWorld || !isInWorld(mc)) {
+            cancel("world or window focus changed, or a screen opened");
+            return;
+        }
+
+        long now = System.nanoTime();
+        Capture capture = active;
+        if (capture == null) {
+            if (now - warmupStart >= TimeUnit.SECONDS.toNanos(warmupSeconds)) {
+                int seconds = Math.clamp(Integer.getInteger("radiant.benchmark.seconds", 30), 1, 180);
+                capture = new Capture(mc, seconds, warmupSeconds, System.getProperty("radiant.benchmark.scenario", "manual"));
+                LOGGER.info("Benchmark capture started for {} seconds.", seconds);
+                capture.start();
+                active = capture;
+            }
+            return;
+        }
+        if (mc.displayWidth != capture.width || mc.displayHeight != capture.height) {
+            cancel("window size changed");
+            return;
+        }
+
+        JsonObject report = sample(frameStart, now);
+        if (report != null) {
+            captureWorld = null;
+            writeReport(report, "capture-");
+        }
+    }
+
+    static void beginPhase(Minecraft mc, String name, int seconds, int warmup) {
+        Capture capture = new Capture(mc, seconds, warmup, name);
+        capture.start();
+        active = capture;
+    }
+
+    static long phaseElapsedNanos() {
+        Capture capture = active;
+        return capture == null ? 0 : System.nanoTime() - capture.started;
+    }
+
+    static JsonObject sample(long frameStart, long now) {
+        Capture capture = active;
+        capture.frames[capture.frameCount++] = now - frameStart;
+        if (now - capture.started >= capture.duration || capture.frameCount == capture.frames.length) {
+            active = null;
+            return capture.summarize(now);
+        }
+        return null;
+    }
+
+    static void writeReport(JsonObject report, String prefix) {
+        try {
+            Path directory = Files.createDirectories(Path.of("benchmarks"));
+            Path output = Files.createTempFile(directory, prefix, ".json");
+            String json = new GsonBuilder().setPrettyPrinting().create().toJson(report);
+            Files.writeString(output, json + System.lineSeparator());
+            LOGGER.info("Benchmark report written to {}", output.toAbsolutePath());
+        } catch (IOException e) {
+            LOGGER.warn("Could not write benchmark report", e);
+        }
+    }
+
+    private static boolean isInWorld(Minecraft mc) {
+        return mc.world != null && mc.player != null && mc.currentScreen == null && Display.isActive();
+    }
+
+    private static void cancel(String reason) {
+        captureWorld = null;
+        active = null;
+        LOGGER.info("Benchmark capture discarded: {}", reason);
+    }
+
+    public static long startChunkWork() {
+        return active == null ? 0 : System.nanoTime();
+    }
+
+    public static void recordChunkWork(long started, boolean upload) {
+        Capture capture = active;
+        if (started == 0 || capture == null || started - capture.started < 0) {
+            return;
+        }
+        long elapsed = System.nanoTime() - started;
+        synchronized (capture) {
+            if (capture == active) {
+                if (upload) {
+                    capture.uploadCount++;
+                    capture.uploadNanos += elapsed;
+                } else {
+                    capture.buildCount++;
+                    capture.buildNanos += elapsed;
+                }
+            }
+        }
+    }
+
+    public static void recordServerTick(MinecraftServer server, long started, long elapsed) {
+        Capture capture = active;
+        if (capture == null || capture.server != server || started - capture.started < 0) {
+            return;
+        }
+        synchronized (capture) {
+            if (capture == active && capture.tickCount < capture.ticks.length) {
+                capture.ticks[capture.tickCount++] = elapsed;
+            }
+        }
+    }
+
+    public static void recordDrawCall() {
+        if (ENABLED) {
+            Capture capture = active;
+            if (capture != null) {
+                capture.drawCalls++;
+            }
+        }
+    }
+
+    private static ThreadMXBean allocationTracker() {
+        if (ManagementFactory.getThreadMXBean() instanceof ThreadMXBean bean
+                && bean.isThreadAllocatedMemorySupported()) {
+            if (!bean.isThreadAllocatedMemoryEnabled()) {
+                bean.setThreadAllocatedMemoryEnabled(true);
+            }
+            return bean;
+        }
+        return null;
+    }
+
+    static JsonObject summarizeTimes(long[] samples, int count) {
+        JsonObject result = new JsonObject();
+        result.addProperty("count", count);
+        if (count > 0) {
+            Arrays.sort(samples, 0, count);
+            result.addProperty("p50Ms", percentileMillis(samples, count, 50));
+            result.addProperty("p95Ms", percentileMillis(samples, count, 95));
+            result.addProperty("p99Ms", percentileMillis(samples, count, 99));
+        }
+        return result;
+    }
+
+    private static double percentileMillis(long[] sorted, int count, int percentile) {
+        return sorted[(count * percentile + 99) / 100 - 1] / 1_000_000.0;
+    }
+
+    private static final class Capture {
+        private final JsonObject report = new JsonObject();
+        private final long[] frames = new long[MAX_FRAME_SAMPLES];
+        private final long[] ticks = new long[MAX_TICK_SAMPLES];
+        private final ThreadMXBean allocation = allocationTracker();
+        private final IntegratedServer server;
+        private final long duration;
+        private final int width;
+        private final int height;
+        private long started;
+        private long allocatedAtStart;
+        private int frameCount;
+        private int tickCount;
+        private long drawCalls;
+        private long buildCount;
+        private long buildNanos;
+        private long uploadCount;
+        private long uploadNanos;
+
+        private Capture(Minecraft mc, int seconds, int warmup, String scenario) {
+            server = mc.getIntegratedServer();
+            duration = TimeUnit.SECONDS.toNanos(seconds);
+            width = mc.displayWidth;
+            height = mc.displayHeight;
+            report.addProperty("schemaVersion", 1);
+            report.addProperty("scenario", scenario);
+            report.addProperty("warmupSeconds", warmup);
+            report.addProperty("targetSeconds", seconds);
+            if (startupMillis >= 0) {
+                report.addProperty("startupToMainMenuMs", startupMillis);
+            }
+            report.addProperty("javaVersion", System.getProperty("java.version"));
+            report.addProperty("os", System.getProperty("os.name") + " " + System.getProperty("os.arch"));
+            report.addProperty("gpu", Config.openGlRenderer);
+            report.addProperty("glVersion", Config.openGlVersion);
+            report.addProperty("integratedServer", server != null);
+            report.addProperty("dimension", mc.player.dimension);
+            JsonObject camera = new JsonObject();
+            camera.addProperty("x", mc.player.posX);
+            camera.addProperty("y", mc.player.posY);
+            camera.addProperty("z", mc.player.posZ);
+            camera.addProperty("yaw", mc.player.rotationYaw);
+            camera.addProperty("pitch", mc.player.rotationPitch);
+            report.add("playerAtStart", camera);
+
+            GameSettings settings = mc.gameSettings;
+            JsonObject graphics = new JsonObject();
+            graphics.addProperty("width", width);
+            graphics.addProperty("height", height);
+            graphics.addProperty("renderDistanceChunks", settings.renderDistanceChunks);
+            graphics.addProperty("vsync", settings.enableVsync);
+            graphics.addProperty("fpsLimit", settings.limitFramerate);
+            graphics.addProperty("fancyGraphics", settings.fancyGraphics);
+            graphics.addProperty("ambientOcclusion", settings.ambientOcclusion);
+            graphics.addProperty("particleSetting", settings.particleSetting);
+            graphics.addProperty("vbo", OpenGlHelper.useVbo());
+            graphics.addProperty("renderRegions", settings.ofRenderRegions);
+            graphics.addProperty("fastRender", settings.ofFastRender);
+            graphics.addProperty("dynamicLights", settings.ofDynamicLights);
+            graphics.addProperty("shaderPack", Shaders.getShaderPackName());
+            JsonArray packs = new JsonArray();
+            settings.resourcePacks.forEach(packs::add);
+            graphics.add("resourcePacks", packs);
+            report.add("graphics", graphics);
+        }
+
+        private void start() {
+            allocatedAtStart = allocatedBytes();
+            started = System.nanoTime();
+        }
+
+        private long allocatedBytes() {
+            return allocation == null ? -1 : allocation.getCurrentThreadAllocatedBytes();
+        }
+
+        private synchronized JsonObject summarize(long finished) {
+            long allocatedAtEnd = allocatedBytes();
+            double elapsedSeconds = (finished - started) / 1_000_000_000.0;
+            report.addProperty("elapsedSeconds", elapsedSeconds);
+            report.addProperty("frameSampleLimitReached", frameCount == frames.length);
+            report.addProperty("fps", frameCount / elapsedSeconds);
+            report.add("frameTime", summarizeTimes(frames, frameCount));
+            report.add("integratedServerTickTime", summarizeTimes(ticks, tickCount));
+            report.addProperty("glDrawSubmissions", drawCalls);
+            report.addProperty("glDrawSubmissionsPerFrame", (double) drawCalls / frameCount);
+            report.addProperty("chunkBuildCount", buildCount);
+            report.addProperty("chunkBuildTotalMs", buildNanos / 1_000_000.0);
+            report.addProperty("chunkLayerUploadCount", uploadCount);
+            report.addProperty("chunkLayerUploadTotalMs", uploadNanos / 1_000_000.0);
+            if (allocatedAtStart >= 0 && allocatedAtEnd >= allocatedAtStart) {
+                report.addProperty("clientThreadAllocatedBytesPerSecond", (allocatedAtEnd - allocatedAtStart) / elapsedSeconds);
+            }
+
+            return report;
+        }
+    }
+}

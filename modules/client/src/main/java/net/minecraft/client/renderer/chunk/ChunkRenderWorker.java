@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.RegionRenderCacheBuilder;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.RenderLayer;
+import net.radiant.benchmark.ClientBenchmark;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,7 +75,11 @@ public class ChunkRenderWorker implements Runnable {
             ChunkCompileTaskGenerator.Type chunkcompiletaskgenerator$type = generator.getType();
 
             if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK) {
+                long started = ClientBenchmark.ENABLED ? ClientBenchmark.startChunkWork() : 0;
                 generator.getRenderChunk().rebuildChunk(f, f1, f2, generator);
+                if (started != 0) {
+                    ClientBenchmark.recordChunkWork(started, false);
+                }
             } else if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.RESORT_TRANSPARENCY) {
                 generator.getRenderChunk().resortTransparency(f, f1, f2, generator);
             }

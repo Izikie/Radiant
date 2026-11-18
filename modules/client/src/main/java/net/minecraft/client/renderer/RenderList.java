@@ -4,6 +4,7 @@ import net.minecraft.client.renderer.chunk.ListedRenderChunk;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.util.RenderLayer;
 import net.optifine.Config;
+import net.radiant.benchmark.ClientBenchmark;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.IntBuffer;
@@ -23,6 +24,7 @@ public class RenderList extends ChunkRenderContainer {
                     GlStateManager.pushMatrix();
                     this.preRenderChunk(renderchunk1);
                     GL11.glCallList(listedrenderchunk1.getDisplayList(layer, listedrenderchunk1.getCompiledChunk()));
+                    ClientBenchmark.recordDrawCall();
                     GlStateManager.popMatrix();
                 }
             } else {

@@ -1,0 +1,124 @@
+package net.radiant.benchmark;
+
+import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.item.EntityPainting;
+import net.minecraft.entity.passive.EntityCow;
+import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.DyeColor;
+import net.minecraft.tileentity.TileEntitySign;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.Direction;
+import net.minecraft.util.chat.ChatComponentText;
+import net.minecraft.world.GameRules;
+import net.minecraft.world.WorldServer;
+
+final class BenchmarkWorld {
+    static final long SEED = 681889L;
+    static final int LAYOUT_VERSION = 1;
+    static final int FLOOR_Y = 192;
+    static final int GALLERY_X = 0;
+    static final int ENTITY_X = 64;
+    static final int PARTICLE_X = 128;
+
+    private BenchmarkWorld() {
+    }
+
+    // Called on the integrated server thread for the freshly generated benchmark save.
+    static void build(WorldServer world) {
+        GameRules rules = world.getGameRules();
+        rules.setOrCreateGameRule("doDaylightCycle", "false");
+        rules.setOrCreateGameRule("doMobSpawning", "false");
+        rules.setOrCreateGameRule("randomTickSpeed", "0");
+        world.setWorldTime(6000);
+        world.getWorldInfo().setRaining(false);
+        world.getWorldInfo().setThundering(false);
+        world.getWorldInfo().setCleanWeatherTime(Integer.MAX_VALUE);
+
+        buildFloor(world, GALLERY_X);
+        buildFloor(world, ENTITY_X);
+        buildFloor(world, PARTICLE_X);
+        buildGallery(world);
+        buildEntityScene(world);
+    }
+
+    private static void buildFloor(WorldServer world, int center) {
+        for (int x = center - 16; x <= center + 16; x++) {
+            for (int z = -3; z <= 34; z++) {
+                world.setBlockState(new BlockPos(x, FLOOR_Y, z), Blocks.STONEBRICK.getDefaultState(), 2);
+            }
+        }
+    }
+
+    private static void buildGallery(WorldServer world) {
+        Block[] materials = {
+                Blocks.STAINED_HARDENED_CLAY, Blocks.OAK_STAIRS, Blocks.OAK_FENCE, Blocks.GLOWSTONE,
+                Blocks.GLASS, Blocks.STAINED_GLASS, Blocks.GLASS_PANE, Blocks.LEAVES,
+                Blocks.WOOL, Blocks.STONE_SLAB, Blocks.LOG, Blocks.SEA_LANTERN,
+                Blocks.ICE, Blocks.STAINED_GLASS_PANE, Blocks.IRON_BARS, Blocks.LEAVES_2
+        };
+        for (int row = 0; row < 8; row++) {
+            for (int column = 0; column < 8; column++) {
+                Block material = materials[(row % 2) * 8 + column];
+                int x = GALLERY_X - 14 + column * 4;
+                int z = 5 + row * 4;
+                int metadata = material == Blocks.STAINED_GLASS || material == Blocks.STAINED_HARDENED_CLAY
+                        || material == Blocks.STAINED_GLASS_PANE || material == Blocks.WOOL
+                        ? row + 4 : 0;
+                for (int y = 1; y <= 2 + row % 3; y++) {
+                    world.setBlockState(new BlockPos(x, FLOOR_Y + y, z), material.getStateFromMeta(metadata), 2);
+                    world.setBlockState(new BlockPos(x + 1, FLOOR_Y + y, z), material.getStateFromMeta(metadata), 2);
+                }
+            }
+        }
+    }
+
+    private static void buildEntityScene(WorldServer world) {
+        for (int row = 0; row < 8; row++) {
+            for (int column = 0; column < 10; column++) {
+                int x = ENTITY_X - 13 + column * 3;
+                int z = 5 + row * 3;
+                EntityLiving animal = (row + column) % 2 == 0 ? new EntityCow(world) : new EntitySheep(world);
+                if (animal instanceof EntitySheep sheep) {
+                    sheep.setFleeceColor(DyeColor.byMetadata((row * 10 + column) % 16));
+                }
+                animal.setNoAI(true);
+                animal.enablePersistence();
+                animal.setCustomNameTag("Exhibit " + (row * 10 + column + 1));
+                animal.setAlwaysRenderNameTag(true);
+                animal.setLocationAndAngles(x + 0.5, FLOOR_Y + 1, z + 0.5, 180, 0);
+                world.spawnEntityInWorld(animal);
+
+                BlockPos prop = new BlockPos(x, FLOOR_Y + 1, z + 1);
+                if (row % 2 == 0) {
+                    world.setBlockState(prop, Blocks.CHEST.getDefaultState(), 2);
+                } else {
+                    world.setBlockState(prop, Blocks.STANDING_SIGN.getStateFromMeta(8), 2);
+                    if (world.getTileEntity(prop) instanceof TileEntitySign sign) {
+                        sign.signText[1] = new ChatComponentText("Exhibit " + (column + 1));
+                        sign.markDirty();
+                    }
+                }
+            }
+        }
+
+        // Leave a gap between two walls so a camera sweep sees both exposed and occluded exhibits.
+        for (int offset = -15; offset <= 15; offset++) {
+            if (Math.abs(offset) < 4) {
+                continue;
+            }
+            int x = ENTITY_X + offset;
+            for (int y = 1; y <= 4; y++) {
+                world.setBlockState(new BlockPos(x, FLOOR_Y + y, 16), Blocks.STONEBRICK.getDefaultState(), 2);
+            }
+            if (offset % 2 == 0) {
+                BlockPos pos = new BlockPos(x, FLOOR_Y + 3, 15);
+                EntityPainting painting = new EntityPainting(world, pos, Direction.NORTH, "Kebab");
+                if (painting.onValidSurface()) {
+                    world.spawnEntityInWorld(painting);
+                }
+            }
+        }
+    }
+}

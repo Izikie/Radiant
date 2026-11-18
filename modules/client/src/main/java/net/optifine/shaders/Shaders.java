@@ -42,6 +42,7 @@ import net.optifine.util.EntityUtils;
 import net.optifine.util.StrUtils;
 import net.optifine.util.TimedEvent;
 import net.optifine.util.collection.PropertiesOrdered;
+import net.radiant.benchmark.ClientBenchmark;
 import net.radiant.lwjgl.opengl.ContextCapabilities;
 import net.radiant.lwjgl.opengl.GLContext;
 import org.apache.commons.io.IOUtils;
@@ -3556,6 +3557,7 @@ public class Shaders {
     private static void drawCompositeQuad() {
         if (!canRenderQuads()) {
             GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
+            ClientBenchmark.recordDrawCall();
             GL11.glTexCoord2f(0.0F, 0.0F);
             GL11.glVertex3f(0.0F, 0.0F, 0.0F);
             GL11.glTexCoord2f(1.0F, 0.0F);
@@ -3566,6 +3568,7 @@ public class Shaders {
             GL11.glVertex3f(1.0F, 1.0F, 0.0F);
         } else {
             GL11.glBegin(GL11.GL_QUADS);
+            ClientBenchmark.recordDrawCall();
             GL11.glTexCoord2f(0.0F, 0.0F);
             GL11.glVertex3f(0.0F, 0.0F, 0.0F);
             GL11.glTexCoord2f(1.0F, 0.0F);

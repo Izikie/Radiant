@@ -17,6 +17,7 @@ import net.optifine.Config;
 import net.optifine.CustomColors;
 import net.optifine.render.GlBlendState;
 import net.optifine.util.FontUtils;
+import net.radiant.benchmark.ClientBenchmark;
 import net.radiant.util.NativeImage;
 import org.lwjgl.opengl.GL11;
 
@@ -195,6 +196,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 
         float f1 = 7.99F;
         GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
+        ClientBenchmark.recordDrawCall();
 
         GL11.glTexCoord2f(i / 128.0F, j / 128.0F);
         GL11.glVertex3f(this.posX + italicStyle, this.posY, 0.0F);
@@ -240,6 +242,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
             float italicStyle = italic ? 1.0F : 0.0F;
 
             GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
+            ClientBenchmark.recordDrawCall();
 
             GL11.glTexCoord2f(f2 / 256.0F, f3 / 256.0F);
             GL11.glVertex3f(this.posX + italicStyle, this.posY, 0.0F);

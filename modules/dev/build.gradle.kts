@@ -69,16 +69,37 @@ tasks.withType<JavaExec>().configureEach {
     classpath = sourceSets["main"].runtimeClasspath
     mainClass.set("net.radiant.dev.start.LaunchWrapper")
 
-    args(
-        "--gameDir", minecraftDir,
-        "--accessToken", "0",
-        "--userProperties", "{}"
-    )
+    args("--accessToken", "0", "--userProperties", "{}")
+    if (name != "RunClientBenchmark") {
+        args("--gameDir", minecraftDir)
+    }
 }
 
 tasks.register<JavaExec>("RunClient") {
     group = "RadiantMCP"
     description = "Starts the Minecraft client."
+}
+
+tasks.register<JavaExec>("RunClientBenchmark") {
+    group = "RadiantMCP"
+    description = "Starts the isolated client with the benchmark suite and manual F8 capture."
+
+    val benchmarkGameDir = rootProject.file("run/benchmark-game")
+    doFirst {
+        benchmarkGameDir.mkdirs()
+    }
+    args("--gameDir", benchmarkGameDir.absolutePath, "--assetsDir", "$minecraftDir/assets")
+    systemProperty("radiant.benchmark", "true")
+    mapOf(
+        "benchmarkScenario" to "scenario",
+        "benchmarkWarmup" to "warmup",
+        "benchmarkSeconds" to "seconds",
+        "benchmarkAutoStart" to "autoStart"
+    ).forEach { (property, option) ->
+        providers.gradleProperty(property).orNull?.let {
+            systemProperty("radiant.benchmark.$option", it)
+        }
+    }
 }
 
 tasks.register<JavaExec>("RunClientNativeAgent") {

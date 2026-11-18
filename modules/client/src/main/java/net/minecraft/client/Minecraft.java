@@ -80,6 +80,7 @@ import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
 import net.optifine.Lang;
+import net.radiant.benchmark.ClientBenchmark;
 import net.radiant.lwjgl.LWJGLException;
 import net.radiant.lwjgl.input.Keyboard;
 import net.radiant.lwjgl.input.Mouse;
@@ -805,6 +806,9 @@ public class Minecraft implements IThreadListener {
 
         for (int j = 0; j < timer.elapsedTicks; ++j) {
             runTick();
+            if (ClientBenchmark.ENABLED) {
+                ClientBenchmark.tick(this);
+            }
         }
 
         checkGLError("Pre render");
@@ -819,6 +823,9 @@ public class Minecraft implements IThreadListener {
         }
 
 
+        if (ClientBenchmark.ENABLED) {
+            ClientBenchmark.beforeRender(this);
+        }
         if (!skipRenderWorld) {
             entityRenderer.updateCameraAndRender(timer.renderPartialTicks, i);
         }
@@ -832,6 +839,9 @@ public class Minecraft implements IThreadListener {
         GlStateManager.popMatrix();
 
         updateDisplay();
+        if (ClientBenchmark.ENABLED) {
+            ClientBenchmark.recordMainMenuPresented(currentScreen);
+        }
         Thread.yield();
         checkGLError("Post render");
         ++fpsCounter;
@@ -850,6 +860,9 @@ public class Minecraft implements IThreadListener {
 
         if (isFramerateLimitBelowMax()) {
             Display.sync(getLimitFramerate());
+        }
+        if (ClientBenchmark.ENABLED) {
+            ClientBenchmark.endFrame(this, i);
         }
     }
 
@@ -1844,7 +1857,9 @@ public class Minecraft implements IThreadListener {
         if (i != 0 && !Keyboard.isRepeatEvent()) {
             if (!(currentScreen instanceof GuiControls guiControls) || guiControls.time <= getSystemTime() - 20L) {
                 if (Keyboard.getEventKeyState()) {
-                    if (i == gameSettings.keyBindFullscreen.getKeyCode()) {
+                    if (ClientBenchmark.ENABLED && i == Keyboard.KEY_F8) {
+                        ClientBenchmark.toggle(this);
+                    } else if (i == gameSettings.keyBindFullscreen.getKeyCode()) {
                         toggleFullscreen();
                     } else if (i == gameSettings.keyBindScreenshot.getKeyCode()) {
                         ingameGUI.getChatGUI().printChatMessage(ScreenShotHelper.saveScreenshot(mcDataDir, displayWidth, displayHeight, framebufferMc));

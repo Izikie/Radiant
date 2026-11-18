@@ -3,6 +3,7 @@ package net.minecraft.client.renderer.vertex;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.optifine.render.VboRange;
 import net.optifine.render.VboRegion;
+import net.radiant.benchmark.ClientBenchmark;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.ByteBuffer;
@@ -44,6 +45,7 @@ public class VertexBuffer {
             this.vboRegion.drawArrays(mode, this.vboRange);
         } else {
             GL11.glDrawArrays(mode, 0, this.count);
+            ClientBenchmark.recordDrawCall();
         }
     }
 

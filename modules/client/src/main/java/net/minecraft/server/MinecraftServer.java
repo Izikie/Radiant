@@ -32,6 +32,7 @@ import net.minecraft.world.chunk.storage.AnvilSaveConverter;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
+import net.radiant.benchmark.ClientBenchmark;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -474,7 +475,11 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
             this.saveAllWorlds(true);
         }
 
-        this.tickTimeArray[this.tickCounter % 100] = System.nanoTime() - i;
+        long elapsed = System.nanoTime() - i;
+        this.tickTimeArray[this.tickCounter % 100] = elapsed;
+        if (ClientBenchmark.ENABLED) {
+            ClientBenchmark.recordServerTick(this, i, elapsed);
+        }
     }
 
     public void updateTimeLightAndEntities() {

@@ -6,6 +6,7 @@ import net.optifine.render.GlAlphaState;
 import net.optifine.render.GlBlendState;
 import net.optifine.shaders.Shaders;
 import net.optifine.util.LockCounter;
+import net.radiant.benchmark.ClientBenchmark;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
 
@@ -488,6 +489,7 @@ public class GlStateManager {
 
     public static void glDrawArrays(int p_glDrawArrays_0_, int p_glDrawArrays_1_, int p_glDrawArrays_2_) {
         GL11.glDrawArrays(p_glDrawArrays_0_, p_glDrawArrays_1_, p_glDrawArrays_2_);
+        ClientBenchmark.recordDrawCall();
 
         if (Config.isShaders()) {
             int i = Shaders.activeProgram.getCountInstances();
@@ -496,6 +498,7 @@ public class GlStateManager {
                 for (int j = 1; j < i; ++j) {
                     Shaders.UNIFORM_INSTANCE_ID.setValue(j);
                     GL11.glDrawArrays(p_glDrawArrays_0_, p_glDrawArrays_1_, p_glDrawArrays_2_);
+                    ClientBenchmark.recordDrawCall();
                 }
 
                 Shaders.UNIFORM_INSTANCE_ID.setValue(0);
@@ -505,6 +508,7 @@ public class GlStateManager {
 
     public static void callList(int list) {
         GL11.glCallList(list);
+        ClientBenchmark.recordDrawCall();
 
         if (Config.isShaders()) {
             int i = Shaders.activeProgram.getCountInstances();
@@ -513,6 +517,7 @@ public class GlStateManager {
                 for (int j = 1; j < i; ++j) {
                     Shaders.UNIFORM_INSTANCE_ID.setValue(j);
                     GL11.glCallList(list);
+                    ClientBenchmark.recordDrawCall();
                 }
 
                 Shaders.UNIFORM_INSTANCE_ID.setValue(0);
@@ -522,6 +527,7 @@ public class GlStateManager {
 
     public static void callLists(IntBuffer p_callLists_0_) {
         GL11.glCallLists(p_callLists_0_);
+        ClientBenchmark.recordDrawCall();
 
         if (Config.isShaders()) {
             int i = Shaders.activeProgram.getCountInstances();
@@ -530,6 +536,7 @@ public class GlStateManager {
                 for (int j = 1; j < i; ++j) {
                     Shaders.UNIFORM_INSTANCE_ID.setValue(j);
                     GL11.glCallLists(p_callLists_0_);
+                    ClientBenchmark.recordDrawCall();
                 }
 
                 Shaders.UNIFORM_INSTANCE_ID.setValue(0);
@@ -641,6 +648,7 @@ public class GlStateManager {
 
     public static void glMultiDrawArrays(int mode, IntBuffer first, IntBuffer count) {
         GL14.glMultiDrawArrays(mode, first, count);
+        ClientBenchmark.recordDrawCall();
 
         if (Config.isShaders()) {
             int i = Shaders.activeProgram.getCountInstances();
@@ -649,6 +657,7 @@ public class GlStateManager {
                 for (int j = 1; j < i; ++j) {
                     Shaders.UNIFORM_INSTANCE_ID.setValue(j);
                     GL14.glMultiDrawArrays(mode, first, count);
+                    ClientBenchmark.recordDrawCall();
                 }
 
                 Shaders.UNIFORM_INSTANCE_ID.setValue(0);

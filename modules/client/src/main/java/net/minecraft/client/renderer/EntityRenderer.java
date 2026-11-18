@@ -67,6 +67,7 @@ import net.optifine.shaders.ShadersRender;
 import net.optifine.util.MemoryMonitor;
 import net.optifine.util.TextureUtils;
 import net.optifine.util.TimedEvent;
+import net.radiant.benchmark.ClientBenchmark;
 import net.radiant.lwjgl.input.Keyboard;
 import net.radiant.lwjgl.input.Mouse;
 import net.radiant.lwjgl.opengl.Display;
@@ -981,7 +982,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 this.smoothCamYaw = 0.0F;
                 this.smoothCamPitch = 0.0F;
             }
-            this.mc.player.setAngles(f2, f3 * i);
+            if (!ClientBenchmark.controlsCamera()) {
+                this.mc.player.setAngles(f2, f3 * i);
+            }
         }
 
         if (!this.mc.skipRenderWorld) {

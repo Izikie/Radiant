@@ -12,6 +12,7 @@ import net.optifine.SmartAnimations;
 import net.optifine.render.RenderEnv;
 import net.optifine.shaders.SVertexBuilder;
 import net.optifine.util.TextureUtils;
+import net.radiant.benchmark.ClientBenchmark;
 import org.lwjgl.opengl.GL11;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -757,6 +758,7 @@ public class WorldRenderer {
             int j = p_draw_1_ * 4;
             int k = i * 4;
             GL11.glDrawArrays(this.drawMode, j, k);
+            ClientBenchmark.recordDrawCall();
         }
     }
 
