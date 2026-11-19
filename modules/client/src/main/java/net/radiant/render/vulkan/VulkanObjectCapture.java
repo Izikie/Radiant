@@ -176,12 +176,6 @@ public final class VulkanObjectCapture implements AutoCloseable {
             projection.set(worldProjection);
         } else if (cameraProjection != null) {
             projection.set(cameraProjection);
-        } else {
-            try (MemoryStack stack = MemoryStack.stackPush()) {
-                FloatBuffer matrix = stack.mallocFloat(16);
-                glGetFloatv(GL_PROJECTION_MATRIX, matrix);
-                projection.set(matrix);
-            }
         }
         if (phase != Phase.CAMERA_OVERLAYS && phase != Phase.WORLD_BORDER) {
             readLights();
@@ -448,16 +442,14 @@ public final class VulkanObjectCapture implements AutoCloseable {
     }
 
     private Material material() {
+        if (phase.layer.ui) {
+            projection.set(GlStateManager.projectionMatrix());
+        }
+        if (capturesTextureMatrix()) {
+            textureMatrix.set(GlStateManager.textureMatrix());
+        }
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            FloatBuffer values = stack.mallocFloat(16);
-            if (phase.layer.ui) {
-                glGetFloatv(GL_PROJECTION_MATRIX, values);
-                projection.set(values);
-            }
-            if (capturesTextureMatrix()) {
-                glGetFloatv(GL_TEXTURE_MATRIX, values);
-                textureMatrix.set(values);
-            }
+            FloatBuffer values = stack.mallocFloat(4);
             glGetFloatv(GL_CURRENT_COLOR, values);
             color.set(Math.clamp(values.get(0), 0, 1), Math.clamp(values.get(1), 0, 1),
                     Math.clamp(values.get(2), 0, 1), Math.clamp(values.get(3), 0, 1));
