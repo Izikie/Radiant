@@ -91,7 +91,7 @@ public class Shader {
         worldrenderer.pos(f, f1, 500.0D).color(255, 255, 255, 255).endVertex();
         worldrenderer.pos(f, 0.0D, 500.0D).color(255, 255, 255, 255).endVertex();
         worldrenderer.pos(0.0D, 0.0D, 500.0D).color(255, 255, 255, 255).endVertex();
-        tessellator.draw();
+        tessellator.drawWithoutCapture();
         GlStateManager.depthMask(true);
         GlStateManager.colorMask(true, true, true, true);
         this.manager.endShader();

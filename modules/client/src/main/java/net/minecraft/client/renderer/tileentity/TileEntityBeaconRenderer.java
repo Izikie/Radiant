@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer.tileentity;
 
+import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
@@ -37,8 +38,7 @@ public class TileEntityBeaconRenderer extends TileEntitySpecialRenderer<TileEnti
                 for (TileEntityBeacon.BeamSegment beamSegment : list) {
                     int k = i + beamSegment.getHeight();
                     this.bindTexture(BEACON_BEAM);
-                    GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
-                    GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
+                    TextureUtil.setTextureClamped(false);
                     GlStateManager.disableLighting();
                     GlStateManager.disableCull();
                     GlStateManager.disableBlend();

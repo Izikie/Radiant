@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.renderer.tileentity.RenderItemFrame;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySignRenderer;
@@ -162,8 +163,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         this.renderManager = mcIn.getRenderManager();
         this.renderEngine = mcIn.getTextureManager();
         this.renderEngine.bindTexture(LOCATION_FORCEFIELD_PNG);
-        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
-        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
+        TextureUtil.setTextureClamped(false);
         GlStateManager.bindTexture(0);
         this.updateDestroyBlockIcons();
         this.vboEnabled = OpenGlHelper.useVbo();
@@ -220,7 +220,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     }
 
     public void renderEntityOutlineFramebuffer() {
-        if (this.isRenderEntityOutlines()) {
+        if (this.isRenderEntityOutlines() && !VulkanTerrainPreview.replacesTerrainDraws()) {
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ZERO, GL11.GL_ONE);
             this.entityOutlineFramebuffer.framebufferRenderExt(this.mc.displayWidth, this.mc.displayHeight, false);
@@ -567,7 +567,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 this.renderManager.setRenderOutlines(false);
                 RenderHelper.enableStandardItemLighting();
                 GlStateManager.depthMask(false);
-                this.entityOutlineShader.loadShaderGroup(partialTicks);
+                if (!VulkanTerrainPreview.replacesTerrainDraws()) {
+                    this.entityOutlineShader.loadShaderGroup(partialTicks);
+                }
                 GlStateManager.enableLighting();
                 GlStateManager.depthMask(true);
                 this.mc.getFramebuffer().bindFramebuffer(false);

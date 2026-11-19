@@ -125,7 +125,7 @@ public class TextureUtil {
         allocateTexture(textureId, image.getWidth(), image.getHeight());
         uploadTextureImageSubImpl(image, 0, 0, blur, clamp);
         if (VulkanTerrainPreview.ENABLED) {
-            VulkanTerrainPreview.registerObjectTexture(textureId, image);
+            VulkanTerrainPreview.registerObjectTexture(textureId, image, clamp);
         }
         return textureId;
     }
@@ -180,6 +180,9 @@ public class TextureUtil {
     }
 
     public static void setTextureClamped(boolean p_110997_0_) {
+        if (VulkanTerrainPreview.ENABLED) {
+            VulkanTerrainPreview.setObjectTextureClamped(GlStateManager.getBoundTexture(), p_110997_0_);
+        }
         if (p_110997_0_) {
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);

@@ -16,12 +16,20 @@ public class Tessellator {
     }
 
     public void draw() {
+        this.draw(true);
+    }
+
+    public void drawWithoutCapture() {
+        this.draw(false);
+    }
+
+    private void draw(boolean capture) {
         if (this.worldRenderer.animatedSprites != null) {
             SmartAnimations.spritesRendered(this.worldRenderer.animatedSprites);
         }
 
         this.worldRenderer.finishDrawing();
-        this.vboUploader.draw(this.worldRenderer);
+        this.vboUploader.draw(this.worldRenderer, capture);
     }
 
     public WorldRenderer getWorldRenderer() {

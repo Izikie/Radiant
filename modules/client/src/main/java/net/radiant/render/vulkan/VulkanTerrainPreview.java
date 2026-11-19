@@ -274,8 +274,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         return true;
     }
 
-    public static void registerObjectTexture(int texture, NativeImage image) {
-        VulkanObjectCapture.registerTexture(texture, image);
+    public static void registerObjectTexture(int texture, NativeImage image, boolean clamp) {
+        VulkanObjectCapture.registerTexture(texture, image, clamp);
         invalidateObjectTextureImage(texture);
     }
 
@@ -287,6 +287,12 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     public static void invalidateObjectTexture(int texture) {
         VulkanObjectCapture.forgetTexture(texture);
         invalidateObjectTextureImage(texture);
+    }
+
+    public static void setObjectTextureClamped(int texture, boolean clamp) {
+        if (VulkanObjectCapture.setTextureClamped(texture, clamp)) {
+            invalidateObjectTextureImage(texture);
+        }
     }
 
     private static void invalidateObjectTextureImage(int texture) {
@@ -478,8 +484,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             glfwDestroyWindow(window);
             LOGGER.info("Vulkan terrain preview presented {} frames and {} terrain draws with {} validation errors",
                     frames, drawCalls, presenter.validationErrors());
-            LOGGER.info("Vulkan object textures loaded from CPU pixels: {} ({} dynamic); OpenGL readbacks: {}",
-                    objects.cpuTextureLoads(), objects.dynamicTextureLoads(), objects.textureReadbacks());
+            LOGGER.info("Vulkan object textures loaded from CPU pixels: {} ({} dynamic); missing CPU sources: {}",
+                    objects.cpuTextureLoads(), objects.dynamicTextureLoads(), objects.missingTextureSources());
         }
     }
 

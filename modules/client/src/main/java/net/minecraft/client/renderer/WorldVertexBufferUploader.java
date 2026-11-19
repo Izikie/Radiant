@@ -14,8 +14,14 @@ import java.util.List;
 public class WorldVertexBufferUploader {
 
     public void draw(WorldRenderer p_181679_1_) {
+        draw(p_181679_1_, true);
+    }
+
+    void draw(WorldRenderer p_181679_1_, boolean capture) {
         if (p_181679_1_.getVertexCount() > 0) {
-            VulkanObjectCapture.draw(p_181679_1_);
+            if (capture) {
+                VulkanObjectCapture.draw(p_181679_1_);
+            }
             if (p_181679_1_.getDrawMode() == 7 && Config.isQuadsToTriangles()) {
                 p_181679_1_.quadsToTriangles();
             }
