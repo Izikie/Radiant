@@ -28,6 +28,7 @@ import net.optifine.render.AabbFrame;
 import net.optifine.render.RenderEnv;
 import net.optifine.shaders.SVertexBuilder;
 import net.radiant.render.vulkan.VulkanTerrainPreview;
+import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.FloatBuffer;
@@ -35,6 +36,12 @@ import java.util.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class RenderChunk {
+    private static final FloatBuffer CHUNK_SCALE_MATRIX = new Matrix4f()
+            .translation(-8.0F, -8.0F, -8.0F)
+            .scale(1.000001F)
+            .translate(8.0F, 8.0F, 8.0F)
+            .get(GLAllocation.createDirectFloatBuffer(16)).asReadOnlyBuffer();
+
     private final World world;
     private final RenderGlobal renderGlobal;
     public static int renderChunksUpdated;
@@ -45,7 +52,6 @@ public class RenderChunk {
     private ChunkCompileTaskGenerator compileTask = null;
     private final Set<TileEntity> setTileEntities = new HashSet<>();
     private final int index;
-    private final FloatBuffer modelviewMatrix = GLAllocation.createDirectFloatBuffer(16);
     private final VertexBuffer[] vertexBuffers = new VertexBuffer[RenderLayer.values().length];
     public AxisAlignedBB boundingBox;
     private int frameIndex = -1;
@@ -103,7 +109,6 @@ public class RenderChunk {
         this.regionX = pos.getX() >> i << i;
         this.regionZ = pos.getZ() >> i << i;
         this.boundingBox = new AxisAlignedBB(pos, pos.add(16, 16, 16));
-        this.initModelviewMatrix();
 
         Arrays.fill(this.positionOffsets16, null);
 
@@ -334,19 +339,8 @@ public class RenderChunk {
         worldRendererIn.finishDrawing();
     }
 
-    private void initModelviewMatrix() {
-        GlStateManager.pushMatrix();
-        GlStateManager.loadIdentity();
-        float f = 1.000001F;
-        GlStateManager.translate(-8.0F, -8.0F, -8.0F);
-        GlStateManager.scale(f, f, f);
-        GlStateManager.translate(8.0F, 8.0F, 8.0F);
-        GlStateManager.getFloat(GL11.GL_MODELVIEW_MATRIX, this.modelviewMatrix);
-        GlStateManager.popMatrix();
-    }
-
     public void multModelviewMatrix() {
-        GlStateManager.multMatrix(this.modelviewMatrix);
+        GlStateManager.multMatrix(CHUNK_SCALE_MATRIX);
     }
 
     public CompiledChunk getCompiledChunk() {
