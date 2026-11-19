@@ -10,6 +10,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.settings.GameSettings;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -255,17 +256,29 @@ final class BenchmarkSuite {
             }
             setWeather(serverWorld, player, phase.rainStrength());
             if (phase == Phase.FIRST_PERSON_HAND || phase == Phase.FIRST_PERSON_ITEM || phase == Phase.WATER_OVERLAY
-                    || phase == Phase.CREATIVE_INVENTORY) {
+                    || phase == Phase.FIRST_PERSON_GLINT || phase == Phase.CREATIVE_INVENTORY) {
                 ItemStack stack = switch (phase) {
                     case FIRST_PERSON_ITEM -> new ItemStack(Items.DIAMOND_SWORD);
+                    case FIRST_PERSON_GLINT -> enchantedSword();
                     case CREATIVE_INVENTORY -> new ItemStack(Items.APPLE, 16);
                     default -> null;
                 };
-                player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
+                int selected = player.inventory.currentItem;
+                player.inventory.setInventorySlotContents(selected, stack);
+                if (phase == Phase.CREATIVE_INVENTORY) {
+                    player.inventory.setInventorySlotContents((selected + 1) % 9, new ItemStack(Items.DIAMOND_SWORD));
+                    player.inventory.setInventorySlotContents((selected + 2) % 9, enchantedSword());
+                }
                 player.inventoryContainer.detectAndSendChanges();
             }
             player.playerNetServerHandler.setPlayerLocation(phase.x + 0.5, phase.y, phase.z + 0.5, phase.yaw, phase.pitch);
         });
+    }
+
+    private static ItemStack enchantedSword() {
+        ItemStack sword = new ItemStack(Items.DIAMOND_SWORD);
+        sword.addEnchantment(Enchantment.SHARPNESS, 1);
+        return sword;
     }
 
     private static void setWeather(WorldServer world, EntityPlayerMP player, float strength) {
@@ -304,6 +317,7 @@ final class BenchmarkSuite {
         return switch (phase) {
             case FIRST_PERSON_HAND, WATER_OVERLAY, BLOCK_OVERLAY, FIRE_OVERLAY -> stack == null;
             case FIRST_PERSON_ITEM -> stack != null && stack.getItem() == Items.DIAMOND_SWORD;
+            case FIRST_PERSON_GLINT -> stack != null && stack.getItem() == Items.DIAMOND_SWORD && stack.hasEffect();
             case CREATIVE_INVENTORY -> stack != null && stack.getItem() == Items.APPLE;
             default -> true;
         };
@@ -496,6 +510,7 @@ final class BenchmarkSuite {
         FIRE_OVERLAY("fire-overlay", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 12),
         BLOCK_INTERACTION("block-interaction", BenchmarkWorld.BLOCK_INTERACTION_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 0, 0),
         WORLD_BORDER("world-border", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 0, 12, -40, 6000),
+        FIRST_PERSON_GLINT("first-person-glint", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 0),
         CREATIVE_INVENTORY("creative-inventory", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 0);
 
         private final String scenario;

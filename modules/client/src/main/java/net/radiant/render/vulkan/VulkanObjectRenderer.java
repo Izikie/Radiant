@@ -35,6 +35,7 @@ final class VulkanObjectRenderer implements AutoCloseable {
             layout(push_constant) uniform Draw {
                 vec4 fogColorAndAlphaCutoff;
                 vec4 fog;
+                float glintColorBlend;
             } draw;
             layout(location = 0) in vec2 uv;
             layout(location = 1) in vec4 tint;
@@ -54,7 +55,10 @@ final class VulkanObjectRenderer implements AutoCloseable {
                 }
                 vec3 rgb = mix(draw.fogColorAndAlphaCutoff.rgb, lit.rgb, clamp(visibility, 0.0, 1.0));
                 #if SRGB_TARGET
-                rgb = mix(rgb / 12.92, pow((rgb + 0.055) / 1.055, vec3(2.4)), greaterThan(rgb, vec3(0.04045)));
+                // The glint uses its source color as a blend coefficient. Linearizing it first squares a much smaller value.
+                if (draw.glintColorBlend == 0.0) {
+                    rgb = mix(rgb / 12.92, pow((rgb + 0.055) / 1.055, vec3(2.4)), greaterThan(rgb, vec3(0.04045)));
+                }
                 #endif
                 color = vec4(rgb, lit.a);
             }
@@ -120,7 +124,7 @@ final class VulkanObjectRenderer implements AutoCloseable {
                 "create object descriptor layout");
         descriptorLayout = handle.get(0);
         VkPushConstantRange.Buffer constants = VkPushConstantRange.calloc(1, stack);
-        constants.get(0).stageFlags(VK_SHADER_STAGE_FRAGMENT_BIT).size(32);
+        constants.get(0).stageFlags(VK_SHADER_STAGE_FRAGMENT_BIT).size(36);
         VkPipelineLayoutCreateInfo info = VkPipelineLayoutCreateInfo.calloc(stack).sType$Default()
                 .pSetLayouts(stack.longs(descriptorLayout)).pPushConstantRanges(constants);
         VulkanPresenter.check(vkCreatePipelineLayout(device, info, null, handle), "create object pipeline layout");
@@ -229,11 +233,12 @@ final class VulkanObjectRenderer implements AutoCloseable {
         }
         vkCmdBindVertexBuffers(commands, 0, stack.longs(vertices.handle()), stack.longs(0));
         float fogMode = layer == VulkanObjectCapture.Layer.WORLD ? fog.mode() : 0;
-        var constants = stack.floats(fog.red(), fog.green(), fog.blue(), 0, fogMode, fog.start(), fog.end(), fog.density());
+        var constants = stack.floats(fog.red(), fog.green(), fog.blue(), 0, fogMode, fog.start(), fog.end(), fog.density(), 0);
         LongBuffer descriptor = stack.mallocLong(1);
         VulkanObjectCapture.PipelineKey previousPipeline = null;
         VulkanObjectCapture.Image previousImage = null;
         float previousCutoff = Float.NaN;
+        boolean previousGlintBlend = false;
         for (int i = from; i < to; i++) {
             VulkanObjectCapture.Draw draw = draws.get(i);
             VulkanObjectCapture.Material material = draw.material;
@@ -246,10 +251,12 @@ final class VulkanObjectRenderer implements AutoCloseable {
                 vkCmdBindDescriptorSets(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 0, descriptor.put(0, binding.set), null);
                 previousImage = material.image();
             }
-            if (material.alphaCutoff() != previousCutoff) {
+            if (material.alphaCutoff() != previousCutoff || material.glintColorBlend() != previousGlintBlend) {
                 constants.put(3, material.alphaCutoff());
+                constants.put(8, material.glintColorBlend() ? 1 : 0);
                 vkCmdPushConstants(commands, layout, VK_SHADER_STAGE_FRAGMENT_BIT, 0, constants);
                 previousCutoff = material.alphaCutoff();
+                previousGlintBlend = material.glintColorBlend();
             }
             vkCmdDraw(commands, draw.vertexCount, 1, draw.firstVertex, 0);
         }

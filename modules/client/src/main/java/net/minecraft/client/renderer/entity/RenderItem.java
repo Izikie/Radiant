@@ -148,15 +148,13 @@ public class RenderItem implements IResourceManagerReloadListener {
                 }
 
                 if (stack.hasEffect()) {
-                    VulkanObjectCapture capture = VulkanObjectCapture.suspendFirstPerson();
+                    boolean previousGlint = VulkanObjectCapture.beginItemGlint();
                     try {
                         if (!Config.isCustomItems() || !CustomItems.renderCustomEffect(this, stack, model)) {
                             this.renderEffect(model);
                         }
                     } finally {
-                        if (capture != null) {
-                            VulkanObjectCapture.resume(capture);
-                        }
+                        VulkanObjectCapture.endItemGlint(previousGlint);
                     }
                 }
             }
