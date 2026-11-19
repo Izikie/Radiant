@@ -387,6 +387,9 @@ public final class VulkanTerrainPreview implements AutoCloseable {
                 ClientBenchmark.recordVulkanFirstPersonFrame(preview.objects.handTriangles(), preview.objects.heldItemTriangles());
                 ClientBenchmark.recordVulkanItemGlint(preview.objects.heldGlintTriangles(), preview.objects.screenGlintTriangles());
                 ClientBenchmark.recordVulkanEntityOutlines(preview.objects.outlineTriangles());
+                var world = Minecraft.get().world;
+                ClientBenchmark.recordVulkanLightning(preview.objects.lightningTriangles(),
+                        preview.terrain.skyDrawn() && world != null && world.getLastLightningBolt() > 0);
                 ClientBenchmark.recordVulkanArmorGlint(preview.objects.armorGlintTriangles());
                 ClientBenchmark.recordVulkanBlockInteraction(preview.objects.selectionSegments(), preview.objects.blockDamageQuads());
                 ClientBenchmark.recordVulkanWorldBorder(preview.objects.worldBorderQuads(), preview.objects.worldBorderStage());

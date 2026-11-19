@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.util.ResourceLocation;
+import net.radiant.render.vulkan.VulkanObjectCapture;
 import org.lwjgl.opengl.GL11;
 
 import java.util.Random;
@@ -17,6 +18,15 @@ public class RenderLightningBolt extends Render<EntityLightningBolt> {
 
     @Override
     public void doRender(EntityLightningBolt entity, double x, double y, double z, float entityYaw, float partialTicks) {
+        VulkanObjectCapture.beginLightning();
+        try {
+            this.renderBolt(entity, x, y, z);
+        } finally {
+            VulkanObjectCapture.endLightning();
+        }
+    }
+
+    private void renderBolt(EntityLightningBolt entity, double x, double y, double z) {
         Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         GlStateManager.disableTexture2D();
