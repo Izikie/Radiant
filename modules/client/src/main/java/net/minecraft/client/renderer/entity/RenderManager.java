@@ -37,6 +37,8 @@ import net.minecraft.world.World;
 import net.optifine.entity.model.CustomEntityModels;
 import net.optifine.player.PlayerItemsLayer;
 import net.optifine.shaders.Shaders;
+import net.radiant.benchmark.ClientBenchmark;
+import net.radiant.render.vulkan.VulkanObjectCapture;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -291,11 +293,15 @@ public class RenderManager {
                     throw new ReportedException(CrashReport.makeCrashReport(throwable, "Post-rendering entity in world"));
                 }
 
-                if (this.debugBoundingBox && !entity.isInvisible() && !hideDebugBox) {
+                if ((this.debugBoundingBox || (!this.renderOutlines && ClientBenchmark.showsEntityHitboxes()))
+                        && !entity.isInvisible() && !hideDebugBox) {
+                    VulkanObjectCapture.beginEntityHitbox();
                     try {
                         this.renderDebugBoundingBox(entity, x, y, z, entityYaw, partialTicks);
                     } catch (Throwable throwable) {
                         throw new ReportedException(CrashReport.makeCrashReport(throwable, "Rendering entity hitbox in world"));
+                    } finally {
+                        VulkanObjectCapture.endEntityHitbox();
                     }
                 }
             } else {
