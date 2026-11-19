@@ -96,6 +96,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     private final Random random = new Random();
     private final Matrix4f cameraProjection = new Matrix4f();
     private final Matrix4f cameraView = new Matrix4f();
+    private final Matrix4f cameraClip = new Matrix4f();
     private final Matrix4f cameraEffects = new Matrix4f();
     private final FloatBuffer cameraMatrixBuffer = BufferUtils.createFloatBuffer(16);
     private float farPlaneDistance;
@@ -1209,14 +1210,20 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         this.setupCameraTransform(partialTicks, pass);
 
+        boolean inverted = this.mc.gameSettings.thirdPersonView == GameSettings.Perspective.INVERTED_THIRD_PERSON;
+        ClippingHelper clippingHelper;
         if (flag) {
             Shaders.setCamera(partialTicks);
+            ActiveRenderInfo.updateRenderInfo(this.mc.player, inverted);
+            clippingHelper = ClippingHelperImpl.get();
+        } else {
+            this.cameraProjection.mul(this.cameraView, this.cameraClip);
+            ActiveRenderInfo.updateRenderInfo(this.mc.player, inverted, this.cameraClip);
+            clippingHelper = ClippingHelperImpl.get(this.cameraProjection, this.cameraView, this.cameraClip);
         }
 
-        ActiveRenderInfo.updateRenderInfo(this.mc.player, this.mc.gameSettings.thirdPersonView == GameSettings.Perspective.INVERTED_THIRD_PERSON);
-        ClippingHelper clippinghelper = ClippingHelperImpl.get();
-        clippinghelper.disabled = Config.isShaders() && !Shaders.isFrustumCulling();
-        ICamera icamera = new Frustum(clippinghelper);
+        clippingHelper.disabled = flag && !Shaders.isFrustumCulling();
+        ICamera icamera = new Frustum(clippingHelper);
         Entity entity = this.mc.getRenderViewEntity();
         double xPos = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * partialTicks;
         double yPos = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * partialTicks;

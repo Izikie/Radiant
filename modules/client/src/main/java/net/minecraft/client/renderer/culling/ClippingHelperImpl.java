@@ -3,6 +3,8 @@ package net.minecraft.client.renderer.culling;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.math.MathHelper;
+import org.joml.Matrix4f;
+import org.joml.Matrix4fc;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.FloatBuffer;
@@ -11,84 +13,52 @@ public class ClippingHelperImpl extends ClippingHelper {
     private static final ClippingHelperImpl INSTANCE = new ClippingHelperImpl();
     private final FloatBuffer projectionMatrixBuffer = GLAllocation.createDirectFloatBuffer(16);
     private final FloatBuffer modelviewMatrixBuffer = GLAllocation.createDirectFloatBuffer(16);
-    private final FloatBuffer field_78564_h = GLAllocation.createDirectFloatBuffer(16);
+    private final Matrix4f legacyProjection = new Matrix4f();
+    private final Matrix4f legacyView = new Matrix4f();
+    private final Matrix4f legacyClip = new Matrix4f();
 
     public static ClippingHelper get() {
         INSTANCE.init();
         return INSTANCE;
     }
 
-    private void normalize(float[] p_180547_1_) {
-        float f = MathHelper.sqrt(p_180547_1_[0] * p_180547_1_[0] + p_180547_1_[1] * p_180547_1_[1] + p_180547_1_[2] * p_180547_1_[2]);
-        p_180547_1_[0] /= f;
-        p_180547_1_[1] /= f;
-        p_180547_1_[2] /= f;
-        p_180547_1_[3] /= f;
+    public static ClippingHelper get(Matrix4fc projection, Matrix4fc view, Matrix4fc clip) {
+        INSTANCE.init(projection, view, clip);
+        return INSTANCE;
     }
 
     public void init() {
-        this.projectionMatrixBuffer.clear();
-        this.modelviewMatrixBuffer.clear();
-        this.field_78564_h.clear();
         GlStateManager.getFloat(GL11.GL_PROJECTION_MATRIX, this.projectionMatrixBuffer);
         GlStateManager.getFloat(GL11.GL_MODELVIEW_MATRIX, this.modelviewMatrixBuffer);
-        float[] afloat = this.projectionMatrix;
-        float[] afloat1 = this.modelviewMatrix;
-        this.projectionMatrixBuffer.flip().limit(16);
-        this.projectionMatrixBuffer.get(afloat);
-        this.modelviewMatrixBuffer.flip().limit(16);
-        this.modelviewMatrixBuffer.get(afloat1);
-        this.clippingMatrix[0] = afloat1[0] * afloat[0] + afloat1[1] * afloat[4] + afloat1[2] * afloat[8] + afloat1[3] * afloat[12];
-        this.clippingMatrix[1] = afloat1[0] * afloat[1] + afloat1[1] * afloat[5] + afloat1[2] * afloat[9] + afloat1[3] * afloat[13];
-        this.clippingMatrix[2] = afloat1[0] * afloat[2] + afloat1[1] * afloat[6] + afloat1[2] * afloat[10] + afloat1[3] * afloat[14];
-        this.clippingMatrix[3] = afloat1[0] * afloat[3] + afloat1[1] * afloat[7] + afloat1[2] * afloat[11] + afloat1[3] * afloat[15];
-        this.clippingMatrix[4] = afloat1[4] * afloat[0] + afloat1[5] * afloat[4] + afloat1[6] * afloat[8] + afloat1[7] * afloat[12];
-        this.clippingMatrix[5] = afloat1[4] * afloat[1] + afloat1[5] * afloat[5] + afloat1[6] * afloat[9] + afloat1[7] * afloat[13];
-        this.clippingMatrix[6] = afloat1[4] * afloat[2] + afloat1[5] * afloat[6] + afloat1[6] * afloat[10] + afloat1[7] * afloat[14];
-        this.clippingMatrix[7] = afloat1[4] * afloat[3] + afloat1[5] * afloat[7] + afloat1[6] * afloat[11] + afloat1[7] * afloat[15];
-        this.clippingMatrix[8] = afloat1[8] * afloat[0] + afloat1[9] * afloat[4] + afloat1[10] * afloat[8] + afloat1[11] * afloat[12];
-        this.clippingMatrix[9] = afloat1[8] * afloat[1] + afloat1[9] * afloat[5] + afloat1[10] * afloat[9] + afloat1[11] * afloat[13];
-        this.clippingMatrix[10] = afloat1[8] * afloat[2] + afloat1[9] * afloat[6] + afloat1[10] * afloat[10] + afloat1[11] * afloat[14];
-        this.clippingMatrix[11] = afloat1[8] * afloat[3] + afloat1[9] * afloat[7] + afloat1[10] * afloat[11] + afloat1[11] * afloat[15];
-        this.clippingMatrix[12] = afloat1[12] * afloat[0] + afloat1[13] * afloat[4] + afloat1[14] * afloat[8] + afloat1[15] * afloat[12];
-        this.clippingMatrix[13] = afloat1[12] * afloat[1] + afloat1[13] * afloat[5] + afloat1[14] * afloat[9] + afloat1[15] * afloat[13];
-        this.clippingMatrix[14] = afloat1[12] * afloat[2] + afloat1[13] * afloat[6] + afloat1[14] * afloat[10] + afloat1[15] * afloat[14];
-        this.clippingMatrix[15] = afloat1[12] * afloat[3] + afloat1[13] * afloat[7] + afloat1[14] * afloat[11] + afloat1[15] * afloat[15];
-        float[] afloat2 = this.frustum[0];
-        afloat2[0] = this.clippingMatrix[3] - this.clippingMatrix[0];
-        afloat2[1] = this.clippingMatrix[7] - this.clippingMatrix[4];
-        afloat2[2] = this.clippingMatrix[11] - this.clippingMatrix[8];
-        afloat2[3] = this.clippingMatrix[15] - this.clippingMatrix[12];
-        this.normalize(afloat2);
-        float[] afloat3 = this.frustum[1];
-        afloat3[0] = this.clippingMatrix[3] + this.clippingMatrix[0];
-        afloat3[1] = this.clippingMatrix[7] + this.clippingMatrix[4];
-        afloat3[2] = this.clippingMatrix[11] + this.clippingMatrix[8];
-        afloat3[3] = this.clippingMatrix[15] + this.clippingMatrix[12];
-        this.normalize(afloat3);
-        float[] afloat4 = this.frustum[2];
-        afloat4[0] = this.clippingMatrix[3] + this.clippingMatrix[1];
-        afloat4[1] = this.clippingMatrix[7] + this.clippingMatrix[5];
-        afloat4[2] = this.clippingMatrix[11] + this.clippingMatrix[9];
-        afloat4[3] = this.clippingMatrix[15] + this.clippingMatrix[13];
-        this.normalize(afloat4);
-        float[] afloat5 = this.frustum[3];
-        afloat5[0] = this.clippingMatrix[3] - this.clippingMatrix[1];
-        afloat5[1] = this.clippingMatrix[7] - this.clippingMatrix[5];
-        afloat5[2] = this.clippingMatrix[11] - this.clippingMatrix[9];
-        afloat5[3] = this.clippingMatrix[15] - this.clippingMatrix[13];
-        this.normalize(afloat5);
-        float[] afloat6 = this.frustum[4];
-        afloat6[0] = this.clippingMatrix[3] - this.clippingMatrix[2];
-        afloat6[1] = this.clippingMatrix[7] - this.clippingMatrix[6];
-        afloat6[2] = this.clippingMatrix[11] - this.clippingMatrix[10];
-        afloat6[3] = this.clippingMatrix[15] - this.clippingMatrix[14];
-        this.normalize(afloat6);
-        float[] afloat7 = this.frustum[5];
-        afloat7[0] = this.clippingMatrix[3] + this.clippingMatrix[2];
-        afloat7[1] = this.clippingMatrix[7] + this.clippingMatrix[6];
-        afloat7[2] = this.clippingMatrix[11] + this.clippingMatrix[10];
-        afloat7[3] = this.clippingMatrix[15] + this.clippingMatrix[14];
-        this.normalize(afloat7);
+        this.legacyProjection.set(this.projectionMatrixBuffer);
+        this.legacyView.set(this.modelviewMatrixBuffer);
+        this.legacyProjection.mul(this.legacyView, this.legacyClip);
+        this.init(this.legacyProjection, this.legacyView, this.legacyClip);
+    }
+
+    private void init(Matrix4fc projection, Matrix4fc view, Matrix4fc clip) {
+        projection.get(this.projectionMatrix);
+        view.get(this.modelviewMatrix);
+        clip.get(this.clippingMatrix);
+        // The fully-inside check treats the first four planes as the sides.
+        this.setPlane(0, 0, -1.0F); // Right
+        this.setPlane(1, 0, 1.0F);  // Left
+        this.setPlane(2, 1, 1.0F);  // Bottom
+        this.setPlane(3, 1, -1.0F); // Top
+        this.setPlane(4, 2, -1.0F); // Far
+        this.setPlane(5, 2, 1.0F);  // Near
+    }
+
+    private void setPlane(int index, int axis, float sign) {
+        float[] plane = this.frustum[index];
+        float[] clip = this.clippingMatrix;
+        float x = clip[3] + sign * clip[axis];
+        float y = clip[7] + sign * clip[axis + 4];
+        float z = clip[11] + sign * clip[axis + 8];
+        float length = MathHelper.sqrt(x * x + y * y + z * z);
+        plane[0] = x / length;
+        plane[1] = y / length;
+        plane[2] = z / length;
+        plane[3] = (clip[15] + sign * clip[axis + 12]) / length;
     }
 }

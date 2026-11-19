@@ -10,6 +10,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3;
 import net.minecraft.world.World;
 import org.joml.Matrix4f;
+import org.joml.Matrix4fc;
 import org.joml.Vector3f;
 import org.lwjgl.opengl.GL11;
 
@@ -20,6 +21,10 @@ public class ActiveRenderInfo {
     private static final IntBuffer VIEWPORT = GLAllocation.createDirectIntBuffer(16);
     private static final FloatBuffer MODELVIEW = GLAllocation.createDirectFloatBuffer(16);
     private static final FloatBuffer PROJECTION = GLAllocation.createDirectFloatBuffer(16);
+    private static final int[] shaderViewport = new int[4];
+    private static final Matrix4f shaderModelView = new Matrix4f();
+    private static final Matrix4f shaderClip = new Matrix4f();
+    private static final Matrix4f inverseClip = new Matrix4f();
 
     private static final Vector3f position = new Vector3f(0.F, 0.F, 0.F);
     private static float rotationX;
@@ -33,19 +38,21 @@ public class ActiveRenderInfo {
         GlStateManager.getFloat(GL11.GL_PROJECTION_MATRIX, PROJECTION);
         GL11.glGetIntegerv(GL11.GL_VIEWPORT, VIEWPORT);
 
-        Matrix4f modelViewMat = new Matrix4f().set(MODELVIEW);
-        Matrix4f projectionMat = new Matrix4f().set(PROJECTION);
+        VIEWPORT.get(shaderViewport).rewind();
+        float viewCenterX = (shaderViewport[0] + shaderViewport[2]) / 2.0F;
+        float viewCenterY = (shaderViewport[1] + shaderViewport[3]) / 2.0F;
+        shaderClip.set(PROJECTION).mul(shaderModelView.set(MODELVIEW))
+                .unproject(viewCenterX, viewCenterY, 0.0F, shaderViewport, position);
+        updateRotation(player, invertRotation);
+    }
 
-        int[] vp = new int[4];
-        VIEWPORT.get(vp).rewind();
+    public static void updateRenderInfo(EntityPlayer player, boolean invertRotation, Matrix4fc clip) {
+        // The center of the near plane in OpenGL normalized device coordinates.
+        clip.invert(inverseClip).transformProject(0.0F, 0.0F, -1.0F, position);
+        updateRotation(player, invertRotation);
+    }
 
-        float viewCenterX = (vp[0] + vp[2]) / 2.0f;
-        float viewCenterY = (vp[1] + vp[3]) / 2.0f;
-
-        Vector3f worldCoords = new Vector3f();
-        projectionMat.mul(modelViewMat, new Matrix4f()).unproject(viewCenterX, viewCenterY, 0f, vp, worldCoords);
-        position.set(worldCoords);
-
+    private static void updateRotation(EntityPlayer player, boolean invertRotation) {
         float rotationFactor = invertRotation ? -1.0f : 1.0f;
         float pitchRadians = (float) (player.rotationPitch * Math.PI / 180.0F);
         float yawRadians = (float) (player.rotationYaw * Math.PI / 180.0F);
