@@ -262,6 +262,14 @@ public final class ClientBenchmark {
         }
     }
 
+    public static void recordVulkanEntityFire(int quads) {
+        Capture capture = active;
+        if (capture != null && quads > 0) {
+            capture.vulkanEntityFireFrames++;
+            capture.vulkanEntityFireQuads += quads;
+        }
+    }
+
     public static void recordVulkanParticleFrame(int triangles, int terrainTriangles, int translucentTriangles, int litTriangles) {
         Capture capture = active;
         if (capture != null) {
@@ -457,6 +465,8 @@ public final class ClientBenchmark {
         private long vulkanEntityTriangles;
         private long vulkanEntityShadowFrames;
         private long vulkanEntityShadowQuads;
+        private long vulkanEntityFireFrames;
+        private long vulkanEntityFireQuads;
         private long vulkanBlockEntityTriangles;
         private long vulkanBlockEntityGlyphs;
         private long vulkanParticleTriangles;
@@ -587,6 +597,8 @@ public final class ClientBenchmark {
                 report.addProperty("vulkanEntityTriangles", vulkanEntityTriangles);
                 report.addProperty("vulkanEntityShadowFrames", vulkanEntityShadowFrames);
                 report.addProperty("vulkanEntityShadowQuads", vulkanEntityShadowQuads);
+                report.addProperty("vulkanEntityFireFrames", vulkanEntityFireFrames);
+                report.addProperty("vulkanEntityFireQuads", vulkanEntityFireQuads);
                 report.addProperty("vulkanBlockEntityTriangles", vulkanBlockEntityTriangles);
                 report.addProperty("vulkanBlockEntityGlyphs", vulkanBlockEntityGlyphs);
                 report.addProperty("vulkanParticleTriangles", vulkanParticleTriangles);

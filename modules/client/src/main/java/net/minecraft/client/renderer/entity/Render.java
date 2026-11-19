@@ -141,7 +141,12 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
             ++i;
         }
 
-        tessellator.draw();
+        VulkanObjectCapture.beginEntityFire();
+        try {
+            tessellator.draw();
+        } finally {
+            VulkanObjectCapture.endEntityFire();
+        }
 
         if (flag) {
             worldrenderer.setBlockLayer(null);

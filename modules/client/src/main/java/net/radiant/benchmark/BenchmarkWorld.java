@@ -12,6 +12,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
@@ -25,7 +27,7 @@ import java.util.Arrays;
 
 final class BenchmarkWorld {
     static final long SEED = 681889L;
-    static final int LAYOUT_VERSION = 9;
+    static final int LAYOUT_VERSION = 10;
     static final int FLOOR_Y = 192;
     static final int GALLERY_X = 0;
     static final int ENTITY_X = 64;
@@ -215,6 +217,11 @@ final class BenchmarkWorld {
                 animal.setCustomNameTag("Exhibit " + (row * 10 + column + 1));
                 animal.setAlwaysRenderNameTag(true);
                 animal.setLocationAndAngles(x + 0.5, FLOOR_Y + 1, z + 0.5, 180, 0);
+                if (row == 0 && (column == 3 || column == 6)) {
+                    int burnSeconds = 1200;
+                    animal.addPotionEffect(new PotionEffect(Potion.FIRE_RESISTANCE.id, burnSeconds * 20, 0, false, false));
+                    animal.setFire(burnSeconds);
+                }
                 world.spawnEntityInWorld(animal);
 
                 BlockPos prop = new BlockPos(x, FLOOR_Y + 1, z + 1);
