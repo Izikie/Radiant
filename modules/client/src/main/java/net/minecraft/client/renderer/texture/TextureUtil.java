@@ -42,6 +42,9 @@ public class TextureUtil {
     public static void uploadTexture(int textureId, int[] p_110988_1_, int p_110988_2_, int p_110988_3_) {
         bindTexture(textureId);
         uploadTextureSub(0, p_110988_1_, p_110988_2_, p_110988_3_, 0, 0, false, false, false);
+        if (VulkanTerrainPreview.ENABLED) {
+            VulkanTerrainPreview.registerObjectTexture(textureId, p_110988_2_, p_110988_3_, p_110988_1_);
+        }
     }
 
     public static int[][] generateMipmapData(int p_147949_0_, int p_147949_1_, int[][] p_147949_2_) {

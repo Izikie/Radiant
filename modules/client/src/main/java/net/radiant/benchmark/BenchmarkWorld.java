@@ -1,10 +1,12 @@
 package net.radiant.benchmark;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLeashKnot;
 import net.minecraft.entity.item.EntityArmorStand;
+import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.item.EntityPainting;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.passive.EntityCow;
@@ -24,12 +26,15 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.storage.MapData;
 
 import java.util.Arrays;
 
 final class BenchmarkWorld {
     static final long SEED = 681889L;
-    static final int LAYOUT_VERSION = 13;
+    static final int LAYOUT_VERSION = 14;
+    private static final int DYNAMIC_MAP_ID = 910;
+    static final String DYNAMIC_MAP_NAME = "map_" + DYNAMIC_MAP_ID;
     static final int FLOOR_Y = 192;
     static final int GALLERY_X = 0;
     static final int ENTITY_X = 64;
@@ -204,6 +209,7 @@ final class BenchmarkWorld {
     }
 
     private static void buildEntityScene(WorldServer world) {
+        placeDynamicMap(world);
         placeArmoredStand(world, ENTITY_X + 0.5, true);
         placeArmoredStand(world, ENTITY_X + 2, false);
         EntitySpider spider = new EntitySpider(world);
@@ -278,6 +284,27 @@ final class BenchmarkWorld {
                 if (painting.onValidSurface()) {
                     world.spawnEntityInWorld(painting);
                 }
+            }
+        }
+    }
+
+    private static void placeDynamicMap(WorldServer world) {
+        BlockPos position = new BlockPos(ENTITY_X - 5, FLOOR_Y + 2, 8);
+        world.setBlockState(position.south(), Blocks.STONEBRICK.getDefaultState(), 2);
+        MapData data = new MapData(DYNAMIC_MAP_NAME);
+        paintDynamicMap(data, false);
+        data.markDirty();
+        world.setItemData(data.mapName, data);
+        EntityItemFrame frame = new EntityItemFrame(world, position, Direction.NORTH);
+        frame.setDisplayedItem(new ItemStack(Items.FILLED_MAP, 1, DYNAMIC_MAP_ID));
+        world.spawnEntityInWorld(frame);
+    }
+
+    static void paintDynamicMap(MapData data, boolean alternate) {
+        MapColor color = alternate ? MapColor.WATER_COLOR : MapColor.GRASS_COLOR;
+        for (int y = 0; y < 128; y++) {
+            for (int x = 0; x < 128; x++) {
+                data.colors[y * 128 + x] = (byte) (color.colorIndex * 4 + (((x / 16) ^ (y / 16)) & 1) + 1);
             }
         }
     }

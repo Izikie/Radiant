@@ -26,6 +26,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.WorldSettings;
+import net.minecraft.world.storage.MapData;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.border.WorldBorderStage;
@@ -75,6 +76,7 @@ final class BenchmarkSuite {
     private WorldBorderStage benchmarkBorderStage;
     private final List<EntityLightningBolt> stormBolts = new ArrayList<>();
     private EntityCow damageTarget;
+    private int mapPattern = -1;
     private int stormTick;
     private boolean stormActive;
     private Stage stage = Stage.JOINING;
@@ -375,6 +377,14 @@ final class BenchmarkSuite {
         // Exercise the local fire overlay without changing game mode or applying server damage.
         if (phase == Phase.FIRE_OVERLAY) {
             mc.player.setFire(1);
+        }
+        if (phase == Phase.ENTITIES) {
+            int pattern = mc.player.ticksExisted / 6 % 2;
+            if (pattern != mapPattern && world.loadItemData(MapData.class, BenchmarkWorld.DYNAMIC_MAP_NAME) instanceof MapData map) {
+                BenchmarkWorld.paintDynamicMap(map, pattern != 0);
+                mc.entityRenderer.getMapItemRenderer().updateMapTexture(map);
+                mapPattern = pattern;
+            }
         }
         if (phase == Phase.ENTITIES && ClientBenchmark.ENTITY_DAMAGE) {
             if (damageTarget == null) {

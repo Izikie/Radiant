@@ -75,6 +75,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private int[] lightmap;
     private int atlasId;
     private int cpuTextureLoads;
+    private int dynamicTextureLoads;
     private int textureReadbacks;
     private int entityTriangles;
     private int entityShadowQuads;
@@ -501,7 +502,16 @@ public final class VulkanObjectCapture implements AutoCloseable {
     }
 
     static void registerTexture(int id, NativeImage image) {
-        CPU_TEXTURES.put(id, new CpuImage(image.getWidth(), image.getHeight(), image.getData().clone()));
+        CPU_TEXTURES.put(id, new CpuImage(image.getWidth(), image.getHeight(), image.getData().clone(), false));
+    }
+
+    static void registerTexture(int id, int width, int height, int[] argb) {
+        CpuImage source = CPU_TEXTURES.get(id);
+        if (source == null || !source.dynamic || source.width != width || source.height != height) {
+            source = new CpuImage(width, height, new byte[Math.multiplyExact(Math.multiplyExact(width, height), 4)], true);
+            CPU_TEXTURES.put(id, source);
+        }
+        VulkanAtlasUpdates.writeRgba(ByteBuffer.wrap(source.rgba), argb, 0, width * height);
     }
 
     static void forgetTexture(int id) {
@@ -532,6 +542,9 @@ public final class VulkanObjectCapture implements AutoCloseable {
                 textureReadbacks++;
             } else {
                 cpuTextureLoads++;
+                if (source.dynamic) {
+                    dynamicTextureLoads++;
+                }
             }
             return image;
         } catch (RuntimeException | Error e) {
@@ -554,6 +567,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
 
     int textureReadbacks() {
         return textureReadbacks;
+    }
+
+    int dynamicTextureLoads() {
+        return dynamicTextureLoads;
     }
 
     void invalidateTexture(int id) {
@@ -1061,7 +1078,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         }
     }
 
-    private record CpuImage(int width, int height, byte[] rgba) {
+    private record CpuImage(int width, int height, byte[] rgba, boolean dynamic) {
     }
 
     static final class Image {

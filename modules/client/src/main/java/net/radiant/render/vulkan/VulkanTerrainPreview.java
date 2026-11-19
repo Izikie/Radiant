@@ -276,10 +276,20 @@ public final class VulkanTerrainPreview implements AutoCloseable {
 
     public static void registerObjectTexture(int texture, NativeImage image) {
         VulkanObjectCapture.registerTexture(texture, image);
+        invalidateObjectTextureImage(texture);
+    }
+
+    public static void registerObjectTexture(int texture, int width, int height, int[] argb) {
+        VulkanObjectCapture.registerTexture(texture, width, height, argb);
+        invalidateObjectTextureImage(texture);
     }
 
     public static void invalidateObjectTexture(int texture) {
         VulkanObjectCapture.forgetTexture(texture);
+        invalidateObjectTextureImage(texture);
+    }
+
+    private static void invalidateObjectTextureImage(int texture) {
         VulkanTerrainPreview preview = active;
         if (preview != null) {
             preview.objects.invalidateTexture(texture);
@@ -468,8 +478,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             glfwDestroyWindow(window);
             LOGGER.info("Vulkan terrain preview presented {} frames and {} terrain draws with {} validation errors",
                     frames, drawCalls, presenter.validationErrors());
-            LOGGER.info("Vulkan object textures loaded from CPU pixels: {}; OpenGL readbacks: {}",
-                    objects.cpuTextureLoads(), objects.textureReadbacks());
+            LOGGER.info("Vulkan object textures loaded from CPU pixels: {} ({} dynamic); OpenGL readbacks: {}",
+                    objects.cpuTextureLoads(), objects.dynamicTextureLoads(), objects.textureReadbacks());
         }
     }
 
