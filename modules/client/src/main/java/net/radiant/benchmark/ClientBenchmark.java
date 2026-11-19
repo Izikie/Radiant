@@ -240,6 +240,17 @@ public final class ClientBenchmark {
         }
     }
 
+    public static void recordTerrainUpload(boolean vulkan) {
+        Capture capture = active;
+        if (capture != null) {
+            if (vulkan) {
+                capture.vulkanTerrainUploads++;
+            } else {
+                capture.glTerrainUploads++;
+            }
+        }
+    }
+
     public static void recordGlTerrainBatch() {
         Capture capture = active;
         if (capture != null) {
@@ -512,6 +523,8 @@ public final class ClientBenchmark {
         private int tickCount;
         private long drawCalls;
         private long glTerrainBatches;
+        private long glTerrainUploads;
+        private long vulkanTerrainUploads;
         private long vulkanTerrainFrames;
         private long vulkanTerrainDraws;
         private long vulkanTerrainQuads;
@@ -654,6 +667,8 @@ public final class ClientBenchmark {
             report.add("integratedServerTickTime", summarizeTimes(ticks, tickCount));
             report.addProperty("glDrawSubmissions", drawCalls);
             report.addProperty("glTerrainBatches", glTerrainBatches);
+            report.addProperty("glTerrainUploads", glTerrainUploads);
+            report.addProperty("vulkanTerrainUploads", vulkanTerrainUploads);
             report.addProperty("glDrawSubmissionsPerFrame", (double) drawCalls / frameCount);
             if (vulkanTerrainFrames > 0) {
                 report.addProperty("vulkanTerrainFrames", vulkanTerrainFrames);

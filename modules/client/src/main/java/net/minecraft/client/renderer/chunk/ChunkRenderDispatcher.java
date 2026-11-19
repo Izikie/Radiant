@@ -199,14 +199,16 @@ public class ChunkRenderDispatcher {
 
     public ListenableFuture<Object> uploadChunk(RenderLayer player, WorldRenderer p_178503_2_, RenderChunk chunkRenderer, CompiledChunk compiledChunkIn) {
         if (Minecraft.get().isCallingFromMinecraftThread()) {
-            if (VulkanTerrainPreview.ENABLED) {
-                VulkanTerrainPreview.upload(chunkRenderer, compiledChunkIn, player, p_178503_2_);
-            }
             long started = ClientBenchmark.ENABLED ? ClientBenchmark.startChunkWork() : 0;
-            if (OpenGlHelper.useVbo()) {
-                this.uploadVertexBuffer(p_178503_2_, chunkRenderer.getVertexBufferByLayer(player.ordinal()));
-            } else {
-                this.uploadDisplayList(p_178503_2_, ((ListedRenderChunk) chunkRenderer).getDisplayList(player, compiledChunkIn), chunkRenderer);
+            boolean skipOpenGl = VulkanTerrainPreview.ENABLED
+                    && VulkanTerrainPreview.upload(chunkRenderer, compiledChunkIn, player, p_178503_2_);
+            if (!skipOpenGl) {
+                if (OpenGlHelper.useVbo()) {
+                    this.uploadVertexBuffer(p_178503_2_, chunkRenderer.getVertexBufferByLayer(player.ordinal()));
+                } else {
+                    this.uploadDisplayList(p_178503_2_, ((ListedRenderChunk) chunkRenderer).getDisplayList(player, compiledChunkIn), chunkRenderer);
+                }
+                ClientBenchmark.recordTerrainUpload(false);
             }
             if (started != 0) {
                 ClientBenchmark.recordChunkWork(started, true);

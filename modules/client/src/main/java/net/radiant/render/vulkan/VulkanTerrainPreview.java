@@ -50,6 +50,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     private static VulkanTerrainPreview active;
     private static boolean manuallyClosed;
     private static boolean unsupportedSettings;
+    private static boolean rebuildOpenGlTerrain;
 
     private final long window;
     private final VulkanObjectCapture objects = new VulkanObjectCapture();
@@ -58,6 +59,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     private final Map<RenderChunk, Mesh[]> sections = new IdentityHashMap<>();
     private boolean atlasDirty = true;
     private boolean windowVisible;
+    private boolean skippedOpenGlUpload;
     private VulkanTerrainScene.Frame pendingFrame;
     private long frames;
     private long drawCalls;
@@ -113,13 +115,14 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         }
     }
 
-    public static void upload(RenderChunk chunk, CompiledChunk compiled, RenderLayer layer, WorldRenderer mesh) {
+    /** Returns whether this layer can skip its OpenGL upload. */
+    public static boolean upload(RenderChunk chunk, CompiledChunk compiled, RenderLayer layer, WorldRenderer mesh) {
         VulkanTerrainPreview preview = active;
-        if (preview == null || compiled.isLayerEmpty(layer)) {
-            return;
+        if (preview == null || Config.isShaders() || Config.isMultiTexture()) {
+            return false;
         }
-        if (Config.isShaders() || Config.isMultiTexture()) {
-            return;
+        if (compiled.isLayerEmpty(layer)) {
+            return TERRAIN_ONLY;
         }
         ByteBuffer vertices = mesh.getByteBuffer();
         int vertexCount = mesh.getVertexCount();
@@ -134,6 +137,13 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.terrain.retire(previous.slice);
         }
         layers[index] = new Mesh(compiled, preview.terrain.upload(vertices));
+        ClientBenchmark.recordTerrainUpload(true);
+        preview.skippedOpenGlUpload |= TERRAIN_ONLY;
+        return TERRAIN_ONLY;
+    }
+
+    public static boolean needsOpenGlTerrainRebuild() {
+        return rebuildOpenGlTerrain;
     }
 
     public static boolean replacesTerrainDraws() {
@@ -158,8 +168,10 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     }
 
     public static void invalidateTerrain() {
+        rebuildOpenGlTerrain = false;
         VulkanTerrainPreview preview = active;
         if (preview != null) {
+            preview.skippedOpenGlUpload = false;
             preview.pendingFrame = null;
             preview.sections.values().forEach(preview::retire);
             preview.sections.clear();
@@ -181,8 +193,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     }
 
     public static void leaveWorld() {
+        invalidateTerrain();
         if (active != null) {
-            invalidateTerrain();
             glfwHideWindow(active.window);
             active.windowVisible = false;
         }
@@ -433,6 +445,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         VulkanTerrainPreview preview = active;
         active = null;
         if (preview != null) {
+            rebuildOpenGlTerrain |= preview.skippedOpenGlUpload;
             preview.close();
         }
     }

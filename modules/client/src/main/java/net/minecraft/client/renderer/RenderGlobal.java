@@ -773,11 +773,11 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     }
 
     public void setupTerrain(Entity viewEntity, double partialTicks, ICamera camera, int frameCount, boolean playerSpectator) {
-        if (this.mc.gameSettings.renderDistanceChunks != this.renderDistanceChunks) {
-            this.loadRenderers();
-        }
         if (VulkanTerrainPreview.ENABLED) {
             VulkanTerrainPreview.openIfNeeded(this.mc);
+        }
+        if (this.mc.gameSettings.renderDistanceChunks != this.renderDistanceChunks || VulkanTerrainPreview.needsOpenGlTerrainRebuild()) {
+            this.loadRenderers();
         }
 
         double d0 = viewEntity.posX - this.frustumUpdatePosX;
