@@ -59,6 +59,9 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private final Matrix4f modelView = new Matrix4f();
     private final Matrix4f transform = new Matrix4f();
     private final Matrix3f normalMatrix = new Matrix3f();
+    private final Matrix4f meshModelView = new Matrix4f();
+    private final Matrix4f meshTransform = new Matrix4f();
+    private final Matrix3f meshNormalMatrix = new Matrix3f();
     private final Vector3f light0 = new Vector3f();
     private final Vector3f light1 = new Vector3f();
     private final Vector3f normal = new Vector3f();
@@ -361,13 +364,17 @@ public final class VulkanObjectCapture implements AutoCloseable {
 
     public static void beginModel(ModelRenderer model) {
         if (VulkanTerrainPreview.ENABLED) {
+            GlStateManager.beginModelViewList();
             compiling = new ArrayList<>();
             MODELS.put(model, compiling);
         }
     }
 
     public static void endModel() {
-        compiling = null;
+        if (compiling != null) {
+            compiling = null;
+            GlStateManager.endModelViewList();
+        }
     }
 
     public static void drawModel(ModelRenderer model) {
@@ -404,7 +411,9 @@ public final class VulkanObjectCapture implements AutoCloseable {
         if (compiling != null) {
             ByteBuffer copy = ByteBuffer.allocate(count * layout.stride).order(data.order());
             copy.put(0, data, 0, copy.capacity());
-            compiling.add(new Mesh(copy, layout, mode, count));
+            Matrix4fc local = GlStateManager.modelViewMatrix();
+            Matrix4f localTransform = (local.properties() & Matrix4fc.PROPERTY_IDENTITY) != 0 ? null : new Matrix4f(local);
+            compiling.add(new Mesh(copy, layout, mode, count, localTransform));
         } else {
             active.append(new Mesh(data, layout, mode, count), active.material());
         }
@@ -449,13 +458,12 @@ public final class VulkanObjectCapture implements AutoCloseable {
                 glGetFloatv(GL_TEXTURE_MATRIX, values);
                 textureMatrix.set(values);
             }
-            glGetFloatv(GL_MODELVIEW_MATRIX, values);
-            modelView.set(values);
-            projection.mul(modelView, transform);
             glGetFloatv(GL_CURRENT_COLOR, values);
             color.set(Math.clamp(values.get(0), 0, 1), Math.clamp(values.get(1), 0, 1),
                     Math.clamp(values.get(2), 0, 1), Math.clamp(values.get(3), 0, 1));
         }
+        modelView.set(GlStateManager.modelViewMatrix());
+        projection.mul(modelView, transform);
         if (phase == Phase.ENTITY_OUTLINES) {
             return new Material(white, new PipelineKey(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Pass.SKY.state, true),
                     -1, false, false, false, false);
@@ -541,6 +549,15 @@ public final class VulkanObjectCapture implements AutoCloseable {
     }
 
     private void append(Mesh mesh, Material material) {
+        Matrix4fc vertexTransform = transform;
+        Matrix3f vertexNormal = normalMatrix;
+        if (mesh.localTransform != null) {
+            modelView.mul(mesh.localTransform, meshModelView);
+            vertexTransform = projection.mul(meshModelView, meshTransform);
+            if (material.lit) {
+                vertexNormal = meshModelView.normal(meshNormalMatrix);
+            }
+        }
         boolean lines = material.pipeline.topology == VK_PRIMITIVE_TOPOLOGY_LINE_LIST;
         int primitiveCount = lines ? lineCount(mesh.mode, mesh.count) : triangleCount(mesh.mode, mesh.count);
         int verticesPerPrimitive = lines ? 2 : 3;
@@ -553,7 +570,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         }
         for (int primitive = 0; primitive < primitiveCount; primitive++) {
             for (int corner = 0; corner < verticesPerPrimitive; corner++) {
-                writeVertex(mesh, material, vertexIndex(mesh.mode, primitive, corner));
+                writeVertex(mesh, material, vertexIndex(mesh.mode, primitive, corner), vertexTransform, vertexNormal);
             }
         }
         List<Draw> target = switch (phase) {
@@ -651,12 +668,12 @@ public final class VulkanObjectCapture implements AutoCloseable {
         }
     }
 
-    private void writeVertex(Mesh mesh, Material material, int index) {
+    private void writeVertex(Mesh mesh, Material material, int index, Matrix4fc vertexTransform, Matrix3f vertexNormal) {
         ByteBuffer data = mesh.data;
         Layout layout = mesh.layout;
         int base = index * layout.stride;
         int p = base + layout.position;
-        clip.set(data.getFloat(p), data.getFloat(p + 4), data.getFloat(p + 8), 1).mul(transform);
+        clip.set(data.getFloat(p), data.getFloat(p + 4), data.getFloat(p + 8), 1).mul(vertexTransform);
         vertices.putFloat(clip.x).putFloat(clip.y).putFloat(clip.z).putFloat(clip.w);
         int uv = base + layout.uv;
         float u = layout.uv < 0 ? 0 : data.getFloat(uv);
@@ -680,7 +697,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
             int n = base + layout.normal;
             normal.set(data.get(n), data.get(n + 1), data.get(n + 2));
             if (normal.lengthSquared() > 0) {
-                normal.mul(normalMatrix).normalize();
+                normal.mul(vertexNormal).normalize();
                 shade = Math.min(1, 0.4f + 0.6f * (Math.max(normal.dot(light0), 0) + Math.max(normal.dot(light1), 0)));
             }
         }
@@ -997,7 +1014,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
         }
     }
 
-    private record Mesh(ByteBuffer data, Layout layout, int mode, int count) {
+    private record Mesh(ByteBuffer data, Layout layout, int mode, int count, Matrix4f localTransform) {
+        private Mesh(ByteBuffer data, Layout layout, int mode, int count) {
+            this(data, layout, mode, count, null);
+        }
     }
 
     record PipelineKey(int topology, VulkanGraphics.State state, boolean outlineMask) {

@@ -8,6 +8,9 @@ import net.optifine.shaders.Shaders;
 import net.optifine.util.LockCounter;
 import net.radiant.benchmark.ClientBenchmark;
 import net.radiant.render.vulkan.VulkanTerrainPreview;
+import org.joml.Matrix4f;
+import org.joml.Matrix4fc;
+import org.joml.Matrix4fStack;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
 
@@ -15,6 +18,9 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 public class GlStateManager {
+    private static final Matrix4fStack modelView = VulkanTerrainPreview.ENABLED ? new Matrix4fStack(64) : null;
+    private static final Matrix4f matrixOperand = VulkanTerrainPreview.ENABLED ? new Matrix4f() : null;
+    private static boolean modelViewMode = true;
     private static final AlphaState alphaState = new AlphaState();
     private static final BooleanState lightingState = new BooleanState(2896);
     private static final BooleanState[] lightState = new BooleanState[8];
@@ -425,18 +431,40 @@ public class GlStateManager {
     }
 
     public static void matrixMode(int mode) {
+        modelViewMode = mode == GL11.GL_MODELVIEW;
         GL11.glMatrixMode(mode);
     }
 
+    public static Matrix4fc modelViewMatrix() {
+        return modelView;
+    }
+
+    public static void beginModelViewList() {
+        modelView.pushMatrix().identity();
+    }
+
+    public static void endModelViewList() {
+        modelView.popMatrix();
+    }
+
     public static void loadIdentity() {
+        if (modelView != null && modelViewMode) {
+            modelView.identity();
+        }
         GL11.glLoadIdentity();
     }
 
     public static void pushMatrix() {
+        if (modelView != null && modelViewMode) {
+            modelView.pushMatrix();
+        }
         GL11.glPushMatrix();
     }
 
     public static void popMatrix() {
+        if (modelView != null && modelViewMode) {
+            modelView.popMatrix();
+        }
         GL11.glPopMatrix();
     }
 
@@ -445,30 +473,54 @@ public class GlStateManager {
     }
 
     public static void ortho(double left, double right, double bottom, double top, double zNear, double zFar) {
+        if (modelView != null && modelViewMode) {
+            modelView.ortho((float) left, (float) right, (float) bottom, (float) top, (float) zNear, (float) zFar);
+        }
         GL11.glOrtho(left, right, bottom, top, zNear, zFar);
     }
 
     public static void rotate(float angle, float x, float y, float z) {
+        if (modelView != null && modelViewMode) {
+            float length = (float) Math.sqrt(x * x + y * y + z * z);
+            if (length > 0.0f) {
+                modelView.rotate((float) Math.toRadians(angle), x / length, y / length, z / length);
+            }
+        }
         GL11.glRotatef(angle, x, y, z);
     }
 
     public static void scale(float x, float y, float z) {
+        if (modelView != null && modelViewMode) {
+            modelView.scale(x, y, z);
+        }
         GL11.glScalef(x, y, z);
     }
 
     public static void scale(double x, double y, double z) {
+        if (modelView != null && modelViewMode) {
+            modelView.scale((float) x, (float) y, (float) z);
+        }
         GL11.glScaled(x, y, z);
     }
 
     public static void translate(float x, float y, float z) {
+        if (modelView != null && modelViewMode) {
+            modelView.translate(x, y, z);
+        }
         GL11.glTranslatef(x, y, z);
     }
 
     public static void translate(double x, double y, double z) {
+        if (modelView != null && modelViewMode) {
+            modelView.translate((float) x, (float) y, (float) z);
+        }
         GL11.glTranslated(x, y, z);
     }
 
     public static void multMatrix(FloatBuffer matrix) {
+        if (modelView != null && modelViewMode) {
+            modelView.mul(matrixOperand.set(matrix));
+        }
         GL11.glMultMatrixf(matrix);
     }
 
