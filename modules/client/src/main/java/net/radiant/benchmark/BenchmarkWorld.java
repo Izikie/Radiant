@@ -28,7 +28,7 @@ import java.util.Arrays;
 
 final class BenchmarkWorld {
     static final long SEED = 681889L;
-    static final int LAYOUT_VERSION = 11;
+    static final int LAYOUT_VERSION = 12;
     static final int FLOOR_Y = 192;
     static final int GALLERY_X = 0;
     static final int ENTITY_X = 64;
@@ -205,6 +205,11 @@ final class BenchmarkWorld {
     private static void buildEntityScene(WorldServer world) {
         placeArmoredStand(world, ENTITY_X + 0.5, true);
         placeArmoredStand(world, ENTITY_X + 2, false);
+        EntityArmorStand hiddenStand = new EntityArmorStand(world);
+        hiddenStand.setLocationAndAngles(ENTITY_X + 6.5, FLOOR_Y + 1, 18.5, 180, 0);
+        hiddenStand.setCustomNameTag("Behind the wall");
+        hiddenStand.setAlwaysRenderNameTag(true);
+        world.spawnEntityInWorld(hiddenStand);
         BlockPos frontFence = new BlockPos(ENTITY_X + 6, FLOOR_Y + 1, 5);
         BlockPos rearFence = new BlockPos(ENTITY_X - 5, FLOOR_Y + 1, 9);
         world.setBlockState(frontFence, Blocks.OAK_FENCE.getDefaultState(), 2);
@@ -272,6 +277,10 @@ final class BenchmarkWorld {
     private static void placeArmoredStand(WorldServer world, double x, boolean enchanted) {
         EntityArmorStand stand = new EntityArmorStand(world);
         stand.setLocationAndAngles(x, FLOOR_Y + 1, 4, 180, 0);
+        if (enchanted) {
+            stand.setCustomNameTag("Enchanted armor");
+            stand.setAlwaysRenderNameTag(true);
+        }
         ItemArmor[] pieces = {Items.IRON_HELMET, Items.IRON_CHESTPLATE, Items.IRON_LEGGINGS, Items.IRON_BOOTS};
         for (ItemArmor piece : pieces) {
             ItemStack stack = new ItemStack(piece);

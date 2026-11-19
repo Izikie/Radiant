@@ -49,7 +49,16 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
     }
 
     public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
-        this.renderName(entity, x, y, z);
+        this.renderNameWithCapture(entity, x, y, z);
+    }
+
+    final void renderNameWithCapture(T entity, double x, double y, double z) {
+        VulkanObjectCapture.beginEntityNameTag();
+        try {
+            this.renderName(entity, x, y, z);
+        } finally {
+            VulkanObjectCapture.endEntityNameTag();
+        }
     }
 
     protected void renderName(T entity, double x, double y, double z) {
