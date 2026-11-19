@@ -175,8 +175,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 float f = (j - 16);
                 float f1 = (i - 16);
                 float f2 = MathHelper.sqrt(f * f + f1 * f1);
-                this.rainXCoords[i << 5 | j] = -f1 / f2;
-                this.rainYCoords[i << 5 | j] = f / f2;
+                if (f2 > 0.0F) {
+                    this.rainXCoords[i << 5 | j] = -f1 / f2;
+                    this.rainYCoords[i << 5 | j] = f / f2;
+                }
             }
         }
     }
@@ -1388,7 +1390,16 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             Shaders.beginWeather();
         }
 
-        this.renderRainSnow(partialTicks);
+        boolean capturePrecipitation = VulkanTerrainPreview.ENABLED && pass == 2
+                && this.mc.world.getRainStrength(partialTicks) > 0.0F && !Config.isRainOff()
+                && VulkanTerrainPreview.beginPrecipitation(this.lightmapColors, this.mc.getTextureMapBlocks().getGlTextureId());
+        try {
+            this.renderRainSnow(partialTicks);
+        } finally {
+            if (capturePrecipitation) {
+                VulkanObjectCapture.end();
+            }
+        }
 
         if (flag) {
             Shaders.endWeather();
@@ -1628,6 +1639,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                                     }
 
                                     j1 = 0;
+                                    VulkanObjectCapture.beginPrecipitationBatch(false);
                                     this.mc.getTextureManager().bindTexture(LOCATION_RAIN_PNG);
                                     worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
                                 }
@@ -1652,6 +1664,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                                     }
 
                                     j1 = 1;
+                                    VulkanObjectCapture.beginPrecipitationBatch(true);
                                     this.mc.getTextureManager().bindTexture(LOCATION_SNOW_PNG);
                                     worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
                                 }

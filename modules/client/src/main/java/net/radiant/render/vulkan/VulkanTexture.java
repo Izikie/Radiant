@@ -22,6 +22,12 @@ final class VulkanTexture implements AutoCloseable {
 
     void initialize(VkPhysicalDevice physicalDevice, VkQueue queue, VkCommandBuffer commands,
                     int width, int height, ByteBuffer[] levels, boolean srgb) {
+        initialize(physicalDevice, queue, commands, width, height, levels, srgb,
+                VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
+    }
+
+    void initialize(VkPhysicalDevice physicalDevice, VkQueue queue, VkCommandBuffer commands,
+                    int width, int height, ByteBuffer[] levels, boolean srgb, int addressModeU, int addressModeV) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             mipLevels = levels.length;
             int format = srgb ? VK_FORMAT_R8G8B8A8_SRGB : VK_FORMAT_R8G8B8A8_UNORM;
@@ -42,8 +48,8 @@ final class VulkanTexture implements AutoCloseable {
             view = VulkanMemory.createImageView(stack, device, image, format, VK_IMAGE_ASPECT_COLOR_BIT, levels.length);
             VkSamplerCreateInfo samplerInfo = VkSamplerCreateInfo.calloc(stack).sType$Default()
                     .magFilter(VK_FILTER_NEAREST).minFilter(VK_FILTER_NEAREST).mipmapMode(VK_SAMPLER_MIPMAP_MODE_LINEAR)
-                    .addressModeU(VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE)
-                    .addressModeV(VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE)
+                    .addressModeU(addressModeU)
+                    .addressModeV(addressModeV)
                     .addressModeW(VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE)
                     .maxLod(levels.length - 1);
             VulkanPresenter.check(vkCreateSampler(device, samplerInfo, null, handle), "create texture sampler");

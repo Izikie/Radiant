@@ -252,6 +252,14 @@ public final class ClientBenchmark {
         }
     }
 
+    public static void recordVulkanPrecipitationFrame(int rainQuads, int snowQuads) {
+        Capture capture = active;
+        if (capture != null) {
+            capture.vulkanRainQuads += rainQuads;
+            capture.vulkanSnowQuads += snowQuads;
+        }
+    }
+
     public static void recordVulkanAtlasUpload(int sprites, int water, int lava, int bytes) {
         Capture capture = active;
         if (capture != null) {
@@ -327,6 +335,8 @@ public final class ClientBenchmark {
         private long vulkanTerrainParticleTriangles;
         private long vulkanTranslucentParticleTriangles;
         private long vulkanLitParticleTriangles;
+        private long vulkanRainQuads;
+        private long vulkanSnowQuads;
         private long vulkanAtlasSpriteUpdates;
         private long vulkanWaterSpriteUpdates;
         private long vulkanLavaSpriteUpdates;
@@ -371,6 +381,7 @@ public final class ClientBenchmark {
             graphics.addProperty("height", height);
             graphics.addProperty("renderDistanceChunks", settings.renderDistanceChunks);
             graphics.addProperty("ofClouds", settings.ofClouds);
+            graphics.addProperty("ofRain", settings.ofRain);
             graphics.addProperty("vsync", settings.enableVsync);
             graphics.addProperty("fpsLimit", settings.limitFramerate);
             graphics.addProperty("fancyGraphics", settings.fancyGraphics);
@@ -419,6 +430,8 @@ public final class ClientBenchmark {
                 report.addProperty("vulkanTerrainParticleTriangles", vulkanTerrainParticleTriangles);
                 report.addProperty("vulkanTranslucentParticleTriangles", vulkanTranslucentParticleTriangles);
                 report.addProperty("vulkanLitParticleTriangles", vulkanLitParticleTriangles);
+                report.addProperty("vulkanRainQuads", vulkanRainQuads);
+                report.addProperty("vulkanSnowQuads", vulkanSnowQuads);
                 report.addProperty("vulkanAtlasSpriteUpdates", vulkanAtlasSpriteUpdates);
                 report.addProperty("vulkanWaterSpriteUpdates", vulkanWaterSpriteUpdates);
                 report.addProperty("vulkanLavaSpriteUpdates", vulkanLavaSpriteUpdates);
