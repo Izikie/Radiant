@@ -82,13 +82,14 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private int heldItemTriangles;
     private int heldGlintTriangles;
     private int screenGlintTriangles;
+    private int armorGlintTriangles;
     private int hudTriangles;
     private int hudItemTriangles;
     private int screenTriangles;
     private int screenItemTriangles;
     private int screenGlyphs;
     private boolean holdingItem;
-    private boolean itemGlint;
+    private Glint glint;
     private CameraOverlay cameraOverlay;
     private Phase phase;
 
@@ -118,6 +119,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         heldItemTriangles = 0;
         heldGlintTriangles = 0;
         screenGlintTriangles = 0;
+        armorGlintTriangles = 0;
         hudTriangles = 0;
         hudItemTriangles = 0;
         screenTriangles = 0;
@@ -130,7 +132,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         this.atlasId = atlasId;
         this.phase = phase;
         cameraOverlay = null;
-        itemGlint = false;
+        glint = null;
         int layer = phase.layer.ordinal();
         if (layerStarts[layer] < 0) {
             layerStarts[layer] = draws.size();
@@ -197,18 +199,18 @@ public final class VulkanObjectCapture implements AutoCloseable {
         }
     }
 
-    public static boolean beginItemGlint() {
+    public static Glint beginGlint(Glint type) {
         if (active == null) {
-            return false;
+            return null;
         }
-        boolean previous = active.itemGlint;
-        active.itemGlint = true;
+        Glint previous = active.glint;
+        active.glint = type;
         return previous;
     }
 
-    public static void endItemGlint(boolean previous) {
+    public static void endGlint(Glint previous) {
         if (active != null) {
-            active.itemGlint = previous;
+            active.glint = previous;
         }
     }
 
@@ -338,7 +340,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         boolean depthWrite = glGetBoolean(GL_DEPTH_WRITEMASK);
         boolean depthTest = glIsEnabled(GL_DEPTH_TEST);
         VulkanGraphics.State state;
-        if (itemGlint || phase.layer.ui || phase == Phase.CAMERA_OVERLAYS || phase == Phase.SELECTION
+        if (glint != null || phase.layer.ui || phase == Phase.CAMERA_OVERLAYS || phase == Phase.SELECTION
                 || phase == Phase.BLOCK_DAMAGE || phase == Phase.WORLD_BORDER) {
             state = VulkanOverlayState.capture(depthTest, depthWrite, blend);
         } else {
@@ -353,14 +355,14 @@ public final class VulkanObjectCapture implements AutoCloseable {
         }
         int topology = phase == Phase.SELECTION ? VK_PRIMITIVE_TOPOLOGY_LINE_LIST : VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
         VulkanGraphics.Blend factors = state.blend();
-        boolean glintColorBlend = itemGlint && factors != null && factors.sourceColor() == VK_BLEND_FACTOR_SRC_COLOR
+        boolean glintColorBlend = glint != null && factors != null && factors.sourceColor() == VK_BLEND_FACTOR_SRC_COLOR
                 && factors.destinationColor() == VK_BLEND_FACTOR_ONE;
         return new Material(image, new PipelineKey(topology, state, false), glIsEnabled(GL_ALPHA_TEST) ? glGetFloat(GL_ALPHA_TEST_REF) : -1,
                 lit, GlStateManager.isLightmapTextureEnabled(), glintColorBlend);
     }
 
     private boolean capturesTextureMatrix() {
-        return itemGlint || phase.layer.ui || phase == Phase.BLOCK_DAMAGE;
+        return glint != null || phase.layer.ui || phase == Phase.BLOCK_DAMAGE;
     }
 
     private Image texture(int id) {
@@ -435,7 +437,9 @@ public final class VulkanObjectCapture implements AutoCloseable {
             target.add(new Draw(material, firstVertex, vertexCount));
         }
         int triangles = primitiveCount;
-        if (itemGlint) {
+        if (glint == Glint.ARMOR && phase == Phase.ENTITIES) {
+            armorGlintTriangles += triangles;
+        } else if (glint == Glint.ITEM) {
             if (phase == Phase.FIRST_PERSON) {
                 heldGlintTriangles += triangles;
             } else if (phase == Phase.SCREEN) {
@@ -667,6 +671,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
         return screenGlintTriangles;
     }
 
+    int armorGlintTriangles() {
+        return armorGlintTriangles;
+    }
+
     int cameraOverlayQuads(CameraOverlay overlay) {
         return cameraOverlayQuads[overlay.ordinal()];
     }
@@ -716,6 +724,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
 
     public enum CameraOverlay {
         BLOCK, WATER, FIRE
+    }
+
+    public enum Glint {
+        ITEM, ARMOR
     }
 
     enum Layer {
