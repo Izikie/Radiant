@@ -20,6 +20,7 @@ import net.optifine.Config;
 import net.optifine.EmissiveTextures;
 import net.optifine.entity.model.CustomEntityModels;
 import net.optifine.shaders.Shaders;
+import net.radiant.render.vulkan.VulkanObjectCapture;
 import org.lwjgl.opengl.GL11;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -213,6 +214,8 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             GlStateManager.disableRescaleNormal();
         } catch (Exception exception) {
             LOGGER.error("Couldn't render entity", exception);
+        } finally {
+            VulkanObjectCapture.clearEntityTint();
         }
 
         GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
@@ -359,6 +362,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
             this.brightnessBuffer.flip();
             GL11.glTexEnvfv(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_COLOR, this.brightnessBuffer);
+            VulkanObjectCapture.setEntityTint(this.brightnessBuffer);
             GlStateManager.setActiveTexture(OpenGlHelper.GL_TEXTURE2);
             GlStateManager.enableTexture2D();
             GlStateManager.bindTexture(TEXTURE_BRIGHTNESS.getGlTextureId());
@@ -377,6 +381,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     }
 
     protected void unsetBrightness() {
+        VulkanObjectCapture.clearEntityTint();
         GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
         GlStateManager.enableTexture2D();
         GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, OpenGlHelper.GL_COMBINE);

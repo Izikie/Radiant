@@ -116,7 +116,8 @@ tasks.register<JavaExec>("RunClientBenchmark") {
         "benchmarkWarmup" to "warmup",
         "benchmarkSeconds" to "seconds",
         "benchmarkAutoStart" to "autoStart",
-        "benchmarkEntityHitboxes" to "entityHitboxes"
+        "benchmarkEntityHitboxes" to "entityHitboxes",
+        "benchmarkEntityDamage" to "entityDamage"
     ).forEach { (property, option) ->
         providers.gradleProperty(property).orNull?.let {
             systemProperty("radiant.benchmark.$option", it)

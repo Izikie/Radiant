@@ -30,6 +30,7 @@ import java.util.concurrent.TimeUnit;
 
 public final class ClientBenchmark {
     public static final boolean ENABLED = Boolean.getBoolean("radiant.benchmark");
+    static final boolean ENTITY_DAMAGE = ENABLED && Boolean.getBoolean("radiant.benchmark.entityDamage");
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ClientBenchmark.class);
     private static final int MAX_FRAME_SAMPLES = 250_000;
@@ -300,6 +301,14 @@ public final class ClientBenchmark {
         }
     }
 
+    public static void recordVulkanEntityTint(int triangles) {
+        Capture capture = active;
+        if (capture != null && triangles > 0) {
+            capture.vulkanEntityTintFrames++;
+            capture.vulkanEntityTintTriangles += triangles;
+        }
+    }
+
     public static void recordVulkanParticleFrame(int triangles, int terrainTriangles, int translucentTriangles, int litTriangles) {
         Capture capture = active;
         if (capture != null) {
@@ -503,6 +512,8 @@ public final class ClientBenchmark {
         private long vulkanEntityLeashTriangles;
         private long vulkanEntityNameTagFrames;
         private long vulkanEntityNameTagGlyphs;
+        private long vulkanEntityTintFrames;
+        private long vulkanEntityTintTriangles;
         private long vulkanEntityNameTagThroughWallGlyphs;
         private long vulkanBlockEntityTriangles;
         private long vulkanBlockEntityGlyphs;
@@ -642,6 +653,8 @@ public final class ClientBenchmark {
                 report.addProperty("vulkanEntityLeashTriangles", vulkanEntityLeashTriangles);
                 report.addProperty("vulkanEntityNameTagFrames", vulkanEntityNameTagFrames);
                 report.addProperty("vulkanEntityNameTagGlyphs", vulkanEntityNameTagGlyphs);
+                report.addProperty("vulkanEntityTintFrames", vulkanEntityTintFrames);
+                report.addProperty("vulkanEntityTintTriangles", vulkanEntityTintTriangles);
                 report.addProperty("vulkanEntityNameTagThroughWallGlyphs", vulkanEntityNameTagThroughWallGlyphs);
                 report.addProperty("vulkanBlockEntityTriangles", vulkanBlockEntityTriangles);
                 report.addProperty("vulkanBlockEntityGlyphs", vulkanBlockEntityGlyphs);
