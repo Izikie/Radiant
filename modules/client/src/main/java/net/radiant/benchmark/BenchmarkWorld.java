@@ -1,12 +1,17 @@
 package net.radiant.benchmark;
 
 import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.entity.item.EntityPainting;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.DyeColor;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Direction;
@@ -20,7 +25,7 @@ import java.util.Arrays;
 
 final class BenchmarkWorld {
     static final long SEED = 681889L;
-    static final int LAYOUT_VERSION = 7;
+    static final int LAYOUT_VERSION = 8;
     static final int FLOOR_Y = 192;
     static final int GALLERY_X = 0;
     static final int ENTITY_X = 64;
@@ -182,6 +187,8 @@ final class BenchmarkWorld {
     }
 
     private static void buildEntityScene(WorldServer world) {
+        placeArmoredStand(world, ENTITY_X + 0.5, true);
+        placeArmoredStand(world, ENTITY_X + 2, false);
         for (int row = 0; row < 8; row++) {
             for (int column = 0; column < 10; column++) {
                 int x = ENTITY_X - 13 + column * 3;
@@ -227,5 +234,19 @@ final class BenchmarkWorld {
                 }
             }
         }
+    }
+
+    private static void placeArmoredStand(WorldServer world, double x, boolean enchanted) {
+        EntityArmorStand stand = new EntityArmorStand(world);
+        stand.setLocationAndAngles(x, FLOOR_Y + 1, 4, 180, 0);
+        ItemArmor[] pieces = {Items.IRON_HELMET, Items.IRON_CHESTPLATE, Items.IRON_LEGGINGS, Items.IRON_BOOTS};
+        for (ItemArmor piece : pieces) {
+            ItemStack stack = new ItemStack(piece);
+            if (enchanted) {
+                stack.addEnchantment(Enchantment.PROTECTION, 1);
+            }
+            stand.setCurrentItemOrArmor(4 - piece.armorType, stack);
+        }
+        world.spawnEntityInWorld(stand);
     }
 }

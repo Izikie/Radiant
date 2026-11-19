@@ -11,6 +11,7 @@ import net.optifine.Config;
 import net.optifine.CustomItems;
 import net.optifine.shaders.Shaders;
 import net.optifine.shaders.ShadersRender;
+import net.radiant.render.vulkan.VulkanObjectCapture;
 import org.lwjgl.opengl.GL11;
 
 import java.util.HashMap;
@@ -82,8 +83,16 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
                     t.render(entitylivingbaseIn, p_177182_2_, p_177182_3_, p_177182_5_, p_177182_6_, p_177182_7_, scale);
             }
 
-            if (!this.skipRenderGlint && itemstack.isItemEnchanted() && (!Config.isCustomItems() || !CustomItems.renderCustomArmorEffect(entitylivingbaseIn, itemstack, t, p_177182_2_, p_177182_3_, partialTicks, p_177182_5_, p_177182_6_, p_177182_7_, scale))) {
-                this.renderGlint(entitylivingbaseIn, t, p_177182_2_, p_177182_3_, partialTicks, p_177182_5_, p_177182_6_, p_177182_7_, scale);
+            if (!this.skipRenderGlint && itemstack.isItemEnchanted()) {
+                VulkanObjectCapture.Glint previousGlint = VulkanObjectCapture.beginGlint(VulkanObjectCapture.Glint.ARMOR);
+                try {
+                    if (!Config.isCustomItems() || !CustomItems.renderCustomArmorEffect(entitylivingbaseIn, itemstack, t,
+                            p_177182_2_, p_177182_3_, partialTicks, p_177182_5_, p_177182_6_, p_177182_7_, scale)) {
+                        this.renderGlint(entitylivingbaseIn, t, p_177182_2_, p_177182_3_, partialTicks, p_177182_5_, p_177182_6_, p_177182_7_, scale);
+                    }
+                } finally {
+                    VulkanObjectCapture.endGlint(previousGlint);
+                }
             }
         }
     }
