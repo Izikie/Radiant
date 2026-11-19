@@ -237,7 +237,11 @@ final class BenchmarkSuite {
             }
             setWeather(serverWorld, player, phase.rainStrength());
             if (phase == Phase.FIRST_PERSON_HAND || phase == Phase.FIRST_PERSON_ITEM || phase == Phase.CREATIVE_INVENTORY) {
-                ItemStack stack = phase == Phase.FIRST_PERSON_ITEM ? new ItemStack(Items.DIAMOND_SWORD) : null;
+                ItemStack stack = switch (phase) {
+                    case FIRST_PERSON_ITEM -> new ItemStack(Items.DIAMOND_SWORD);
+                    case CREATIVE_INVENTORY -> new ItemStack(Items.APPLE, 16);
+                    default -> null;
+                };
                 player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
                 player.inventoryContainer.detectAndSendChanges();
             }
@@ -279,8 +283,9 @@ final class BenchmarkSuite {
     private static boolean hasExpectedHeldItem(Minecraft mc, Phase phase) {
         ItemStack stack = mc.player.getHeldItem();
         return switch (phase) {
-            case FIRST_PERSON_HAND, CREATIVE_INVENTORY -> stack == null;
+            case FIRST_PERSON_HAND -> stack == null;
             case FIRST_PERSON_ITEM -> stack != null && stack.getItem() == Items.DIAMOND_SWORD;
+            case CREATIVE_INVENTORY -> stack != null && stack.getItem() == Items.APPLE;
             default -> true;
         };
     }
@@ -397,7 +402,7 @@ final class BenchmarkSuite {
         SNOW("snow", BenchmarkWorld.SNOW_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 25, 0, 6000, BiomeGenBase.ICE_PLAINS),
         FIRST_PERSON_HAND("first-person-hand", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_SHELTER_BACK_Z - 1, 3, 0),
         FIRST_PERSON_ITEM("first-person-held-item", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_SHELTER_BACK_Z - 1, 3, 0),
-        CREATIVE_INVENTORY("creative-inventory", BenchmarkWorld.GALLERY_X, EXHIBIT_Y, 0, 4, 0);
+        CREATIVE_INVENTORY("creative-inventory", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 0);
 
         private final String scenario;
         private final int x;

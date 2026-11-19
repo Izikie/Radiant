@@ -162,22 +162,16 @@ final class VulkanTerrainScene implements VulkanScene {
         }
         pipeline.begin(stack, commands);
         drawCalls = pipeline.draw(stack, commands, frame.opaque, false);
-        objects.draw(stack, commands, objectCapture, frame.fog, false);
+        objects.draw(stack, commands, objectCapture, frame.fog, VulkanObjectCapture.Layer.WORLD);
         if (frame.environment != null && frame.environment.cloudMode() != 0) {
             environment.drawClouds(stack, commands);
             cloudsDrawn = true;
         }
         pipeline.begin(stack, commands);
         drawCalls += pipeline.draw(stack, commands, frame.translucent, true);
-        if (objectCapture.firstPersonStart() < objectCapture.draws().size()) {
-            // Retain the world color and give the first-person model an independent depth range.
-            VkClearAttachment.Buffer clear = VkClearAttachment.calloc(1, stack);
-            clear.get(0).aspectMask(VK_IMAGE_ASPECT_DEPTH_BIT).clearValue().depthStencil().depth(1.0f);
-            VkClearRect.Buffer rect = VkClearRect.calloc(1, stack);
-            rect.get(0).layerCount(1).rect().extent().set(width, height);
-            vkCmdClearAttachments(commands, clear, rect);
-            objects.draw(stack, commands, objectCapture, frame.fog, true);
-        }
+        drawOverlay(stack, commands, width, height, VulkanObjectCapture.Layer.FIRST_PERSON);
+        drawOverlay(stack, commands, width, height, VulkanObjectCapture.Layer.HUD);
+        drawOverlay(stack, commands, width, height, VulkanObjectCapture.Layer.SCREEN);
         for (Draw draw : frame.opaque) {
             quads += draw.mesh.quads();
             if (draw.layer != 0) {
@@ -188,6 +182,19 @@ final class VulkanTerrainScene implements VulkanScene {
             translucentQuads += draw.mesh.quads();
         }
         quads += translucentQuads;
+    }
+
+    private void drawOverlay(MemoryStack stack, VkCommandBuffer commands, int width, int height, VulkanObjectCapture.Layer layer) {
+        if (objectCapture.drawStart(layer) == objectCapture.drawEnd(layer)) {
+            return;
+        }
+        // Each overlay starts with the legacy depth clear and composites onto the current color.
+        VkClearAttachment.Buffer clear = VkClearAttachment.calloc(1, stack);
+        clear.get(0).aspectMask(VK_IMAGE_ASPECT_DEPTH_BIT).clearValue().depthStencil().depth(1.0f);
+        VkClearRect.Buffer rect = VkClearRect.calloc(1, stack);
+        rect.get(0).layerCount(1).rect().extent().set(width, height);
+        vkCmdClearAttachments(commands, clear, rect);
+        objects.draw(stack, commands, objectCapture, frame.fog, layer);
     }
 
     int drawCalls() {

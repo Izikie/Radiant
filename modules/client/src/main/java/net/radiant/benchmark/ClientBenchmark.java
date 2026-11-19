@@ -274,6 +274,23 @@ public final class ClientBenchmark {
         }
     }
 
+    public static void recordVulkanUiFrame(int hudTriangles, int hudItemTriangles, int guiTriangles, int guiItemTriangles, int guiGlyphs) {
+        Capture capture = active;
+        if (capture != null) {
+            capture.vulkanHudTriangles += hudTriangles;
+            capture.vulkanHudItemTriangles += hudItemTriangles;
+            capture.vulkanGuiTriangles += guiTriangles;
+            capture.vulkanGuiItemTriangles += guiItemTriangles;
+            capture.vulkanGuiGlyphs += guiGlyphs;
+            if (hudTriangles > 0) {
+                capture.vulkanHudFrames++;
+            }
+            if (guiTriangles > 0) {
+                capture.vulkanGuiFrames++;
+            }
+        }
+    }
+
     public static void recordVulkanAtlasUpload(int sprites, int water, int lava, int bytes) {
         Capture capture = active;
         if (capture != null) {
@@ -355,6 +372,13 @@ public final class ClientBenchmark {
         private long vulkanHandTriangles;
         private long vulkanHeldItemFrames;
         private long vulkanHeldItemTriangles;
+        private long vulkanHudFrames;
+        private long vulkanHudTriangles;
+        private long vulkanHudItemTriangles;
+        private long vulkanGuiFrames;
+        private long vulkanGuiTriangles;
+        private long vulkanGuiItemTriangles;
+        private long vulkanGuiGlyphs;
         private long vulkanAtlasSpriteUpdates;
         private long vulkanWaterSpriteUpdates;
         private long vulkanLavaSpriteUpdates;
@@ -454,6 +478,13 @@ public final class ClientBenchmark {
                 report.addProperty("vulkanHandTriangles", vulkanHandTriangles);
                 report.addProperty("vulkanHeldItemFrames", vulkanHeldItemFrames);
                 report.addProperty("vulkanHeldItemTriangles", vulkanHeldItemTriangles);
+                report.addProperty("vulkanHudFrames", vulkanHudFrames);
+                report.addProperty("vulkanHudTriangles", vulkanHudTriangles);
+                report.addProperty("vulkanHudItemTriangles", vulkanHudItemTriangles);
+                report.addProperty("vulkanGuiFrames", vulkanGuiFrames);
+                report.addProperty("vulkanGuiTriangles", vulkanGuiTriangles);
+                report.addProperty("vulkanGuiItemTriangles", vulkanGuiItemTriangles);
+                report.addProperty("vulkanGuiGlyphs", vulkanGuiGlyphs);
                 report.addProperty("vulkanAtlasSpriteUpdates", vulkanAtlasSpriteUpdates);
                 report.addProperty("vulkanWaterSpriteUpdates", vulkanWaterSpriteUpdates);
                 report.addProperty("vulkanLavaSpriteUpdates", vulkanLavaSpriteUpdates);

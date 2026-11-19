@@ -16,6 +16,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,7 @@ import static org.lwjgl.vulkan.VK10.VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
 import static org.lwjgl.vulkan.VK10.VK_SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT;
 import static org.lwjgl.vulkan.VK10.VK_SAMPLER_ADDRESS_MODE_REPEAT;
 
-/** Extracts the legacy world-object draws on the client thread, before their buffers are recycled. */
+/** Extracts legacy draw geometry on the client thread, before its buffers are recycled. */
 public final class VulkanObjectCapture implements AutoCloseable {
     static final int STRIDE = 28;
     private static final int[] QUAD_INDICES = {0, 1, 2, 2, 3, 0};
@@ -41,7 +42,9 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private final Image white = new Image(1, 1, memAlloc(4).putInt(0, -1));
     private final Image atlas = new Image(0, 0, null);
     private final List<Draw> draws = new ArrayList<>();
+    private final int[] layerStarts = new int[Layer.values().length];
     private final Matrix4f projection = new Matrix4f();
+    private final Matrix4f textureMatrix = new Matrix4f();
     private final Matrix4f modelView = new Matrix4f();
     private final Matrix4f transform = new Matrix4f();
     private final Matrix3f normalMatrix = new Matrix3f();
@@ -63,9 +66,13 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private int litParticleTriangles;
     private int rainQuads;
     private int snowQuads;
-    private int firstPersonStart = -1;
     private int handTriangles;
     private int heldItemTriangles;
+    private int hudTriangles;
+    private int hudItemTriangles;
+    private int screenTriangles;
+    private int screenItemTriangles;
+    private int screenGlyphs;
     private boolean holdingItem;
     private Phase phase;
 
@@ -82,17 +89,25 @@ public final class VulkanObjectCapture implements AutoCloseable {
         litParticleTriangles = 0;
         rainQuads = 0;
         snowQuads = 0;
-        firstPersonStart = -1;
+        Arrays.fill(layerStarts, -1);
+        layerStarts[Layer.WORLD.ordinal()] = 0;
         handTriangles = 0;
         heldItemTriangles = 0;
+        hudTriangles = 0;
+        hudItemTriangles = 0;
+        screenTriangles = 0;
+        screenItemTriangles = 0;
+        screenGlyphs = 0;
     }
 
     void begin(int[] lightmap, int atlasId, Phase phase) {
         this.lightmap = lightmap;
         this.atlasId = atlasId;
         this.phase = phase;
+        if (phase.layer != Layer.WORLD) {
+            layerStarts[phase.layer.ordinal()] = draws.size();
+        }
         if (phase == Phase.FIRST_PERSON) {
-            firstPersonStart = draws.size();
             holdingItem = false;
         }
         try (MemoryStack stack = MemoryStack.stackPush()) {
@@ -126,6 +141,11 @@ public final class VulkanObjectCapture implements AutoCloseable {
     public static void setFirstPersonItem(boolean holdingItem) {
         if (active != null && active.phase == Phase.FIRST_PERSON) {
             active.holdingItem = holdingItem;
+        }
+    }
+
+    public static void refreshLights() {
+        if (active != null) {
             active.readLights();
         }
     }
@@ -215,8 +235,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
         putGlyphVertex(data, x + width + skew, y, u1, v0);
         putGlyphVertex(data, x + width - skew, y + 7.99f, u1, v1);
         active.append(new Mesh(data, Layout.GLYPH, GL_TRIANGLE_STRIP, 4), active.material());
-        if (active.phase == Phase.BLOCK_ENTITIES) {
-            active.blockEntityGlyphs++;
+        switch (active.phase) {
+            case BLOCK_ENTITIES -> active.blockEntityGlyphs++;
+            case SCREEN -> active.screenGlyphs++;
+            default -> { }
         }
     }
 
@@ -227,6 +249,12 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private Material material() {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             FloatBuffer values = stack.mallocFloat(16);
+            if (phase.layer.ui) {
+                glGetFloatv(GL_PROJECTION_MATRIX, values);
+                projection.set(values);
+                glGetFloatv(GL_TEXTURE_MATRIX, values);
+                textureMatrix.set(values);
+            }
             glGetFloatv(GL_MODELVIEW_MATRIX, values);
             modelView.set(values);
             projection.mul(modelView, transform);
@@ -240,14 +268,21 @@ public final class VulkanObjectCapture implements AutoCloseable {
         }
         boolean blend = glIsEnabled(GL_BLEND);
         boolean depthWrite = glGetBoolean(GL_DEPTH_WRITEMASK);
-        VulkanGraphics.Pass pass = !glIsEnabled(GL_DEPTH_TEST) ? VulkanGraphics.Pass.OBJECT_OVERLAY
-                : blend ? (depthWrite ? VulkanGraphics.Pass.BLENDED_DEPTH_WRITE : VulkanGraphics.Pass.OBJECT_BLEND)
-                : (depthWrite ? VulkanGraphics.Pass.OPAQUE : VulkanGraphics.Pass.OBJECT_READ_DEPTH);
+        boolean depthTest = glIsEnabled(GL_DEPTH_TEST);
+        VulkanGraphics.State state;
+        if (phase.layer.ui) {
+            state = VulkanUiState.capture(depthTest, depthWrite, blend);
+        } else {
+            VulkanGraphics.Pass pass = !depthTest ? VulkanGraphics.Pass.OBJECT_OVERLAY
+                    : blend ? (depthWrite ? VulkanGraphics.Pass.BLENDED_DEPTH_WRITE : VulkanGraphics.Pass.OBJECT_BLEND)
+                    : (depthWrite ? VulkanGraphics.Pass.OPAQUE : VulkanGraphics.Pass.OBJECT_READ_DEPTH);
+            state = pass.state;
+        }
         boolean lit = glIsEnabled(GL_LIGHTING);
         if (lit) {
             modelView.normal(normalMatrix);
         }
-        return new Material(image, pass, glIsEnabled(GL_ALPHA_TEST) ? glGetFloat(GL_ALPHA_TEST_REF) : -1,
+        return new Material(image, state, glIsEnabled(GL_ALPHA_TEST) ? glGetFloat(GL_ALPHA_TEST_REF) : -1,
                 lit, GlStateManager.isLightmapTextureEnabled());
     }
 
@@ -309,7 +344,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
             }
         }
         int last = draws.size() - 1;
-        if (last >= 0 && draws.size() != firstPersonStart && draws.get(last).material.equals(material)) {
+        if (last >= 0 && draws.size() != layerStarts[phase.layer.ordinal()] && draws.get(last).material.equals(material)) {
             Draw previous = draws.get(last);
             previous.vertexCount += triangles * 3;
         } else {
@@ -327,7 +362,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
                 if (material.image == atlas) {
                     terrainParticleTriangles += triangles;
                 }
-                if (material.pass == VulkanGraphics.Pass.OBJECT_BLEND) {
+                if (material.state == VulkanGraphics.Pass.OBJECT_BLEND.state) {
                     translucentParticleTriangles += triangles;
                 }
             }
@@ -338,6 +373,18 @@ public final class VulkanObjectCapture implements AutoCloseable {
                     heldItemTriangles += triangles;
                 } else {
                     handTriangles += triangles;
+                }
+            }
+            case HUD -> {
+                hudTriangles += triangles;
+                if (material.image == atlas) {
+                    hudItemTriangles += triangles;
+                }
+            }
+            case SCREEN -> {
+                screenTriangles += triangles;
+                if (material.image == atlas) {
+                    screenItemTriangles += triangles;
                 }
             }
         }
@@ -351,8 +398,14 @@ public final class VulkanObjectCapture implements AutoCloseable {
         clip.set(data.getFloat(p), data.getFloat(p + 4), data.getFloat(p + 8), 1).mul(transform);
         vertices.putFloat(clip.x).putFloat(clip.y).putFloat(clip.z).putFloat(clip.w);
         int uv = base + layout.uv;
-        vertices.putFloat(layout.uv < 0 ? 0 : data.getFloat(uv));
-        vertices.putFloat(layout.uv < 0 ? 0 : data.getFloat(uv + 4));
+        float u = layout.uv < 0 ? 0 : data.getFloat(uv);
+        float v = layout.uv < 0 ? 0 : data.getFloat(uv + 4);
+        if (phase.layer.ui && layout.uv >= 0) {
+            vertices.putFloat(textureMatrix.m00() * u + textureMatrix.m10() * v + textureMatrix.m30());
+            vertices.putFloat(textureMatrix.m01() * u + textureMatrix.m11() * v + textureMatrix.m31());
+        } else {
+            vertices.putFloat(u).putFloat(v);
+        }
 
         int light = 0xffffff;
         if (material.lightmapped) {
@@ -406,8 +459,21 @@ public final class VulkanObjectCapture implements AutoCloseable {
         return draws;
     }
 
-    int firstPersonStart() {
-        return firstPersonStart < 0 ? draws.size() : firstPersonStart;
+    int drawStart(Layer layer) {
+        return drawBoundary(layer.ordinal());
+    }
+
+    int drawEnd(Layer layer) {
+        return drawBoundary(layer.ordinal() + 1);
+    }
+
+    private int drawBoundary(int firstLayer) {
+        for (int i = firstLayer; i < layerStarts.length; i++) {
+            if (layerStarts[i] >= 0) {
+                return layerStarts[i];
+            }
+        }
+        return draws.size();
     }
 
     Image atlas() {
@@ -458,6 +524,26 @@ public final class VulkanObjectCapture implements AutoCloseable {
         return heldItemTriangles;
     }
 
+    int hudTriangles() {
+        return hudTriangles;
+    }
+
+    int hudItemTriangles() {
+        return hudItemTriangles;
+    }
+
+    int screenTriangles() {
+        return screenTriangles;
+    }
+
+    int screenItemTriangles() {
+        return screenItemTriangles;
+    }
+
+    int screenGlyphs() {
+        return screenGlyphs;
+    }
+
     @Override
     public void close() {
         releaseRetiredImages();
@@ -467,7 +553,28 @@ public final class VulkanObjectCapture implements AutoCloseable {
     }
 
     enum Phase {
-        ENTITIES, BLOCK_ENTITIES, LIT_PARTICLES, PARTICLE_BILLBOARDS, RAIN, SNOW, FIRST_PERSON
+        ENTITIES, BLOCK_ENTITIES, LIT_PARTICLES, PARTICLE_BILLBOARDS, RAIN, SNOW,
+        FIRST_PERSON(Layer.FIRST_PERSON), HUD(Layer.HUD), SCREEN(Layer.SCREEN);
+
+        private final Layer layer;
+
+        Phase() {
+            this(Layer.WORLD);
+        }
+
+        Phase(Layer layer) {
+            this.layer = layer;
+        }
+    }
+
+    enum Layer {
+        WORLD(false), FIRST_PERSON(false), HUD(true), SCREEN(true);
+
+        private final boolean ui;
+
+        Layer(boolean ui) {
+            this.ui = ui;
+        }
     }
 
     private record Layout(int stride, int position, int uv, int color, int light, int normal) {
@@ -514,7 +621,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private record Mesh(ByteBuffer data, Layout layout, int mode, int count) {
     }
 
-    record Material(Image image, VulkanGraphics.Pass pass, float alphaCutoff, boolean lit, boolean lightmapped) {
+    record Material(Image image, VulkanGraphics.State state, float alphaCutoff, boolean lit, boolean lightmapped) {
     }
 
     static final class Draw {

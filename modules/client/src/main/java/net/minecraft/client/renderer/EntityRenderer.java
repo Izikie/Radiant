@@ -1032,10 +1032,18 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
                 if (!this.mc.gameSettings.hideGUI || this.mc.currentScreen != null) {
                     GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
-                    this.mc.ingameGUI.renderGameOverlay(partialTicks);
+                    boolean captureHud = VulkanTerrainPreview.ENABLED && VulkanTerrainPreview.beginHud(
+                            this.lightmapColors, this.mc.getTextureMapBlocks().getGlTextureId());
+                    try {
+                        this.mc.ingameGUI.renderGameOverlay(partialTicks);
 
-                    if (this.mc.gameSettings.ofShowFps && !this.mc.gameSettings.showDebugInfo) {
-                        Config.drawFps();
+                        if (this.mc.gameSettings.ofShowFps && !this.mc.gameSettings.showDebugInfo) {
+                            Config.drawFps();
+                        }
+                    } finally {
+                        if (captureHud) {
+                            VulkanObjectCapture.end();
+                        }
                     }
                 }
 
@@ -1054,6 +1062,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             if (this.mc.currentScreen != null) {
                 GlStateManager.clear(GL11.GL_DEPTH_BUFFER_BIT);
 
+                boolean captureScreen = VulkanTerrainPreview.ENABLED && this.mc.world != null && VulkanTerrainPreview.beginScreen(
+                        this.lightmapColors, this.mc.getTextureMapBlocks().getGlTextureId());
                 try {
                     this.mc.currentScreen.drawScreen(k1, l1, partialTicks);
                 } catch (Throwable throwable) {
@@ -1063,6 +1073,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     category.addCrashSectionCallable("Mouse location", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d)", k1, l1, Mouse.getX(), Mouse.getY()));
                     category.addCrashSectionCallable("Screen size", () -> String.format("Scaled: (%d, %d). Absolute: (%d, %d). Scale factor of %d", scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight(), EntityRenderer.this.mc.displayWidth, EntityRenderer.this.mc.displayHeight, scaledresolution.getScaleFactor()));
                     throw new ReportedException(report);
+                } finally {
+                    if (captureScreen) {
+                        VulkanObjectCapture.end();
+                    }
                 }
             }
         }
