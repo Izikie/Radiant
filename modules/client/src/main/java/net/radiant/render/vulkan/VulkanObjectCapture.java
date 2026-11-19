@@ -22,7 +22,11 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL14.GL_MIRRORED_REPEAT;
 import static org.lwjgl.system.MemoryUtil.*;
+import static org.lwjgl.vulkan.VK10.VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
+import static org.lwjgl.vulkan.VK10.VK_SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT;
+import static org.lwjgl.vulkan.VK10.VK_SAMPLER_ADDRESS_MODE_REPEAT;
 
 /** Extracts the legacy world-object draws on the client thread, before their buffers are recycled. */
 public final class VulkanObjectCapture implements AutoCloseable {
@@ -57,6 +61,8 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private int terrainParticleTriangles;
     private int translucentParticleTriangles;
     private int litParticleTriangles;
+    private int rainQuads;
+    private int snowQuads;
     private Phase phase;
 
     void reset() {
@@ -70,6 +76,8 @@ public final class VulkanObjectCapture implements AutoCloseable {
         terrainParticleTriangles = 0;
         translucentParticleTriangles = 0;
         litParticleTriangles = 0;
+        rainQuads = 0;
+        snowQuads = 0;
     }
 
     void begin(int[] lightmap, int atlasId, Phase phase) {
@@ -95,6 +103,12 @@ public final class VulkanObjectCapture implements AutoCloseable {
     public static void beginParticleBillboards() {
         if (active != null) {
             active.phase = Phase.PARTICLE_BILLBOARDS;
+        }
+    }
+
+    public static void beginPrecipitationBatch(boolean snow) {
+        if (active != null) {
+            active.phase = snow ? Phase.SNOW : Phase.RAIN;
         }
     }
 
@@ -228,13 +242,21 @@ public final class VulkanObjectCapture implements AutoCloseable {
         ByteBuffer pixels = memAlloc(Math.multiplyExact(Math.multiplyExact(width, height), 4));
         try {
             glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-            Image image = new Image(width, height, pixels);
+            Image image = new Image(width, height, pixels, addressMode(GL_TEXTURE_WRAP_S), addressMode(GL_TEXTURE_WRAP_T));
             textures.put(id, image);
             return image;
         } catch (RuntimeException | Error e) {
             memFree(pixels);
             throw e;
         }
+    }
+
+    private static int addressMode(int parameter) {
+        return switch (glGetTexParameteri(GL_TEXTURE_2D, parameter)) {
+            case GL_REPEAT -> VK_SAMPLER_ADDRESS_MODE_REPEAT;
+            case GL_MIRRORED_REPEAT -> VK_SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT;
+            default -> VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
+        };
     }
 
     void invalidateTexture(int id) {
@@ -287,6 +309,8 @@ public final class VulkanObjectCapture implements AutoCloseable {
                     translucentParticleTriangles += triangles;
                 }
             }
+            case RAIN -> rainQuads += triangles / 2;
+            case SNOW -> snowQuads += triangles / 2;
         }
     }
 
@@ -385,6 +409,14 @@ public final class VulkanObjectCapture implements AutoCloseable {
         return litParticleTriangles;
     }
 
+    int rainQuads() {
+        return rainQuads;
+    }
+
+    int snowQuads() {
+        return snowQuads;
+    }
+
     @Override
     public void close() {
         releaseRetiredImages();
@@ -394,7 +426,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     }
 
     enum Phase {
-        ENTITIES, BLOCK_ENTITIES, LIT_PARTICLES, PARTICLE_BILLBOARDS
+        ENTITIES, BLOCK_ENTITIES, LIT_PARTICLES, PARTICLE_BILLBOARDS, RAIN, SNOW
     }
 
     private record Layout(int stride, int position, int uv, int color, int light, int normal) {
@@ -459,13 +491,21 @@ public final class VulkanObjectCapture implements AutoCloseable {
     static final class Image {
         final int width;
         final int height;
+        final int addressModeU;
+        final int addressModeV;
         ByteBuffer pixels;
         boolean deleted;
 
         Image(int width, int height, ByteBuffer pixels) {
+            this(width, height, pixels, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
+        }
+
+        Image(int width, int height, ByteBuffer pixels, int addressModeU, int addressModeV) {
             this.width = width;
             this.height = height;
             this.pixels = pixels;
+            this.addressModeU = addressModeU;
+            this.addressModeV = addressModeV;
         }
 
         void releasePixels() {

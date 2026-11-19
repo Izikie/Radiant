@@ -12,11 +12,14 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.packet.impl.play.server.S03PacketTimeUpdate;
+import net.minecraft.network.packet.impl.play.server.S2BPacketChangeGameState;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.ParticleTypes;
+import net.minecraft.world.WorldServer;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.WorldType;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.radiant.lwjgl.opengl.Display;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -135,7 +138,9 @@ final class BenchmarkSuite {
             case TRAVELLING -> {
                 BlockPos floor = new BlockPos(warmupLocation.x, BenchmarkWorld.FLOOR_Y, warmupLocation.z);
                 if (pending == null && atDestination(mc, warmupLocation) && world.getWorldTime() == warmupLocation.worldTime
-                        && world.getBlockState(floor).getBlock() == Blocks.STONEBRICK) {
+                        && world.getBlockState(floor).getBlock() == Blocks.STONEBRICK
+                        && world.getRainStrength(1.0F) == warmupLocation.rainStrength()
+                        && (warmupLocation.precipitationBiome == null || world.getBiomeGenForCoords(floor) == warmupLocation.precipitationBiome)) {
                     enter(Stage.WARMING_UP, now);
                 }
             }
@@ -169,6 +174,10 @@ final class BenchmarkSuite {
                     if (phase == Phase.PARTICLES) {
                         result.addProperty("particleWorkloadVersion", PARTICLE_WORKLOAD_VERSION);
                         result.addProperty("particleSpawnAttempts", particleSpawnAttempts);
+                    }
+                    if (phase.precipitationBiome != null) {
+                        result.addProperty("precipitationBiomeId", world.getBiomeGenForCoords(mc.player.getPosition()).biomeID);
+                        result.addProperty("precipitationStrength", world.getRainStrength(1.0F));
                     }
                     reports.add(result);
                     closeInventory(mc);
@@ -223,8 +232,25 @@ final class BenchmarkSuite {
                 serverWorld.setWorldTime(phase.worldTime);
                 player.playerNetServerHandler.sendPacket(new S03PacketTimeUpdate(serverWorld.getTotalWorldTime(), phase.worldTime, false));
             }
+            setWeather(serverWorld, player, phase.rainStrength());
             player.playerNetServerHandler.setPlayerLocation(phase.x + 0.5, phase.y, phase.z + 0.5, phase.yaw, phase.pitch);
         });
+    }
+
+    private static void setWeather(WorldServer world, EntityPlayerMP player, float strength) {
+        boolean wet = strength > 0.0F;
+        var info = world.getWorldInfo();
+        if (info.isRaining() == wet && world.getRainStrength(1.0F) == strength) {
+            return;
+        }
+        info.setCleanWeatherTime(wet ? 0 : Integer.MAX_VALUE);
+        info.setRainTime(wet ? Integer.MAX_VALUE : 0);
+        info.setThunderTime(Integer.MAX_VALUE);
+        info.setThundering(false);
+        info.setRaining(wet);
+        world.setRainStrength(strength);
+        player.playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(wet ? 1 : 2, 0.0F));
+        player.playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(7, strength));
     }
 
     private void beginCapture(Minecraft mc, Phase phase) {
@@ -341,6 +367,8 @@ final class BenchmarkSuite {
         NIGHT_SKY("night-sky", BenchmarkWorld.SKY_X, 108, 0, -30, 0, -90, 15_000),
         ENTITIES("entities-and-block-entities", BenchmarkWorld.ENTITY_X, EXHIBIT_Y, 0, 3, 36),
         PARTICLES("particles", BenchmarkWorld.PARTICLE_X, EXHIBIT_Y, 0, 3, 22),
+        RAIN("rain", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 25, 0, 6000, BiomeGenBase.PLAINS),
+        SNOW("snow", BenchmarkWorld.SNOW_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 25, 0, 6000, BiomeGenBase.ICE_PLAINS),
         CREATIVE_INVENTORY("creative-inventory", BenchmarkWorld.GALLERY_X, EXHIBIT_Y, 0, 4, 0);
 
         private final String scenario;
@@ -351,12 +379,18 @@ final class BenchmarkSuite {
         private final float sweep;
         private final float yaw;
         private final long worldTime;
+        private final BiomeGenBase precipitationBiome;
 
         Phase(String scenario, int x, int y, int z, float pitch, float sweep) {
             this(scenario, x, y, z, pitch, sweep, 0, 6000);
         }
 
         Phase(String scenario, int x, int y, int z, float pitch, float sweep, float yaw, long worldTime) {
+            this(scenario, x, y, z, pitch, sweep, yaw, worldTime, null);
+        }
+
+        Phase(String scenario, int x, int y, int z, float pitch, float sweep, float yaw, long worldTime,
+              BiomeGenBase precipitationBiome) {
             this.scenario = scenario;
             this.x = x;
             this.y = y;
@@ -365,6 +399,11 @@ final class BenchmarkSuite {
             this.sweep = sweep;
             this.yaw = yaw;
             this.worldTime = worldTime;
+            this.precipitationBiome = precipitationBiome;
+        }
+
+        float rainStrength() {
+            return precipitationBiome == null ? 0.0F : 1.0F;
         }
     }
 }

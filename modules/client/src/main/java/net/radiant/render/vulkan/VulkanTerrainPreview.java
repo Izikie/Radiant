@@ -214,6 +214,10 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         return beginObjects(lightmap, atlas, VulkanObjectCapture.Phase.LIT_PARTICLES);
     }
 
+    public static boolean beginPrecipitation(int[] lightmap, int atlas) {
+        return beginObjects(lightmap, atlas, VulkanObjectCapture.Phase.RAIN);
+    }
+
     private static boolean beginObjects(int[] lightmap, int atlas, VulkanObjectCapture.Phase phase) {
         VulkanTerrainPreview preview = active;
         if (preview == null || preview.pendingFrame == null) {
@@ -345,6 +349,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
                         preview.objects.blockEntityGlyphs());
                 ClientBenchmark.recordVulkanParticleFrame(preview.objects.particleTriangles(), preview.objects.terrainParticleTriangles(),
                         preview.objects.translucentParticleTriangles(), preview.objects.litParticleTriangles());
+                ClientBenchmark.recordVulkanPrecipitationFrame(preview.objects.rainQuads(), preview.objects.snowQuads());
             }
         } finally {
             preview.terrain.setFrame(null);

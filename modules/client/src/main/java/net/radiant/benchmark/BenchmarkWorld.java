@@ -13,16 +13,23 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.chat.ChatComponentText;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.WorldServer;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.Chunk;
+
+import java.util.Arrays;
 
 final class BenchmarkWorld {
     static final long SEED = 681889L;
-    static final int LAYOUT_VERSION = 4;
+    static final int LAYOUT_VERSION = 5;
     static final int FLOOR_Y = 192;
     static final int GALLERY_X = 0;
     static final int ENTITY_X = 64;
     static final int PARTICLE_X = 128;
     static final int TRANSLUCENT_X = 192;
     static final int SKY_X = -64;
+    static final int RAIN_X = 256;
+    static final int SNOW_X = 320;
+    static final int WEATHER_CAMERA_Z = 8;
 
     private BenchmarkWorld() {
     }
@@ -46,6 +53,8 @@ final class BenchmarkWorld {
         buildGallery(world);
         buildEntityScene(world);
         buildTranslucencyScene(world);
+        buildPrecipitationScene(world, RAIN_X, BiomeGenBase.PLAINS);
+        buildPrecipitationScene(world, SNOW_X, BiomeGenBase.ICE_PLAINS);
     }
 
     private static void buildFloor(WorldServer world, int center) {
@@ -53,6 +62,32 @@ final class BenchmarkWorld {
             for (int z = -3; z <= 34; z++) {
                 world.setBlockState(new BlockPos(x, FLOOR_Y, z), Blocks.STONEBRICK.getDefaultState(), 2);
             }
+        }
+    }
+
+    private static void buildPrecipitationScene(WorldServer world, int center, BiomeGenBase biome) {
+        buildFloor(world, center);
+        for (int chunkX = (center - 16) >> 4; chunkX <= (center + 16) >> 4; chunkX++) {
+            for (int chunkZ = -1; chunkZ <= 2; chunkZ++) {
+                Chunk chunk = world.getChunkFromChunkCoords(chunkX, chunkZ);
+                Arrays.fill(chunk.getBiomeArray(), (byte) biome.biomeID);
+                chunk.setChunkModified();
+            }
+        }
+
+        // A roof and back wall make the precipitation height and depth tests visible in the camera sweep.
+        var bricks = Blocks.STONEBRICK.getDefaultState();
+        for (int x = center - 4; x <= center + 4; x++) {
+            for (int z = 16; z <= 22; z++) {
+                world.setBlockState(new BlockPos(x, FLOOR_Y + 4, z), bricks, 2);
+            }
+            for (int y = 1; y < 4; y++) {
+                world.setBlockState(new BlockPos(x, FLOOR_Y + y, 22), bricks, 2);
+            }
+        }
+        for (int y = 1; y < 4; y++) {
+            world.setBlockState(new BlockPos(center - 4, FLOOR_Y + y, 16), bricks, 2);
+            world.setBlockState(new BlockPos(center + 4, FLOOR_Y + y, 16), bricks, 2);
         }
     }
 
