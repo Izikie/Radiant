@@ -30,6 +30,7 @@ final class BenchmarkWorld {
     static final int RAIN_X = 256;
     static final int SNOW_X = 320;
     static final int WEATHER_CAMERA_Z = 8;
+    static final int WEATHER_SHELTER_BACK_Z = 22;
 
     private BenchmarkWorld() {
     }
@@ -78,11 +79,11 @@ final class BenchmarkWorld {
         // A roof and back wall make the precipitation height and depth tests visible in the camera sweep.
         var bricks = Blocks.STONEBRICK.getDefaultState();
         for (int x = center - 4; x <= center + 4; x++) {
-            for (int z = 16; z <= 22; z++) {
+            for (int z = 16; z <= WEATHER_SHELTER_BACK_Z; z++) {
                 world.setBlockState(new BlockPos(x, FLOOR_Y + 4, z), bricks, 2);
             }
             for (int y = 1; y < 4; y++) {
-                world.setBlockState(new BlockPos(x, FLOOR_Y + y, 22), bricks, 2);
+                world.setBlockState(new BlockPos(x, FLOOR_Y + y, WEATHER_SHELTER_BACK_Z), bricks, 2);
             }
         }
         for (int y = 1; y < 4; y++) {

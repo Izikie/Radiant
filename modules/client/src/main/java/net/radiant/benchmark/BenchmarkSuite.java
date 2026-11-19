@@ -11,6 +11,8 @@ import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.impl.play.server.S03PacketTimeUpdate;
 import net.minecraft.network.packet.impl.play.server.S2BPacketChangeGameState;
 import net.minecraft.server.integrated.IntegratedServer;
@@ -140,7 +142,8 @@ final class BenchmarkSuite {
                 if (pending == null && atDestination(mc, warmupLocation) && world.getWorldTime() == warmupLocation.worldTime
                         && world.getBlockState(floor).getBlock() == Blocks.STONEBRICK
                         && world.getRainStrength(1.0F) == warmupLocation.rainStrength()
-                        && (warmupLocation.precipitationBiome == null || world.getBiomeGenForCoords(floor) == warmupLocation.precipitationBiome)) {
+                        && (warmupLocation.precipitationBiome == null || world.getBiomeGenForCoords(floor) == warmupLocation.precipitationBiome)
+                        && hasExpectedHeldItem(mc, warmupLocation)) {
                     enter(Stage.WARMING_UP, now);
                 }
             }
@@ -233,6 +236,11 @@ final class BenchmarkSuite {
                 player.playerNetServerHandler.sendPacket(new S03PacketTimeUpdate(serverWorld.getTotalWorldTime(), phase.worldTime, false));
             }
             setWeather(serverWorld, player, phase.rainStrength());
+            if (phase == Phase.FIRST_PERSON_HAND || phase == Phase.FIRST_PERSON_ITEM || phase == Phase.CREATIVE_INVENTORY) {
+                ItemStack stack = phase == Phase.FIRST_PERSON_ITEM ? new ItemStack(Items.DIAMOND_SWORD) : null;
+                player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
+                player.inventoryContainer.detectAndSendChanges();
+            }
             player.playerNetServerHandler.setPlayerLocation(phase.x + 0.5, phase.y, phase.z + 0.5, phase.yaw, phase.pitch);
         });
     }
@@ -268,6 +276,15 @@ final class BenchmarkSuite {
         return mc.player.getDistanceSq(phase.x + 0.5, phase.y, phase.z + 0.5) < 1;
     }
 
+    private static boolean hasExpectedHeldItem(Minecraft mc, Phase phase) {
+        ItemStack stack = mc.player.getHeldItem();
+        return switch (phase) {
+            case FIRST_PERSON_HAND, CREATIVE_INVENTORY -> stack == null;
+            case FIRST_PERSON_ITEM -> stack != null && stack.getItem() == Items.DIAMOND_SWORD;
+            default -> true;
+        };
+    }
+
     void beforeRender(Minecraft mc) {
         if (stage != Stage.CAPTURING || mc.world != world || mc.player == null || mc.currentScreen != inventory) {
             return;
@@ -297,8 +314,17 @@ final class BenchmarkSuite {
     }
 
     void tick(Minecraft mc) {
-        if ((stage != Stage.WARMING_UP && stage != Stage.CAPTURING)
-                || ROUTE[routeIndex] != Phase.PARTICLES || mc.world != world || mc.currentScreen != null) {
+        if ((stage != Stage.WARMING_UP && stage != Stage.CAPTURING) || mc.world != world || mc.currentScreen != null) {
+            return;
+        }
+        Phase phase = ROUTE[routeIndex];
+        if (phase == Phase.FIRST_PERSON_HAND || phase == Phase.FIRST_PERSON_ITEM) {
+            if (stage == Stage.CAPTURING && mc.player.ticksExisted % 30 == 0) {
+                mc.player.swingItem();
+            }
+            return;
+        }
+        if (phase != Phase.PARTICLES) {
             return;
         }
         int attempts = 36;
@@ -369,6 +395,8 @@ final class BenchmarkSuite {
         PARTICLES("particles", BenchmarkWorld.PARTICLE_X, EXHIBIT_Y, 0, 3, 22),
         RAIN("rain", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 25, 0, 6000, BiomeGenBase.PLAINS),
         SNOW("snow", BenchmarkWorld.SNOW_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 25, 0, 6000, BiomeGenBase.ICE_PLAINS),
+        FIRST_PERSON_HAND("first-person-hand", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_SHELTER_BACK_Z - 1, 3, 0),
+        FIRST_PERSON_ITEM("first-person-held-item", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_SHELTER_BACK_Z - 1, 3, 0),
         CREATIVE_INVENTORY("creative-inventory", BenchmarkWorld.GALLERY_X, EXHIBIT_Y, 0, 4, 0);
 
         private final String scenario;

@@ -29,6 +29,7 @@ import net.minecraft.world.storage.MapData;
 import net.optifine.Config;
 import net.optifine.DynamicLights;
 import net.optifine.shaders.Shaders;
+import net.radiant.render.vulkan.VulkanObjectCapture;
 import org.lwjgl.opengl.GL11;
 
 public class ItemRenderer {
@@ -285,6 +286,7 @@ public class ItemRenderer {
             float f2 = abstractclientplayer.prevRotationPitch + (abstractclientplayer.rotationPitch - abstractclientplayer.prevRotationPitch) * partialTicks;
             float f3 = abstractclientplayer.prevRotationYaw + (abstractclientplayer.rotationYaw - abstractclientplayer.prevRotationYaw) * partialTicks;
             this.rotateArroundXAndY(f2, f3);
+            VulkanObjectCapture.setFirstPersonItem(this.itemToRender != null);
             this.setLightMapFromPlayer(abstractclientplayer);
             this.rotateWithPlayerRotations(abstractclientplayer, partialTicks);
             GlStateManager.enableRescaleNormal();
