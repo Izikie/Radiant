@@ -12,6 +12,7 @@ import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.EntityLiving;
 import net.optifine.Config;
 import net.optifine.shaders.Shaders;
+import net.radiant.render.vulkan.VulkanObjectCapture;
 
 public abstract class RenderLiving<T extends EntityLiving> extends RendererLivingEntity<T> {
     public RenderLiving(RenderManager rendermanagerIn, ModelBase modelbaseIn, float shadowsizeIn) {
@@ -38,7 +39,12 @@ public abstract class RenderLiving<T extends EntityLiving> extends RendererLivin
     @Override
     public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
-        this.renderLeash(entity, x, y, z, entityYaw, partialTicks);
+        VulkanObjectCapture.beginEntityLeash();
+        try {
+            this.renderLeash(entity, x, y, z, entityYaw, partialTicks);
+        } finally {
+            VulkanObjectCapture.endEntityLeash();
+        }
     }
 
     public void setLightmap(T entityLivingIn, float partialTicks) {

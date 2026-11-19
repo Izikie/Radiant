@@ -68,6 +68,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private int entityShadowQuads;
     private int entityFireQuads;
     private int entityHitboxSegments;
+    private int entityLeashTriangles;
     private int outlineTriangles;
     private int lightningTriangles;
     private int blockEntityTriangles;
@@ -93,6 +94,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private int screenItemTriangles;
     private int screenGlyphs;
     private boolean holdingItem;
+    private boolean entityLeash;
     private Glint glint;
     private CameraOverlay cameraOverlay;
     private Phase phase;
@@ -106,6 +108,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         entityShadowQuads = 0;
         entityFireQuads = 0;
         entityHitboxSegments = 0;
+        entityLeashTriangles = 0;
         outlineTriangles = 0;
         lightningTriangles = 0;
         blockEntityTriangles = 0;
@@ -268,6 +271,18 @@ public final class VulkanObjectCapture implements AutoCloseable {
         }
     }
 
+    public static void beginEntityLeash() {
+        if (active != null) {
+            active.entityLeash = true;
+        }
+    }
+
+    public static void endEntityLeash() {
+        if (active != null) {
+            active.entityLeash = false;
+        }
+    }
+
     public static void beginLightning() {
         if (active != null && active.phase == Phase.ENTITIES) {
             active.phase = Phase.LIGHTNING;
@@ -322,6 +337,9 @@ public final class VulkanObjectCapture implements AutoCloseable {
 
     public static void draw(WorldRenderer source) {
         if (active == null && compiling == null) {
+            return;
+        }
+        if (active != null && active.entityLeash && active.phase == Phase.ENTITY_OUTLINES) {
             return;
         }
         int mode = source.getDrawMode();
@@ -396,7 +414,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         boolean depthWrite = glGetBoolean(GL_DEPTH_WRITEMASK);
         boolean depthTest = glIsEnabled(GL_DEPTH_TEST);
         VulkanGraphics.State state;
-        if (glint != null || phase.layer.ui || phase == Phase.CAMERA_OVERLAYS || phase.drawsLines()
+        if (glint != null || entityLeash || phase.layer.ui || phase == Phase.CAMERA_OVERLAYS || phase.drawsLines()
                 || phase == Phase.BLOCK_DAMAGE || phase == Phase.WORLD_BORDER || phase == Phase.LIGHTNING
                 || phase == Phase.ENTITY_SHADOWS || phase == Phase.ENTITY_FIRE) {
             state = VulkanOverlayState.capture(depthTest, depthWrite, blend);
@@ -504,7 +522,12 @@ public final class VulkanObjectCapture implements AutoCloseable {
             }
         }
         switch (phase) {
-            case ENTITIES -> entityTriangles += triangles;
+            case ENTITIES -> {
+                entityTriangles += triangles;
+                if (entityLeash) {
+                    entityLeashTriangles += triangles;
+                }
+            }
             case ENTITY_SHADOWS -> {
                 entityTriangles += triangles;
                 entityShadowQuads += triangles / 2;
@@ -680,6 +703,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
 
     int entityHitboxSegments() {
         return entityHitboxSegments;
+    }
+
+    int entityLeashTriangles() {
+        return entityLeashTriangles;
     }
 
     int outlineTriangles() {
