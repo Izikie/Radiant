@@ -19,52 +19,55 @@ final class VulkanGraphics {
 
     static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology, Pass pass,
                          VkPipelineVertexInputStateCreateInfo vertexInput, String vertexSource, String fragmentSource) {
-        long vertex = shader(stack, device, vertexSource, shaderc_glsl_vertex_shader, "scene.vert");
+        long vertex = vertexShader(stack, device, vertexSource);
         long fragment = 0;
         try {
-            fragment = shader(stack, device, fragmentSource, shaderc_glsl_fragment_shader, "scene.frag");
-            VkPipelineShaderStageCreateInfo.Buffer stages = VkPipelineShaderStageCreateInfo.calloc(2, stack);
-            stages.get(0).sType$Default().stage(VK_SHADER_STAGE_VERTEX_BIT).module(vertex).pName(stack.UTF8("main"));
-            stages.get(1).sType$Default().stage(VK_SHADER_STAGE_FRAGMENT_BIT).module(fragment).pName(stack.UTF8("main"));
-            VkPipelineRenderingCreateInfo rendering = VkPipelineRenderingCreateInfo.calloc(stack).sType$Default()
-                    .pColorAttachmentFormats(stack.ints(colorFormat)).depthAttachmentFormat(depthFormat);
-            VkPipelineColorBlendAttachmentState.Buffer blend = VkPipelineColorBlendAttachmentState.calloc(1, stack);
-            blend.get(0).colorWriteMask(VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT);
-            VkPipelineRasterizationStateCreateInfo rasterization = VkPipelineRasterizationStateCreateInfo.calloc(stack)
-                    .sType$Default().lineWidth(1.0f);
-            if (pass.blend) {
-                blend.get(0).blendEnable(true)
-                        .srcColorBlendFactor(VK_BLEND_FACTOR_SRC_ALPHA).dstColorBlendFactor(VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA)
-                        .colorBlendOp(VK_BLEND_OP_ADD)
-                        .srcAlphaBlendFactor(VK_BLEND_FACTOR_ONE).dstAlphaBlendFactor(VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA)
-                        .alphaBlendOp(VK_BLEND_OP_ADD);
-            }
-            if (pass.cull) {
-                rasterization.cullMode(VK_CULL_MODE_BACK_BIT).frontFace(VK_FRONT_FACE_COUNTER_CLOCKWISE);
-            }
-            VkGraphicsPipelineCreateInfo.Buffer configurations = VkGraphicsPipelineCreateInfo.calloc(1, stack);
-            VkGraphicsPipelineCreateInfo config = configurations.get(0).sType$Default().pNext(rendering.address())
-                    .pStages(stages).layout(layout).pVertexInputState(vertexInput)
-                    .pInputAssemblyState(VkPipelineInputAssemblyStateCreateInfo.calloc(stack).sType$Default().topology(topology))
-                    .pViewportState(VkPipelineViewportStateCreateInfo.calloc(stack).sType$Default().viewportCount(1).scissorCount(1))
-                    .pRasterizationState(rasterization)
-                    .pMultisampleState(VkPipelineMultisampleStateCreateInfo.calloc(stack).sType$Default().rasterizationSamples(VK_SAMPLE_COUNT_1_BIT))
-                    .pColorBlendState(VkPipelineColorBlendStateCreateInfo.calloc(stack).sType$Default().pAttachments(blend))
-                    .pDynamicState(VkPipelineDynamicStateCreateInfo.calloc(stack).sType$Default()
-                            .pDynamicStates(stack.ints(VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR)));
-            if (depthFormat != VK_FORMAT_UNDEFINED) {
-                config.pDepthStencilState(VkPipelineDepthStencilStateCreateInfo.calloc(stack).sType$Default()
-                        .depthTestEnable(pass.depthTest).depthWriteEnable(pass.depthWrite).depthCompareOp(VK_COMPARE_OP_LESS_OR_EQUAL));
-            }
-            LongBuffer handle = stack.mallocLong(1);
-            VulkanPresenter.check(vkCreateGraphicsPipelines(device, 0, configurations, null, handle), "create graphics pipeline");
-            return handle.get(0);
+            fragment = fragmentShader(stack, device, fragmentSource);
+            return pipeline(stack, device, layout, colorFormat, depthFormat, topology, pass.state, vertexInput, vertex, fragment);
         } finally {
             if (fragment != 0) {
                 vkDestroyShaderModule(device, fragment, null);
             }
             vkDestroyShaderModule(device, vertex, null);
         }
+    }
+
+    static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology, State state,
+                         VkPipelineVertexInputStateCreateInfo vertexInput, long vertex, long fragment) {
+        VkPipelineShaderStageCreateInfo.Buffer stages = VkPipelineShaderStageCreateInfo.calloc(2, stack);
+        stages.get(0).sType$Default().stage(VK_SHADER_STAGE_VERTEX_BIT).module(vertex).pName(stack.UTF8("main"));
+        stages.get(1).sType$Default().stage(VK_SHADER_STAGE_FRAGMENT_BIT).module(fragment).pName(stack.UTF8("main"));
+        VkPipelineRenderingCreateInfo rendering = VkPipelineRenderingCreateInfo.calloc(stack).sType$Default()
+                .pColorAttachmentFormats(stack.ints(colorFormat)).depthAttachmentFormat(depthFormat);
+        VkPipelineColorBlendAttachmentState.Buffer blend = VkPipelineColorBlendAttachmentState.calloc(1, stack);
+        blend.get(0).colorWriteMask(VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT);
+        VkPipelineRasterizationStateCreateInfo rasterization = VkPipelineRasterizationStateCreateInfo.calloc(stack)
+                .sType$Default().lineWidth(1.0f);
+        if (state.blend != null) {
+            blend.get(0).blendEnable(true)
+                    .srcColorBlendFactor(state.blend.sourceColor).dstColorBlendFactor(state.blend.destinationColor)
+                    .colorBlendOp(VK_BLEND_OP_ADD)
+                    .srcAlphaBlendFactor(state.blend.sourceAlpha).dstAlphaBlendFactor(state.blend.destinationAlpha)
+                    .alphaBlendOp(VK_BLEND_OP_ADD);
+        }
+        rasterization.cullMode(state.cullMode).frontFace(VK_FRONT_FACE_COUNTER_CLOCKWISE);
+        VkGraphicsPipelineCreateInfo.Buffer configurations = VkGraphicsPipelineCreateInfo.calloc(1, stack);
+        VkGraphicsPipelineCreateInfo config = configurations.get(0).sType$Default().pNext(rendering.address())
+                .pStages(stages).layout(layout).pVertexInputState(vertexInput)
+                .pInputAssemblyState(VkPipelineInputAssemblyStateCreateInfo.calloc(stack).sType$Default().topology(topology))
+                .pViewportState(VkPipelineViewportStateCreateInfo.calloc(stack).sType$Default().viewportCount(1).scissorCount(1))
+                .pRasterizationState(rasterization)
+                .pMultisampleState(VkPipelineMultisampleStateCreateInfo.calloc(stack).sType$Default().rasterizationSamples(VK_SAMPLE_COUNT_1_BIT))
+                .pColorBlendState(VkPipelineColorBlendStateCreateInfo.calloc(stack).sType$Default().pAttachments(blend))
+                .pDynamicState(VkPipelineDynamicStateCreateInfo.calloc(stack).sType$Default()
+                        .pDynamicStates(stack.ints(VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR)));
+        if (depthFormat != VK_FORMAT_UNDEFINED) {
+            config.pDepthStencilState(VkPipelineDepthStencilStateCreateInfo.calloc(stack).sType$Default()
+                    .depthTestEnable(state.depthTest).depthWriteEnable(state.depthWrite).depthCompareOp(state.depthCompare));
+        }
+        LongBuffer handle = stack.mallocLong(1);
+        VulkanPresenter.check(vkCreateGraphicsPipelines(device, 0, configurations, null, handle), "create graphics pipeline");
+        return handle.get(0);
     }
 
     enum Pass {
@@ -76,17 +79,28 @@ final class VulkanGraphics {
         OBJECT_READ_DEPTH(true, false, false, false),
         OBJECT_OVERLAY(false, false, true, false);
 
-        private final boolean depthTest;
-        private final boolean depthWrite;
-        private final boolean blend;
-        private final boolean cull;
+        final State state;
 
         Pass(boolean depthTest, boolean depthWrite, boolean blend, boolean cull) {
-            this.depthTest = depthTest;
-            this.depthWrite = depthWrite;
-            this.blend = blend;
-            this.cull = cull;
+            state = new State(depthTest, depthWrite, VK_COMPARE_OP_LESS_OR_EQUAL,
+                    cull ? VK_CULL_MODE_BACK_BIT : VK_CULL_MODE_NONE, blend ? Blend.ALPHA : null);
         }
+    }
+
+    record State(boolean depthTest, boolean depthWrite, int depthCompare, int cullMode, Blend blend) {
+    }
+
+    record Blend(int sourceColor, int destinationColor, int sourceAlpha, int destinationAlpha) {
+        private static final Blend ALPHA = new Blend(VK_BLEND_FACTOR_SRC_ALPHA, VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA,
+                VK_BLEND_FACTOR_ONE, VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA);
+    }
+
+    static long vertexShader(MemoryStack stack, VkDevice device, String source) {
+        return shader(stack, device, source, shaderc_glsl_vertex_shader, "scene.vert");
+    }
+
+    static long fragmentShader(MemoryStack stack, VkDevice device, String source) {
+        return shader(stack, device, source, shaderc_glsl_fragment_shader, "scene.frag");
     }
 
     private static long shader(MemoryStack stack, VkDevice device, String source, int kind, String name) {

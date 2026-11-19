@@ -1,6 +1,7 @@
 package net.minecraft.client.renderer;
 
 import net.minecraft.util.math.Vec3;
+import net.radiant.render.vulkan.VulkanObjectCapture;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.FloatBuffer;
@@ -36,6 +37,7 @@ public class RenderHelper {
         GL11.glLightfv(GL11.GL_LIGHT1, GL11.GL_SPECULAR, setColorBuffer(f2, f2, f2, 1.0F));
         GlStateManager.shadeModel(GL11.GL_FLAT);
         GL11.glLightModelfv(GL11.GL_LIGHT_MODEL_AMBIENT, setColorBuffer(f, f, f, 1.0F));
+        VulkanObjectCapture.refreshLights();
     }
 
     private static FloatBuffer setColorBuffer(double p_74517_0_, double p_74517_2_, double p_74517_4_, double p_74517_6_) {

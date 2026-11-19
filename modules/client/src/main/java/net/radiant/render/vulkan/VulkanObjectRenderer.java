@@ -6,7 +6,7 @@ import org.lwjgl.vulkan.*;
 import java.nio.ByteBuffer;
 import java.nio.LongBuffer;
 import java.util.ArrayList;
-import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,10 +15,6 @@ import static org.lwjgl.vulkan.VK10.*;
 
 final class VulkanObjectRenderer implements AutoCloseable {
     private static final int DESCRIPTORS_PER_POOL = 64;
-    private static final VulkanGraphics.Pass[] PASSES = {
-            VulkanGraphics.Pass.OPAQUE, VulkanGraphics.Pass.BLENDED_DEPTH_WRITE, VulkanGraphics.Pass.OBJECT_BLEND,
-            VulkanGraphics.Pass.OBJECT_READ_DEPTH, VulkanGraphics.Pass.OBJECT_OVERLAY
-    };
     private static final String VERTEX = """
             #version 450
             layout(location = 0) in vec4 clip;
@@ -66,11 +62,15 @@ final class VulkanObjectRenderer implements AutoCloseable {
 
     private final VkPhysicalDevice physicalDevice;
     private final VkDevice device;
-    private final Map<VulkanGraphics.Pass, Long> pipelines = new EnumMap<>(VulkanGraphics.Pass.class);
+    private final Map<VulkanGraphics.State, Long> pipelines = new HashMap<>();
     private final Map<VulkanObjectCapture.Image, Binding> textures = new IdentityHashMap<>();
     private final List<Pool> pools = new ArrayList<>();
     private long descriptorLayout;
     private long layout;
+    private long vertexShader;
+    private long fragmentShader;
+    private int colorFormat;
+    private int depthFormat;
     private Binding atlasBinding;
     private VulkanTexture boundAtlas;
     private VulkanBuffer vertices;
@@ -83,10 +83,20 @@ final class VulkanObjectRenderer implements AutoCloseable {
 
     void configureTarget(int colorFormat, int depthFormat) {
         destroyPipelines();
+        this.colorFormat = colorFormat;
+        this.depthFormat = depthFormat;
         try (MemoryStack stack = MemoryStack.stackPush()) {
             if (layout == 0) {
                 createLayout(stack);
             }
+            String fragment = "#version 450\n#define SRGB_TARGET " + (VulkanGraphics.isSrgb(colorFormat) ? "1\n" : "0\n") + FRAGMENT;
+            vertexShader = VulkanGraphics.vertexShader(stack, device, VERTEX);
+            fragmentShader = VulkanGraphics.fragmentShader(stack, device, fragment);
+        }
+    }
+
+    private long createPipeline(VulkanGraphics.State state) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
             VkVertexInputBindingDescription.Buffer bindings = VkVertexInputBindingDescription.calloc(1, stack);
             bindings.get(0).stride(VulkanObjectCapture.STRIDE).inputRate(VK_VERTEX_INPUT_RATE_VERTEX);
             VkVertexInputAttributeDescription.Buffer attributes = VkVertexInputAttributeDescription.calloc(3, stack);
@@ -95,11 +105,8 @@ final class VulkanObjectRenderer implements AutoCloseable {
             attributes.get(2).location(2).format(VK_FORMAT_R8G8B8A8_UNORM).offset(24);
             VkPipelineVertexInputStateCreateInfo input = VkPipelineVertexInputStateCreateInfo.calloc(stack).sType$Default()
                     .pVertexBindingDescriptions(bindings).pVertexAttributeDescriptions(attributes);
-            String fragment = "#version 450\n#define SRGB_TARGET " + (VulkanGraphics.isSrgb(colorFormat) ? "1\n" : "0\n") + FRAGMENT;
-            for (VulkanGraphics.Pass pass : PASSES) {
-                pipelines.put(pass, VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
-                        VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, pass, input, VERTEX, fragment));
-            }
+            return VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
+                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, state, input, vertexShader, fragmentShader);
         }
     }
 
@@ -134,6 +141,7 @@ final class VulkanObjectRenderer implements AutoCloseable {
         }
         try (MemoryStack stack = MemoryStack.stackPush()) {
             for (VulkanObjectCapture.Draw draw : capture.draws()) {
+                pipelines.computeIfAbsent(draw.material.state(), this::createPipeline);
                 VulkanObjectCapture.Image image = draw.material.image();
                 if (image == capture.atlas()) {
                     if (atlasBinding == null) {
@@ -212,25 +220,26 @@ final class VulkanObjectRenderer implements AutoCloseable {
     }
 
     void draw(MemoryStack stack, VkCommandBuffer commands, VulkanObjectCapture capture, VulkanTerrainScene.Fog fog,
-              boolean firstPerson) {
+              VulkanObjectCapture.Layer layer) {
         List<VulkanObjectCapture.Draw> draws = capture.draws();
-        int from = firstPerson ? capture.firstPersonStart() : 0;
-        int to = firstPerson ? draws.size() : capture.firstPersonStart();
+        int from = capture.drawStart(layer);
+        int to = capture.drawEnd(layer);
         if (from == to) {
             return;
         }
         vkCmdBindVertexBuffers(commands, 0, stack.longs(vertices.handle()), stack.longs(0));
-        var constants = stack.floats(fog.red(), fog.green(), fog.blue(), 0, firstPerson ? 0 : fog.mode(), fog.start(), fog.end(), fog.density());
+        float fogMode = layer == VulkanObjectCapture.Layer.WORLD ? fog.mode() : 0;
+        var constants = stack.floats(fog.red(), fog.green(), fog.blue(), 0, fogMode, fog.start(), fog.end(), fog.density());
         LongBuffer descriptor = stack.mallocLong(1);
-        VulkanGraphics.Pass previousPass = null;
+        VulkanGraphics.State previousState = null;
         VulkanObjectCapture.Image previousImage = null;
         float previousCutoff = Float.NaN;
         for (int i = from; i < to; i++) {
             VulkanObjectCapture.Draw draw = draws.get(i);
             VulkanObjectCapture.Material material = draw.material;
-            if (material.pass() != previousPass) {
-                vkCmdBindPipeline(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelines.get(material.pass()));
-                previousPass = material.pass();
+            if (!material.state().equals(previousState)) {
+                vkCmdBindPipeline(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelines.get(material.state()));
+                previousState = material.state();
             }
             if (material.image() != previousImage) {
                 Binding binding = material.image() == capture.atlas() ? atlasBinding : textures.get(material.image());
@@ -249,6 +258,10 @@ final class VulkanObjectRenderer implements AutoCloseable {
     private void destroyPipelines() {
         pipelines.values().forEach(pipeline -> vkDestroyPipeline(device, pipeline, null));
         pipelines.clear();
+        if (vertexShader != 0) vkDestroyShaderModule(device, vertexShader, null);
+        if (fragmentShader != 0) vkDestroyShaderModule(device, fragmentShader, null);
+        vertexShader = 0;
+        fragmentShader = 0;
     }
 
     @Override
