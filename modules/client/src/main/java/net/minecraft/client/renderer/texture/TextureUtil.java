@@ -6,6 +6,7 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.Config;
 import net.optifine.Mipmaps;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.radiant.util.NativeImage;
 import org.apache.commons.io.IOUtils;
 import org.lwjgl.opengl.GL11;
@@ -119,7 +120,11 @@ public class TextureUtil {
 
     public static int uploadTextureImageAllocate(int textureId, NativeImage image, boolean blur, boolean clamp) {
         allocateTexture(textureId, image.getWidth(), image.getHeight());
-        return uploadTextureImageSub(textureId, image, 0, 0, blur, clamp);
+        uploadTextureImageSubImpl(image, 0, 0, blur, clamp);
+        if (VulkanTerrainPreview.ENABLED) {
+            VulkanTerrainPreview.registerObjectTexture(textureId, image);
+        }
+        return textureId;
     }
 
     public static void allocateTexture(int p_110991_0_, int p_110991_1_, int p_110991_2_) {
@@ -147,6 +152,9 @@ public class TextureUtil {
     public static int uploadTextureImageSub(int textureId, NativeImage p_110995_1_, int p_110995_2_, int p_110995_3_, boolean p_110995_4_, boolean p_110995_5_) {
         bindTexture(textureId);
         uploadTextureImageSubImpl(p_110995_1_, p_110995_2_, p_110995_3_, p_110995_4_, p_110995_5_);
+        if (VulkanTerrainPreview.ENABLED) {
+            VulkanTerrainPreview.invalidateObjectTexture(textureId);
+        }
         return textureId;
     }
 

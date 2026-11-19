@@ -274,7 +274,12 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         return true;
     }
 
+    public static void registerObjectTexture(int texture, NativeImage image) {
+        VulkanObjectCapture.registerTexture(texture, image);
+    }
+
     public static void invalidateObjectTexture(int texture) {
+        VulkanObjectCapture.forgetTexture(texture);
         VulkanTerrainPreview preview = active;
         if (preview != null) {
             preview.objects.invalidateTexture(texture);
@@ -463,6 +468,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             glfwDestroyWindow(window);
             LOGGER.info("Vulkan terrain preview presented {} frames and {} terrain draws with {} validation errors",
                     frames, drawCalls, presenter.validationErrors());
+            LOGGER.info("Vulkan object textures loaded from CPU pixels: {}; OpenGL readbacks: {}",
+                    objects.cpuTextureLoads(), objects.textureReadbacks());
         }
     }
 

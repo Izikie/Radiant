@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.world.border.WorldBorderStage;
 import net.optifine.Config;
+import net.radiant.util.NativeImage;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fc;
@@ -41,6 +42,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     static final int STRIDE = 32;
     private static final int[] QUAD_INDICES = {0, 1, 2, 2, 3, 0};
     private static final Map<ModelRenderer, List<Mesh>> MODELS = new WeakHashMap<>();
+    private static final Map<Integer, CpuImage> CPU_TEXTURES = new HashMap<>();
     private static List<Mesh> compiling;
     private static VulkanObjectCapture active;
 
@@ -72,6 +74,8 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private ByteBuffer vertices = memAlloc(64 * 1024);
     private int[] lightmap;
     private int atlasId;
+    private int cpuTextureLoads;
+    private int textureReadbacks;
     private int entityTriangles;
     private int entityShadowQuads;
     private int entityFireQuads;
@@ -496,21 +500,39 @@ public final class VulkanObjectCapture implements AutoCloseable {
         return glint != null || phase.layer.ui || phase == Phase.BLOCK_DAMAGE;
     }
 
+    static void registerTexture(int id, NativeImage image) {
+        CPU_TEXTURES.put(id, new CpuImage(image.getWidth(), image.getHeight(), image.getData().clone()));
+    }
+
+    static void forgetTexture(int id) {
+        CPU_TEXTURES.remove(id);
+    }
+
     private Image texture(int id) {
         Image cached = textures.get(id);
         if (cached != null) {
             return cached;
         }
-        int width = glGetTexLevelParameteri(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH);
-        int height = glGetTexLevelParameteri(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT);
+        CpuImage source = CPU_TEXTURES.get(id);
+        int width = source == null ? glGetTexLevelParameteri(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH) : source.width;
+        int height = source == null ? glGetTexLevelParameteri(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT) : source.height;
         if (width <= 0 || height <= 0) {
             return white;
         }
         ByteBuffer pixels = memAlloc(Math.multiplyExact(Math.multiplyExact(width, height), 4));
         try {
-            glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+            if (source == null) {
+                glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+            } else {
+                pixels.put(source.rgba).flip();
+            }
             Image image = new Image(width, height, pixels, addressMode(GL_TEXTURE_WRAP_S), addressMode(GL_TEXTURE_WRAP_T));
             textures.put(id, image);
+            if (source == null) {
+                textureReadbacks++;
+            } else {
+                cpuTextureLoads++;
+            }
             return image;
         } catch (RuntimeException | Error e) {
             memFree(pixels);
@@ -524,6 +546,14 @@ public final class VulkanObjectCapture implements AutoCloseable {
             case GL_MIRRORED_REPEAT -> VK_SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT;
             default -> VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
         };
+    }
+
+    int cpuTextureLoads() {
+        return cpuTextureLoads;
+    }
+
+    int textureReadbacks() {
+        return textureReadbacks;
     }
 
     void invalidateTexture(int id) {
@@ -1029,6 +1059,9 @@ public final class VulkanObjectCapture implements AutoCloseable {
             this.firstVertex = firstVertex;
             this.vertexCount = vertexCount;
         }
+    }
+
+    private record CpuImage(int width, int height, byte[] rgba) {
     }
 
     static final class Image {
