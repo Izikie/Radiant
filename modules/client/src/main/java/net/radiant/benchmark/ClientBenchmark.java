@@ -309,6 +309,14 @@ public final class ClientBenchmark {
         }
     }
 
+    public static void recordVulkanEntityEyes(int triangles) {
+        Capture capture = active;
+        if (capture != null && triangles > 0) {
+            capture.vulkanEntityEyeFrames++;
+            capture.vulkanEntityEyeTriangles += triangles;
+        }
+    }
+
     public static void recordVulkanParticleFrame(int triangles, int terrainTriangles, int translucentTriangles, int litTriangles) {
         Capture capture = active;
         if (capture != null) {
@@ -514,6 +522,8 @@ public final class ClientBenchmark {
         private long vulkanEntityNameTagGlyphs;
         private long vulkanEntityTintFrames;
         private long vulkanEntityTintTriangles;
+        private long vulkanEntityEyeFrames;
+        private long vulkanEntityEyeTriangles;
         private long vulkanEntityNameTagThroughWallGlyphs;
         private long vulkanBlockEntityTriangles;
         private long vulkanBlockEntityGlyphs;
@@ -655,6 +665,8 @@ public final class ClientBenchmark {
                 report.addProperty("vulkanEntityNameTagGlyphs", vulkanEntityNameTagGlyphs);
                 report.addProperty("vulkanEntityTintFrames", vulkanEntityTintFrames);
                 report.addProperty("vulkanEntityTintTriangles", vulkanEntityTintTriangles);
+                report.addProperty("vulkanEntityEyeFrames", vulkanEntityEyeFrames);
+                report.addProperty("vulkanEntityEyeTriangles", vulkanEntityEyeTriangles);
                 report.addProperty("vulkanEntityNameTagThroughWallGlyphs", vulkanEntityNameTagThroughWallGlyphs);
                 report.addProperty("vulkanBlockEntityTriangles", vulkanBlockEntityTriangles);
                 report.addProperty("vulkanBlockEntityGlyphs", vulkanBlockEntityGlyphs);

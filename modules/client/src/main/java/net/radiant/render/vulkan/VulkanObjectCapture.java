@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.world.border.WorldBorderStage;
+import net.optifine.Config;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -73,6 +74,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private int entityLeashTriangles;
     private int entityNameTagGlyphs;
     private int entityTintTriangles;
+    private int entityEyeTriangles;
     private int entityNameTagThroughWallGlyphs;
     private int outlineTriangles;
     private int lightningTriangles;
@@ -117,6 +119,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         entityLeashTriangles = 0;
         entityNameTagGlyphs = 0;
         entityTintTriangles = 0;
+        entityEyeTriangles = 0;
         entityNameTagThroughWallGlyphs = 0;
         outlineTriangles = 0;
         lightningTriangles = 0;
@@ -443,7 +446,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         }
         if (phase == Phase.ENTITY_OUTLINES) {
             return new Material(white, new PipelineKey(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Pass.SKY.state, true),
-                    -1, false, false, false);
+                    -1, false, false, false, false);
         }
         Image image = white;
         int texture = GlStateManager.getBoundTexture();
@@ -453,8 +456,9 @@ public final class VulkanObjectCapture implements AutoCloseable {
         boolean blend = glIsEnabled(GL_BLEND);
         boolean depthWrite = glGetBoolean(GL_DEPTH_WRITEMASK);
         boolean depthTest = glIsEnabled(GL_DEPTH_TEST);
+        boolean emissiveEyes = phase == Phase.ENTITIES && Config.getRenderGlobal().renderOverlayEyes;
         VulkanGraphics.State state;
-        if (glint != null || entityLeash || phase.layer.ui || phase == Phase.CAMERA_OVERLAYS || phase.drawsLines()
+        if (glint != null || entityLeash || emissiveEyes || phase.layer.ui || phase == Phase.CAMERA_OVERLAYS || phase.drawsLines()
                 || phase == Phase.BLOCK_DAMAGE || phase == Phase.WORLD_BORDER || phase == Phase.LIGHTNING
                 || phase == Phase.ENTITY_SHADOWS || phase == Phase.ENTITY_FIRE || phase == Phase.ENTITY_NAME_TAG) {
             state = VulkanOverlayState.capture(depthTest, depthWrite, blend);
@@ -473,7 +477,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         boolean glintColorBlend = glint != null && factors != null && factors.sourceColor() == VK_BLEND_FACTOR_SRC_COLOR
                 && factors.destinationColor() == VK_BLEND_FACTOR_ONE;
         return new Material(image, new PipelineKey(topology, state, false), glIsEnabled(GL_ALPHA_TEST) ? glGetFloat(GL_ALPHA_TEST_REF) : -1,
-                lit, GlStateManager.isLightmapTextureEnabled(), glintColorBlend);
+                lit, GlStateManager.isLightmapTextureEnabled(), glintColorBlend, emissiveEyes);
     }
 
     private boolean capturesTextureMatrix() {
@@ -567,6 +571,9 @@ public final class VulkanObjectCapture implements AutoCloseable {
         switch (phase) {
             case ENTITIES -> {
                 entityTriangles += triangles;
+                if (material.emissiveEyes) {
+                    entityEyeTriangles += triangles;
+                }
                 if (entityTint.w > 0) {
                     entityTintTriangles += triangles;
                 }
@@ -782,6 +789,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
         return entityTintTriangles;
     }
 
+    int entityEyeTriangles() {
+        return entityEyeTriangles;
+    }
+
     int entityNameTagThroughWallGlyphs() {
         return entityNameTagThroughWallGlyphs;
     }
@@ -981,7 +992,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     }
 
     record Material(Image image, PipelineKey pipeline, float alphaCutoff, boolean lit, boolean lightmapped,
-                    boolean glintColorBlend) {
+                    boolean glintColorBlend, boolean emissiveEyes) {
     }
 
     static final class Draw {

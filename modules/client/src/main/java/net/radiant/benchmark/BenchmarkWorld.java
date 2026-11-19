@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLeashKnot;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.entity.item.EntityPainting;
+import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
@@ -28,7 +29,7 @@ import java.util.Arrays;
 
 final class BenchmarkWorld {
     static final long SEED = 681889L;
-    static final int LAYOUT_VERSION = 12;
+    static final int LAYOUT_VERSION = 13;
     static final int FLOOR_Y = 192;
     static final int GALLERY_X = 0;
     static final int ENTITY_X = 64;
@@ -205,6 +206,13 @@ final class BenchmarkWorld {
     private static void buildEntityScene(WorldServer world) {
         placeArmoredStand(world, ENTITY_X + 0.5, true);
         placeArmoredStand(world, ENTITY_X + 2, false);
+        EntitySpider spider = new EntitySpider(world);
+        spider.setNoAI(true);
+        spider.enablePersistence();
+        spider.setLocationAndAngles(ENTITY_X - 2.5, FLOOR_Y + 1, 4.0, 180, 0);
+        spider.setRotationYawHead(180);
+        spider.setRenderYawOffset(180);
+        world.spawnEntityInWorld(spider);
         EntityArmorStand hiddenStand = new EntityArmorStand(world);
         hiddenStand.setLocationAndAngles(ENTITY_X + 6.5, FLOOR_Y + 1, 18.5, 180, 0);
         hiddenStand.setCustomNameTag("Behind the wall");
