@@ -109,7 +109,9 @@ final class VulkanObjectRenderer implements AutoCloseable {
             attributes.get(2).location(2).format(VK_FORMAT_R8G8B8A8_UNORM).offset(24);
             VkPipelineVertexInputStateCreateInfo input = VkPipelineVertexInputStateCreateInfo.calloc(stack).sType$Default()
                     .pVertexBindingDescriptions(bindings).pVertexAttributeDescriptions(attributes);
-            return VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
+            int targetColor = pipeline.outlineMask() ? VulkanEntityOutline.MASK_FORMAT : colorFormat;
+            int targetDepth = pipeline.outlineMask() ? VK_FORMAT_UNDEFINED : depthFormat;
+            return VulkanGraphics.pipeline(stack, device, layout, targetColor, targetDepth,
                     pipeline.topology(), pipeline.state(), input, vertexShader, fragmentShader);
         }
     }
@@ -144,20 +146,11 @@ final class VulkanObjectRenderer implements AutoCloseable {
             vertices.write(0, data);
         }
         try (MemoryStack stack = MemoryStack.stackPush()) {
+            for (VulkanObjectCapture.Draw draw : capture.outlineDraws()) {
+                prepareDraw(stack, queue, commands, capture, atlas, draw);
+            }
             for (VulkanObjectCapture.Draw draw : capture.draws()) {
-                pipelines.computeIfAbsent(draw.material.pipeline(), this::createPipeline);
-                VulkanObjectCapture.Image image = draw.material.image();
-                if (image == capture.atlas()) {
-                    if (atlasBinding == null) {
-                        atlasBinding = allocateBinding(stack, null);
-                    }
-                    if (boundAtlas != atlas) {
-                        updateBinding(stack, atlasBinding.set, atlas);
-                        boundAtlas = atlas;
-                    }
-                } else if (!textures.containsKey(image)) {
-                    upload(queue, commands, image);
-                }
+                prepareDraw(stack, queue, commands, capture, atlas, draw);
             }
             // A texture deleted mid-capture can still be referenced by this frame.
             for (var iterator = textures.entrySet().iterator(); iterator.hasNext(); ) {
@@ -170,6 +163,23 @@ final class VulkanObjectRenderer implements AutoCloseable {
                     iterator.remove();
                 }
             }
+        }
+    }
+
+    private void prepareDraw(MemoryStack stack, VkQueue queue, VkCommandBuffer commands, VulkanObjectCapture capture,
+                             VulkanTexture atlas, VulkanObjectCapture.Draw draw) {
+        pipelines.computeIfAbsent(draw.material.pipeline(), this::createPipeline);
+        VulkanObjectCapture.Image image = draw.material.image();
+        if (image == capture.atlas()) {
+            if (atlasBinding == null) {
+                atlasBinding = allocateBinding(stack, null);
+            }
+            if (boundAtlas != atlas) {
+                updateBinding(stack, atlasBinding.set, atlas);
+                boundAtlas = atlas;
+            }
+        } else if (!textures.containsKey(image)) {
+            upload(queue, commands, image);
         }
     }
 
@@ -225,14 +235,21 @@ final class VulkanObjectRenderer implements AutoCloseable {
 
     void draw(MemoryStack stack, VkCommandBuffer commands, VulkanObjectCapture capture, VulkanTerrainScene.Fog fog,
               VulkanObjectCapture.Layer layer) {
-        List<VulkanObjectCapture.Draw> draws = capture.draws();
-        int from = capture.drawStart(layer);
-        int to = capture.drawEnd(layer);
+        draw(stack, commands, capture.atlas(), capture.draws(), capture.drawStart(layer), capture.drawEnd(layer),
+                fog, layer == VulkanObjectCapture.Layer.WORLD ? fog.mode() : 0);
+    }
+
+    void drawOutlineMask(MemoryStack stack, VkCommandBuffer commands, VulkanObjectCapture capture, VulkanTerrainScene.Fog fog) {
+        List<VulkanObjectCapture.Draw> draws = capture.outlineDraws();
+        draw(stack, commands, capture.atlas(), draws, 0, draws.size(), fog, 0);
+    }
+
+    private void draw(MemoryStack stack, VkCommandBuffer commands, VulkanObjectCapture.Image atlas, List<VulkanObjectCapture.Draw> draws,
+                      int from, int to, VulkanTerrainScene.Fog fog, float fogMode) {
         if (from == to) {
             return;
         }
         vkCmdBindVertexBuffers(commands, 0, stack.longs(vertices.handle()), stack.longs(0));
-        float fogMode = layer == VulkanObjectCapture.Layer.WORLD ? fog.mode() : 0;
         var constants = stack.floats(fog.red(), fog.green(), fog.blue(), 0, fogMode, fog.start(), fog.end(), fog.density(), 0);
         LongBuffer descriptor = stack.mallocLong(1);
         VulkanObjectCapture.PipelineKey previousPipeline = null;
@@ -247,7 +264,7 @@ final class VulkanObjectRenderer implements AutoCloseable {
                 previousPipeline = material.pipeline();
             }
             if (material.image() != previousImage) {
-                Binding binding = material.image() == capture.atlas() ? atlasBinding : textures.get(material.image());
+                Binding binding = material.image() == atlas ? atlasBinding : textures.get(material.image());
                 vkCmdBindDescriptorSets(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 0, descriptor.put(0, binding.set), null);
                 previousImage = material.image();
             }

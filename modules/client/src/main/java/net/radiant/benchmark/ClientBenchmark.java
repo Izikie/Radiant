@@ -10,6 +10,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.settings.GameSettings;
+import net.minecraft.entity.Entity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.world.border.WorldBorderStage;
@@ -80,6 +81,15 @@ public final class ClientBenchmark {
 
     public static boolean controlsCamera() {
         return ENABLED && suite != null;
+    }
+
+    public static boolean isEntityOutlineScene() {
+        return suite != null && suite.isEntityOutlineScene();
+    }
+
+    public static boolean isEntityOutlineTarget(Entity entity) {
+        return isEntityOutlineScene() && (entity.getCustomNameTag().equals("Exhibit 15")
+                || entity.getCustomNameTag().equals("Exhibit 43"));
     }
 
     static void stopSuite(Minecraft mc, String reason) {
@@ -290,6 +300,14 @@ public final class ClientBenchmark {
         }
     }
 
+    public static void recordVulkanEntityOutlines(int triangles) {
+        Capture capture = active;
+        if (capture != null && triangles > 0) {
+            capture.vulkanEntityOutlineFrames++;
+            capture.vulkanEntityOutlineTriangles += triangles;
+        }
+    }
+
     public static void recordVulkanCameraOverlays(int blockQuads, int waterQuads, int fireQuads) {
         Capture capture = active;
         if (capture != null) {
@@ -415,6 +433,8 @@ public final class ClientBenchmark {
         private long vulkanHeldItemFrames;
         private long vulkanHeldItemTriangles;
         private long vulkanHeldGlintFrames;
+        private long vulkanEntityOutlineFrames;
+        private long vulkanEntityOutlineTriangles;
         private long vulkanHeldGlintTriangles;
         private long vulkanGuiGlintFrames;
         private long vulkanGuiGlintTriangles;
@@ -533,6 +553,8 @@ public final class ClientBenchmark {
                 report.addProperty("vulkanHeldItemFrames", vulkanHeldItemFrames);
                 report.addProperty("vulkanHeldItemTriangles", vulkanHeldItemTriangles);
                 report.addProperty("vulkanHeldGlintFrames", vulkanHeldGlintFrames);
+                report.addProperty("vulkanEntityOutlineFrames", vulkanEntityOutlineFrames);
+                report.addProperty("vulkanEntityOutlineTriangles", vulkanEntityOutlineTriangles);
                 report.addProperty("vulkanHeldGlintTriangles", vulkanHeldGlintTriangles);
                 report.addProperty("vulkanGuiGlintFrames", vulkanGuiGlintFrames);
                 report.addProperty("vulkanGuiGlintTriangles", vulkanGuiGlintTriangles);

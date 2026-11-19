@@ -47,6 +47,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private final Image white = new Image(1, 1, memAlloc(4).putInt(0, -1));
     private final Image atlas = new Image(0, 0, null);
     private final List<Draw> draws = new ArrayList<>();
+    private final List<Draw> outlineDraws = new ArrayList<>();
     private final int[] layerStarts = new int[Layer.values().length];
     private final int[] cameraOverlayQuads = new int[CameraOverlay.values().length];
     private final Matrix4f projection = new Matrix4f();
@@ -64,6 +65,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private int[] lightmap;
     private int atlasId;
     private int entityTriangles;
+    private int outlineTriangles;
     private int blockEntityTriangles;
     private int blockEntityGlyphs;
     private int particleTriangles;
@@ -93,8 +95,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
     void reset() {
         releaseRetiredImages();
         draws.clear();
+        outlineDraws.clear();
         vertices.clear();
         entityTriangles = 0;
+        outlineTriangles = 0;
         blockEntityTriangles = 0;
         blockEntityGlyphs = 0;
         particleTriangles = 0;
@@ -212,14 +216,16 @@ public final class VulkanObjectCapture implements AutoCloseable {
         active = null;
     }
 
-    public static VulkanObjectCapture suspend() {
-        VulkanObjectCapture capture = active;
-        active = null;
-        return capture;
+    public static void beginEntityOutlines() {
+        if (active != null) {
+            active.phase = Phase.ENTITY_OUTLINES;
+        }
     }
 
-    public static void resume(VulkanObjectCapture capture) {
-        active = capture;
+    public static void endEntityOutlines() {
+        if (active != null && active.phase == Phase.ENTITY_OUTLINES) {
+            active.phase = Phase.ENTITIES;
+        }
     }
 
     private void readLights() {
@@ -319,6 +325,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
             color.set(Math.clamp(values.get(0), 0, 1), Math.clamp(values.get(1), 0, 1),
                     Math.clamp(values.get(2), 0, 1), Math.clamp(values.get(3), 0, 1));
         }
+        if (phase == Phase.ENTITY_OUTLINES) {
+            return new Material(white, new PipelineKey(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Pass.SKY.state, true),
+                    -1, false, false, false);
+        }
         Image image = white;
         int texture = GlStateManager.getBoundTexture();
         if (texture != 0 && glIsEnabled(GL_TEXTURE_2D)) {
@@ -345,7 +355,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         VulkanGraphics.Blend factors = state.blend();
         boolean glintColorBlend = itemGlint && factors != null && factors.sourceColor() == VK_BLEND_FACTOR_SRC_COLOR
                 && factors.destinationColor() == VK_BLEND_FACTOR_ONE;
-        return new Material(image, new PipelineKey(topology, state), glIsEnabled(GL_ALPHA_TEST) ? glGetFloat(GL_ALPHA_TEST_REF) : -1,
+        return new Material(image, new PipelineKey(topology, state, false), glIsEnabled(GL_ALPHA_TEST) ? glGetFloat(GL_ALPHA_TEST_REF) : -1,
                 lit, GlStateManager.isLightmapTextureEnabled(), glintColorBlend);
     }
 
@@ -413,12 +423,16 @@ public final class VulkanObjectCapture implements AutoCloseable {
                 writeVertex(mesh, material, vertexIndex(mesh.mode, primitive, corner));
             }
         }
-        int last = draws.size() - 1;
-        if (last >= 0 && draws.size() != layerStarts[phase.layer.ordinal()] && draws.get(last).material.equals(material)) {
-            Draw previous = draws.get(last);
+        boolean outline = phase == Phase.ENTITY_OUTLINES;
+        List<Draw> target = outline ? outlineDraws : draws;
+        int last = target.size() - 1;
+        boolean layerBoundary = !outline && target.size() == layerStarts[phase.layer.ordinal()];
+        if (last >= 0 && !layerBoundary && target.get(last).firstVertex + target.get(last).vertexCount == firstVertex
+                && target.get(last).material.equals(material)) {
+            Draw previous = target.get(last);
             previous.vertexCount += vertexCount;
         } else {
-            draws.add(new Draw(material, firstVertex, vertexCount));
+            target.add(new Draw(material, firstVertex, vertexCount));
         }
         int triangles = primitiveCount;
         if (itemGlint) {
@@ -430,6 +444,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         }
         switch (phase) {
             case ENTITIES -> entityTriangles += triangles;
+            case ENTITY_OUTLINES -> outlineTriangles += triangles;
             case BLOCK_ENTITIES -> blockEntityTriangles += triangles;
             case LIT_PARTICLES -> {
                 particleTriangles += triangles;
@@ -555,6 +570,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
         return draws;
     }
 
+    List<Draw> outlineDraws() {
+        return outlineDraws;
+    }
+
     int drawStart(Layer layer) {
         return drawBoundary(layer.ordinal());
     }
@@ -578,6 +597,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
 
     int entityTriangles() {
         return entityTriangles;
+    }
+
+    int outlineTriangles() {
+        return outlineTriangles;
     }
 
     int blockEntityTriangles() {
@@ -677,7 +700,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     }
 
     enum Phase {
-        ENTITIES, BLOCK_ENTITIES, LIT_PARTICLES, PARTICLE_BILLBOARDS, RAIN, SNOW, SELECTION, BLOCK_DAMAGE, WORLD_BORDER,
+        ENTITIES, ENTITY_OUTLINES, BLOCK_ENTITIES, LIT_PARTICLES, PARTICLE_BILLBOARDS, RAIN, SNOW, SELECTION, BLOCK_DAMAGE, WORLD_BORDER,
         FIRST_PERSON(Layer.FIRST_PERSON), CAMERA_OVERLAYS(Layer.FIRST_PERSON), HUD(Layer.HUD), SCREEN(Layer.SCREEN);
 
         private final Layer layer;
@@ -749,7 +772,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private record Mesh(ByteBuffer data, Layout layout, int mode, int count) {
     }
 
-    record PipelineKey(int topology, VulkanGraphics.State state) {
+    record PipelineKey(int topology, VulkanGraphics.State state, boolean outlineMask) {
     }
 
     record Material(Image image, PipelineKey pipeline, float alphaCutoff, boolean lit, boolean lightmapped,

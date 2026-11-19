@@ -386,6 +386,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
                 ClientBenchmark.recordVulkanPrecipitationFrame(preview.objects.rainQuads(), preview.objects.snowQuads());
                 ClientBenchmark.recordVulkanFirstPersonFrame(preview.objects.handTriangles(), preview.objects.heldItemTriangles());
                 ClientBenchmark.recordVulkanItemGlint(preview.objects.heldGlintTriangles(), preview.objects.screenGlintTriangles());
+                ClientBenchmark.recordVulkanEntityOutlines(preview.objects.outlineTriangles());
                 ClientBenchmark.recordVulkanBlockInteraction(preview.objects.selectionSegments(), preview.objects.blockDamageQuads());
                 ClientBenchmark.recordVulkanWorldBorder(preview.objects.worldBorderQuads(), preview.objects.worldBorderStage());
                 ClientBenchmark.recordVulkanCameraOverlays(
