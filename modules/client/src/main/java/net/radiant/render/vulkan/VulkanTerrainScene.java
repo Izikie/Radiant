@@ -2,6 +2,8 @@ package net.radiant.render.vulkan;
 
 import org.joml.Matrix4fc;
 import org.lwjgl.system.MemoryStack;
+import org.lwjgl.vulkan.VkClearAttachment;
+import org.lwjgl.vulkan.VkClearRect;
 import org.lwjgl.vulkan.VkCommandBuffer;
 import org.lwjgl.vulkan.VkDevice;
 import org.lwjgl.vulkan.VkFormatProperties;
@@ -160,13 +162,22 @@ final class VulkanTerrainScene implements VulkanScene {
         }
         pipeline.begin(stack, commands);
         drawCalls = pipeline.draw(stack, commands, frame.opaque, false);
-        objects.draw(stack, commands, objectCapture, frame.fog);
+        objects.draw(stack, commands, objectCapture, frame.fog, false);
         if (frame.environment != null && frame.environment.cloudMode() != 0) {
             environment.drawClouds(stack, commands);
             cloudsDrawn = true;
         }
         pipeline.begin(stack, commands);
         drawCalls += pipeline.draw(stack, commands, frame.translucent, true);
+        if (objectCapture.firstPersonStart() < objectCapture.draws().size()) {
+            // Retain the world color and give the first-person model an independent depth range.
+            VkClearAttachment.Buffer clear = VkClearAttachment.calloc(1, stack);
+            clear.get(0).aspectMask(VK_IMAGE_ASPECT_DEPTH_BIT).clearValue().depthStencil().depth(1.0f);
+            VkClearRect.Buffer rect = VkClearRect.calloc(1, stack);
+            rect.get(0).layerCount(1).rect().extent().set(width, height);
+            vkCmdClearAttachments(commands, clear, rect);
+            objects.draw(stack, commands, objectCapture, frame.fog, true);
+        }
         for (Draw draw : frame.opaque) {
             quads += draw.mesh.quads();
             if (draw.layer != 0) {

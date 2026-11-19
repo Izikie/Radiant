@@ -749,7 +749,15 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 if (Config.isShaders()) {
                     ShadersRender.renderItemFP(this.itemRenderer, p_renderHand_1_, p_renderHand_5_);
                 } else {
-                    this.itemRenderer.renderItemInFirstPerson(p_renderHand_1_);
+                    boolean captureFirstPerson = VulkanTerrainPreview.ENABLED && p_renderHand_2_ == 2
+                            && VulkanTerrainPreview.beginFirstPerson(this.lightmapColors, this.mc.getTextureMapBlocks().getGlTextureId());
+                    try {
+                        this.itemRenderer.renderItemInFirstPerson(p_renderHand_1_);
+                    } finally {
+                        if (captureFirstPerson) {
+                            VulkanObjectCapture.end();
+                        }
+                    }
                 }
 
                 this.disableLightmap();

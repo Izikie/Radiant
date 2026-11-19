@@ -63,6 +63,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private int litParticleTriangles;
     private int rainQuads;
     private int snowQuads;
+    private int firstPersonStart = -1;
+    private int handTriangles;
+    private int heldItemTriangles;
+    private boolean holdingItem;
     private Phase phase;
 
     void reset() {
@@ -78,12 +82,19 @@ public final class VulkanObjectCapture implements AutoCloseable {
         litParticleTriangles = 0;
         rainQuads = 0;
         snowQuads = 0;
+        firstPersonStart = -1;
+        handTriangles = 0;
+        heldItemTriangles = 0;
     }
 
     void begin(int[] lightmap, int atlasId, Phase phase) {
         this.lightmap = lightmap;
         this.atlasId = atlasId;
         this.phase = phase;
+        if (phase == Phase.FIRST_PERSON) {
+            firstPersonStart = draws.size();
+            holdingItem = false;
+        }
         try (MemoryStack stack = MemoryStack.stackPush()) {
             FloatBuffer matrix = stack.mallocFloat(16);
             glGetFloatv(GL_PROJECTION_MATRIX, matrix);
@@ -110,6 +121,17 @@ public final class VulkanObjectCapture implements AutoCloseable {
         if (active != null) {
             active.phase = snow ? Phase.SNOW : Phase.RAIN;
         }
+    }
+
+    public static void setFirstPersonItem(boolean holdingItem) {
+        if (active != null && active.phase == Phase.FIRST_PERSON) {
+            active.holdingItem = holdingItem;
+            active.readLights();
+        }
+    }
+
+    public static VulkanObjectCapture suspendFirstPerson() {
+        return active != null && active.phase == Phase.FIRST_PERSON ? suspend() : null;
     }
 
     public static void end() {
@@ -287,7 +309,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
             }
         }
         int last = draws.size() - 1;
-        if (last >= 0 && draws.get(last).material.equals(material)) {
+        if (last >= 0 && draws.size() != firstPersonStart && draws.get(last).material.equals(material)) {
             Draw previous = draws.get(last);
             previous.vertexCount += triangles * 3;
         } else {
@@ -311,6 +333,13 @@ public final class VulkanObjectCapture implements AutoCloseable {
             }
             case RAIN -> rainQuads += triangles / 2;
             case SNOW -> snowQuads += triangles / 2;
+            case FIRST_PERSON -> {
+                if (holdingItem) {
+                    heldItemTriangles += triangles;
+                } else {
+                    handTriangles += triangles;
+                }
+            }
         }
     }
 
@@ -377,6 +406,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
         return draws;
     }
 
+    int firstPersonStart() {
+        return firstPersonStart < 0 ? draws.size() : firstPersonStart;
+    }
+
     Image atlas() {
         return atlas;
     }
@@ -417,6 +450,14 @@ public final class VulkanObjectCapture implements AutoCloseable {
         return snowQuads;
     }
 
+    int handTriangles() {
+        return handTriangles;
+    }
+
+    int heldItemTriangles() {
+        return heldItemTriangles;
+    }
+
     @Override
     public void close() {
         releaseRetiredImages();
@@ -426,7 +467,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     }
 
     enum Phase {
-        ENTITIES, BLOCK_ENTITIES, LIT_PARTICLES, PARTICLE_BILLBOARDS, RAIN, SNOW
+        ENTITIES, BLOCK_ENTITIES, LIT_PARTICLES, PARTICLE_BILLBOARDS, RAIN, SNOW, FIRST_PERSON
     }
 
     private record Layout(int stride, int position, int uv, int color, int light, int normal) {

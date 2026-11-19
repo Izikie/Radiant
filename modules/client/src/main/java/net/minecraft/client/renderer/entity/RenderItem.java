@@ -34,6 +34,7 @@ import net.optifine.CustomColors;
 import net.optifine.CustomItems;
 import net.optifine.shaders.Shaders;
 import net.optifine.shaders.ShadersRender;
+import net.radiant.render.vulkan.VulkanObjectCapture;
 import org.lwjgl.opengl.GL11;
 
 import java.util.List;
@@ -146,8 +147,17 @@ public class RenderItem implements IResourceManagerReloadListener {
                     OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, f, f1);
                 }
 
-                if (stack.hasEffect() && (!Config.isCustomItems() || !CustomItems.renderCustomEffect(this, stack, model))) {
-                    this.renderEffect(model);
+                if (stack.hasEffect()) {
+                    VulkanObjectCapture capture = VulkanObjectCapture.suspendFirstPerson();
+                    try {
+                        if (!Config.isCustomItems() || !CustomItems.renderCustomEffect(this, stack, model)) {
+                            this.renderEffect(model);
+                        }
+                    } finally {
+                        if (capture != null) {
+                            VulkanObjectCapture.resume(capture);
+                        }
+                    }
                 }
             }
 

@@ -211,17 +211,22 @@ final class VulkanObjectRenderer implements AutoCloseable {
         vkUpdateDescriptorSets(device, write, null);
     }
 
-    void draw(MemoryStack stack, VkCommandBuffer commands, VulkanObjectCapture capture, VulkanTerrainScene.Fog fog) {
-        if (capture.draws().isEmpty()) {
+    void draw(MemoryStack stack, VkCommandBuffer commands, VulkanObjectCapture capture, VulkanTerrainScene.Fog fog,
+              boolean firstPerson) {
+        List<VulkanObjectCapture.Draw> draws = capture.draws();
+        int from = firstPerson ? capture.firstPersonStart() : 0;
+        int to = firstPerson ? draws.size() : capture.firstPersonStart();
+        if (from == to) {
             return;
         }
         vkCmdBindVertexBuffers(commands, 0, stack.longs(vertices.handle()), stack.longs(0));
-        var constants = stack.floats(fog.red(), fog.green(), fog.blue(), 0, fog.mode(), fog.start(), fog.end(), fog.density());
+        var constants = stack.floats(fog.red(), fog.green(), fog.blue(), 0, firstPerson ? 0 : fog.mode(), fog.start(), fog.end(), fog.density());
         LongBuffer descriptor = stack.mallocLong(1);
         VulkanGraphics.Pass previousPass = null;
         VulkanObjectCapture.Image previousImage = null;
         float previousCutoff = Float.NaN;
-        for (VulkanObjectCapture.Draw draw : capture.draws()) {
+        for (int i = from; i < to; i++) {
+            VulkanObjectCapture.Draw draw = draws.get(i);
             VulkanObjectCapture.Material material = draw.material;
             if (material.pass() != previousPass) {
                 vkCmdBindPipeline(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelines.get(material.pass()));
