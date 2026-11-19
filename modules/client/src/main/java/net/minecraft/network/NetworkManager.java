@@ -122,7 +122,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
             try {
                 packet.handle(this.packetListener);
             } catch (ThreadQuickExitException e) {
-                LOGGER.error("ThreadQuickExitException in network pipeline", e);
             }
         }
     }
