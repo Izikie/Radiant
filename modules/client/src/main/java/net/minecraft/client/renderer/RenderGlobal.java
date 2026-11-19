@@ -57,6 +57,7 @@ import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.minecraft.world.IWorldAccess;
 import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.border.WorldBorder;
+import net.minecraft.world.border.WorldBorderStage;
 import net.minecraft.world.chunk.Chunk;
 import net.optifine.*;
 import net.optifine.model.BlockModelUtils;
@@ -1791,7 +1792,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             // TODO: PATCHER, GlStateManager.func_179127_m();
             GlStateManager.depthMask(false);
             GlStateManager.pushMatrix();
-            int i = worldborder.getStatus().getID();
+            WorldBorderStage borderStage = worldborder.getStatus();
+            int i = borderStage.getID();
             float f = (i >> 16 & 255) / 255.0F;
             float f1 = (i >> 8 & 255) / 255.0F;
             float f2 = (i & 255) / 255.0F;
@@ -1866,7 +1868,14 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 }
             }
 
-            tessellator.draw();
+            boolean captureBorder = VulkanTerrainPreview.ENABLED && VulkanTerrainPreview.beginWorldBorder(borderStage);
+            try {
+                tessellator.draw();
+            } finally {
+                if (captureBorder) {
+                    VulkanObjectCapture.end();
+                }
+            }
             worldrenderer.setTranslation(0.0D, 0.0D, 0.0D);
             GlStateManager.enableCull();
             GlStateManager.disableAlpha();
