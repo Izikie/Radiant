@@ -4,8 +4,8 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL14.*;
 import static org.lwjgl.vulkan.VK10.*;
 
-final class VulkanUiState {
-    private VulkanUiState() {
+final class VulkanOverlayState {
+    private VulkanOverlayState() {
     }
 
     static VulkanGraphics.State capture(boolean depthTest, boolean depthWrite, boolean blending) {

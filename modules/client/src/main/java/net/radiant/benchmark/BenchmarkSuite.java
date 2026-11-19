@@ -5,6 +5,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -114,6 +115,9 @@ final class BenchmarkSuite {
         }
 
         Phase phase = ROUTE[routeIndex];
+        if (phase == Phase.FIRE_OVERLAY && mc.player != null) {
+            mc.player.extinguish();
+        }
         Phase warmupLocation = phase == Phase.TERRAIN_STREAMING ? Phase.BLOCK_GALLERY : phase;
         if ((stage == Stage.WARMING_UP && !atDestination(mc, warmupLocation))
                 || (stage == Stage.CAPTURING && phase != Phase.TERRAIN_STREAMING && !atDestination(mc, phase))) {
@@ -143,7 +147,7 @@ final class BenchmarkSuite {
                         && world.getBlockState(floor).getBlock() == Blocks.STONEBRICK
                         && world.getRainStrength(1.0F) == warmupLocation.rainStrength()
                         && (warmupLocation.precipitationBiome == null || world.getBiomeGenForCoords(floor) == warmupLocation.precipitationBiome)
-                        && hasExpectedHeldItem(mc, warmupLocation)) {
+                        && hasExpectedCameraState(mc, warmupLocation) && hasExpectedHeldItem(mc, warmupLocation)) {
                     enter(Stage.WARMING_UP, now);
                 }
             }
@@ -236,7 +240,8 @@ final class BenchmarkSuite {
                 player.playerNetServerHandler.sendPacket(new S03PacketTimeUpdate(serverWorld.getTotalWorldTime(), phase.worldTime, false));
             }
             setWeather(serverWorld, player, phase.rainStrength());
-            if (phase == Phase.FIRST_PERSON_HAND || phase == Phase.FIRST_PERSON_ITEM || phase == Phase.CREATIVE_INVENTORY) {
+            if (phase == Phase.FIRST_PERSON_HAND || phase == Phase.FIRST_PERSON_ITEM || phase == Phase.WATER_OVERLAY
+                    || phase == Phase.CREATIVE_INVENTORY) {
                 ItemStack stack = switch (phase) {
                     case FIRST_PERSON_ITEM -> new ItemStack(Items.DIAMOND_SWORD);
                     case CREATIVE_INVENTORY -> new ItemStack(Items.APPLE, 16);
@@ -283,19 +288,35 @@ final class BenchmarkSuite {
     private static boolean hasExpectedHeldItem(Minecraft mc, Phase phase) {
         ItemStack stack = mc.player.getHeldItem();
         return switch (phase) {
-            case FIRST_PERSON_HAND -> stack == null;
+            case FIRST_PERSON_HAND, WATER_OVERLAY, BLOCK_OVERLAY, FIRE_OVERLAY -> stack == null;
             case FIRST_PERSON_ITEM -> stack != null && stack.getItem() == Items.DIAMOND_SWORD;
             case CREATIVE_INVENTORY -> stack != null && stack.getItem() == Items.APPLE;
             default -> true;
         };
     }
 
+    private static boolean hasExpectedCameraState(Minecraft mc, Phase phase) {
+        return switch (phase) {
+            case WATER_OVERLAY -> mc.player.isInsideOfMaterial(Material.WATER);
+            case BLOCK_OVERLAY -> mc.player.isEntityInsideOpaqueBlock();
+            default -> true;
+        };
+    }
+
     void beforeRender(Minecraft mc) {
-        if (stage != Stage.CAPTURING || mc.world != world || mc.player == null || mc.currentScreen != inventory) {
+        if ((stage != Stage.WARMING_UP && stage != Stage.CAPTURING)
+                || mc.world != world || mc.player == null || mc.currentScreen != inventory) {
             return;
         }
         Phase phase = ROUTE[routeIndex];
         if (!atDestination(mc, phase)) {
+            return;
+        }
+        // Exercise the local fire overlay without changing game mode or applying server damage.
+        if (phase == Phase.FIRE_OVERLAY) {
+            mc.player.setFire(1);
+        }
+        if (stage != Stage.CAPTURING) {
             return;
         }
         long elapsed = ClientBenchmark.phaseElapsedNanos();
@@ -402,6 +423,9 @@ final class BenchmarkSuite {
         SNOW("snow", BenchmarkWorld.SNOW_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 25, 0, 6000, BiomeGenBase.ICE_PLAINS),
         FIRST_PERSON_HAND("first-person-hand", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_SHELTER_BACK_Z - 1, 3, 0),
         FIRST_PERSON_ITEM("first-person-held-item", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_SHELTER_BACK_Z - 1, 3, 0),
+        WATER_OVERLAY("water-overlay", BenchmarkWorld.WATER_OVERLAY_X, EXHIBIT_Y, BenchmarkWorld.OVERLAY_FIXTURE_Z, 5, 25),
+        BLOCK_OVERLAY("block-overlay", BenchmarkWorld.BLOCK_OVERLAY_X, EXHIBIT_Y, BenchmarkWorld.OVERLAY_FIXTURE_Z, 0, 0),
+        FIRE_OVERLAY("fire-overlay", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 12),
         CREATIVE_INVENTORY("creative-inventory", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 0);
 
         private final String scenario;
