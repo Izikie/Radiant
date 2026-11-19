@@ -75,10 +75,11 @@ tasks.withType<JavaExec>().configureEach {
             args("--gameDir", minecraftDir)
         }
     }
+    val vulkanTerrainOnly = providers.gradleProperty("vulkanTerrainOnly").orNull == "true"
     if ((name == "RunClient" || name == "RunClientBenchmark") &&
-        providers.gradleProperty("vulkanTerrain").orNull == "true"
-    ) {
+        (vulkanTerrainOnly || providers.gradleProperty("vulkanTerrain").orNull == "true")) {
         systemProperty("radiant.vulkan.terrain", "true")
+        systemProperty("radiant.vulkan.terrainOnly", vulkanTerrainOnly)
         jvmArgs("--enable-native-access=ALL-UNNAMED")
         providers.gradleProperty("vulkanValidation").orNull?.let {
             systemProperty("radiant.vulkan.validation", it)

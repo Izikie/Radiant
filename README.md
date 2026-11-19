@@ -59,6 +59,10 @@ The benchmark report shows Vulkan frames, terrain draw calls, and total, cutout,
 preview runs. It also reports animated sprite updates and uploaded bytes, with separate water and lava counts.
 Sky and cloud frame counts are reported separately. Frame times include both windows in preview mode.
 
+Use `-PvulkanTerrainOnly=true` to submit terrain draws exclusively to Vulkan while the preview is active.
+The OpenGL window still runs the client, captures the remaining passes, and provides terrain fallback when
+the preview closes. Benchmark reports include `glTerrainBatches` to verify which path submitted terrain.
+
 ## Performance benchmarks
 
 Run `:dev:RunClientBenchmark` to start an instrumented client. On Windows:

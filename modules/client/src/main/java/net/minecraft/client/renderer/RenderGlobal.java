@@ -1068,6 +1068,11 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
         }
 
+        // Keep the section resort queue active for Vulkan's translucent meshes.
+        if (pass == 2 && VulkanTerrainPreview.replacesTerrainDraws()) {
+            return 0;
+        }
+
         int l = 0;
         boolean flag = blockLayerIn == RenderLayer.TRANSLUCENT;
         int i1 = flag ? this.renderInfos.size() - 1 : 0;
@@ -1089,6 +1094,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
 
             this.renderBlockLayer(blockLayerIn);
+            ClientBenchmark.recordGlTerrainBatch();
         }
         return l;
     }

@@ -42,6 +42,7 @@ import static org.lwjgl.system.MemoryUtil.memFree;
 /** Temporary presentation bridge while 1.8.9 runs its game loop and chunk builders. */
 public final class VulkanTerrainPreview implements AutoCloseable {
     public static final boolean ENABLED = Boolean.getBoolean("radiant.vulkan.terrain");
+    private static final boolean TERRAIN_ONLY = Boolean.getBoolean("radiant.vulkan.terrainOnly");
     private static final Logger LOGGER = LoggerFactory.getLogger(VulkanTerrainPreview.class);
     private static final RenderLayer[] LAYERS = RenderLayer.values();
     private static final Comparator<VulkanTerrainScene.Draw> FAR_TO_NEAR =
@@ -133,6 +134,10 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.terrain.retire(previous.slice);
         }
         layers[index] = new Mesh(compiled, preview.terrain.upload(vertices));
+    }
+
+    public static boolean replacesTerrainDraws() {
+        return TERRAIN_ONLY && active != null && active.pendingFrame != null;
     }
 
     public static void remove(RenderChunk chunk) {
