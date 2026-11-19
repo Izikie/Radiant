@@ -69,7 +69,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private final Vector3f normal = new Vector3f();
     private final Vector4f clip = new Vector4f();
     private final Vector4f color = new Vector4f();
-    private final Vector4f entityTint = new Vector4f();
+    private final Vector4f entityTint = new Vector4f(0.0f);
     private final ByteBuffer glyph = ByteBuffer.allocate(4 * 20).order(ByteOrder.nativeOrder());
     private ByteBuffer vertices = memAlloc(64 * 1024);
     private int[] lightmap;
