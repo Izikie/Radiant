@@ -192,6 +192,13 @@ public class GlStateManager {
         fogState.fog.setDisabled();
     }
 
+    public static FogParameters fogParameters() {
+        return new FogParameters(fogState.fog.currentState, fogState.mode, fogState.start, fogState.end, fogState.density);
+    }
+
+    public record FogParameters(boolean enabled, int mode, float start, float end, float density) {
+    }
+
     public static void setFog(int param) {
         if (param != fogState.mode) {
             fogState.mode = param;

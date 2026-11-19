@@ -1,6 +1,7 @@
 package net.radiant.render.vulkan;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.chunk.CompiledChunk;
@@ -333,9 +334,10 @@ public final class VulkanTerrainPreview implements AutoCloseable {
 
     private static VulkanTerrainScene.Fog captureFog(Minecraft mc) {
         var renderer = mc.entityRenderer;
+        var parameters = GlStateManager.fogParameters();
         int mode = 0;
-        if (glIsEnabled(GL_FOG) && !(renderer.fogStandard && Config.isFogOff())) {
-            mode = switch (glGetInteger(GL_FOG_MODE)) {
+        if (parameters.enabled() && !(renderer.fogStandard && Config.isFogOff())) {
+            mode = switch (parameters.mode()) {
                 case GL_LINEAR -> 1;
                 case GL_EXP -> 2;
                 case GL_EXP2 -> 3;
@@ -343,7 +345,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             };
         }
         return new VulkanTerrainScene.Fog(renderer.fogColorRed, renderer.fogColorGreen, renderer.fogColorBlue,
-                mode, glGetFloat(GL_FOG_START), glGetFloat(GL_FOG_END), glGetFloat(GL_FOG_DENSITY));
+                mode, parameters.start(), parameters.end(), parameters.density());
     }
 
     private static VulkanTerrainScene.Atlas buildAtlas(TextureMap texture) {
@@ -410,7 +412,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
                 ClientBenchmark.recordVulkanTerrainFrame(preview.terrain.drawCalls(), preview.terrain.quads(),
                         preview.terrain.cutoutQuads(), preview.terrain.translucentQuads());
                 ClientBenchmark.recordVulkanEnvironmentFrame(preview.terrain.skyDrawn(), preview.terrain.cloudsDrawn(),
-                        preview.terrain.endSkyDrawn(), preview.terrain.fogBackgroundDrawn());
+                        preview.terrain.endSkyDrawn(), preview.terrain.fogBackgroundDrawn(), (int) fog.mode());
                 ClientBenchmark.recordVulkanObjectFrame(preview.objects.entityTriangles(), preview.objects.blockEntityTriangles(),
                         preview.objects.blockEntityGlyphs());
                 ClientBenchmark.recordVulkanEntityShadows(preview.objects.entityShadowQuads());
