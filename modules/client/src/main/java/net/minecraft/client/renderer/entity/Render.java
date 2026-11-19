@@ -23,6 +23,7 @@ import net.minecraft.world.World;
 import net.optifine.Config;
 import net.optifine.entity.model.IEntityRenderer;
 import net.optifine.shaders.Shaders;
+import net.radiant.render.vulkan.VulkanObjectCapture;
 import org.lwjgl.opengl.GL11;
 
 public abstract class Render<T extends Entity> implements IEntityRenderer {
@@ -192,7 +193,12 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
                 }
             }
 
-            tessellator.draw();
+            VulkanObjectCapture.beginEntityShadow();
+            try {
+                tessellator.draw();
+            } finally {
+                VulkanObjectCapture.endEntityShadow();
+            }
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             GlStateManager.disableBlend();
             GlStateManager.depthMask(true);

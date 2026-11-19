@@ -254,6 +254,14 @@ public final class ClientBenchmark {
         }
     }
 
+    public static void recordVulkanEntityShadows(int quads) {
+        Capture capture = active;
+        if (capture != null && quads > 0) {
+            capture.vulkanEntityShadowFrames++;
+            capture.vulkanEntityShadowQuads += quads;
+        }
+    }
+
     public static void recordVulkanParticleFrame(int triangles, int terrainTriangles, int translucentTriangles, int litTriangles) {
         Capture capture = active;
         if (capture != null) {
@@ -447,6 +455,8 @@ public final class ClientBenchmark {
         private long vulkanTerrainCutoutQuads;
         private long vulkanTerrainTranslucentQuads;
         private long vulkanEntityTriangles;
+        private long vulkanEntityShadowFrames;
+        private long vulkanEntityShadowQuads;
         private long vulkanBlockEntityTriangles;
         private long vulkanBlockEntityGlyphs;
         private long vulkanParticleTriangles;
@@ -535,6 +545,7 @@ public final class ClientBenchmark {
             graphics.addProperty("vsync", settings.enableVsync);
             graphics.addProperty("fpsLimit", settings.limitFramerate);
             graphics.addProperty("fancyGraphics", settings.fancyGraphics);
+            graphics.addProperty("entityShadows", settings.entityShadows);
             graphics.addProperty("ambientOcclusion", settings.ambientOcclusion);
             graphics.addProperty("particleSetting", settings.particleSetting);
             graphics.addProperty("vbo", OpenGlHelper.useVbo());
@@ -574,6 +585,8 @@ public final class ClientBenchmark {
                 report.addProperty("vulkanTerrainCutoutQuads", vulkanTerrainCutoutQuads);
                 report.addProperty("vulkanTerrainTranslucentQuads", vulkanTerrainTranslucentQuads);
                 report.addProperty("vulkanEntityTriangles", vulkanEntityTriangles);
+                report.addProperty("vulkanEntityShadowFrames", vulkanEntityShadowFrames);
+                report.addProperty("vulkanEntityShadowQuads", vulkanEntityShadowQuads);
                 report.addProperty("vulkanBlockEntityTriangles", vulkanBlockEntityTriangles);
                 report.addProperty("vulkanBlockEntityGlyphs", vulkanBlockEntityGlyphs);
                 report.addProperty("vulkanParticleTriangles", vulkanParticleTriangles);
