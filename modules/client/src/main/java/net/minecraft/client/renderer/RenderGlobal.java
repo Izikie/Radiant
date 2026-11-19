@@ -71,6 +71,7 @@ import net.optifine.shaders.ShadowUtils;
 import net.optifine.shaders.gui.GuiShaderOptions;
 import net.optifine.util.RenderChunkUtils;
 import net.radiant.lwjgl.input.Keyboard;
+import org.joml.Matrix4fc;
 import org.joml.Vector3f;
 import org.lwjgl.opengl.GL11;
 import org.slf4j.Logger;
@@ -758,12 +759,12 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         return "E: " + this.countEntitiesRendered + "/" + this.countEntitiesTotal + ", B: " + this.countEntitiesHidden + ", I: " + (this.countEntitiesTotal - this.countEntitiesHidden - this.countEntitiesRendered) + Config.getVersionDebug();
     }
 
-    public void extractVulkanTerrain(Entity view, float partialTicks, int[] lightmap) {
+    public void extractVulkanTerrain(Entity view, float partialTicks, Matrix4fc projection, Matrix4fc viewMatrix, int[] lightmap) {
         double x = view.lastTickPosX + (view.posX - view.lastTickPosX) * partialTicks;
         double y = view.lastTickPosY + (view.posY - view.lastTickPosY) * partialTicks;
         double z = view.lastTickPosZ + (view.posZ - view.lastTickPosZ) * partialTicks;
         VulkanTerrainPreview.Extraction frame = VulkanTerrainPreview.extract(
-                this.mc, view, x, y, z, partialTicks, this.cloudTickCounter, lightmap);
+                this.mc, view, x, y, z, partialTicks, this.cloudTickCounter, projection, viewMatrix, lightmap);
         if (frame != null) {
             for (ContainerLocalRenderInformation visible : this.renderInfos) {
                 frame.add(visible.renderChunk);

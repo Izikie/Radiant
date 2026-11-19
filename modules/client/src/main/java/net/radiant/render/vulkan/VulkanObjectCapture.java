@@ -10,6 +10,7 @@ import net.minecraft.world.border.WorldBorderStage;
 import net.optifine.Config;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
+import org.joml.Matrix4fc;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.system.MemoryStack;
@@ -53,6 +54,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private final int[] layerStarts = new int[Layer.values().length];
     private final int[] cameraOverlayQuads = new int[CameraOverlay.values().length];
     private final Matrix4f projection = new Matrix4f();
+    private final Matrix4f worldProjection = new Matrix4f();
     private final Matrix4f textureMatrix = new Matrix4f();
     private final Matrix4f modelView = new Matrix4f();
     private final Matrix4f transform = new Matrix4f();
@@ -150,7 +152,11 @@ public final class VulkanObjectCapture implements AutoCloseable {
         screenGlyphs = 0;
     }
 
-    void begin(int[] lightmap, int atlasId, Phase phase) {
+    void setWorldProjection(Matrix4fc matrix) {
+        worldProjection.set(matrix);
+    }
+
+    void begin(int[] lightmap, int atlasId, Phase phase, Matrix4fc cameraProjection) {
         this.lightmap = lightmap;
         this.atlasId = atlasId;
         this.phase = phase;
@@ -163,10 +169,16 @@ public final class VulkanObjectCapture implements AutoCloseable {
         if (phase == Phase.FIRST_PERSON) {
             holdingItem = false;
         }
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            FloatBuffer matrix = stack.mallocFloat(16);
-            glGetFloatv(GL_PROJECTION_MATRIX, matrix);
-            projection.set(matrix);
+        if (phase.layer == Layer.WORLD) {
+            projection.set(worldProjection);
+        } else if (cameraProjection != null) {
+            projection.set(cameraProjection);
+        } else {
+            try (MemoryStack stack = MemoryStack.stackPush()) {
+                FloatBuffer matrix = stack.mallocFloat(16);
+                glGetFloatv(GL_PROJECTION_MATRIX, matrix);
+                projection.set(matrix);
+            }
         }
         if (phase != Phase.CAMERA_OVERLAYS && phase != Phase.WORLD_BORDER) {
             readLights();
@@ -175,7 +187,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     }
 
     void beginWorldBorder(int[] lightmap, WorldBorderStage stage) {
-        begin(lightmap, 0, Phase.WORLD_BORDER);
+        begin(lightmap, 0, Phase.WORLD_BORDER, null);
         worldBorderStage = stage;
     }
 

@@ -94,6 +94,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     private final Minecraft mc;
     private final IResourceManager resourceManager;
     private final Random random = new Random();
+    private final Matrix4f cameraProjection = new Matrix4f();
+    private final Matrix4f cameraView = new Matrix4f();
+    private final Matrix4f cameraEffects = new Matrix4f();
+    private final FloatBuffer cameraMatrixBuffer = BufferUtils.createFloatBuffer(16);
     private float farPlaneDistance;
     public final ItemRenderer itemRenderer;
     private final MapItemRenderer theMapItemRenderer;
@@ -482,13 +486,22 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         }
     }
 
-    private void hurtCameraEffect(float partialTicks) {
+    private static void rotateCamera(Matrix4f matrix, float degrees, float x, float y, float z) {
+        float length = (float) Math.sqrt(x * x + y * y + z * z);
+        matrix.rotate((float) Math.toRadians(degrees), x / length, y / length, z / length);
+    }
+
+    private void applyCameraMatrix(Matrix4f matrix) {
+        GlStateManager.multMatrix(matrix.get(this.cameraMatrixBuffer));
+    }
+
+    private void hurtCameraEffect(Matrix4f matrix, float partialTicks) {
         if (this.mc.getRenderViewEntity() instanceof EntityLivingBase entitylivingbase) {
             float f = entitylivingbase.hurtTime - partialTicks;
 
             if (entitylivingbase.getHealth() <= 0.0F) {
                 float f1 = entitylivingbase.deathTime + partialTicks;
-                GlStateManager.rotate(40.0F - 8000.0F / (f1 + 200.0F), 0.0F, 0.0F, 1.0F);
+                rotateCamera(matrix, 40.0F - 8000.0F / (f1 + 200.0F), 0.0F, 0.0F, 1.0F);
             }
 
             if (f < 0.0F) {
@@ -498,26 +511,26 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             f = f / entitylivingbase.maxHurtTime;
             f = MathHelper.sin(f * f * f * f * (float) Math.PI);
             float f2 = entitylivingbase.attackedAtYaw;
-            GlStateManager.rotate(-f2, 0.0F, 1.0F, 0.0F);
-            GlStateManager.rotate(-f * 14.0F, 0.0F, 0.0F, 1.0F);
-            GlStateManager.rotate(f2, 0.0F, 1.0F, 0.0F);
+            rotateCamera(matrix, -f2, 0.0F, 1.0F, 0.0F);
+            rotateCamera(matrix, -f * 14.0F, 0.0F, 0.0F, 1.0F);
+            rotateCamera(matrix, f2, 0.0F, 1.0F, 0.0F);
         }
     }
 
-    private void setupViewBobbing(float partialTicks) {
+    private void setupViewBobbing(Matrix4f matrix, float partialTicks) {
         if (this.mc.getRenderViewEntity() instanceof EntityPlayer entityplayer) {
             float f = entityplayer.distanceWalkedModified - entityplayer.prevDistanceWalkedModified;
             float f1 = -(entityplayer.distanceWalkedModified + f * partialTicks);
             float f2 = entityplayer.prevCameraYaw + (entityplayer.cameraYaw - entityplayer.prevCameraYaw) * partialTicks;
             float f3 = entityplayer.prevCameraPitch + (entityplayer.cameraPitch - entityplayer.prevCameraPitch) * partialTicks;
-            GlStateManager.translate(MathHelper.sin(f1 * (float) Math.PI) * f2 * 0.5F, -Math.abs(MathHelper.cos(f1 * (float) Math.PI) * f2), 0.0F);
-            GlStateManager.rotate(MathHelper.sin(f1 * (float) Math.PI) * f2 * 3.0F, 0.0F, 0.0F, 1.0F);
-            GlStateManager.rotate(Math.abs(MathHelper.cos(f1 * (float) Math.PI - 0.2F) * f2) * 5.0F, 1.0F, 0.0F, 0.0F);
-            GlStateManager.rotate(f3, 1.0F, 0.0F, 0.0F);
+            matrix.translate(MathHelper.sin(f1 * (float) Math.PI) * f2 * 0.5F, -Math.abs(MathHelper.cos(f1 * (float) Math.PI) * f2), 0.0F);
+            rotateCamera(matrix, MathHelper.sin(f1 * (float) Math.PI) * f2 * 3.0F, 0.0F, 0.0F, 1.0F);
+            rotateCamera(matrix, Math.abs(MathHelper.cos(f1 * (float) Math.PI - 0.2F) * f2) * 5.0F, 1.0F, 0.0F, 0.0F);
+            rotateCamera(matrix, f3, 1.0F, 0.0F, 0.0F);
         }
     }
 
-    private void orientCamera(float partialTicks) {
+    private void orientCamera(Matrix4f matrix, float partialTicks) {
         Entity entity = this.mc.getRenderViewEntity();
         float f = entity.getEyeHeight();
         double d0 = entity.prevPosX + (entity.posX - entity.prevPosX) * partialTicks;
@@ -526,7 +539,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         if (entity instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPlayerSleeping()) {
             f = (float) (f + 1.0D);
-            GlStateManager.translate(0.0F, 0.3F, 0.0F);
+            matrix.translate(0.0F, 0.3F, 0.0F);
 
             if (!this.mc.gameSettings.debugCamEnable) {
                 BlockPos blockpos = new BlockPos(entity);
@@ -535,17 +548,17 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
                 if (block == Blocks.BED) {
                     int j = iblockstate.getValue(BlockBed.FACING).getHorizontalIndex();
-                    GlStateManager.rotate((j * 90), 0.0F, 1.0F, 0.0F);
+                    rotateCamera(matrix, (j * 90), 0.0F, 1.0F, 0.0F);
                 }
 
-                GlStateManager.rotate(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks + 180.0F, 0.0F, -1.0F, 0.0F);
-                GlStateManager.rotate(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks, -1.0F, 0.0F, 0.0F);
+                rotateCamera(matrix, entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks + 180.0F, 0.0F, -1.0F, 0.0F);
+                rotateCamera(matrix, entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks, -1.0F, 0.0F, 0.0F);
             }
         } else if (this.mc.gameSettings.thirdPersonView != GameSettings.Perspective.FIRST_PERSON) {
             double d3 = this.thirdPersonDistanceTemp + (this.thirdPersonDistance - this.thirdPersonDistanceTemp) * partialTicks;
 
             if (this.mc.gameSettings.debugCamEnable) {
-                GlStateManager.translate(0.0F, 0.0F, (float) (-d3));
+                matrix.translate(0.0F, 0.0F, (float) (-d3));
             } else {
                 float f1 = entity.rotationYaw;
                 float f2 = entity.rotationPitch;
@@ -582,31 +595,31 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 }
 
                 if (this.mc.gameSettings.thirdPersonView == GameSettings.Perspective.INVERTED_THIRD_PERSON) {
-                    GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
+                    rotateCamera(matrix, 180.0F, 0.0F, 1.0F, 0.0F);
                 }
 
-                GlStateManager.rotate(entity.rotationPitch - f2, 1.0F, 0.0F, 0.0F);
-                GlStateManager.rotate(entity.rotationYaw - f1, 0.0F, 1.0F, 0.0F);
-                GlStateManager.translate(0.0F, 0.0F, (float) (-d3));
-                GlStateManager.rotate(f1 - entity.rotationYaw, 0.0F, 1.0F, 0.0F);
-                GlStateManager.rotate(f2 - entity.rotationPitch, 1.0F, 0.0F, 0.0F);
+                rotateCamera(matrix, entity.rotationPitch - f2, 1.0F, 0.0F, 0.0F);
+                rotateCamera(matrix, entity.rotationYaw - f1, 0.0F, 1.0F, 0.0F);
+                matrix.translate(0.0F, 0.0F, (float) (-d3));
+                rotateCamera(matrix, f1 - entity.rotationYaw, 0.0F, 1.0F, 0.0F);
+                rotateCamera(matrix, f2 - entity.rotationPitch, 1.0F, 0.0F, 0.0F);
             }
         } else {
             // TODO: Parallax Fix without the weird stretching and other issues
-            GlStateManager.translate(0.0F, 0.0F, -0.1F);
+            matrix.translate(0.0F, 0.0F, -0.1F);
         }
 
         if (!this.mc.gameSettings.debugCamEnable) {
-            GlStateManager.rotate(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks, 1.0F, 0.0F, 0.0F);
+            rotateCamera(matrix, entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks, 1.0F, 0.0F, 0.0F);
 
             if (entity instanceof EntityAnimal animal) {
-                GlStateManager.rotate(animal.prevRotationYawHead + (animal.rotationYawHead - animal.prevRotationYawHead) * partialTicks + 180.0F, 0.0F, 1.0F, 0.0F);
+                rotateCamera(matrix, animal.prevRotationYawHead + (animal.rotationYawHead - animal.prevRotationYawHead) * partialTicks + 180.0F, 0.0F, 1.0F, 0.0F);
             } else {
-                GlStateManager.rotate(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks + 180.0F, 0.0F, 1.0F, 0.0F);
+                rotateCamera(matrix, entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks + 180.0F, 0.0F, 1.0F, 0.0F);
             }
         }
 
-        GlStateManager.translate(0.0F, -f, 0.0F);
+        matrix.translate(0.0F, -f, 0.0F);
         d0 = entity.prevPosX + (entity.posX - entity.prevPosX) * partialTicks;
         d1 = entity.prevPosY + (entity.posY - entity.prevPosY) * partialTicks + f;
         d2 = entity.prevPosZ + (entity.posZ - entity.prevPosZ) * partialTicks;
@@ -624,9 +637,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             this.farPlaneDistance *= 0.83F;
         }
 
-        GlStateManager.matrixMode(GL11.GL_PROJECTION);
-        GlStateManager.loadIdentity();
-        float f = 0.07F;
+        this.cameraProjection.identity();
 
         this.clipDistance = this.farPlaneDistance * 2.0F;
 
@@ -635,28 +646,15 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         }
 
         if (this.cameraZoom != 1.0D) {
-            GlStateManager.translate((float) this.cameraYaw, (float) (-this.cameraPitch), 0.0F);
-            GlStateManager.scale(this.cameraZoom, this.cameraZoom, 1.0D);
+            this.cameraProjection.translate((float) this.cameraYaw, (float) (-this.cameraPitch), 0.0F);
+            this.cameraProjection.scale((float) this.cameraZoom, (float) this.cameraZoom, 1.0F);
         }
 
-        Matrix4f projectionMatrix = new Matrix4f().perspective(
-                (float) Math.toRadians(this.getFOVModifier(partialTicks, true)),
-                (float) this.mc.displayWidth / this.mc.displayHeight,
-                0.05F,
-                this.clipDistance
-        );
-
-        FloatBuffer projectionBuffer = BufferUtils.createFloatBuffer(16);
-        projectionMatrix.get(projectionBuffer);
-        GlStateManager.multMatrix(projectionBuffer);
-
-        GlStateManager.matrixMode(GL11.GL_MODELVIEW);
-        GlStateManager.loadIdentity();
-
-        this.hurtCameraEffect(partialTicks);
-
+        this.applyWorldProjection(partialTicks);
+        this.cameraView.identity();
+        this.hurtCameraEffect(this.cameraView, partialTicks);
         if (this.mc.gameSettings.viewBobbing) {
-            this.setupViewBobbing(partialTicks);
+            this.setupViewBobbing(this.cameraView, partialTicks);
         }
 
         float f1 = this.mc.player.prevTimeInPortal + (this.mc.player.timeInPortal - this.mc.player.prevTimeInPortal) * partialTicks;
@@ -670,35 +668,59 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
             float f2 = 5.0F / (f1 * f1 + 5.0F) - f1 * 0.04F;
             f2 = f2 * f2;
-            GlStateManager.rotate((this.rendererUpdateCount + partialTicks) * i, 0.0F, 1.0F, 1.0F);
-            GlStateManager.scale(1.0F / f2, 1.0F, 1.0F);
-            GlStateManager.rotate(-(this.rendererUpdateCount + partialTicks) * i, 0.0F, 1.0F, 1.0F);
+            rotateCamera(this.cameraView, (this.rendererUpdateCount + partialTicks) * i, 0.0F, 1.0F, 1.0F);
+            this.cameraView.scale(1.0F / f2, 1.0F, 1.0F);
+            rotateCamera(this.cameraView, -(this.rendererUpdateCount + partialTicks) * i, 0.0F, 1.0F, 1.0F);
         }
 
-        this.orientCamera(partialTicks);
+        this.orientCamera(this.cameraView, partialTicks);
 
         if (this.debugView) {
             switch (this.debugViewDirection) {
                 case 0:
-                    GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
+                    rotateCamera(this.cameraView, 90.0F, 0.0F, 1.0F, 0.0F);
                     break;
 
                 case 1:
-                    GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
+                    rotateCamera(this.cameraView, 180.0F, 0.0F, 1.0F, 0.0F);
                     break;
 
                 case 2:
-                    GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
+                    rotateCamera(this.cameraView, -90.0F, 0.0F, 1.0F, 0.0F);
                     break;
 
                 case 3:
-                    GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
+                    rotateCamera(this.cameraView, 90.0F, 1.0F, 0.0F, 0.0F);
                     break;
 
                 case 4:
-                    GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
+                    rotateCamera(this.cameraView, -90.0F, 1.0F, 0.0F, 0.0F);
             }
         }
+        GlStateManager.loadIdentity();
+        this.applyCameraMatrix(this.cameraView);
+    }
+
+    private void applyWorldProjection(float partialTicks) {
+        this.cameraProjection.perspective(
+                (float) Math.toRadians(this.getFOVModifier(partialTicks, true)),
+                (float) this.mc.displayWidth / this.mc.displayHeight,
+                0.05F, this.clipDistance);
+        GlStateManager.matrixMode(GL11.GL_PROJECTION);
+        GlStateManager.loadIdentity();
+        this.applyCameraMatrix(this.cameraProjection);
+        GlStateManager.matrixMode(GL11.GL_MODELVIEW);
+    }
+
+    private void applyHandCameraEffects(float partialTicks, boolean hurt) {
+        this.cameraEffects.identity();
+        if (hurt) {
+            this.hurtCameraEffect(this.cameraEffects, partialTicks);
+        }
+        if (this.mc.gameSettings.viewBobbing) {
+            this.setupViewBobbing(this.cameraEffects, partialTicks);
+        }
+        this.applyCameraMatrix(this.cameraEffects);
     }
 
     private void renderHand(float partialTicks, int xOffset) {
@@ -735,11 +757,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         if (p_renderHand_3_) {
             GlStateManager.pushMatrix();
-            this.hurtCameraEffect(p_renderHand_1_);
-
-            if (this.mc.gameSettings.viewBobbing) {
-                this.setupViewBobbing(p_renderHand_1_);
-            }
+            this.applyHandCameraEffects(p_renderHand_1_, true);
 
             flag = this.mc.getRenderViewEntity() instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPlayerSleeping();
 
@@ -750,7 +768,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     ShadersRender.renderItemFP(this.itemRenderer, p_renderHand_1_, p_renderHand_5_);
                 } else {
                     boolean captureFirstPerson = VulkanTerrainPreview.ENABLED && p_renderHand_2_ == 2
-                            && VulkanTerrainPreview.beginFirstPerson(this.lightmapColors, this.mc.getTextureMapBlocks().getGlTextureId());
+                            && VulkanTerrainPreview.beginFirstPerson(this.lightmapColors,
+                            this.mc.getTextureMapBlocks().getGlTextureId(), projectionMatrix);
                     try {
                         this.itemRenderer.renderItemInFirstPerson(p_renderHand_1_);
                     } finally {
@@ -772,9 +791,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         this.disableLightmap();
 
-        if (this.mc.gameSettings.thirdPersonView == GameSettings.Perspective.FIRST_PERSON && !flag) {
+        boolean firstPerson = this.mc.gameSettings.thirdPersonView == GameSettings.Perspective.FIRST_PERSON && !flag;
+        if (firstPerson) {
             boolean captureCameraOverlays = VulkanTerrainPreview.ENABLED && p_renderHand_2_ == 2
-                    && VulkanTerrainPreview.beginCameraOverlays(this.lightmapColors, this.mc.getTextureMapBlocks().getGlTextureId());
+                    && VulkanTerrainPreview.beginCameraOverlays(this.lightmapColors,
+                    this.mc.getTextureMapBlocks().getGlTextureId(), projectionMatrix);
             try {
                 this.itemRenderer.renderOverlays(p_renderHand_1_);
             } finally {
@@ -782,12 +803,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     VulkanObjectCapture.end();
                 }
             }
-            this.hurtCameraEffect(p_renderHand_1_);
         }
 
-        if (this.mc.gameSettings.viewBobbing) {
-            this.setupViewBobbing(p_renderHand_1_);
-        }
+        this.applyHandCameraEffects(p_renderHand_1_, firstPerson);
     }
 
     public void disableLightmap() {
@@ -1132,8 +1150,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GlStateManager.pushMatrix();
             GlStateManager.matrixMode(GL11.GL_MODELVIEW);
             GlStateManager.loadIdentity();
-            this.orientCamera(partialTicks);
-            GlStateManager.translate(0.0F, entity.getEyeHeight(), 0.0F);
+            this.cameraEffects.identity();
+            this.orientCamera(this.cameraEffects, partialTicks);
+            this.applyCameraMatrix(this.cameraEffects.translate(0.0F, entity.getEyeHeight(), 0.0F));
             RenderGlobal.drawOutlinedBoundingBox(new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.005D, 1.0E-4D, 1.0E-4D), 255, 0, 0, 255);
             RenderGlobal.drawOutlinedBoundingBox(new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0E-4D, 1.0E-4D, 0.005D), 0, 0, 255, 255);
             RenderGlobal.drawOutlinedBoundingBox(new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0E-4D, 0.0033D, 1.0E-4D), 0, 255, 0, 255);
@@ -1212,20 +1231,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         if ((Config.isSkyEnabled() || Config.isSunMoonEnabled() || Config.isStarsEnabled()) && !Shaders.isShadowPass) {
             this.setupFog(-1, partialTicks);
-            GlStateManager.matrixMode(GL11.GL_PROJECTION);
-            GlStateManager.loadIdentity();
-
-            Matrix4f projectionMatrix = new Matrix4f().perspective(
-                    (float) Math.toRadians(this.getFOVModifier(partialTicks, true)),
-                    (float) this.mc.displayWidth / this.mc.displayHeight,
-                    0.05F,
-                    this.clipDistance
-            );
-            FloatBuffer projectionBuffer = BufferUtils.createFloatBuffer(16);
-            projectionMatrix.get(projectionBuffer);
-            GlStateManager.multMatrix(projectionBuffer);
-
-            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
+            this.cameraProjection.identity();
+            this.applyWorldProjection(partialTicks);
 
             if (flag) {
                 Shaders.beginSky();
@@ -1237,20 +1244,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 Shaders.endSky();
             }
 
-            GlStateManager.matrixMode(GL11.GL_PROJECTION);
-            GlStateManager.loadIdentity();
-
-            Matrix4f projectionMatrix2 = new Matrix4f().perspective(
-                    (float) Math.toRadians(this.getFOVModifier(partialTicks, true)),
-                    (float) this.mc.displayWidth / this.mc.displayHeight,
-                    0.05F,
-                    this.clipDistance
-            );
-            FloatBuffer projectionBuffer2 = BufferUtils.createFloatBuffer(16);
-            projectionMatrix2.get(projectionBuffer2);
-            GlStateManager.multMatrix(projectionBuffer2);
-
-            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
+            this.cameraProjection.identity();
+            this.applyWorldProjection(partialTicks);
         } else {
             GlStateManager.disableBlend();
         }
@@ -1278,7 +1273,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         }
 
         if (VulkanTerrainPreview.ENABLED && pass == 2) {
-            renderglobal.extractVulkanTerrain(entity, partialTicks, this.lightmapColors);
+            renderglobal.extractVulkanTerrain(entity, partialTicks,
+                    this.cameraProjection, this.cameraView, this.lightmapColors);
         }
 
         if (this.mc.gameSettings.ofSmoothFps && pass > 0) {
@@ -1536,20 +1532,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             renderGlobalIn.renderClouds(partialTicks, pass);
             GlStateManager.disableFog();
             GlStateManager.popMatrix();
-            GlStateManager.matrixMode(GL11.GL_PROJECTION);
-            GlStateManager.loadIdentity();
-
-            Matrix4f projectionMatrix2 = new Matrix4f().perspective(
-                    (float) Math.toRadians(this.getFOVModifier(partialTicks, true)),
-                    (float) this.mc.displayWidth / this.mc.displayHeight,
-                    0.05F,
-                    this.clipDistance
-            );
-            FloatBuffer projectionBuffer2 = BufferUtils.createFloatBuffer(16);
-            projectionMatrix2.get(projectionBuffer2);
-            GlStateManager.multMatrix(projectionBuffer2);
-
-            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
+            this.cameraProjection.identity();
+            this.applyWorldProjection(partialTicks);
         }
     }
 

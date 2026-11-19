@@ -18,14 +18,13 @@ import net.optifine.CustomColors;
 import net.radiant.benchmark.ClientBenchmark;
 import net.radiant.util.NativeImage;
 import org.joml.Matrix4f;
-import org.lwjgl.system.MemoryStack;
+import org.joml.Matrix4fc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.IdentityHashMap;
@@ -199,27 +198,22 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     }
 
     public static Extraction extract(Minecraft mc, Entity view, double x, double y, double z, float partialTicks,
-                                     int cloudTick, int[] lightmap) {
+                                     int cloudTick, Matrix4fc projection, Matrix4fc viewMatrix, int[] lightmap) {
         VulkanTerrainPreview preview = active;
         if (preview == null) {
             return null;
         }
         preview.objects.reset();
+        preview.objects.setWorldProjection(projection);
         if (preview.atlasDirty) {
             preview.terrain.setAtlas(buildAtlas(mc.getTextureMapBlocks()));
             preview.terrain.setEnvironmentImages(loadEnvironmentImages());
             preview.atlasDirty = false;
         }
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            FloatBuffer matrix = stack.mallocFloat(16);
-            glGetFloatv(GL_PROJECTION_MATRIX, matrix);
-            Matrix4f projection = new Matrix4f().set(matrix);
-            glGetFloatv(GL_MODELVIEW_MATRIX, matrix);
-            projection.mul(new Matrix4f().set(matrix));
-            VulkanEnvironment.Frame environment = captureEnvironment(mc, view, x, y, z, partialTicks, cloudTick);
-            return new Extraction(preview, x, y, z, view.getEyeHeight(), projection, lightmap.clone(), captureFog(mc),
-                    environment, Config.isRenderRegions(), mc.displayWidth, mc.displayHeight);
-        }
+        Matrix4f viewProjection = projection.mul(viewMatrix, new Matrix4f());
+        VulkanEnvironment.Frame environment = captureEnvironment(mc, view, x, y, z, partialTicks, cloudTick);
+        return new Extraction(preview, x, y, z, view.getEyeHeight(), viewProjection, lightmap.clone(), captureFog(mc),
+                environment, Config.isRenderRegions(), mc.displayWidth, mc.displayHeight);
     }
 
     public static boolean beginObjects(int[] lightmap, int atlas) {
@@ -251,12 +245,12 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         return beginObjects(lightmap, atlas, VulkanObjectCapture.Phase.RAIN);
     }
 
-    public static boolean beginFirstPerson(int[] lightmap, int atlas) {
-        return beginObjects(lightmap, atlas, VulkanObjectCapture.Phase.FIRST_PERSON);
+    public static boolean beginFirstPerson(int[] lightmap, int atlas, Matrix4fc projection) {
+        return beginObjects(lightmap, atlas, VulkanObjectCapture.Phase.FIRST_PERSON, projection);
     }
 
-    public static boolean beginCameraOverlays(int[] lightmap, int atlas) {
-        return beginObjects(lightmap, atlas, VulkanObjectCapture.Phase.CAMERA_OVERLAYS);
+    public static boolean beginCameraOverlays(int[] lightmap, int atlas, Matrix4fc projection) {
+        return beginObjects(lightmap, atlas, VulkanObjectCapture.Phase.CAMERA_OVERLAYS, projection);
     }
 
     public static boolean beginHud(int[] lightmap, int atlas) {
@@ -268,11 +262,15 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     }
 
     private static boolean beginObjects(int[] lightmap, int atlas, VulkanObjectCapture.Phase phase) {
+        return beginObjects(lightmap, atlas, phase, null);
+    }
+
+    private static boolean beginObjects(int[] lightmap, int atlas, VulkanObjectCapture.Phase phase, Matrix4fc projection) {
         VulkanTerrainPreview preview = active;
         if (preview == null || preview.pendingFrame == null) {
             return false;
         }
-        preview.objects.begin(lightmap, atlas, phase);
+        preview.objects.begin(lightmap, atlas, phase, projection);
         return true;
     }
 
