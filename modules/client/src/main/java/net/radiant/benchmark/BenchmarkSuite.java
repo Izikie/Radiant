@@ -11,6 +11,7 @@ import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -30,6 +31,8 @@ import net.radiant.lwjgl.opengl.Display;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
@@ -68,6 +71,9 @@ final class BenchmarkSuite {
     private int breakStageMask;
     private S44PacketWorldBorder originalBorder;
     private WorldBorderStage benchmarkBorderStage;
+    private final List<EntityLightningBolt> stormBolts = new ArrayList<>();
+    private int stormTick;
+    private boolean stormActive;
     private Stage stage = Stage.JOINING;
     private long stageStarted = System.nanoTime();
 
@@ -196,6 +202,9 @@ final class BenchmarkSuite {
                     if (phase == Phase.WORLD_BORDER) {
                         restoreBorder();
                     }
+                    if (phase == Phase.THUNDERSTORM) {
+                        clearStorm();
+                    }
                     if (phase.precipitationBiome != null) {
                         result.addProperty("precipitationBiomeId", world.getBiomeGenForCoords(mc.player.getPosition()).biomeID);
                         result.addProperty("precipitationStrength", world.getRainStrength(1.0F));
@@ -236,6 +245,7 @@ final class BenchmarkSuite {
         unfocusedFrames = 0;
         inventoryOpens = 0;
         breakStageMask = 0;
+        stormTick = 0;
         LOGGER.info("Benchmark preparing {}", phase.scenario);
         enter(Stage.TRAVELLING, now);
         teleport(phase == Phase.TERRAIN_STREAMING ? Phase.BLOCK_GALLERY : phase);
@@ -357,6 +367,10 @@ final class BenchmarkSuite {
         if (phase == Phase.WORLD_BORDER) {
             updateBorder();
         }
+        if (phase == Phase.THUNDERSTORM && !stormActive) {
+            stormActive = true;
+            world.setThunderStrength(1.0F);
+        }
         if (stage != Stage.CAPTURING) {
             return;
         }
@@ -419,11 +433,31 @@ final class BenchmarkSuite {
         }
     }
 
+    private void clearStorm() {
+        if (stormActive || !stormBolts.isEmpty()) {
+            world.weatherEffects.removeAll(stormBolts);
+            world.setThunderStrength(0.0F);
+            world.setLastLightningBolt(0);
+            stormBolts.clear();
+            stormActive = false;
+        }
+    }
+
     void tick(Minecraft mc) {
         if ((stage != Stage.WARMING_UP && stage != Stage.CAPTURING) || mc.world != world || mc.currentScreen != null) {
             return;
         }
         Phase phase = ROUTE[routeIndex];
+        if (phase == Phase.THUNDERSTORM) {
+            if (stormTick++ % 16 == 0) {
+                stormBolts.removeIf(bolt -> bolt.isDead);
+                EntityLightningBolt bolt = new EntityLightningBolt(world, BenchmarkWorld.RAIN_X + 8.5,
+                        EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z + 16.5);
+                world.addWeatherEffect(bolt);
+                stormBolts.add(bolt);
+            }
+            return;
+        }
         if (phase == Phase.FIRST_PERSON_HAND || phase == Phase.FIRST_PERSON_ITEM) {
             if (stage == Stage.CAPTURING && mc.player.ticksExisted % 30 == 0) {
                 mc.player.swingItem();
@@ -478,6 +512,7 @@ final class BenchmarkSuite {
         closeInventory(mc);
         setBreakStage(mc, -1);
         restoreBorder();
+        clearStorm();
         if (world != null) {
             mc.gameSettings.thirdPersonView = originalPerspective;
         }
@@ -507,6 +542,7 @@ final class BenchmarkSuite {
         PARTICLES("particles", BenchmarkWorld.PARTICLE_X, EXHIBIT_Y, 0, 3, 22),
         RAIN("rain", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 25, 0, 6000, BiomeGenBase.PLAINS),
         SNOW("snow", BenchmarkWorld.SNOW_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 25, 0, 6000, BiomeGenBase.ICE_PLAINS),
+        THUNDERSTORM("thunderstorm", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, -12, 10, -22, 13000, BiomeGenBase.PLAINS),
         FIRST_PERSON_HAND("first-person-hand", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_SHELTER_BACK_Z - 1, 3, 0),
         FIRST_PERSON_ITEM("first-person-held-item", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_SHELTER_BACK_Z - 1, 3, 0),
         WATER_OVERLAY("water-overlay", BenchmarkWorld.WATER_OVERLAY_X, EXHIBIT_Y, BenchmarkWorld.OVERLAY_FIXTURE_Z, 5, 25),

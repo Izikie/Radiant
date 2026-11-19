@@ -308,6 +308,19 @@ public final class ClientBenchmark {
         }
     }
 
+    public static void recordVulkanLightning(int triangles, boolean flash) {
+        Capture capture = active;
+        if (capture != null) {
+            if (triangles > 0) {
+                capture.vulkanLightningFrames++;
+                capture.vulkanLightningTriangles += triangles;
+            }
+            if (flash) {
+                capture.vulkanLightningFlashFrames++;
+            }
+        }
+    }
+
     public static void recordVulkanArmorGlint(int triangles) {
         Capture capture = active;
         if (capture != null && triangles > 0) {
@@ -443,6 +456,9 @@ public final class ClientBenchmark {
         private long vulkanHeldGlintFrames;
         private long vulkanEntityOutlineFrames;
         private long vulkanEntityOutlineTriangles;
+        private long vulkanLightningFrames;
+        private long vulkanLightningTriangles;
+        private long vulkanLightningFlashFrames;
         private long vulkanArmorGlintFrames;
         private long vulkanArmorGlintTriangles;
         private long vulkanHeldGlintTriangles;
@@ -565,6 +581,9 @@ public final class ClientBenchmark {
                 report.addProperty("vulkanHeldGlintFrames", vulkanHeldGlintFrames);
                 report.addProperty("vulkanEntityOutlineFrames", vulkanEntityOutlineFrames);
                 report.addProperty("vulkanEntityOutlineTriangles", vulkanEntityOutlineTriangles);
+                report.addProperty("vulkanLightningFrames", vulkanLightningFrames);
+                report.addProperty("vulkanLightningTriangles", vulkanLightningTriangles);
+                report.addProperty("vulkanLightningFlashFrames", vulkanLightningFlashFrames);
                 report.addProperty("vulkanArmorGlintFrames", vulkanArmorGlintFrames);
                 report.addProperty("vulkanArmorGlintTriangles", vulkanArmorGlintTriangles);
                 report.addProperty("vulkanHeldGlintTriangles", vulkanHeldGlintTriangles);
