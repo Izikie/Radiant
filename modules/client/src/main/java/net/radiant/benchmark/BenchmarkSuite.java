@@ -456,6 +456,10 @@ final class BenchmarkSuite {
         particleTick++;
     }
 
+    boolean isEntityOutlineScene() {
+        return (stage == Stage.WARMING_UP || stage == Stage.CAPTURING) && ROUTE[routeIndex] == Phase.ENTITIES;
+    }
+
     private void closeInventory(Minecraft mc) {
         if (inventory != null && mc.currentScreen == inventory) {
             if (mc.player != null) {

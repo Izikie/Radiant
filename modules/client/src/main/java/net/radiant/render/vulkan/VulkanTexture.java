@@ -29,32 +29,43 @@ final class VulkanTexture implements AutoCloseable {
     void initialize(VkPhysicalDevice physicalDevice, VkQueue queue, VkCommandBuffer commands,
                     int width, int height, ByteBuffer[] levels, boolean srgb, int addressModeU, int addressModeV) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            mipLevels = levels.length;
             int format = srgb ? VK_FORMAT_R8G8B8A8_SRGB : VK_FORMAT_R8G8B8A8_UNORM;
-            LongBuffer handle = stack.mallocLong(1);
-            VkImageCreateInfo imageInfo = VkImageCreateInfo.calloc(stack).sType$Default()
-                    .imageType(VK_IMAGE_TYPE_2D).format(format).mipLevels(levels.length).arrayLayers(1)
-                    .samples(VK_SAMPLE_COUNT_1_BIT).tiling(VK_IMAGE_TILING_OPTIMAL)
-                    .usage(VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT)
-                    .sharingMode(VK_SHARING_MODE_EXCLUSIVE).initialLayout(VK_IMAGE_LAYOUT_UNDEFINED);
-            imageInfo.extent().set(width, height, 1);
-            VulkanPresenter.check(vkCreateImage(device, imageInfo, null, handle), "create texture image");
-            image = handle.get(0);
-            VkMemoryRequirements requirements = VkMemoryRequirements.malloc(stack);
-            vkGetImageMemoryRequirements(device, image, requirements);
-            imageMemory = VulkanMemory.allocate(stack, physicalDevice, device, requirements, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-            VulkanPresenter.check(vkBindImageMemory(device, image, imageMemory, 0), "bind texture memory");
+            initializeImage(stack, physicalDevice, format, width, height, levels.length, VK_IMAGE_USAGE_TRANSFER_DST_BIT,
+                    addressModeU, addressModeV);
             upload(stack, physicalDevice, queue, commands, width, height, levels);
-            view = VulkanMemory.createImageView(stack, device, image, format, VK_IMAGE_ASPECT_COLOR_BIT, levels.length);
-            VkSamplerCreateInfo samplerInfo = VkSamplerCreateInfo.calloc(stack).sType$Default()
-                    .magFilter(VK_FILTER_NEAREST).minFilter(VK_FILTER_NEAREST).mipmapMode(VK_SAMPLER_MIPMAP_MODE_LINEAR)
-                    .addressModeU(addressModeU)
-                    .addressModeV(addressModeV)
-                    .addressModeW(VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE)
-                    .maxLod(levels.length - 1);
-            VulkanPresenter.check(vkCreateSampler(device, samplerInfo, null, handle), "create texture sampler");
-            sampler = handle.get(0);
         }
+    }
+
+    void initializeAttachment(MemoryStack stack, VkPhysicalDevice physicalDevice, int format, int width, int height) {
+        initializeImage(stack, physicalDevice, format, width, height, 1, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
+                VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
+    }
+
+    private void initializeImage(MemoryStack stack, VkPhysicalDevice physicalDevice, int format, int width, int height,
+                                 int levels, int usage, int addressModeU, int addressModeV) {
+        mipLevels = levels;
+        LongBuffer handle = stack.mallocLong(1);
+        VkImageCreateInfo imageInfo = VkImageCreateInfo.calloc(stack).sType$Default()
+                .imageType(VK_IMAGE_TYPE_2D).format(format).mipLevels(levels).arrayLayers(1)
+                .samples(VK_SAMPLE_COUNT_1_BIT).tiling(VK_IMAGE_TILING_OPTIMAL)
+                .usage(usage | VK_IMAGE_USAGE_SAMPLED_BIT)
+                .sharingMode(VK_SHARING_MODE_EXCLUSIVE).initialLayout(VK_IMAGE_LAYOUT_UNDEFINED);
+        imageInfo.extent().set(width, height, 1);
+        VulkanPresenter.check(vkCreateImage(device, imageInfo, null, handle), "create texture image");
+        image = handle.get(0);
+        VkMemoryRequirements requirements = VkMemoryRequirements.malloc(stack);
+        vkGetImageMemoryRequirements(device, image, requirements);
+        imageMemory = VulkanMemory.allocate(stack, physicalDevice, device, requirements, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+        VulkanPresenter.check(vkBindImageMemory(device, image, imageMemory, 0), "bind texture memory");
+        view = VulkanMemory.createImageView(stack, device, image, format, VK_IMAGE_ASPECT_COLOR_BIT, levels);
+        VkSamplerCreateInfo samplerInfo = VkSamplerCreateInfo.calloc(stack).sType$Default()
+                .magFilter(VK_FILTER_NEAREST).minFilter(VK_FILTER_NEAREST).mipmapMode(VK_SAMPLER_MIPMAP_MODE_LINEAR)
+                .addressModeU(addressModeU)
+                .addressModeV(addressModeV)
+                .addressModeW(VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE)
+                .maxLod(levels - 1);
+        VulkanPresenter.check(vkCreateSampler(device, samplerInfo, null, handle), "create texture sampler");
+        sampler = handle.get(0);
     }
 
     private void upload(MemoryStack stack, VkPhysicalDevice physicalDevice, VkQueue queue, VkCommandBuffer commands,
@@ -112,6 +123,10 @@ final class VulkanTexture implements AutoCloseable {
 
     long view() {
         return view;
+    }
+
+    long image() {
+        return image;
     }
 
     long sampler() {

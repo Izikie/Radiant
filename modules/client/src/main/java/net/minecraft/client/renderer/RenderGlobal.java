@@ -52,6 +52,7 @@ import net.minecraft.util.input.MovingObjectPosition;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3;
+import net.radiant.benchmark.ClientBenchmark;
 import net.radiant.render.vulkan.VulkanObjectCapture;
 import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.minecraft.world.IWorldAccess;
@@ -227,7 +228,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     }
 
     protected boolean isRenderEntityOutlines() {
-        return !Config.isFastRender() && !Config.isShaders() && !Config.isAntialiasing() && this.entityOutlineFramebuffer != null && this.entityOutlineShader != null && this.mc.player != null && this.mc.player.isSpectator() && this.mc.gameSettings.keyBindSpectatorOutlines.isKeyDown();
+        return !Config.isFastRender() && !Config.isShaders() && !Config.isAntialiasing() && this.entityOutlineFramebuffer != null && this.entityOutlineShader != null && this.mc.player != null
+                && (this.mc.player.isSpectator() && this.mc.gameSettings.keyBindSpectatorOutlines.isKeyDown()
+                || ClientBenchmark.isEntityOutlineScene());
     }
 
     private void generateSky2() {
@@ -545,18 +548,19 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 RenderHelper.disableStandardItemLighting();
                 this.renderManager.setRenderOutlines(true);
 
-                VulkanObjectCapture capture = VulkanObjectCapture.suspend();
+                VulkanObjectCapture.beginEntityOutlines();
                 try {
                     for (Entity entity3 : list) {
                         boolean flag2 = this.mc.getRenderViewEntity() instanceof EntityLivingBase entityLivingBase && entityLivingBase.isPlayerSleeping();
-                        boolean flag3 = entity3.isInRangeToRender3d(d0, d1, d2) && (entity3.ignoreFrustumCheck || camera.isBoundingBoxInFrustum(entity3.getEntityBoundingBox()) || entity3.riddenByEntity == this.mc.player) && entity3 instanceof EntityPlayer;
+                        boolean outlineTarget = entity3 instanceof EntityPlayer || ClientBenchmark.isEntityOutlineTarget(entity3);
+                        boolean flag3 = outlineTarget && entity3.isInRangeToRender3d(d0, d1, d2) && (entity3.ignoreFrustumCheck || camera.isBoundingBoxInFrustum(entity3.getEntityBoundingBox()) || entity3.riddenByEntity == this.mc.player);
 
                         if ((entity3 != this.mc.getRenderViewEntity() || this.mc.gameSettings.thirdPersonView != GameSettings.Perspective.FIRST_PERSON || flag2) && flag3) {
                             this.renderManager.renderEntitySimple(entity3, partialTicks);
                         }
                     }
                 } finally {
-                    VulkanObjectCapture.resume(capture);
+                    VulkanObjectCapture.endEntityOutlines();
                 }
 
                 this.renderManager.setRenderOutlines(false);

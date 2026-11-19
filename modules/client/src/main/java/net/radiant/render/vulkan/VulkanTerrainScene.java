@@ -28,6 +28,7 @@ final class VulkanTerrainScene implements VulkanScene {
     private VulkanTerrainMeshes meshes;
     private VulkanTerrainPipeline pipeline;
     private VulkanObjectRenderer objects;
+    private VulkanEntityOutline outlines;
     private VulkanTexture atlas;
     private Atlas pendingAtlas;
     private Frame frame;
@@ -56,6 +57,7 @@ final class VulkanTerrainScene implements VulkanScene {
         }
         meshes = new VulkanTerrainMeshes(physicalDevice, device);
         objects = new VulkanObjectRenderer(physicalDevice, device);
+        outlines = new VulkanEntityOutline(physicalDevice, device);
     }
 
     VulkanTerrainMeshes.Slice upload(ByteBuffer data) {
@@ -104,9 +106,19 @@ final class VulkanTerrainScene implements VulkanScene {
         pipeline.initialize(physicalDevice, colorFormat, depthFormat());
         environment.configureTarget(physicalDevice, device, colorFormat, depthFormat());
         objects.configureTarget(colorFormat, depthFormat());
+        outlines.configureTarget(colorFormat, depthFormat());
         if (atlas != null) {
             pipeline.bindAtlas(atlas);
         }
+    }
+
+    @Override
+    public void recordOffscreen(MemoryStack stack, VkCommandBuffer commands, int width, int height) {
+        if (frame == null || atlas == null || objectCapture.outlineDraws().isEmpty()) {
+            return;
+        }
+        View view = viewport(width, height);
+        outlines.recordMask(stack, commands, width, height, view.width, view.height, objects, objectCapture, frame.fog);
     }
 
     void setFrame(Frame frame) {
@@ -152,10 +164,8 @@ final class VulkanTerrainScene implements VulkanScene {
         if (frame == null || atlas == null) {
             return;
         }
-        float scale = Math.min((float) width / frame.width, (float) height / frame.height);
-        int viewWidth = Math.clamp(Math.round(frame.width * scale), 1, width);
-        int viewHeight = Math.clamp(Math.round(frame.height * scale), 1, height);
-        VulkanGraphics.viewport(stack, commands, (width - viewWidth) / 2, (height - viewHeight) / 2, viewWidth, viewHeight);
+        View view = viewport(width, height);
+        VulkanGraphics.viewport(stack, commands, (width - view.width) / 2, (height - view.height) / 2, view.width, view.height);
         if (frame.environment != null) {
             environment.drawSky(stack, commands);
             skyDrawn = true;
@@ -170,6 +180,9 @@ final class VulkanTerrainScene implements VulkanScene {
         pipeline.begin(stack, commands);
         drawCalls += pipeline.draw(stack, commands, frame.translucent, true);
         drawOverlay(stack, commands, width, height, VulkanObjectCapture.Layer.FIRST_PERSON);
+        if (!objectCapture.outlineDraws().isEmpty()) {
+            outlines.draw(stack, commands);
+        }
         drawOverlay(stack, commands, width, height, VulkanObjectCapture.Layer.HUD);
         drawOverlay(stack, commands, width, height, VulkanObjectCapture.Layer.SCREEN);
         for (Draw draw : frame.opaque) {
@@ -182,6 +195,15 @@ final class VulkanTerrainScene implements VulkanScene {
             translucentQuads += draw.mesh.quads();
         }
         quads += translucentQuads;
+    }
+
+    private View viewport(int width, int height) {
+        float scale = Math.min((float) width / frame.width, (float) height / frame.height);
+        return new View(Math.clamp(Math.round(frame.width * scale), 1, width),
+                Math.clamp(Math.round(frame.height * scale), 1, height));
+    }
+
+    private record View(int width, int height) {
     }
 
     private void drawOverlay(MemoryStack stack, VkCommandBuffer commands, int width, int height, VulkanObjectCapture.Layer layer) {
@@ -226,6 +248,7 @@ final class VulkanTerrainScene implements VulkanScene {
         setAtlas(null);
         atlasUpdates.close();
         environment.close();
+        if (outlines != null) outlines.close();
         if (objects != null) objects.close();
         if (pipeline != null) pipeline.close();
         if (atlas != null) atlas.close();
