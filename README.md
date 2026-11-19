@@ -50,8 +50,8 @@ It opens a separate test window and enables Khronos API and synchronization vali
 Add `-PvulkanTerrain=true` to `:dev:RunClient` or `:dev:RunClientBenchmark` to open a Vulkan terrain preview
 after joining a world. Leave shader packs, antialiasing, and anisotropic filtering off for the preview.
 It draws solid, cutout, and sorted translucent blocks from the game's visible section meshes, with the block
-atlas, lightmap, depth, and fog. The main client still draws through OpenGL. The preview captures atlas pixels
-on load and reload, then copies changed sprite rectangles and mip levels as the existing texture tick advances them.
+atlas, lightmap, depth, and fog. The main client still draws through OpenGL. The preview assembles its block atlas
+from the stitched sprite pixels, then copies changed sprite rectangles and mip levels as the texture tick advances them.
 In the Overworld, it also draws the sky, sun, moon phases, and stars. Clouds use the active pack's cloud texture
 and honor the Off, Fast, and Fancy settings.
 

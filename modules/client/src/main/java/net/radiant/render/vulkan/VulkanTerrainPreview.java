@@ -1,8 +1,6 @@
 package net.radiant.render.vulkan;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.chunk.CompiledChunk;
@@ -19,7 +17,6 @@ import net.optifine.CustomColors;
 import net.radiant.benchmark.ClientBenchmark;
 import net.radiant.util.NativeImage;
 import org.joml.Matrix4f;
-import org.lwjgl.opengl.GL13;
 import org.lwjgl.system.MemoryStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +33,7 @@ import java.util.Map;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.system.MemoryUtil.memAlloc;
+import static org.lwjgl.system.MemoryUtil.memCalloc;
 import static org.lwjgl.system.MemoryUtil.memFree;
 
 /** Temporary presentation bridge while 1.8.9 runs its game loop and chunk builders. */
@@ -208,7 +205,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         }
         preview.objects.reset();
         if (preview.atlasDirty) {
-            preview.terrain.setAtlas(captureAtlas(mc.getTextureMapBlocks()));
+            preview.terrain.setAtlas(buildAtlas(mc.getTextureMapBlocks()));
             preview.terrain.setEnvironmentImages(loadEnvironmentImages());
             preview.atlasDirty = false;
         }
@@ -349,36 +346,43 @@ public final class VulkanTerrainPreview implements AutoCloseable {
                 mode, glGetFloat(GL_FOG_START), glGetFloat(GL_FOG_END), glGetFloat(GL_FOG_DENSITY));
     }
 
-    private static VulkanTerrainScene.Atlas captureAtlas(TextureMap texture) {
-        int activeUnit = glGetInteger(GL13.GL_ACTIVE_TEXTURE);
-        GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-        int previous = glGetInteger(GL_TEXTURE_BINDING_2D);
-        List<ByteBuffer> levels = new ArrayList<>();
+    private static VulkanTerrainScene.Atlas buildAtlas(TextureMap texture) {
+        int width = texture.atlasWidth;
+        int height = texture.atlasHeight;
+        if (width <= 0 || height <= 0) {
+            throw new IllegalStateException("Block atlas has not been stitched");
+        }
+        ByteBuffer[] levels = new ByteBuffer[texture.getMipmapLevels() + 1];
         try {
-            GlStateManager.bindTexture(texture.getGlTextureId());
-            int width = glGetTexLevelParameteri(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH);
-            int height = glGetTexLevelParameteri(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT);
-            if (width <= 0 || height <= 0) {
-                throw new IllegalStateException("Block atlas has not been loaded");
+            for (int level = 0; level < levels.length; level++) {
+                int mipWidth = width >> level;
+                int mipHeight = height >> level;
+                levels[level] = memCalloc(Math.multiplyExact(Math.multiplyExact(mipWidth, mipHeight), 4));
             }
-            int maximumLevels = 32 - Integer.numberOfLeadingZeros(Math.max(width, height));
-            for (int level = 0; level < maximumLevels; level++) {
-                int w = glGetTexLevelParameteri(GL_TEXTURE_2D, level, GL_TEXTURE_WIDTH);
-                int h = glGetTexLevelParameteri(GL_TEXTURE_2D, level, GL_TEXTURE_HEIGHT);
-                if (w == 0 || h == 0) {
-                    break;
+            for (TextureAtlasSprite sprite : texture.getUploadedSprites()) {
+                int[][] pixels = sprite.getUploadedFrameTextureData();
+                for (int level = 0; level < Math.min(levels.length, pixels.length); level++) {
+                    int mipWidth = width >> level;
+                    int spriteWidth = sprite.getIconWidth() >> level;
+                    int spriteHeight = sprite.getIconHeight() >> level;
+                    int x = sprite.getOriginX() >> level;
+                    int y = sprite.getOriginY() >> level;
+                    ByteBuffer mip = levels[level];
+                    for (int row = 0; row < spriteHeight; row++) {
+                        mip.position(((y + row) * mipWidth + x) * 4);
+                        VulkanAtlasUpdates.writeRgba(mip, pixels[level], row * spriteWidth, spriteWidth);
+                    }
                 }
-                ByteBuffer pixels = memAlloc(Math.multiplyExact(Math.multiplyExact(w, h), 4));
-                levels.add(pixels);
-                glGetTexImage(GL_TEXTURE_2D, level, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
             }
-            return new VulkanTerrainScene.Atlas(width, height, levels.toArray(ByteBuffer[]::new));
+            for (ByteBuffer mip : levels) {
+                mip.clear();
+            }
+            return new VulkanTerrainScene.Atlas(width, height, levels);
         } catch (RuntimeException | Error e) {
-            levels.forEach(pixels -> memFree(pixels));
+            for (ByteBuffer mip : levels) {
+                memFree(mip);
+            }
             throw e;
-        } finally {
-            GlStateManager.bindTexture(previous);
-            GlStateManager.setActiveTexture(activeUnit);
         }
     }
 

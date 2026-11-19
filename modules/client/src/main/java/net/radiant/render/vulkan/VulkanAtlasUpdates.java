@@ -80,11 +80,7 @@ final class VulkanAtlasUpdates implements AutoCloseable {
                 region.imageSubresource().aspectMask(VK_IMAGE_ASPECT_COLOR_BIT).mipLevel(level).layerCount(1);
                 region.imageOffset().set(sprite.x >> level, sprite.y >> level, 0);
                 region.imageExtent().set(width, height, 1);
-                int[] pixels = sprite.pixels[level];
-                for (int i = 0; i < width * height; i++) {
-                    int argb = pixels[i];
-                    output.put((byte) (argb >>> 16)).put((byte) (argb >>> 8)).put((byte) argb).put((byte) (argb >>> 24));
-                }
+                writeRgba(output, sprite.pixels[level], 0, width * height);
             }
             switch (entry.getKey()) {
                 case "minecraft:blocks/water_still", "minecraft:blocks/water_flow" -> water++;
@@ -96,6 +92,13 @@ final class VulkanAtlasUpdates implements AutoCloseable {
         atlas.recordCopies(stack, commands, staging.handle(), regions, false);
         ClientBenchmark.recordVulkanAtlasUpload(pending.size(), water, lava, bytes);
         pending.clear();
+    }
+
+    static void writeRgba(ByteBuffer output, int[] pixels, int offset, int count) {
+        for (int i = offset, end = offset + count; i < end; i++) {
+            int argb = pixels[i];
+            output.put((byte) (argb >>> 16)).put((byte) (argb >>> 8)).put((byte) argb).put((byte) (argb >>> 24));
+        }
     }
 
     @Override

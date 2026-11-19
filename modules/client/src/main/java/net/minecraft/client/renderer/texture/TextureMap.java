@@ -16,6 +16,7 @@ import net.optifine.*;
 import net.optifine.shaders.ShadersTex;
 import net.optifine.util.CounterInt;
 import net.optifine.util.TextureUtils;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.radiant.util.NativeImage;
 import org.joml.Vector2i;
 import org.slf4j.Logger;
@@ -289,6 +290,8 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
             }
 
             LOGGER.info("Created: {}x{} {}-atlas", stitcher.getCurrentWidth(), stitcher.getCurrentHeight(), this.basePath);
+            this.atlasWidth = stitcher.getCurrentWidth();
+            this.atlasHeight = stitcher.getCurrentHeight();
 
             if (Config.isShaders()) {
                 ShadersTex.allocateTextureMap(this.getGlTextureId(), this.mipmapLevels, stitcher.getCurrentWidth(), stitcher.getCurrentHeight(), stitcher, this);
@@ -304,10 +307,15 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                 this.mapUploadedSprites.put(s, textureatlassprite2);
 
                 try {
+                    int[][] pixels = textureatlassprite2.getFrameTextureData(0);
                     if (Config.isShaders()) {
-                        ShadersTex.uploadTexSubForLoadAtlas(this, textureatlassprite2.getIconName(), textureatlassprite2.getFrameTextureData(0), textureatlassprite2.getIconWidth(), textureatlassprite2.getIconHeight(), textureatlassprite2.getOriginX(), textureatlassprite2.getOriginY(), false, false);
+                        ShadersTex.uploadTexSubForLoadAtlas(this, textureatlassprite2.getIconName(), pixels, textureatlassprite2.getIconWidth(), textureatlassprite2.getIconHeight(), textureatlassprite2.getOriginX(), textureatlassprite2.getOriginY(), false, false);
                     } else {
-                        TextureUtil.uploadTextureMipmap(textureatlassprite2.getFrameTextureData(0), textureatlassprite2.getIconWidth(), textureatlassprite2.getIconHeight(), textureatlassprite2.getOriginX(), textureatlassprite2.getOriginY(), false, false);
+                        TextureUtil.uploadTextureMipmap(pixels, textureatlassprite2.getIconWidth(), textureatlassprite2.getIconHeight(), textureatlassprite2.getOriginX(), textureatlassprite2.getOriginY(), false, false);
+                    }
+                    if (VulkanTerrainPreview.ENABLED) {
+                        // Model baking releases the frame lists for static sprites after stitching.
+                        textureatlassprite2.rememberUploadedFrame(pixels);
                     }
                 } catch (Throwable throwable) {
                     CrashReport report = CrashReport.makeCrashReport(throwable, "Stitching texture atlas");
@@ -387,6 +395,10 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 
     public ResourceLocation completeResourceLocation(ResourceLocation location, int p_147634_2_) {
         return this.isAbsoluteLocation(location) ? new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".png") : (p_147634_2_ == 0 ? new ResourceLocation(location.getResourceDomain(), String.format("%s/%s%s", this.basePath, location.getResourcePath(), ".png")) : new ResourceLocation(location.getResourceDomain(), String.format("%s/mipmaps/%s.%d%s", this.basePath, location.getResourcePath(), p_147634_2_, ".png")));
+    }
+
+    public Collection<TextureAtlasSprite> getUploadedSprites() {
+        return Collections.unmodifiableCollection(this.mapUploadedSprites.values());
     }
 
     public TextureAtlasSprite getAtlasSprite(String iconName) {
