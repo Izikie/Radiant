@@ -66,6 +66,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private int atlasId;
     private int entityTriangles;
     private int entityShadowQuads;
+    private int entityFireQuads;
     private int outlineTriangles;
     private int lightningTriangles;
     private int blockEntityTriangles;
@@ -102,6 +103,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         vertices.clear();
         entityTriangles = 0;
         entityShadowQuads = 0;
+        entityFireQuads = 0;
         outlineTriangles = 0;
         lightningTriangles = 0;
         blockEntityTriangles = 0;
@@ -240,6 +242,18 @@ public final class VulkanObjectCapture implements AutoCloseable {
         }
     }
 
+    public static void beginEntityFire() {
+        if (active != null && active.phase == Phase.ENTITIES) {
+            active.phase = Phase.ENTITY_FIRE;
+        }
+    }
+
+    public static void endEntityFire() {
+        if (active != null && active.phase == Phase.ENTITY_FIRE) {
+            active.phase = Phase.ENTITIES;
+        }
+    }
+
     public static void beginLightning() {
         if (active != null && active.phase == Phase.ENTITIES) {
             active.phase = Phase.LIGHTNING;
@@ -370,7 +384,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         VulkanGraphics.State state;
         if (glint != null || phase.layer.ui || phase == Phase.CAMERA_OVERLAYS || phase == Phase.SELECTION
                 || phase == Phase.BLOCK_DAMAGE || phase == Phase.WORLD_BORDER || phase == Phase.LIGHTNING
-                || phase == Phase.ENTITY_SHADOWS) {
+                || phase == Phase.ENTITY_SHADOWS || phase == Phase.ENTITY_FIRE) {
             state = VulkanOverlayState.capture(depthTest, depthWrite, blend);
         } else {
             VulkanGraphics.Pass pass = !depthTest ? VulkanGraphics.Pass.OBJECT_OVERLAY
@@ -480,6 +494,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
             case ENTITY_SHADOWS -> {
                 entityTriangles += triangles;
                 entityShadowQuads += triangles / 2;
+            }
+            case ENTITY_FIRE -> {
+                entityTriangles += triangles;
+                entityFireQuads += triangles / 2;
             }
             case ENTITY_OUTLINES -> outlineTriangles += triangles;
             case LIGHTNING -> lightningTriangles += triangles;
@@ -641,6 +659,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
         return entityShadowQuads;
     }
 
+    int entityFireQuads() {
+        return entityFireQuads;
+    }
+
     int outlineTriangles() {
         return outlineTriangles;
     }
@@ -750,7 +772,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     }
 
     enum Phase {
-        ENTITIES, ENTITY_SHADOWS, ENTITY_OUTLINES, LIGHTNING, BLOCK_ENTITIES, LIT_PARTICLES, PARTICLE_BILLBOARDS,
+        ENTITIES, ENTITY_SHADOWS, ENTITY_FIRE, ENTITY_OUTLINES, LIGHTNING, BLOCK_ENTITIES, LIT_PARTICLES, PARTICLE_BILLBOARDS,
         RAIN, SNOW, SELECTION, BLOCK_DAMAGE, WORLD_BORDER,
         FIRST_PERSON(Layer.FIRST_PERSON), CAMERA_OVERLAYS(Layer.FIRST_PERSON), HUD(Layer.HUD), SCREEN(Layer.SCREEN);
 
