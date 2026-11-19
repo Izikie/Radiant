@@ -283,6 +283,14 @@ public final class ClientBenchmark {
         }
     }
 
+    public static void recordVulkanBlockInteraction(int selectionSegments, int blockDamageQuads) {
+        Capture capture = active;
+        if (capture != null) {
+            capture.vulkanSelectionSegments += selectionSegments;
+            capture.vulkanBlockDamageQuads += blockDamageQuads;
+        }
+    }
+
     public static void recordVulkanUiFrame(int hudTriangles, int hudItemTriangles, int guiTriangles, int guiItemTriangles, int guiGlyphs) {
         Capture capture = active;
         if (capture != null) {
@@ -384,6 +392,8 @@ public final class ClientBenchmark {
         private long vulkanBlockOverlayQuads;
         private long vulkanWaterOverlayQuads;
         private long vulkanFireOverlayQuads;
+        private long vulkanSelectionSegments;
+        private long vulkanBlockDamageQuads;
         private long vulkanHudFrames;
         private long vulkanHudTriangles;
         private long vulkanHudItemTriangles;
@@ -493,6 +503,8 @@ public final class ClientBenchmark {
                 report.addProperty("vulkanBlockOverlayQuads", vulkanBlockOverlayQuads);
                 report.addProperty("vulkanWaterOverlayQuads", vulkanWaterOverlayQuads);
                 report.addProperty("vulkanFireOverlayQuads", vulkanFireOverlayQuads);
+                report.addProperty("vulkanSelectionSegments", vulkanSelectionSegments);
+                report.addProperty("vulkanBlockDamageQuads", vulkanBlockDamageQuads);
                 report.addProperty("vulkanHudFrames", vulkanHudFrames);
                 report.addProperty("vulkanHudTriangles", vulkanHudTriangles);
                 report.addProperty("vulkanHudItemTriangles", vulkanHudItemTriangles);

@@ -1344,7 +1344,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             if (this.mc.objectMouseOver != null && entity.isInsideOfMaterial(Material.WATER) && flag1) {
                 EntityPlayer entityplayer = (EntityPlayer) entity;
                 GlStateManager.disableAlpha();
-                renderglobal.drawSelectionBox(entityplayer, this.mc.objectMouseOver, 0, partialTicks);
+                this.drawBlockSelection(renderglobal, entityplayer, partialTicks, pass);
                 GlStateManager.enableAlpha();
             }
         }
@@ -1357,7 +1357,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GlStateManager.disableAlpha();
 
             if (!this.mc.gameSettings.hideGUI) {
-                renderglobal.drawSelectionBox(entityplayer1, this.mc.objectMouseOver, 0, partialTicks);
+                this.drawBlockSelection(renderglobal, entityplayer1, partialTicks, pass);
             }
 
             GlStateManager.enableAlpha();
@@ -1367,7 +1367,15 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ONE, GL11.GL_ZERO);
             this.mc.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
-            renderglobal.drawBlockDamageTexture(Tessellator.get(), Tessellator.get().getWorldRenderer(), entity, partialTicks);
+            boolean captureDamage = VulkanTerrainPreview.ENABLED && pass == 2
+                    && VulkanTerrainPreview.beginBlockDamage(this.lightmapColors, this.mc.getTextureMapBlocks().getGlTextureId());
+            try {
+                renderglobal.drawBlockDamageTexture(Tessellator.get(), Tessellator.get().getWorldRenderer(), entity, partialTicks);
+            } finally {
+                if (captureDamage) {
+                    VulkanObjectCapture.end();
+                }
+            }
             this.mc.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
             GlStateManager.disableBlend();
         }
@@ -1492,6 +1500,18 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         if (flag) {
             Shaders.endRender();
+        }
+    }
+
+    private void drawBlockSelection(RenderGlobal renderGlobal, EntityPlayer player, float partialTicks, int pass) {
+        boolean captureSelection = VulkanTerrainPreview.ENABLED && pass == 2
+                && VulkanTerrainPreview.beginSelection(this.lightmapColors, this.mc.getTextureMapBlocks().getGlTextureId());
+        try {
+            renderGlobal.drawSelectionBox(player, this.mc.objectMouseOver, 0, partialTicks);
+        } finally {
+            if (captureSelection) {
+                VulkanObjectCapture.end();
+            }
         }
     }
 

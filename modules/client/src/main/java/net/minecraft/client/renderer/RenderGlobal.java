@@ -693,6 +693,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
             this.renderOverlayDamaged = true;
             this.preRenderDamagedBlocks();
+            VulkanObjectCapture.beginBlockEntityDamage();
 
             for (DestroyBlockProgress destroyblockprogress : this.damagedBlocks.values()) {
                 BlockPos blockpos = destroyblockprogress.getPosition();

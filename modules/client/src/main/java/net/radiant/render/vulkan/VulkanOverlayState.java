@@ -21,7 +21,9 @@ final class VulkanOverlayState {
                 blendFactor(glGetInteger(GL_BLEND_SRC_RGB)), blendFactor(glGetInteger(GL_BLEND_DST_RGB)),
                 blendFactor(glGetInteger(GL_BLEND_SRC_ALPHA)), blendFactor(glGetInteger(GL_BLEND_DST_ALPHA))) : null;
         int compare = depthTest ? depthCompare(glGetInteger(GL_DEPTH_FUNC)) : VK_COMPARE_OP_ALWAYS;
-        return new VulkanGraphics.State(depthTest, depthTest && depthWrite, compare, cullMode, blend);
+        VulkanGraphics.DepthBias bias = glIsEnabled(GL_POLYGON_OFFSET_FILL)
+                ? new VulkanGraphics.DepthBias(glGetFloat(GL_POLYGON_OFFSET_UNITS), glGetFloat(GL_POLYGON_OFFSET_FACTOR)) : null;
+        return new VulkanGraphics.State(depthTest, depthTest && depthWrite, compare, cullMode, blend, bias);
     }
 
     private static int depthCompare(int function) {

@@ -61,6 +61,8 @@ final class BenchmarkSuite {
     private long arrivalNanos;
     private int unfocusedFrames;
     private int inventoryOpens;
+    private int breakStage = -1;
+    private int breakStageMask;
     private Stage stage = Stage.JOINING;
     private long stageStarted = System.nanoTime();
 
@@ -182,6 +184,10 @@ final class BenchmarkSuite {
                         result.addProperty("particleWorkloadVersion", PARTICLE_WORKLOAD_VERSION);
                         result.addProperty("particleSpawnAttempts", particleSpawnAttempts);
                     }
+                    if (phase == Phase.BLOCK_INTERACTION) {
+                        result.addProperty("blockBreakStages", Integer.bitCount(breakStageMask));
+                        setBreakStage(mc, -1);
+                    }
                     if (phase.precipitationBiome != null) {
                         result.addProperty("precipitationBiomeId", world.getBiomeGenForCoords(mc.player.getPosition()).biomeID);
                         result.addProperty("precipitationStrength", world.getRainStrength(1.0F));
@@ -221,6 +227,7 @@ final class BenchmarkSuite {
         particleSpawnAttempts = 0;
         unfocusedFrames = 0;
         inventoryOpens = 0;
+        breakStageMask = 0;
         LOGGER.info("Benchmark preparing {}", phase.scenario);
         enter(Stage.TRAVELLING, now);
         teleport(phase == Phase.TERRAIN_STREAMING ? Phase.BLOCK_GALLERY : phase);
@@ -299,6 +306,8 @@ final class BenchmarkSuite {
         return switch (phase) {
             case WATER_OVERLAY -> mc.player.isInsideOfMaterial(Material.WATER);
             case BLOCK_OVERLAY -> mc.player.isEntityInsideOpaqueBlock();
+            case BLOCK_INTERACTION -> mc.world.getBlockState(BenchmarkWorld.BREAKING_SLAB).getBlock() == Blocks.STONE_SLAB
+                    && mc.world.getBlockState(BenchmarkWorld.BREAKING_CHEST).getBlock() == Blocks.CHEST;
             default -> true;
         };
     }
@@ -315,6 +324,14 @@ final class BenchmarkSuite {
         // Exercise the local fire overlay without changing game mode or applying server damage.
         if (phase == Phase.FIRE_OVERLAY) {
             mc.player.setFire(1);
+        }
+        if (phase == Phase.BLOCK_INTERACTION) {
+            int nextStage = stage == Stage.WARMING_UP ? 0 : Math.clamp(
+                    (int) (ClientBenchmark.phaseElapsedNanos() * 10 / TimeUnit.SECONDS.toNanos(seconds)), 0, 9);
+            setBreakStage(mc, nextStage);
+            if (stage == Stage.CAPTURING) {
+                breakStageMask |= 1 << nextStage;
+            }
         }
         if (stage != Stage.CAPTURING) {
             return;
@@ -336,6 +353,14 @@ final class BenchmarkSuite {
             } else if (!open) {
                 closeInventory(mc);
             }
+        }
+    }
+
+    private void setBreakStage(Minecraft mc, int nextStage) {
+        if (mc.world == world && world != null && breakStage != nextStage) {
+            world.sendBlockBreakProgress(-1, BenchmarkWorld.BREAKING_SLAB, nextStage);
+            world.sendBlockBreakProgress(-2, BenchmarkWorld.BREAKING_CHEST, nextStage);
+            breakStage = nextStage;
         }
     }
 
@@ -392,6 +417,7 @@ final class BenchmarkSuite {
             pending.cancel(false);
         }
         closeInventory(mc);
+        setBreakStage(mc, -1);
         if (world != null) {
             mc.gameSettings.thirdPersonView = originalPerspective;
         }
@@ -426,6 +452,7 @@ final class BenchmarkSuite {
         WATER_OVERLAY("water-overlay", BenchmarkWorld.WATER_OVERLAY_X, EXHIBIT_Y, BenchmarkWorld.OVERLAY_FIXTURE_Z, 5, 25),
         BLOCK_OVERLAY("block-overlay", BenchmarkWorld.BLOCK_OVERLAY_X, EXHIBIT_Y, BenchmarkWorld.OVERLAY_FIXTURE_Z, 0, 0),
         FIRE_OVERLAY("fire-overlay", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 12),
+        BLOCK_INTERACTION("block-interaction", BenchmarkWorld.BLOCK_INTERACTION_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 0, 0),
         CREATIVE_INVENTORY("creative-inventory", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 0);
 
         private final String scenario;
