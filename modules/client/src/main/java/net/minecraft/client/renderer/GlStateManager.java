@@ -16,6 +16,8 @@ import org.lwjgl.opengl.GL14;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class GlStateManager {
     private static final Matrix4fStack modelView = VulkanTerrainPreview.ENABLED ? new Matrix4fStack(64) : null;
@@ -48,13 +50,56 @@ public class GlStateManager {
     private static final GlAlphaState ALPHA_LOCK_STATE = new GlAlphaState();
     private static final LockCounter BLEND_LOCK = new LockCounter();
     private static final GlBlendState BLEND_LOCK_STATE = new GlBlendState();
+    private static final Deque<DrawEnables> drawEnables = new ArrayDeque<>();
 
     public static void pushAttrib() {
+        if (VulkanTerrainPreview.ENABLED) {
+            int textureEnables = 0;
+            for (int unit = 0; unit < textureState.length; unit++) {
+                if (textureState[unit].texture2DState.currentState) {
+                    textureEnables |= 1 << unit;
+                }
+            }
+            drawEnables.push(new DrawEnables(alphaState.alphaTest.currentState, lightingState.currentState,
+                    depthState.depthTest.currentState, blendState.blend.currentState, cullState.cullFace.currentState,
+                    polygonOffsetState.polygonOffsetFill.currentState, textureEnables));
+        }
         GL11.glPushAttrib(8256);
     }
 
     public static void popAttrib() {
         GL11.glPopAttrib();
+        if (VulkanTerrainPreview.ENABLED) {
+            // The attribute stack restores enable flags without calling their wrappers.
+            DrawEnables saved = drawEnables.pop();
+            alphaState.alphaTest.currentState = saved.alpha;
+            lightingState.currentState = saved.lighting;
+            depthState.depthTest.currentState = saved.depth;
+            blendState.blend.currentState = saved.blend;
+            cullState.cullFace.currentState = saved.cull;
+            polygonOffsetState.polygonOffsetFill.currentState = saved.polygonOffset;
+            for (int unit = 0; unit < textureState.length; unit++) {
+                textureState[unit].texture2DState.currentState = (saved.textures & (1 << unit)) != 0;
+            }
+        }
+    }
+
+    private record DrawEnables(boolean alpha, boolean lighting, boolean depth, boolean blend, boolean cull,
+                               boolean polygonOffset, int textures) {
+    }
+
+    public static DrawState drawState() {
+        return new DrawState(textureState[activeTextureUnit].texture2DState.currentState, lightingState.currentState,
+                alphaState.alphaTest.currentState ? Math.clamp(alphaState.ref, 0, 1) : -1,
+                depthState.depthTest.currentState, depthState.maskEnabled, depthState.depthFunc,
+                blendState.blend.currentState, blendState.srcFactor, blendState.dstFactor, blendState.srcFactorAlpha, blendState.dstFactorAlpha,
+                cullState.cullFace.currentState ? cullState.mode : 0,
+                polygonOffsetState.polygonOffsetFill.currentState, polygonOffsetState.factor, polygonOffsetState.units);
+    }
+
+    public record DrawState(boolean textured, boolean lit, float alphaCutoff, boolean depthTest, boolean depthWrite, int depthFunction,
+                            boolean blending, int sourceColor, int destinationColor, int sourceAlpha, int destinationAlpha,
+                            int cullFace, boolean polygonOffset, float polygonFactor, float polygonUnits) {
     }
 
     public static void disableAlpha() {

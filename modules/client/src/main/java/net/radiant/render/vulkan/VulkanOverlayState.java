@@ -1,29 +1,28 @@
 package net.radiant.render.vulkan;
 
+import net.minecraft.client.renderer.GlStateManager;
+
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL14.*;
 import static org.lwjgl.vulkan.VK10.*;
 
 final class VulkanOverlayState {
     private VulkanOverlayState() {
     }
 
-    static VulkanGraphics.State capture(boolean depthTest, boolean depthWrite, boolean blending) {
-        int cullMode = VK_CULL_MODE_NONE;
-        if (glIsEnabled(GL_CULL_FACE)) {
-            cullMode = switch (glGetInteger(GL_CULL_FACE_MODE)) {
-                case GL_FRONT -> VK_CULL_MODE_FRONT_BIT;
-                case GL_FRONT_AND_BACK -> VK_CULL_MODE_FRONT_AND_BACK;
-                default -> VK_CULL_MODE_BACK_BIT;
-            };
-        }
-        VulkanGraphics.Blend blend = blending ? new VulkanGraphics.Blend(
-                blendFactor(glGetInteger(GL_BLEND_SRC_RGB)), blendFactor(glGetInteger(GL_BLEND_DST_RGB)),
-                blendFactor(glGetInteger(GL_BLEND_SRC_ALPHA)), blendFactor(glGetInteger(GL_BLEND_DST_ALPHA))) : null;
-        int compare = depthTest ? depthCompare(glGetInteger(GL_DEPTH_FUNC)) : VK_COMPARE_OP_ALWAYS;
-        VulkanGraphics.DepthBias bias = glIsEnabled(GL_POLYGON_OFFSET_FILL)
-                ? new VulkanGraphics.DepthBias(glGetFloat(GL_POLYGON_OFFSET_UNITS), glGetFloat(GL_POLYGON_OFFSET_FACTOR)) : null;
-        return new VulkanGraphics.State(depthTest, depthTest && depthWrite, compare, cullMode, blend, bias);
+    static VulkanGraphics.State capture(GlStateManager.DrawState draw) {
+        int cullMode = switch (draw.cullFace()) {
+            case GL_FRONT -> VK_CULL_MODE_FRONT_BIT;
+            case GL_BACK -> VK_CULL_MODE_BACK_BIT;
+            case GL_FRONT_AND_BACK -> VK_CULL_MODE_FRONT_AND_BACK;
+            default -> VK_CULL_MODE_NONE;
+        };
+        VulkanGraphics.Blend blend = draw.blending() ? new VulkanGraphics.Blend(
+                blendFactor(draw.sourceColor()), blendFactor(draw.destinationColor()),
+                blendFactor(draw.sourceAlpha()), blendFactor(draw.destinationAlpha())) : null;
+        int compare = draw.depthTest() ? depthCompare(draw.depthFunction()) : VK_COMPARE_OP_ALWAYS;
+        VulkanGraphics.DepthBias bias = draw.polygonOffset()
+                ? new VulkanGraphics.DepthBias(draw.polygonUnits(), draw.polygonFactor()) : null;
+        return new VulkanGraphics.State(draw.depthTest(), draw.depthTest() && draw.depthWrite(), compare, cullMode, blend, bias);
     }
 
     private static int depthCompare(int function) {
