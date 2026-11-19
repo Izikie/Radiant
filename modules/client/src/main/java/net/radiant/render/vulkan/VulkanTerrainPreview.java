@@ -214,6 +214,14 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         return beginObjects(lightmap, atlas, VulkanObjectCapture.Phase.LIT_PARTICLES);
     }
 
+    public static boolean beginSelection(int[] lightmap, int atlas) {
+        return beginObjects(lightmap, atlas, VulkanObjectCapture.Phase.SELECTION);
+    }
+
+    public static boolean beginBlockDamage(int[] lightmap, int atlas) {
+        return beginObjects(lightmap, atlas, VulkanObjectCapture.Phase.BLOCK_DAMAGE);
+    }
+
     public static boolean beginPrecipitation(int[] lightmap, int atlas) {
         return beginObjects(lightmap, atlas, VulkanObjectCapture.Phase.RAIN);
     }
@@ -367,6 +375,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
                         preview.objects.translucentParticleTriangles(), preview.objects.litParticleTriangles());
                 ClientBenchmark.recordVulkanPrecipitationFrame(preview.objects.rainQuads(), preview.objects.snowQuads());
                 ClientBenchmark.recordVulkanFirstPersonFrame(preview.objects.handTriangles(), preview.objects.heldItemTriangles());
+                ClientBenchmark.recordVulkanBlockInteraction(preview.objects.selectionSegments(), preview.objects.blockDamageQuads());
                 ClientBenchmark.recordVulkanCameraOverlays(
                         preview.objects.cameraOverlayQuads(VulkanObjectCapture.CameraOverlay.BLOCK),
                         preview.objects.cameraOverlayQuads(VulkanObjectCapture.CameraOverlay.WATER),

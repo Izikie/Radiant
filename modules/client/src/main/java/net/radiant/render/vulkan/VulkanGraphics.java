@@ -51,6 +51,10 @@ final class VulkanGraphics {
                     .alphaBlendOp(VK_BLEND_OP_ADD);
         }
         rasterization.cullMode(state.cullMode).frontFace(VK_FRONT_FACE_COUNTER_CLOCKWISE);
+        if (state.depthBias != null) {
+            rasterization.depthBiasEnable(true).depthBiasConstantFactor(state.depthBias.constant)
+                    .depthBiasSlopeFactor(state.depthBias.slope);
+        }
         VkGraphicsPipelineCreateInfo.Buffer configurations = VkGraphicsPipelineCreateInfo.calloc(1, stack);
         VkGraphicsPipelineCreateInfo config = configurations.get(0).sType$Default().pNext(rendering.address())
                 .pStages(stages).layout(layout).pVertexInputState(vertexInput)
@@ -83,11 +87,14 @@ final class VulkanGraphics {
 
         Pass(boolean depthTest, boolean depthWrite, boolean blend, boolean cull) {
             state = new State(depthTest, depthWrite, VK_COMPARE_OP_LESS_OR_EQUAL,
-                    cull ? VK_CULL_MODE_BACK_BIT : VK_CULL_MODE_NONE, blend ? Blend.ALPHA : null);
+                    cull ? VK_CULL_MODE_BACK_BIT : VK_CULL_MODE_NONE, blend ? Blend.ALPHA : null, null);
         }
     }
 
-    record State(boolean depthTest, boolean depthWrite, int depthCompare, int cullMode, Blend blend) {
+    record State(boolean depthTest, boolean depthWrite, int depthCompare, int cullMode, Blend blend, DepthBias depthBias) {
+    }
+
+    record DepthBias(float constant, float slope) {
     }
 
     record Blend(int sourceColor, int destinationColor, int sourceAlpha, int destinationAlpha) {

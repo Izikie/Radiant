@@ -20,7 +20,7 @@ import java.util.Arrays;
 
 final class BenchmarkWorld {
     static final long SEED = 681889L;
-    static final int LAYOUT_VERSION = 6;
+    static final int LAYOUT_VERSION = 7;
     static final int FLOOR_Y = 192;
     static final int GALLERY_X = 0;
     static final int ENTITY_X = 64;
@@ -34,6 +34,9 @@ final class BenchmarkWorld {
     static final int WATER_OVERLAY_X = RAIN_X - 10;
     static final int BLOCK_OVERLAY_X = RAIN_X + 10;
     static final int OVERLAY_FIXTURE_Z = 27;
+    static final int BLOCK_INTERACTION_X = RAIN_X + 10;
+    static final BlockPos BREAKING_SLAB = new BlockPos(BLOCK_INTERACTION_X, FLOOR_Y + 2, WEATHER_CAMERA_Z + 3);
+    static final BlockPos BREAKING_CHEST = new BlockPos(BLOCK_INTERACTION_X + 2, FLOOR_Y + 1, WEATHER_CAMERA_Z + 3);
 
     private BenchmarkWorld() {
     }
@@ -60,6 +63,9 @@ final class BenchmarkWorld {
         buildPrecipitationScene(world, RAIN_X, BiomeGenBase.PLAINS);
         buildPrecipitationScene(world, SNOW_X, BiomeGenBase.ICE_PLAINS);
         buildCameraOverlayFixtures(world);
+        world.setBlockState(BREAKING_SLAB.down(), Blocks.STONEBRICK.getDefaultState(), 2);
+        world.setBlockState(BREAKING_SLAB, Blocks.STONE_SLAB.getStateFromMeta(8), 2);
+        world.setBlockState(BREAKING_CHEST, Blocks.CHEST.getDefaultState(), 2);
     }
 
     private static void buildCameraOverlayFixtures(WorldServer world) {
