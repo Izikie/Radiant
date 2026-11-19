@@ -76,8 +76,15 @@ tasks.withType<JavaExec>().configureEach {
         }
     }
     val vulkanTerrainOnly = providers.gradleProperty("vulkanTerrainOnly").orNull == "true"
+    val compareFrames = name == "RunClientBenchmark" && providers.gradleProperty("benchmarkCompare").orNull == "true"
+    if (compareFrames) {
+        doFirst {
+            require(!vulkanTerrainOnly) { "benchmarkCompare requires OpenGL terrain draws. Remove -PvulkanTerrainOnly=true." }
+        }
+        systemProperty("radiant.benchmark.compare", "true")
+    }
     if ((name == "RunClient" || name == "RunClientBenchmark") &&
-        (vulkanTerrainOnly || providers.gradleProperty("vulkanTerrain").orNull == "true")) {
+        (compareFrames || vulkanTerrainOnly || providers.gradleProperty("vulkanTerrain").orNull == "true")) {
         systemProperty("radiant.vulkan.terrain", "true")
         systemProperty("radiant.vulkan.terrainOnly", vulkanTerrainOnly)
         jvmArgs("--enable-native-access=ALL-UNNAMED")

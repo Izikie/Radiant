@@ -108,6 +108,18 @@ or display-list call and calls made during list compilation. They reflect Java-s
 can overlap across workers, and upload timings measure CPU submission time. Record the commit SHA alongside each
 report when comparing revisions.
 
+### Comparing OpenGL and Vulkan
+
+```powershell
+.\gradlew.bat :dev:RunClientBenchmark -PbenchmarkCompare=true -PbenchmarkAutoStart=true
+```
+
+Comparison mode enables both renderers. Keep their frame sizes matched and shader packs disabled. Each phase
+captures one pair of PNGs from the same game frame when both renderers are available. The creative inventory is
+captured while it is open. The phase's `comparison` field links to `opengl.png`, `vulkan.png`, and `difference.png`
+relative to the JSON report. The difference image shows the absolute RGB difference per pixel. GPU readback and
+PNG encoding add work to the capture frame, so run without `-PbenchmarkCompare=true` when measuring performance.
+
 ## Native Image
 
 ### How to compile:

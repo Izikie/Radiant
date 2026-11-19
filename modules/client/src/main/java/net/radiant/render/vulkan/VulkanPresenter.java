@@ -1,5 +1,6 @@
 package net.radiant.render.vulkan;
 
+import net.radiant.util.NativeImage;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.vulkan.*;
@@ -8,6 +9,7 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.nio.LongBuffer;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
 import static org.lwjgl.glfw.GLFW.GLFW_ICONIFIED;
 import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
@@ -29,6 +31,7 @@ public final class VulkanPresenter implements AutoCloseable {
     private final Thread owner = Thread.currentThread();
     private final long window;
     private final VulkanScene scene;
+    private final boolean frameCaptureEnabled;
     private final AtomicInteger validationErrors = new AtomicInteger();
     private VkInstance instance;
     private VkDebugUtilsMessengerCallbackEXT debugCallback;
@@ -51,15 +54,17 @@ public final class VulkanPresenter implements AutoCloseable {
     private int imageWidth;
     private int imageHeight;
     private int pipelineFormat;
+    private boolean swapchainReadable;
     private VulkanDepthTarget depth;
 
     public VulkanPresenter(long window) {
-        this(window, new VulkanQuadScene());
+        this(window, new VulkanQuadScene(), false);
     }
 
-    VulkanPresenter(long window, VulkanScene scene) {
+    VulkanPresenter(long window, VulkanScene scene, boolean frameCaptureEnabled) {
         this.window = window;
         this.scene = scene;
+        this.frameCaptureEnabled = frameCaptureEnabled;
     }
 
     public void initialize(boolean validation) {
@@ -248,11 +253,16 @@ public final class VulkanPresenter implements AutoCloseable {
         if (caps.maxImageCount() != 0) {
             imageCount = Math.min(imageCount, caps.maxImageCount());
         }
+        int imageFormat = format.format() == VK_FORMAT_UNDEFINED ? VK_FORMAT_B8G8R8A8_SRGB : format.format();
+        swapchainReadable = frameCaptureEnabled && (caps.supportedUsageFlags() & VK_IMAGE_USAGE_TRANSFER_SRC_BIT) != 0
+                && (imageFormat == VK_FORMAT_B8G8R8A8_SRGB || imageFormat == VK_FORMAT_B8G8R8A8_UNORM
+                    || imageFormat == VK_FORMAT_R8G8B8A8_SRGB || imageFormat == VK_FORMAT_R8G8B8A8_UNORM);
+        int imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | (swapchainReadable ? VK_IMAGE_USAGE_TRANSFER_SRC_BIT : 0);
         VkSwapchainCreateInfoKHR info = VkSwapchainCreateInfoKHR.calloc(stack).sType$Default()
                 .surface(surface).minImageCount(imageCount)
-                .imageFormat(format.format() == VK_FORMAT_UNDEFINED ? VK_FORMAT_B8G8R8A8_SRGB : format.format())
+                .imageFormat(imageFormat)
                 .imageColorSpace(format.colorSpace()).imageArrayLayers(1)
-                .imageUsage(VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT).imageSharingMode(VK_SHARING_MODE_EXCLUSIVE)
+                .imageUsage(imageUsage).imageSharingMode(VK_SHARING_MODE_EXCLUSIVE)
                 .preTransform(caps.currentTransform()).compositeAlpha(Integer.lowestOneBit(caps.supportedCompositeAlpha()))
                 .presentMode(VK_PRESENT_MODE_FIFO_KHR).clipped(true);
         if (caps.currentExtent().width() == -1) {
@@ -292,6 +302,10 @@ public final class VulkanPresenter implements AutoCloseable {
     }
 
     public boolean present(float red, float green, float blue) {
+        return present(red, green, blue, null);
+    }
+
+    boolean present(float red, float green, float blue, FrameCapture capture) {
         requireOwner();
         try (MemoryStack stack = MemoryStack.stackPush()) {
             check(vkWaitForFences(device, frameFence, true, -1L), "wait for frame fence");
@@ -319,30 +333,38 @@ public final class VulkanPresenter implements AutoCloseable {
             }
             int index = imageIndex.get(0);
             check(vkResetCommandPool(device, commandPool, 0), "reset command pool");
-            recordFrame(stack, index, red, green, blue);
-            VkSubmitInfo submit = VkSubmitInfo.calloc(stack).sType$Default()
-                    .waitSemaphoreCount(1).pWaitSemaphores(stack.longs(imageAvailable))
-                    .pWaitDstStageMask(stack.ints(VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT))
-                    .pCommandBuffers(stack.pointers(commands)).pSignalSemaphores(stack.longs(renderFinished[index]));
-            check(vkResetFences(device, frameFence), "reset frame fence");
-            check(vkQueueSubmit(queue, submit, frameFence), "submit frame");
-            VkPresentInfoKHR present = VkPresentInfoKHR.calloc(stack).sType$Default()
-                    .pWaitSemaphores(stack.longs(renderFinished[index])).swapchainCount(1)
-                    .pSwapchains(stack.longs(swapchain)).pImageIndices(imageIndex);
-            int result = vkQueuePresentKHR(queue, present);
-            if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || acquire == VK_SUBOPTIMAL_KHR) {
+            boolean shouldRead = capture != null && swapchainReadable && capture.width == imageWidth && capture.height == imageHeight;
+            try (VulkanBuffer readback = shouldRead ? VulkanBuffer.mapped(physicalDevice, device,
+                    Math.multiplyExact(Math.multiplyExact(imageWidth, imageHeight), 4), VK_BUFFER_USAGE_TRANSFER_DST_BIT) : null) {
+                recordFrame(stack, index, red, green, blue, readback);
+                VkSubmitInfo submit = VkSubmitInfo.calloc(stack).sType$Default()
+                        .waitSemaphoreCount(1).pWaitSemaphores(stack.longs(imageAvailable))
+                        .pWaitDstStageMask(stack.ints(VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT))
+                        .pCommandBuffers(stack.pointers(commands)).pSignalSemaphores(stack.longs(renderFinished[index]));
+                check(vkResetFences(device, frameFence), "reset frame fence");
+                check(vkQueueSubmit(queue, submit, frameFence), "submit frame");
+                if (readback != null) {
+                    check(vkWaitForFences(device, frameFence, true, -1L), "wait for screenshot readback");
+                }
+                VkPresentInfoKHR present = VkPresentInfoKHR.calloc(stack).sType$Default()
+                        .pWaitSemaphores(stack.longs(renderFinished[index])).swapchainCount(1)
+                        .pSwapchains(stack.longs(swapchain)).pImageIndices(imageIndex);
+                int result = vkQueuePresentKHR(queue, present);
                 if (result != VK_ERROR_OUT_OF_DATE_KHR && result != VK_SUBOPTIMAL_KHR) {
                     check(result, "present frame");
                 }
-                destroySwapchain();
+                if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || acquire == VK_SUBOPTIMAL_KHR) {
+                    destroySwapchain();
+                }
+                if (readback != null && result != VK_ERROR_OUT_OF_DATE_KHR) {
+                    capture.receive.accept(readScreenshot(readback));
+                }
                 return result != VK_ERROR_OUT_OF_DATE_KHR;
             }
-            check(result, "present frame");
-            return true;
         }
     }
 
-    private void recordFrame(MemoryStack stack, int index, float red, float green, float blue) {
+    private void recordFrame(MemoryStack stack, int index, float red, float green, float blue, VulkanBuffer readback) {
         VkCommandBufferBeginInfo begin = VkCommandBufferBeginInfo.calloc(stack).sType$Default()
                 .flags(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
         check(vkBeginCommandBuffer(commands, begin), "begin frame commands");
@@ -369,11 +391,52 @@ public final class VulkanPresenter implements AutoCloseable {
         vkCmdBeginRendering(commands, pass);
         scene.draw(stack, commands, imageWidth, imageHeight);
         vkCmdEndRendering(commands);
-        transition.oldLayout(VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL).newLayout(VK_IMAGE_LAYOUT_PRESENT_SRC_KHR)
-                .srcAccessMask(VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT).dstAccessMask(0);
-        vkCmdPipelineBarrier(commands, VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT, VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT,
-                0, null, null, barrier);
+        int finishedStage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+        transition.oldLayout(VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL).srcAccessMask(VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT);
+        if (readback != null) {
+            transition.newLayout(VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL).dstAccessMask(VK_ACCESS_TRANSFER_READ_BIT);
+            vkCmdPipelineBarrier(commands, finishedStage, VK_PIPELINE_STAGE_TRANSFER_BIT, 0, null, null, barrier);
+            recordScreenshot(stack, images[index], readback.handle());
+            finishedStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
+            transition.oldLayout(VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL).srcAccessMask(VK_ACCESS_TRANSFER_READ_BIT);
+        }
+        transition.newLayout(VK_IMAGE_LAYOUT_PRESENT_SRC_KHR).dstAccessMask(0);
+        vkCmdPipelineBarrier(commands, finishedStage, VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT, 0, null, null, barrier);
         check(vkEndCommandBuffer(commands), "end frame commands");
+    }
+
+    private void recordScreenshot(MemoryStack stack, long image, long buffer) {
+        VkBufferImageCopy.Buffer region = VkBufferImageCopy.calloc(1, stack);
+        region.get(0).imageSubresource().aspectMask(VK_IMAGE_ASPECT_COLOR_BIT).layerCount(1);
+        region.get(0).imageExtent().set(imageWidth, imageHeight, 1);
+        vkCmdCopyImageToBuffer(commands, image, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, buffer, region);
+        VkBufferMemoryBarrier.Buffer visibility = VkBufferMemoryBarrier.calloc(1, stack);
+        visibility.get(0).sType$Default().buffer(buffer).size(VK_WHOLE_SIZE)
+                .srcQueueFamilyIndex(VK_QUEUE_FAMILY_IGNORED).dstQueueFamilyIndex(VK_QUEUE_FAMILY_IGNORED)
+                .srcAccessMask(VK_ACCESS_TRANSFER_WRITE_BIT).dstAccessMask(VK_ACCESS_HOST_READ_BIT);
+        vkCmdPipelineBarrier(commands, VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_HOST_BIT,
+                0, null, visibility, null);
+    }
+
+    private NativeImage readScreenshot(VulkanBuffer readback) {
+        ByteBuffer pixels = readback.data();
+        NativeImage screenshot = NativeImage.createBlankImage(imageWidth, imageHeight);
+        boolean bgra = pipelineFormat == VK_FORMAT_B8G8R8A8_SRGB || pipelineFormat == VK_FORMAT_B8G8R8A8_UNORM;
+        int redOffset = bgra ? 2 : 0;
+        int blueOffset = bgra ? 0 : 2;
+        for (int y = 0; y < imageHeight; y++) {
+            for (int x = 0; x < imageWidth; x++) {
+                int offset = (y * imageWidth + x) * 4;
+                int red = Byte.toUnsignedInt(pixels.get(offset + redOffset));
+                int green = Byte.toUnsignedInt(pixels.get(offset + 1));
+                int blue = Byte.toUnsignedInt(pixels.get(offset + blueOffset));
+                screenshot.setPixel(x, y, 0xFF000000 | red << 16 | green << 8 | blue);
+            }
+        }
+        return screenshot;
+    }
+
+    record FrameCapture(int width, int height, Consumer<NativeImage> receive) {
     }
 
     public int validationErrors() {

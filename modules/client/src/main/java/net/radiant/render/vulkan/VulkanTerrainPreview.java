@@ -63,7 +63,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
 
     private VulkanTerrainPreview(long window) {
         this.window = window;
-        this.presenter = new VulkanPresenter(window, terrain);
+        this.presenter = new VulkanPresenter(window, terrain, ClientBenchmark.COMPARE_FRAMES && !TERRAIN_ONLY);
     }
 
     public static void openIfNeeded(Minecraft mc) {
@@ -425,7 +425,16 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         preview.terrain.setFrame(frame);
         try {
             VulkanTerrainScene.Fog fog = frame.fog();
-            if (preview.presenter.present(fog.red(), fog.green(), fog.blue())) {
+            VulkanPresenter.FrameCapture capture = null;
+            if (ClientBenchmark.COMPARE_FRAMES && !TERRAIN_ONLY) {
+                Minecraft mc = Minecraft.get();
+                if (ClientBenchmark.wantsFrameComparison(mc)) {
+                    float partialTicks = Config.renderPartialTicks;
+                    capture = new VulkanPresenter.FrameCapture(frame.width(), frame.height(),
+                            image -> ClientBenchmark.saveFrameComparison(mc, partialTicks, image));
+                }
+            }
+            if (preview.presenter.present(fog.red(), fog.green(), fog.blue(), capture)) {
                 preview.frames++;
                 preview.drawCalls += preview.terrain.drawCalls();
                 ClientBenchmark.recordVulkanTerrainFrame(preview.terrain.drawCalls(), preview.terrain.quads(),

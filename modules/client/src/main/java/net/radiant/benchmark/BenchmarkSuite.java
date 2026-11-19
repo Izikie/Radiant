@@ -31,9 +31,12 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.border.WorldBorderStage;
 import net.radiant.lwjgl.opengl.Display;
+import net.radiant.util.NativeImage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -58,6 +61,8 @@ final class BenchmarkSuite {
     private final int warmup = Math.clamp(Integer.getInteger("radiant.benchmark.warmup", 3), 0, 120);
     private final JsonArray reports = new JsonArray();
     private final JsonObject report = new JsonObject();
+    private final Path comparisonDir;
+    private JsonObject comparison;
 
     private WorldClient world;
     private String playerName;
@@ -84,6 +89,7 @@ final class BenchmarkSuite {
 
     private BenchmarkSuite(Minecraft mc, String folder, boolean exitAfterSuite) {
         server = mc.getIntegratedServer();
+        comparisonDir = ClientBenchmark.COMPARE_FRAMES ? Path.of(folder) : null;
         this.exitAfterSuite = exitAfterSuite;
         originalPerspective = mc.gameSettings.thirdPersonView;
         originalPauseOnLostFocus = mc.gameSettings.pauseOnLostFocus;
@@ -195,6 +201,14 @@ final class BenchmarkSuite {
                 }
                 JsonObject result = ClientBenchmark.sample(frameStart, now);
                 if (result != null) {
+                    if (comparisonDir != null) {
+                        if (comparison == null) {
+                            comparison = new JsonObject();
+                            comparison.addProperty("status", "unavailable");
+                            comparison.addProperty("reason", "No matching OpenGL and Vulkan frame was available");
+                        }
+                        result.add("comparison", comparison);
+                    }
                     result.addProperty("destinationReached", arrived);
                     result.addProperty("unfocusedFrames", unfocusedFrames);
                     if (phase == Phase.TERRAIN_STREAMING && arrived) {
@@ -256,6 +270,7 @@ final class BenchmarkSuite {
     }
 
     private void preparePhase(Phase phase, long now) {
+        comparison = null;
         arrived = false;
         particleTick = 0;
         particleSpawnAttempts = 0;
@@ -333,6 +348,35 @@ final class BenchmarkSuite {
         LOGGER.info("Benchmark capturing {} for {} seconds", phase.scenario, seconds);
         ClientBenchmark.beginPhase(mc, phase.scenario, seconds, warmup);
         enter(Stage.CAPTURING, System.nanoTime());
+    }
+
+    boolean wantsFrameComparison(Minecraft mc) {
+        if (stage != Stage.CAPTURING || comparison != null || world != mc.world || mc.player == null
+                || mc.displayWidth != width || mc.displayHeight != height
+                || Display.getFramebufferWidth() < width || Display.getFramebufferHeight() < height
+                || mc.currentScreen != inventory) {
+            return false;
+        }
+        Phase phase = ROUTE[routeIndex];
+        return atDestination(mc, phase) && (phase != Phase.CREATIVE_INVENTORY || inventory != null)
+                && ClientBenchmark.phaseElapsedNanos() >= TimeUnit.MILLISECONDS.toNanos(Math.min(seconds * 500L, 1_000L));
+    }
+
+    void saveFrameComparison(Minecraft mc, float partialTicks, NativeImage vulkan) {
+        String scenario = ROUTE[routeIndex].scenario;
+        comparison = new JsonObject();
+        try {
+            BenchmarkFrameComparison.save(comparisonDir.resolve(scenario), vulkan, comparison);
+            comparison.addProperty("status", "captured");
+            comparison.addProperty("worldTick", world.getTotalWorldTime());
+            comparison.addProperty("partialTicks", partialTicks);
+            comparison.addProperty("yaw", mc.player.rotationYaw);
+            comparison.addProperty("pitch", mc.player.rotationPitch);
+        } catch (IOException e) {
+            comparison.addProperty("status", "failed");
+            comparison.addProperty("reason", e.getMessage());
+            LOGGER.warn("Could not write frame comparison for {}", scenario, e);
+        }
     }
 
     private void enter(Stage next, long now) {

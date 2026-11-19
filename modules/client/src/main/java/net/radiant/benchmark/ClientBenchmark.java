@@ -17,6 +17,7 @@ import net.minecraft.world.border.WorldBorderStage;
 import net.optifine.Config;
 import net.optifine.shaders.Shaders;
 import net.radiant.lwjgl.opengl.Display;
+import net.radiant.util.NativeImage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +31,7 @@ import java.util.concurrent.TimeUnit;
 
 public final class ClientBenchmark {
     public static final boolean ENABLED = Boolean.getBoolean("radiant.benchmark");
+    public static final boolean COMPARE_FRAMES = ENABLED && Boolean.getBoolean("radiant.benchmark.compare");
     static final boolean ENTITY_DAMAGE = ENABLED && Boolean.getBoolean("radiant.benchmark.entityDamage");
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ClientBenchmark.class);
@@ -79,6 +81,14 @@ public final class ClientBenchmark {
         if (suite != null) {
             suite.beforeRender(mc);
         }
+    }
+
+    public static boolean wantsFrameComparison(Minecraft mc) {
+        return COMPARE_FRAMES && suite != null && suite.wantsFrameComparison(mc);
+    }
+
+    public static void saveFrameComparison(Minecraft mc, float partialTicks, NativeImage vulkan) {
+        suite.saveFrameComparison(mc, partialTicks, vulkan);
     }
 
     public static boolean controlsCamera() {
