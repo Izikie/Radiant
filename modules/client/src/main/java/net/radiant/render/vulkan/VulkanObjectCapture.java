@@ -14,7 +14,6 @@ import org.joml.Matrix4f;
 import org.joml.Matrix4fc;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
-import org.lwjgl.system.MemoryStack;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -182,9 +181,6 @@ public final class VulkanObjectCapture implements AutoCloseable {
         } else if (cameraProjection != null) {
             projection.set(cameraProjection);
         }
-        if (phase != Phase.CAMERA_OVERLAYS && phase != Phase.WORLD_BORDER) {
-            readLights();
-        }
         active = this;
     }
 
@@ -196,7 +192,6 @@ public final class VulkanObjectCapture implements AutoCloseable {
     public static void beginBlockEntities() {
         if (active != null) {
             active.phase = Phase.BLOCK_ENTITIES;
-            active.readLights();
         }
     }
 
@@ -227,12 +222,6 @@ public final class VulkanObjectCapture implements AutoCloseable {
     public static void setCameraOverlay(CameraOverlay overlay) {
         if (active != null && active.phase == Phase.CAMERA_OVERLAYS) {
             active.cameraOverlay = overlay;
-        }
-    }
-
-    public static void refreshLights() {
-        if (active != null) {
-            active.readLights();
         }
     }
 
@@ -351,16 +340,6 @@ public final class VulkanObjectCapture implements AutoCloseable {
         }
     }
 
-    private void readLights() {
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            FloatBuffer light = stack.mallocFloat(4);
-            glGetLightfv(GL_LIGHT0, GL_POSITION, light);
-            light0.set(light.get(0), light.get(1), light.get(2)).normalize();
-            glGetLightfv(GL_LIGHT1, GL_POSITION, light);
-            light1.set(light.get(0), light.get(1), light.get(2)).normalize();
-        }
-    }
-
     public static void beginModel(ModelRenderer model) {
         if (VulkanTerrainPreview.ENABLED) {
             GlStateManager.beginModelViewList();
@@ -453,12 +432,9 @@ public final class VulkanObjectCapture implements AutoCloseable {
         if (capturesTextureMatrix()) {
             textureMatrix.set(GlStateManager.textureMatrix());
         }
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            FloatBuffer values = stack.mallocFloat(4);
-            glGetFloatv(GL_CURRENT_COLOR, values);
-            color.set(Math.clamp(values.get(0), 0, 1), Math.clamp(values.get(1), 0, 1),
-                    Math.clamp(values.get(2), 0, 1), Math.clamp(values.get(3), 0, 1));
-        }
+        GlStateManager.copySubmittedColor(color);
+        color.set(Math.clamp(color.x, 0, 1), Math.clamp(color.y, 0, 1),
+                Math.clamp(color.z, 0, 1), Math.clamp(color.w, 0, 1));
         modelView.set(GlStateManager.modelViewMatrix());
         projection.mul(modelView, transform);
         if (phase == Phase.ENTITY_OUTLINES) {
@@ -485,6 +461,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
         }
         boolean lit = draw.lit();
         if (lit) {
+            GlStateManager.copyLightDirection(0, light0);
+            GlStateManager.copyLightDirection(1, light1);
+            light0.normalize();
+            light1.normalize();
             modelView.normal(normalMatrix);
         }
         int topology = phase.drawsLines() ? VK_PRIMITIVE_TOPOLOGY_LINE_LIST : VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;

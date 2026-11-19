@@ -11,6 +11,8 @@ import net.radiant.render.vulkan.VulkanTerrainPreview;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fc;
 import org.joml.Matrix4fStack;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
 
@@ -45,6 +47,8 @@ public class GlStateManager {
     private static final BooleanState rescaleNormalState = new BooleanState(32826);
     private static final ColorMask colorMaskState = new ColorMask();
     private static final Color colorState = new Color();
+    private static final Vector4f submittedColor = new Vector4f(1.0f);
+    private static final Vector3f[] lightDirections = {new Vector3f(0, 0, 1), new Vector3f(0, 0, 1)};
     public static final boolean CLEAR_ENABLED = true;
     private static final LockCounter ALPHA_LOCK = new LockCounter();
     private static final GlAlphaState ALPHA_LOCK_STATE = new GlAlphaState();
@@ -62,7 +66,8 @@ public class GlStateManager {
             }
             drawEnables.push(new DrawEnables(alphaState.alphaTest.currentState, lightingState.currentState,
                     depthState.depthTest.currentState, blendState.blend.currentState, cullState.cullFace.currentState,
-                    polygonOffsetState.polygonOffsetFill.currentState, textureEnables));
+                    polygonOffsetState.polygonOffsetFill.currentState, textureEnables,
+                    new Vector3f(lightDirections[0]), new Vector3f(lightDirections[1])));
         }
         GL11.glPushAttrib(8256);
     }
@@ -78,6 +83,8 @@ public class GlStateManager {
             blendState.blend.currentState = saved.blend;
             cullState.cullFace.currentState = saved.cull;
             polygonOffsetState.polygonOffsetFill.currentState = saved.polygonOffset;
+            lightDirections[0].set(saved.light0);
+            lightDirections[1].set(saved.light1);
             for (int unit = 0; unit < textureState.length; unit++) {
                 textureState[unit].texture2DState.currentState = (saved.textures & (1 << unit)) != 0;
             }
@@ -85,7 +92,7 @@ public class GlStateManager {
     }
 
     private record DrawEnables(boolean alpha, boolean lighting, boolean depth, boolean blend, boolean cull,
-                               boolean polygonOffset, int textures) {
+                               boolean polygonOffset, int textures, Vector3f light0, Vector3f light1) {
     }
 
     public static DrawState drawState() {
@@ -140,6 +147,19 @@ public class GlStateManager {
 
     public static void enableLight(int light) {
         lightState[light].setEnabled();
+    }
+
+    static void lightPosition(int index, FloatBuffer position) {
+        if (modelView != null) {
+            int offset = position.position();
+            modelView.transformDirection(lightDirections[index].set(position.get(offset), position.get(offset + 1),
+                    position.get(offset + 2)));
+        }
+        GL11.glLightfv(GL11.GL_LIGHT0 + index, GL11.GL_POSITION, position);
+    }
+
+    public static void copyLightDirection(int index, Vector3f destination) {
+        destination.set(lightDirections[index]);
     }
 
     public static void disableLight(int light) {
@@ -606,6 +626,7 @@ public class GlStateManager {
             colorState.green = colorGreen;
             colorState.blue = colorBlue;
             colorState.alpha = colorAlpha;
+            submittedColor.set(colorRed, colorGreen, colorBlue, colorAlpha);
             GL11.glColor4f(colorRed, colorGreen, colorBlue, colorAlpha);
         }
     }
@@ -616,6 +637,10 @@ public class GlStateManager {
 
     public static void resetColor() {
         colorState.red = colorState.green = colorState.blue = colorState.alpha = -1.0F;
+    }
+
+    public static void copySubmittedColor(Vector4f destination) {
+        destination.set(submittedColor);
     }
 
     public static void glVertexPointer(int p_glVertexPointer_0_, int p_glVertexPointer_1_, int p_glVertexPointer_2_, int p_glVertexPointer_3_) {
