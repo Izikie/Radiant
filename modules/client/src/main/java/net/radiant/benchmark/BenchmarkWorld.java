@@ -3,6 +3,7 @@ package net.radiant.benchmark;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLeashKnot;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.entity.item.EntityPainting;
 import net.minecraft.entity.passive.EntityCow;
@@ -27,7 +28,7 @@ import java.util.Arrays;
 
 final class BenchmarkWorld {
     static final long SEED = 681889L;
-    static final int LAYOUT_VERSION = 10;
+    static final int LAYOUT_VERSION = 11;
     static final int FLOOR_Y = 192;
     static final int GALLERY_X = 0;
     static final int ENTITY_X = 64;
@@ -204,6 +205,13 @@ final class BenchmarkWorld {
     private static void buildEntityScene(WorldServer world) {
         placeArmoredStand(world, ENTITY_X + 0.5, true);
         placeArmoredStand(world, ENTITY_X + 2, false);
+        BlockPos frontFence = new BlockPos(ENTITY_X + 6, FLOOR_Y + 1, 5);
+        BlockPos rearFence = new BlockPos(ENTITY_X - 5, FLOOR_Y + 1, 9);
+        world.setBlockState(frontFence, Blocks.OAK_FENCE.getDefaultState(), 2);
+        world.setBlockState(rearFence, Blocks.OAK_FENCE.getDefaultState(), 2);
+        EntityLeashKnot frontKnot = EntityLeashKnot.createKnot(world, frontFence);
+        EntityLeashKnot rearKnot = EntityLeashKnot.createKnot(world, rearFence);
+        world.setBlockState(new BlockPos(ENTITY_X - 3, FLOOR_Y + 1, 8), Blocks.STONEBRICK.getDefaultState(), 2);
         for (int row = 0; row < 8; row++) {
             for (int column = 0; column < 10; column++) {
                 int x = ENTITY_X - 13 + column * 3;
@@ -223,6 +231,11 @@ final class BenchmarkWorld {
                     animal.setFire(burnSeconds);
                 }
                 world.spawnEntityInWorld(animal);
+                if (row == 0 && column == 5) {
+                    animal.setLeashedToEntity(frontKnot, true);
+                } else if (row == 1 && column == 4) {
+                    animal.setLeashedToEntity(rearKnot, true);
+                }
 
                 BlockPos prop = new BlockPos(x, FLOOR_Y + 1, z + 1);
                 if (row % 2 == 0) {
