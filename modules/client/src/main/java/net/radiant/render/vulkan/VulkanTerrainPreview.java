@@ -13,6 +13,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.RenderLayer;
 import net.minecraft.util.math.Vec3;
+import net.minecraft.world.border.WorldBorderStage;
 import net.optifine.Config;
 import net.optifine.CustomColors;
 import net.radiant.benchmark.ClientBenchmark;
@@ -222,6 +223,15 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         return beginObjects(lightmap, atlas, VulkanObjectCapture.Phase.BLOCK_DAMAGE);
     }
 
+    public static boolean beginWorldBorder(WorldBorderStage stage) {
+        VulkanTerrainPreview preview = active;
+        if (preview == null || preview.pendingFrame == null) {
+            return false;
+        }
+        preview.objects.beginWorldBorder(preview.pendingFrame.lightmap(), stage);
+        return true;
+    }
+
     public static boolean beginPrecipitation(int[] lightmap, int atlas) {
         return beginObjects(lightmap, atlas, VulkanObjectCapture.Phase.RAIN);
     }
@@ -376,6 +386,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
                 ClientBenchmark.recordVulkanPrecipitationFrame(preview.objects.rainQuads(), preview.objects.snowQuads());
                 ClientBenchmark.recordVulkanFirstPersonFrame(preview.objects.handTriangles(), preview.objects.heldItemTriangles());
                 ClientBenchmark.recordVulkanBlockInteraction(preview.objects.selectionSegments(), preview.objects.blockDamageQuads());
+                ClientBenchmark.recordVulkanWorldBorder(preview.objects.worldBorderQuads(), preview.objects.worldBorderStage());
                 ClientBenchmark.recordVulkanCameraOverlays(
                         preview.objects.cameraOverlayQuads(VulkanObjectCapture.CameraOverlay.BLOCK),
                         preview.objects.cameraOverlayQuads(VulkanObjectCapture.CameraOverlay.WATER),

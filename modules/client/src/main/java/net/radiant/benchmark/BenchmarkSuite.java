@@ -16,6 +16,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.impl.play.server.S03PacketTimeUpdate;
 import net.minecraft.network.packet.impl.play.server.S2BPacketChangeGameState;
+import net.minecraft.network.packet.impl.play.server.S44PacketWorldBorder;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.ParticleTypes;
@@ -23,6 +24,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.border.WorldBorderStage;
 import net.radiant.lwjgl.opengl.Display;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,6 +65,8 @@ final class BenchmarkSuite {
     private int inventoryOpens;
     private int breakStage = -1;
     private int breakStageMask;
+    private S44PacketWorldBorder originalBorder;
+    private WorldBorderStage benchmarkBorderStage;
     private Stage stage = Stage.JOINING;
     private long stageStarted = System.nanoTime();
 
@@ -187,6 +191,9 @@ final class BenchmarkSuite {
                     if (phase == Phase.BLOCK_INTERACTION) {
                         result.addProperty("blockBreakStages", Integer.bitCount(breakStageMask));
                         setBreakStage(mc, -1);
+                    }
+                    if (phase == Phase.WORLD_BORDER) {
+                        restoreBorder();
                     }
                     if (phase.precipitationBiome != null) {
                         result.addProperty("precipitationBiomeId", world.getBiomeGenForCoords(mc.player.getPosition()).biomeID);
@@ -333,6 +340,9 @@ final class BenchmarkSuite {
                 breakStageMask |= 1 << nextStage;
             }
         }
+        if (phase == Phase.WORLD_BORDER) {
+            updateBorder();
+        }
         if (stage != Stage.CAPTURING) {
             return;
         }
@@ -361,6 +371,37 @@ final class BenchmarkSuite {
             world.sendBlockBreakProgress(-1, BenchmarkWorld.BREAKING_SLAB, nextStage);
             world.sendBlockBreakProgress(-2, BenchmarkWorld.BREAKING_CHEST, nextStage);
             breakStage = nextStage;
+        }
+    }
+
+    private void updateBorder() {
+        var border = world.getWorldBorder();
+        if (originalBorder == null) {
+            originalBorder = new S44PacketWorldBorder(border, S44PacketWorldBorder.Action.INITIALIZE);
+            // Both nearby walls fit in the view without restricting the integrated server's world.
+            border.setCenter(Phase.WORLD_BORDER.x + 0.5 - 25, Phase.WORLD_BORDER.z + 0.5 - 25);
+            border.setWarningDistance(12);
+        }
+        int section = stage == Stage.WARMING_UP ? 0 : (int) (ClientBenchmark.phaseElapsedNanos() * 3 / TimeUnit.SECONDS.toNanos(seconds));
+        WorldBorderStage next = section == 0 ? WorldBorderStage.STATIONARY
+                : section == 1 ? WorldBorderStage.SHRINKING : WorldBorderStage.GROWING;
+        if (next == benchmarkBorderStage) {
+            return;
+        }
+        benchmarkBorderStage = next;
+        long duration = TimeUnit.SECONDS.toMillis(seconds) / 3;
+        switch (next) {
+            case STATIONARY -> border.setTransition(64);
+            case SHRINKING -> border.setTransition(border.getDiameter(), 60, duration);
+            case GROWING -> border.setTransition(border.getDiameter(), 64, duration);
+        }
+    }
+
+    private void restoreBorder() {
+        if (originalBorder != null) {
+            originalBorder.func_179788_a(world.getWorldBorder());
+            originalBorder = null;
+            benchmarkBorderStage = null;
         }
     }
 
@@ -418,6 +459,7 @@ final class BenchmarkSuite {
         }
         closeInventory(mc);
         setBreakStage(mc, -1);
+        restoreBorder();
         if (world != null) {
             mc.gameSettings.thirdPersonView = originalPerspective;
         }
@@ -453,6 +495,7 @@ final class BenchmarkSuite {
         BLOCK_OVERLAY("block-overlay", BenchmarkWorld.BLOCK_OVERLAY_X, EXHIBIT_Y, BenchmarkWorld.OVERLAY_FIXTURE_Z, 0, 0),
         FIRE_OVERLAY("fire-overlay", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 12),
         BLOCK_INTERACTION("block-interaction", BenchmarkWorld.BLOCK_INTERACTION_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 0, 0),
+        WORLD_BORDER("world-border", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 0, 12, -40, 6000),
         CREATIVE_INVENTORY("creative-inventory", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 0);
 
         private final String scenario;

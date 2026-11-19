@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
+import net.minecraft.world.border.WorldBorderStage;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -71,6 +72,8 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private int snowQuads;
     private int selectionSegments;
     private int blockDamageQuads;
+    private int worldBorderQuads;
+    private WorldBorderStage worldBorderStage;
     private int handTriangles;
     private int heldItemTriangles;
     private int hudTriangles;
@@ -97,6 +100,8 @@ public final class VulkanObjectCapture implements AutoCloseable {
         snowQuads = 0;
         selectionSegments = 0;
         blockDamageQuads = 0;
+        worldBorderQuads = 0;
+        worldBorderStage = null;
         Arrays.fill(layerStarts, -1);
         Arrays.fill(cameraOverlayQuads, 0);
         layerStarts[Layer.WORLD.ordinal()] = 0;
@@ -126,10 +131,15 @@ public final class VulkanObjectCapture implements AutoCloseable {
             glGetFloatv(GL_PROJECTION_MATRIX, matrix);
             projection.set(matrix);
         }
-        if (phase != Phase.CAMERA_OVERLAYS) {
+        if (phase != Phase.CAMERA_OVERLAYS && phase != Phase.WORLD_BORDER) {
             readLights();
         }
         active = this;
+    }
+
+    void beginWorldBorder(int[] lightmap, WorldBorderStage stage) {
+        begin(lightmap, 0, Phase.WORLD_BORDER);
+        worldBorderStage = stage;
     }
 
     public static void beginBlockEntities() {
@@ -287,7 +297,8 @@ public final class VulkanObjectCapture implements AutoCloseable {
             modelView.set(values);
             projection.mul(modelView, transform);
             glGetFloatv(GL_CURRENT_COLOR, values);
-            color.set(values);
+            color.set(Math.clamp(values.get(0), 0, 1), Math.clamp(values.get(1), 0, 1),
+                    Math.clamp(values.get(2), 0, 1), Math.clamp(values.get(3), 0, 1));
         }
         Image image = white;
         int texture = GlStateManager.getBoundTexture();
@@ -298,7 +309,8 @@ public final class VulkanObjectCapture implements AutoCloseable {
         boolean depthWrite = glGetBoolean(GL_DEPTH_WRITEMASK);
         boolean depthTest = glIsEnabled(GL_DEPTH_TEST);
         VulkanGraphics.State state;
-        if (phase.layer.ui || phase == Phase.CAMERA_OVERLAYS || phase == Phase.SELECTION || phase == Phase.BLOCK_DAMAGE) {
+        if (phase.layer.ui || phase == Phase.CAMERA_OVERLAYS || phase == Phase.SELECTION
+                || phase == Phase.BLOCK_DAMAGE || phase == Phase.WORLD_BORDER) {
             state = VulkanOverlayState.capture(depthTest, depthWrite, blend);
         } else {
             VulkanGraphics.Pass pass = !depthTest ? VulkanGraphics.Pass.OBJECT_OVERLAY
@@ -407,6 +419,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
             case SNOW -> snowQuads += triangles / 2;
             case SELECTION -> selectionSegments += primitiveCount;
             case BLOCK_DAMAGE -> blockDamageQuads += triangles / 2;
+            case WORLD_BORDER -> worldBorderQuads += triangles / 2;
             case FIRST_PERSON -> {
                 if (holdingItem) {
                     heldItemTriangles += triangles;
@@ -578,6 +591,14 @@ public final class VulkanObjectCapture implements AutoCloseable {
         return blockDamageQuads;
     }
 
+    int worldBorderQuads() {
+        return worldBorderQuads;
+    }
+
+    WorldBorderStage worldBorderStage() {
+        return worldBorderStage;
+    }
+
     int handTriangles() {
         return handTriangles;
     }
@@ -619,7 +640,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     }
 
     enum Phase {
-        ENTITIES, BLOCK_ENTITIES, LIT_PARTICLES, PARTICLE_BILLBOARDS, RAIN, SNOW, SELECTION, BLOCK_DAMAGE,
+        ENTITIES, BLOCK_ENTITIES, LIT_PARTICLES, PARTICLE_BILLBOARDS, RAIN, SNOW, SELECTION, BLOCK_DAMAGE, WORLD_BORDER,
         FIRST_PERSON(Layer.FIRST_PERSON), CAMERA_OVERLAYS(Layer.FIRST_PERSON), HUD(Layer.HUD), SCREEN(Layer.SCREEN);
 
         private final Layer layer;

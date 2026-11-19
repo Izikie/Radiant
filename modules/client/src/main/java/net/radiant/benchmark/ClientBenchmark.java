@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.integrated.IntegratedServer;
+import net.minecraft.world.border.WorldBorderStage;
 import net.optifine.Config;
 import net.optifine.shaders.Shaders;
 import net.radiant.lwjgl.opengl.Display;
@@ -23,6 +24,7 @@ import java.lang.management.ManagementFactory;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.concurrent.TimeUnit;
 
 public final class ClientBenchmark {
@@ -291,6 +293,15 @@ public final class ClientBenchmark {
         }
     }
 
+    public static void recordVulkanWorldBorder(int quads, WorldBorderStage stage) {
+        Capture capture = active;
+        if (capture != null && quads > 0) {
+            capture.vulkanWorldBorderFrames++;
+            capture.vulkanWorldBorderQuads += quads;
+            capture.vulkanWorldBorderStages.add(stage);
+        }
+    }
+
     public static void recordVulkanUiFrame(int hudTriangles, int hudItemTriangles, int guiTriangles, int guiItemTriangles, int guiGlyphs) {
         Capture capture = active;
         if (capture != null) {
@@ -394,6 +405,9 @@ public final class ClientBenchmark {
         private long vulkanFireOverlayQuads;
         private long vulkanSelectionSegments;
         private long vulkanBlockDamageQuads;
+        private long vulkanWorldBorderFrames;
+        private long vulkanWorldBorderQuads;
+        private final EnumSet<WorldBorderStage> vulkanWorldBorderStages = EnumSet.noneOf(WorldBorderStage.class);
         private long vulkanHudFrames;
         private long vulkanHudTriangles;
         private long vulkanHudItemTriangles;
@@ -505,6 +519,11 @@ public final class ClientBenchmark {
                 report.addProperty("vulkanFireOverlayQuads", vulkanFireOverlayQuads);
                 report.addProperty("vulkanSelectionSegments", vulkanSelectionSegments);
                 report.addProperty("vulkanBlockDamageQuads", vulkanBlockDamageQuads);
+                report.addProperty("vulkanWorldBorderFrames", vulkanWorldBorderFrames);
+                report.addProperty("vulkanWorldBorderQuads", vulkanWorldBorderQuads);
+                JsonArray borderStages = new JsonArray();
+                vulkanWorldBorderStages.forEach(state -> borderStages.add(state.name()));
+                report.add("vulkanWorldBorderStages", borderStages);
                 report.addProperty("vulkanHudFrames", vulkanHudFrames);
                 report.addProperty("vulkanHudTriangles", vulkanHudTriangles);
                 report.addProperty("vulkanHudItemTriangles", vulkanHudItemTriangles);
