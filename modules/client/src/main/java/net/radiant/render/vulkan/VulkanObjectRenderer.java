@@ -20,14 +20,17 @@ final class VulkanObjectRenderer implements AutoCloseable {
             layout(location = 0) in vec4 clip;
             layout(location = 1) in vec2 textureUv;
             layout(location = 2) in vec4 vertexColor;
+            layout(location = 3) in vec4 vertexOverlay;
             layout(location = 0) out vec2 uv;
             layout(location = 1) out vec4 tint;
             layout(location = 2) out float distanceToCamera;
+            layout(location = 3) out vec3 overlay;
             void main() {
                 gl_Position = vec4(clip.x, -clip.y, (clip.z + clip.w) * 0.5, clip.w);
                 uv = textureUv;
                 tint = vertexColor;
                 distanceToCamera = abs(clip.w);
+                overlay = vertexOverlay.rgb;
             }
             """;
     private static final String FRAGMENT = """
@@ -40,6 +43,7 @@ final class VulkanObjectRenderer implements AutoCloseable {
             layout(location = 0) in vec2 uv;
             layout(location = 1) in vec4 tint;
             layout(location = 2) in float distanceToCamera;
+            layout(location = 3) in vec3 overlay;
             layout(location = 0) out vec4 color;
             void main() {
                 vec4 lit = texture(image, uv) * tint;
@@ -53,7 +57,7 @@ final class VulkanObjectRenderer implements AutoCloseable {
                     float density = distanceToCamera * draw.fog.w;
                     visibility = exp(-density * density);
                 }
-                vec3 rgb = mix(draw.fogColorAndAlphaCutoff.rgb, lit.rgb, clamp(visibility, 0.0, 1.0));
+                vec3 rgb = mix(draw.fogColorAndAlphaCutoff.rgb, clamp(lit.rgb + overlay, 0.0, 1.0), clamp(visibility, 0.0, 1.0));
                 #if SRGB_TARGET
                 // The glint uses its source color as a blend coefficient. Linearizing it first squares a much smaller value.
                 if (draw.glintColorBlend == 0.0) {
@@ -103,10 +107,11 @@ final class VulkanObjectRenderer implements AutoCloseable {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             VkVertexInputBindingDescription.Buffer bindings = VkVertexInputBindingDescription.calloc(1, stack);
             bindings.get(0).stride(VulkanObjectCapture.STRIDE).inputRate(VK_VERTEX_INPUT_RATE_VERTEX);
-            VkVertexInputAttributeDescription.Buffer attributes = VkVertexInputAttributeDescription.calloc(3, stack);
+            VkVertexInputAttributeDescription.Buffer attributes = VkVertexInputAttributeDescription.calloc(4, stack);
             attributes.get(0).location(0).format(VK_FORMAT_R32G32B32A32_SFLOAT);
             attributes.get(1).location(1).format(VK_FORMAT_R32G32_SFLOAT).offset(16);
             attributes.get(2).location(2).format(VK_FORMAT_R8G8B8A8_UNORM).offset(24);
+            attributes.get(3).location(3).format(VK_FORMAT_R8G8B8A8_UNORM).offset(28);
             VkPipelineVertexInputStateCreateInfo input = VkPipelineVertexInputStateCreateInfo.calloc(stack).sType$Default()
                     .pVertexBindingDescriptions(bindings).pVertexAttributeDescriptions(attributes);
             int targetColor = pipeline.outlineMask() ? VulkanEntityOutline.MASK_FORMAT : colorFormat;

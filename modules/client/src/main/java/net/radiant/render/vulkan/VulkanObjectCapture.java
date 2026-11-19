@@ -36,7 +36,7 @@ import static org.lwjgl.vulkan.VK10.VK_SAMPLER_ADDRESS_MODE_REPEAT;
 
 /** Extracts legacy draw geometry on the client thread, before its buffers are recycled. */
 public final class VulkanObjectCapture implements AutoCloseable {
-    static final int STRIDE = 28;
+    static final int STRIDE = 32;
     private static final int[] QUAD_INDICES = {0, 1, 2, 2, 3, 0};
     private static final Map<ModelRenderer, List<Mesh>> MODELS = new WeakHashMap<>();
     private static List<Mesh> compiling;
@@ -61,6 +61,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private final Vector3f normal = new Vector3f();
     private final Vector4f clip = new Vector4f();
     private final Vector4f color = new Vector4f();
+    private final Vector4f entityTint = new Vector4f();
     private final ByteBuffer glyph = ByteBuffer.allocate(4 * 20).order(ByteOrder.nativeOrder());
     private ByteBuffer vertices = memAlloc(64 * 1024);
     private int[] lightmap;
@@ -71,6 +72,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private int entityHitboxSegments;
     private int entityLeashTriangles;
     private int entityNameTagGlyphs;
+    private int entityTintTriangles;
     private int entityNameTagThroughWallGlyphs;
     private int outlineTriangles;
     private int lightningTriangles;
@@ -114,6 +116,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         entityHitboxSegments = 0;
         entityLeashTriangles = 0;
         entityNameTagGlyphs = 0;
+        entityTintTriangles = 0;
         entityNameTagThroughWallGlyphs = 0;
         outlineTriangles = 0;
         lightningTriangles = 0;
@@ -213,6 +216,18 @@ public final class VulkanObjectCapture implements AutoCloseable {
     public static void refreshLights() {
         if (active != null) {
             active.readLights();
+        }
+    }
+
+    public static void setEntityTint(FloatBuffer color) {
+        if (active != null) {
+            active.entityTint.set(color.get(0), color.get(1), color.get(2), color.get(3));
+        }
+    }
+
+    public static void clearEntityTint() {
+        if (active != null) {
+            active.entityTint.zero();
         }
     }
 
@@ -552,6 +567,9 @@ public final class VulkanObjectCapture implements AutoCloseable {
         switch (phase) {
             case ENTITIES -> {
                 entityTriangles += triangles;
+                if (entityTint.w > 0) {
+                    entityTintTriangles += triangles;
+                }
                 if (entityLeash) {
                     entityLeashTriangles += triangles;
                 }
@@ -651,10 +669,24 @@ public final class VulkanObjectCapture implements AutoCloseable {
         float red = layout.color < 0 ? color.x : Byte.toUnsignedInt(data.get(rgba)) / 255f;
         float green = layout.color < 0 ? color.y : Byte.toUnsignedInt(data.get(rgba + 1)) / 255f;
         float blue = layout.color < 0 ? color.z : Byte.toUnsignedInt(data.get(rgba + 2)) / 255f;
-        vertices.put((byte) Math.round(red * ((light >> 16) & 255) * shade));
-        vertices.put((byte) Math.round(green * ((light >> 8) & 255) * shade));
-        vertices.put((byte) Math.round(blue * (light & 255) * shade));
-        vertices.put(layout.color < 0 ? (byte) Math.round(color.w * 255) : data.get(rgba + 3));
+        int lightRed = (light >> 16) & 255;
+        int lightGreen = (light >> 8) & 255;
+        int lightBlue = light & 255;
+        float textureWeight = 1.0f - entityTint.w;
+        vertices.put((byte) Math.round(red * lightRed * shade * textureWeight));
+        vertices.put((byte) Math.round(green * lightGreen * shade * textureWeight));
+        vertices.put((byte) Math.round(blue * lightBlue * shade * textureWeight));
+        if (entityTint.w > 0) {
+            // The fixed-function combiner interpolates RGB before lightmapping and keeps texture alpha.
+            vertices.put((byte) 255);
+            vertices.put((byte) Math.round(entityTint.x * entityTint.w * lightRed));
+            vertices.put((byte) Math.round(entityTint.y * entityTint.w * lightGreen));
+            vertices.put((byte) Math.round(entityTint.z * entityTint.w * lightBlue));
+            vertices.put((byte) 0);
+        } else {
+            vertices.put(layout.color < 0 ? (byte) Math.round(color.w * 255) : data.get(rgba + 3));
+            vertices.putInt(0);
+        }
     }
 
     private static int lineCount(int mode, int count) {
@@ -744,6 +776,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
 
     int entityNameTagGlyphs() {
         return entityNameTagGlyphs;
+    }
+
+    int entityTintTriangles() {
+        return entityTintTriangles;
     }
 
     int entityNameTagThroughWallGlyphs() {

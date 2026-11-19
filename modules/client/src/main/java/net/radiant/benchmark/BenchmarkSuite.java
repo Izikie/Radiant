@@ -13,6 +13,7 @@ import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -73,6 +74,7 @@ final class BenchmarkSuite {
     private S44PacketWorldBorder originalBorder;
     private WorldBorderStage benchmarkBorderStage;
     private final List<EntityLightningBolt> stormBolts = new ArrayList<>();
+    private EntityCow damageTarget;
     private int stormTick;
     private boolean stormActive;
     private Stage stage = Stage.JOINING;
@@ -373,6 +375,20 @@ final class BenchmarkSuite {
         // Exercise the local fire overlay without changing game mode or applying server damage.
         if (phase == Phase.FIRE_OVERLAY) {
             mc.player.setFire(1);
+        }
+        if (phase == Phase.ENTITIES && ClientBenchmark.ENTITY_DAMAGE) {
+            if (damageTarget == null) {
+                for (var entity : world.getLoadedEntityList()) {
+                    if (entity instanceof EntityCow cow && cow.getCustomNameTag().equals("Exhibit 5")) {
+                        damageTarget = cow;
+                        break;
+                    }
+                }
+            }
+            if (damageTarget != null) {
+                // Alternate the client-side flash without damaging the exhibit.
+                damageTarget.hurtTime = mc.player.ticksExisted % 20 < 10 ? 1 : 0;
+            }
         }
         if (phase == Phase.BLOCK_INTERACTION) {
             int nextStage = stage == Stage.WARMING_UP ? 0 : Math.clamp(
