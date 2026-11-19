@@ -43,6 +43,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private final Image atlas = new Image(0, 0, null);
     private final List<Draw> draws = new ArrayList<>();
     private final int[] layerStarts = new int[Layer.values().length];
+    private final int[] cameraOverlayQuads = new int[CameraOverlay.values().length];
     private final Matrix4f projection = new Matrix4f();
     private final Matrix4f textureMatrix = new Matrix4f();
     private final Matrix4f modelView = new Matrix4f();
@@ -74,6 +75,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private int screenItemTriangles;
     private int screenGlyphs;
     private boolean holdingItem;
+    private CameraOverlay cameraOverlay;
     private Phase phase;
 
     void reset() {
@@ -90,6 +92,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         rainQuads = 0;
         snowQuads = 0;
         Arrays.fill(layerStarts, -1);
+        Arrays.fill(cameraOverlayQuads, 0);
         layerStarts[Layer.WORLD.ordinal()] = 0;
         handTriangles = 0;
         heldItemTriangles = 0;
@@ -104,8 +107,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
         this.lightmap = lightmap;
         this.atlasId = atlasId;
         this.phase = phase;
-        if (phase.layer != Layer.WORLD) {
-            layerStarts[phase.layer.ordinal()] = draws.size();
+        cameraOverlay = null;
+        int layer = phase.layer.ordinal();
+        if (layerStarts[layer] < 0) {
+            layerStarts[layer] = draws.size();
         }
         if (phase == Phase.FIRST_PERSON) {
             holdingItem = false;
@@ -115,7 +120,9 @@ public final class VulkanObjectCapture implements AutoCloseable {
             glGetFloatv(GL_PROJECTION_MATRIX, matrix);
             projection.set(matrix);
         }
-        readLights();
+        if (phase != Phase.CAMERA_OVERLAYS) {
+            readLights();
+        }
         active = this;
     }
 
@@ -141,6 +148,12 @@ public final class VulkanObjectCapture implements AutoCloseable {
     public static void setFirstPersonItem(boolean holdingItem) {
         if (active != null && active.phase == Phase.FIRST_PERSON) {
             active.holdingItem = holdingItem;
+        }
+    }
+
+    public static void setCameraOverlay(CameraOverlay overlay) {
+        if (active != null && active.phase == Phase.CAMERA_OVERLAYS) {
+            active.cameraOverlay = overlay;
         }
     }
 
@@ -270,8 +283,8 @@ public final class VulkanObjectCapture implements AutoCloseable {
         boolean depthWrite = glGetBoolean(GL_DEPTH_WRITEMASK);
         boolean depthTest = glIsEnabled(GL_DEPTH_TEST);
         VulkanGraphics.State state;
-        if (phase.layer.ui) {
-            state = VulkanUiState.capture(depthTest, depthWrite, blend);
+        if (phase.layer.ui || phase == Phase.CAMERA_OVERLAYS) {
+            state = VulkanOverlayState.capture(depthTest, depthWrite, blend);
         } else {
             VulkanGraphics.Pass pass = !depthTest ? VulkanGraphics.Pass.OBJECT_OVERLAY
                     : blend ? (depthWrite ? VulkanGraphics.Pass.BLENDED_DEPTH_WRITE : VulkanGraphics.Pass.OBJECT_BLEND)
@@ -373,6 +386,11 @@ public final class VulkanObjectCapture implements AutoCloseable {
                     heldItemTriangles += triangles;
                 } else {
                     handTriangles += triangles;
+                }
+            }
+            case CAMERA_OVERLAYS -> {
+                if (cameraOverlay != null) {
+                    cameraOverlayQuads[cameraOverlay.ordinal()] += triangles / 2;
                 }
             }
             case HUD -> {
@@ -524,6 +542,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
         return heldItemTriangles;
     }
 
+    int cameraOverlayQuads(CameraOverlay overlay) {
+        return cameraOverlayQuads[overlay.ordinal()];
+    }
+
     int hudTriangles() {
         return hudTriangles;
     }
@@ -554,7 +576,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
 
     enum Phase {
         ENTITIES, BLOCK_ENTITIES, LIT_PARTICLES, PARTICLE_BILLBOARDS, RAIN, SNOW,
-        FIRST_PERSON(Layer.FIRST_PERSON), HUD(Layer.HUD), SCREEN(Layer.SCREEN);
+        FIRST_PERSON(Layer.FIRST_PERSON), CAMERA_OVERLAYS(Layer.FIRST_PERSON), HUD(Layer.HUD), SCREEN(Layer.SCREEN);
 
         private final Layer layer;
 
@@ -565,6 +587,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
         Phase(Layer layer) {
             this.layer = layer;
         }
+    }
+
+    public enum CameraOverlay {
+        BLOCK, WATER, FIRE
     }
 
     enum Layer {

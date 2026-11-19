@@ -222,6 +222,10 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         return beginObjects(lightmap, atlas, VulkanObjectCapture.Phase.FIRST_PERSON);
     }
 
+    public static boolean beginCameraOverlays(int[] lightmap, int atlas) {
+        return beginObjects(lightmap, atlas, VulkanObjectCapture.Phase.CAMERA_OVERLAYS);
+    }
+
     public static boolean beginHud(int[] lightmap, int atlas) {
         return beginObjects(lightmap, atlas, VulkanObjectCapture.Phase.HUD);
     }
@@ -363,6 +367,10 @@ public final class VulkanTerrainPreview implements AutoCloseable {
                         preview.objects.translucentParticleTriangles(), preview.objects.litParticleTriangles());
                 ClientBenchmark.recordVulkanPrecipitationFrame(preview.objects.rainQuads(), preview.objects.snowQuads());
                 ClientBenchmark.recordVulkanFirstPersonFrame(preview.objects.handTriangles(), preview.objects.heldItemTriangles());
+                ClientBenchmark.recordVulkanCameraOverlays(
+                        preview.objects.cameraOverlayQuads(VulkanObjectCapture.CameraOverlay.BLOCK),
+                        preview.objects.cameraOverlayQuads(VulkanObjectCapture.CameraOverlay.WATER),
+                        preview.objects.cameraOverlayQuads(VulkanObjectCapture.CameraOverlay.FIRE));
                 ClientBenchmark.recordVulkanUiFrame(preview.objects.hudTriangles(), preview.objects.hudItemTriangles(),
                         preview.objects.screenTriangles(), preview.objects.screenItemTriangles(), preview.objects.screenGlyphs());
             }

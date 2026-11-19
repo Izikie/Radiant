@@ -274,6 +274,15 @@ public final class ClientBenchmark {
         }
     }
 
+    public static void recordVulkanCameraOverlays(int blockQuads, int waterQuads, int fireQuads) {
+        Capture capture = active;
+        if (capture != null) {
+            capture.vulkanBlockOverlayQuads += blockQuads;
+            capture.vulkanWaterOverlayQuads += waterQuads;
+            capture.vulkanFireOverlayQuads += fireQuads;
+        }
+    }
+
     public static void recordVulkanUiFrame(int hudTriangles, int hudItemTriangles, int guiTriangles, int guiItemTriangles, int guiGlyphs) {
         Capture capture = active;
         if (capture != null) {
@@ -372,6 +381,9 @@ public final class ClientBenchmark {
         private long vulkanHandTriangles;
         private long vulkanHeldItemFrames;
         private long vulkanHeldItemTriangles;
+        private long vulkanBlockOverlayQuads;
+        private long vulkanWaterOverlayQuads;
+        private long vulkanFireOverlayQuads;
         private long vulkanHudFrames;
         private long vulkanHudTriangles;
         private long vulkanHudItemTriangles;
@@ -478,6 +490,9 @@ public final class ClientBenchmark {
                 report.addProperty("vulkanHandTriangles", vulkanHandTriangles);
                 report.addProperty("vulkanHeldItemFrames", vulkanHeldItemFrames);
                 report.addProperty("vulkanHeldItemTriangles", vulkanHeldItemTriangles);
+                report.addProperty("vulkanBlockOverlayQuads", vulkanBlockOverlayQuads);
+                report.addProperty("vulkanWaterOverlayQuads", vulkanWaterOverlayQuads);
+                report.addProperty("vulkanFireOverlayQuads", vulkanFireOverlayQuads);
                 report.addProperty("vulkanHudFrames", vulkanHudFrames);
                 report.addProperty("vulkanHudTriangles", vulkanHudTriangles);
                 report.addProperty("vulkanHudItemTriangles", vulkanHudItemTriangles);

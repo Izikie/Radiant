@@ -373,6 +373,7 @@ public class ItemRenderer {
     }
 
     private void renderBlockInHand(float partialTicks, TextureAtlasSprite atlas) {
+        VulkanObjectCapture.setCameraOverlay(VulkanObjectCapture.CameraOverlay.BLOCK);
         this.mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
@@ -400,6 +401,7 @@ public class ItemRenderer {
 
     private void renderWaterOverlayTexture(float partialTicks) {
         if (!Config.isShaders() || Shaders.isUnderwaterOverlay()) {
+            VulkanObjectCapture.setCameraOverlay(VulkanObjectCapture.CameraOverlay.WATER);
             this.mc.getTextureManager().bindTexture(RES_UNDERWATER_OVERLAY);
             Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
@@ -429,6 +431,7 @@ public class ItemRenderer {
     }
 
     private void renderFireInFirstPerson(float partialTicks) {
+        VulkanObjectCapture.setCameraOverlay(VulkanObjectCapture.CameraOverlay.FIRE);
         Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 0.9F);

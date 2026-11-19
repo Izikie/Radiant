@@ -20,7 +20,7 @@ import java.util.Arrays;
 
 final class BenchmarkWorld {
     static final long SEED = 681889L;
-    static final int LAYOUT_VERSION = 5;
+    static final int LAYOUT_VERSION = 6;
     static final int FLOOR_Y = 192;
     static final int GALLERY_X = 0;
     static final int ENTITY_X = 64;
@@ -31,6 +31,9 @@ final class BenchmarkWorld {
     static final int SNOW_X = 320;
     static final int WEATHER_CAMERA_Z = 8;
     static final int WEATHER_SHELTER_BACK_Z = 22;
+    static final int WATER_OVERLAY_X = RAIN_X - 10;
+    static final int BLOCK_OVERLAY_X = RAIN_X + 10;
+    static final int OVERLAY_FIXTURE_Z = 27;
 
     private BenchmarkWorld() {
     }
@@ -56,6 +59,28 @@ final class BenchmarkWorld {
         buildTranslucencyScene(world);
         buildPrecipitationScene(world, RAIN_X, BiomeGenBase.PLAINS);
         buildPrecipitationScene(world, SNOW_X, BiomeGenBase.ICE_PLAINS);
+        buildCameraOverlayFixtures(world);
+    }
+
+    private static void buildCameraOverlayFixtures(WorldServer world) {
+        var bricks = Blocks.STONEBRICK.getDefaultState();
+        var water = Blocks.WATER.getDefaultState();
+        for (int dx = -3; dx <= 3; dx++) {
+            for (int dz = -2; dz <= 6; dz++) {
+                boolean edge = Math.abs(dx) == 3 || dz == -2 || dz == 6;
+                for (int dy = 1; dy <= 3; dy++) {
+                    world.setBlockState(new BlockPos(WATER_OVERLAY_X + dx, FLOOR_Y + dy, OVERLAY_FIXTURE_Z + dz),
+                            edge ? bricks : water, 2);
+                }
+            }
+        }
+        // Cover the adjacent columns at eye level so push-out physics keeps the test camera in place.
+        var brickBlock = Blocks.BRICK_BLOCK.getDefaultState();
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dz = -1; dz <= 1; dz++) {
+                world.setBlockState(new BlockPos(BLOCK_OVERLAY_X + dx, FLOOR_Y + 2, OVERLAY_FIXTURE_Z + dz), brickBlock, 2);
+            }
+        }
     }
 
     private static void buildFloor(WorldServer world, int center) {

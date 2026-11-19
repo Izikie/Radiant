@@ -773,7 +773,15 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         this.disableLightmap();
 
         if (this.mc.gameSettings.thirdPersonView == GameSettings.Perspective.FIRST_PERSON && !flag) {
-            this.itemRenderer.renderOverlays(p_renderHand_1_);
+            boolean captureCameraOverlays = VulkanTerrainPreview.ENABLED && p_renderHand_2_ == 2
+                    && VulkanTerrainPreview.beginCameraOverlays(this.lightmapColors, this.mc.getTextureMapBlocks().getGlTextureId());
+            try {
+                this.itemRenderer.renderOverlays(p_renderHand_1_);
+            } finally {
+                if (captureCameraOverlays) {
+                    VulkanObjectCapture.end();
+                }
+            }
             this.hurtCameraEffect(p_renderHand_1_);
         }
 
