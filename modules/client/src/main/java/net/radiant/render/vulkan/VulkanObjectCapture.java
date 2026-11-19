@@ -67,6 +67,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private int entityTriangles;
     private int entityShadowQuads;
     private int entityFireQuads;
+    private int entityHitboxSegments;
     private int outlineTriangles;
     private int lightningTriangles;
     private int blockEntityTriangles;
@@ -104,6 +105,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         entityTriangles = 0;
         entityShadowQuads = 0;
         entityFireQuads = 0;
+        entityHitboxSegments = 0;
         outlineTriangles = 0;
         lightningTriangles = 0;
         blockEntityTriangles = 0;
@@ -254,6 +256,18 @@ public final class VulkanObjectCapture implements AutoCloseable {
         }
     }
 
+    public static void beginEntityHitbox() {
+        if (active != null && active.phase == Phase.ENTITIES) {
+            active.phase = Phase.ENTITY_HITBOX;
+        }
+    }
+
+    public static void endEntityHitbox() {
+        if (active != null && active.phase == Phase.ENTITY_HITBOX) {
+            active.phase = Phase.ENTITIES;
+        }
+    }
+
     public static void beginLightning() {
         if (active != null && active.phase == Phase.ENTITIES) {
             active.phase = Phase.LIGHTNING;
@@ -312,8 +326,8 @@ public final class VulkanObjectCapture implements AutoCloseable {
         }
         int mode = source.getDrawMode();
         int count = source.getVertexCount();
-        boolean selection = active != null && active.phase == Phase.SELECTION;
-        if (selection ? lineCount(mode, count) == 0 : triangleCount(mode, count) == 0) {
+        boolean lines = active != null && active.phase.drawsLines();
+        if (lines ? lineCount(mode, count) == 0 : triangleCount(mode, count) == 0) {
             return;
         }
         Layout layout = Layout.of(source.getVertexFormat());
@@ -382,7 +396,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         boolean depthWrite = glGetBoolean(GL_DEPTH_WRITEMASK);
         boolean depthTest = glIsEnabled(GL_DEPTH_TEST);
         VulkanGraphics.State state;
-        if (glint != null || phase.layer.ui || phase == Phase.CAMERA_OVERLAYS || phase == Phase.SELECTION
+        if (glint != null || phase.layer.ui || phase == Phase.CAMERA_OVERLAYS || phase.drawsLines()
                 || phase == Phase.BLOCK_DAMAGE || phase == Phase.WORLD_BORDER || phase == Phase.LIGHTNING
                 || phase == Phase.ENTITY_SHADOWS || phase == Phase.ENTITY_FIRE) {
             state = VulkanOverlayState.capture(depthTest, depthWrite, blend);
@@ -396,7 +410,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         if (lit) {
             modelView.normal(normalMatrix);
         }
-        int topology = phase == Phase.SELECTION ? VK_PRIMITIVE_TOPOLOGY_LINE_LIST : VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+        int topology = phase.drawsLines() ? VK_PRIMITIVE_TOPOLOGY_LINE_LIST : VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
         VulkanGraphics.Blend factors = state.blend();
         boolean glintColorBlend = glint != null && factors != null && factors.sourceColor() == VK_BLEND_FACTOR_SRC_COLOR
                 && factors.destinationColor() == VK_BLEND_FACTOR_ONE;
@@ -499,6 +513,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
                 entityTriangles += triangles;
                 entityFireQuads += triangles / 2;
             }
+            case ENTITY_HITBOX -> entityHitboxSegments += primitiveCount;
             case ENTITY_OUTLINES -> outlineTriangles += triangles;
             case LIGHTNING -> lightningTriangles += triangles;
             case BLOCK_ENTITIES -> blockEntityTriangles += triangles;
@@ -663,6 +678,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
         return entityFireQuads;
     }
 
+    int entityHitboxSegments() {
+        return entityHitboxSegments;
+    }
+
     int outlineTriangles() {
         return outlineTriangles;
     }
@@ -772,7 +791,8 @@ public final class VulkanObjectCapture implements AutoCloseable {
     }
 
     enum Phase {
-        ENTITIES, ENTITY_SHADOWS, ENTITY_FIRE, ENTITY_OUTLINES, LIGHTNING, BLOCK_ENTITIES, LIT_PARTICLES, PARTICLE_BILLBOARDS,
+        ENTITIES, ENTITY_SHADOWS, ENTITY_FIRE, ENTITY_HITBOX, ENTITY_OUTLINES, LIGHTNING, BLOCK_ENTITIES,
+        LIT_PARTICLES, PARTICLE_BILLBOARDS,
         RAIN, SNOW, SELECTION, BLOCK_DAMAGE, WORLD_BORDER,
         FIRST_PERSON(Layer.FIRST_PERSON), CAMERA_OVERLAYS(Layer.FIRST_PERSON), HUD(Layer.HUD), SCREEN(Layer.SCREEN);
 
@@ -784,6 +804,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
 
         Phase(Layer layer) {
             this.layer = layer;
+        }
+
+        private boolean drawsLines() {
+            return this == SELECTION || this == ENTITY_HITBOX;
         }
     }
 

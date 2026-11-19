@@ -34,6 +34,7 @@ public final class ClientBenchmark {
     private static final Logger LOGGER = LoggerFactory.getLogger(ClientBenchmark.class);
     private static final int MAX_FRAME_SAMPLES = 250_000;
     private static final int MAX_TICK_SAMPLES = 20_000;
+    private static final boolean ENTITY_HITBOXES = ENABLED && Boolean.getBoolean("radiant.benchmark.entityHitboxes");
 
     private static long startupMillis = -1;
     private static int warmupSeconds;
@@ -84,7 +85,11 @@ public final class ClientBenchmark {
     }
 
     public static boolean isEntityOutlineScene() {
-        return suite != null && suite.isEntityOutlineScene();
+        return suite != null && suite.isEntityScene();
+    }
+
+    public static boolean showsEntityHitboxes() {
+        return ENTITY_HITBOXES && suite != null && suite.isEntityScene();
     }
 
     public static boolean isEntityOutlineTarget(Entity entity) {
@@ -267,6 +272,14 @@ public final class ClientBenchmark {
         if (capture != null && quads > 0) {
             capture.vulkanEntityFireFrames++;
             capture.vulkanEntityFireQuads += quads;
+        }
+    }
+
+    public static void recordVulkanEntityHitboxes(int segments) {
+        Capture capture = active;
+        if (capture != null && segments > 0) {
+            capture.vulkanEntityHitboxFrames++;
+            capture.vulkanEntityHitboxSegments += segments;
         }
     }
 
@@ -467,6 +480,8 @@ public final class ClientBenchmark {
         private long vulkanEntityShadowQuads;
         private long vulkanEntityFireFrames;
         private long vulkanEntityFireQuads;
+        private long vulkanEntityHitboxFrames;
+        private long vulkanEntityHitboxSegments;
         private long vulkanBlockEntityTriangles;
         private long vulkanBlockEntityGlyphs;
         private long vulkanParticleTriangles;
@@ -599,6 +614,8 @@ public final class ClientBenchmark {
                 report.addProperty("vulkanEntityShadowQuads", vulkanEntityShadowQuads);
                 report.addProperty("vulkanEntityFireFrames", vulkanEntityFireFrames);
                 report.addProperty("vulkanEntityFireQuads", vulkanEntityFireQuads);
+                report.addProperty("vulkanEntityHitboxFrames", vulkanEntityHitboxFrames);
+                report.addProperty("vulkanEntityHitboxSegments", vulkanEntityHitboxSegments);
                 report.addProperty("vulkanBlockEntityTriangles", vulkanBlockEntityTriangles);
                 report.addProperty("vulkanBlockEntityGlyphs", vulkanBlockEntityGlyphs);
                 report.addProperty("vulkanParticleTriangles", vulkanParticleTriangles);

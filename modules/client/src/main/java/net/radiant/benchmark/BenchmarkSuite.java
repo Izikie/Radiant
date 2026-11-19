@@ -508,7 +508,7 @@ final class BenchmarkSuite {
         particleTick++;
     }
 
-    boolean isEntityOutlineScene() {
+    boolean isEntityScene() {
         return (stage == Stage.WARMING_UP || stage == Stage.CAPTURING) && ROUTE[routeIndex] == Phase.ENTITIES;
     }
 
