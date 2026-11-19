@@ -11,6 +11,7 @@ layout(std140, set = 0, binding = 0) uniform Environment {
 layout(set = 0, binding = 1) uniform sampler2D clouds;
 layout(set = 0, binding = 2) uniform sampler2D sun;
 layout(set = 0, binding = 3) uniform sampler2D moon;
+layout(set = 0, binding = 4) uniform sampler2D endSky;
 layout(location = 0) in vec2 ndc;
 layout(location = 0) out vec4 color;
 
@@ -112,8 +113,31 @@ vec4 celestialDisc(sampler2D image, vec2 uv, vec2 tile, vec2 sheet) {
     return textureLod(image, (tile + uv) / sheet, 0.0);
 }
 
+vec2 endSkyUv(vec3 ray) {
+    vec3 axis = abs(ray);
+    vec2 face;
+    // Apply the inverse of the legacy cube-face rotations to the view ray.
+    if (axis.y >= max(axis.x, axis.z)) {
+        face = vec2(ray.x, -sign(ray.y) * ray.z) / axis.y;
+    } else if (axis.z >= axis.x) {
+        face = vec2(ray.x, sign(ray.z) * ray.y) / axis.z;
+    } else {
+        face = vec2(sign(ray.x) * ray.y, ray.z) / axis.x;
+    }
+    return fract((face * 0.5 + 0.5) * 16.0);
+}
+
 void main() {
+    if (env.cloudOffset.w == 2.0) {
+        color = vec4(outputColor(env.fogAndStars.rgb), 1.0);
+        return;
+    }
     vec3 ray = normalize(unproject(1.0) - unproject(-1.0));
+    if (env.cloudOffset.w == 1.0) {
+        vec3 texel = textureLod(endSky, endSkyUv(ray), 0.0).rgb;
+        color = vec4(outputColor(texel * env.skyColor.rgb), 1.0);
+        return;
+    }
     vec3 rgb = mix(env.fogAndStars.rgb, env.skyColor.rgb, env.skyColor.a * smoothstep(-0.12, 0.32, ray.y));
     float sine = env.celestial.x;
     float cosine = env.celestial.y;

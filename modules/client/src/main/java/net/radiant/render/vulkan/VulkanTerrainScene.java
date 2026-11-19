@@ -36,7 +36,7 @@ final class VulkanTerrainScene implements VulkanScene {
     private int quads;
     private int cutoutQuads;
     private int translucentQuads;
-    private boolean skyDrawn;
+    private VulkanEnvironment.SkyMode skyModeDrawn;
     private boolean cloudsDrawn;
 
     VulkanTerrainScene(VulkanObjectCapture objectCapture) {
@@ -127,7 +127,7 @@ final class VulkanTerrainScene implements VulkanScene {
         quads = 0;
         cutoutQuads = 0;
         translucentQuads = 0;
-        skyDrawn = false;
+        skyModeDrawn = null;
         cloudsDrawn = false;
     }
 
@@ -168,7 +168,7 @@ final class VulkanTerrainScene implements VulkanScene {
         VulkanGraphics.viewport(stack, commands, (width - view.width) / 2, (height - view.height) / 2, view.width, view.height);
         if (frame.environment != null) {
             environment.drawSky(stack, commands);
-            skyDrawn = true;
+            skyModeDrawn = frame.environment.skyMode();
         }
         pipeline.begin(stack, commands);
         drawCalls = pipeline.draw(stack, commands, frame.opaque, false);
@@ -236,7 +236,15 @@ final class VulkanTerrainScene implements VulkanScene {
     }
 
     boolean skyDrawn() {
-        return skyDrawn;
+        return skyModeDrawn != null && skyModeDrawn != VulkanEnvironment.SkyMode.FOG;
+    }
+
+    boolean endSkyDrawn() {
+        return skyModeDrawn == VulkanEnvironment.SkyMode.END;
+    }
+
+    boolean fogBackgroundDrawn() {
+        return skyModeDrawn == VulkanEnvironment.SkyMode.FOG;
     }
 
     boolean cloudsDrawn() {
