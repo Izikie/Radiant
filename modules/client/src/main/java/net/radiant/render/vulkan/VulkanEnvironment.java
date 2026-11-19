@@ -25,7 +25,7 @@ final class VulkanEnvironment implements AutoCloseable {
             """;
 
     private final Matrix4f inverseViewProjection = new Matrix4f();
-    private final VulkanTexture[] textures = new VulkanTexture[3];
+    private final VulkanTexture[] textures = new VulkanTexture[4];
     private Images pendingImages;
     private VkPhysicalDevice physicalDevice;
     private VkDevice device;
@@ -69,7 +69,7 @@ final class VulkanEnvironment implements AutoCloseable {
 
     private void createDescriptors(MemoryStack stack) {
         LongBuffer handle = stack.mallocLong(1);
-        VkDescriptorSetLayoutBinding.Buffer bindings = VkDescriptorSetLayoutBinding.calloc(4, stack);
+        VkDescriptorSetLayoutBinding.Buffer bindings = VkDescriptorSetLayoutBinding.calloc(1 + textures.length, stack);
         for (int i = 0; i < bindings.capacity(); i++) {
             bindings.get(i).binding(i).descriptorCount(1).stageFlags(VK_SHADER_STAGE_FRAGMENT_BIT)
                     .descriptorType(i == 0 ? VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER : VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER);
@@ -79,7 +79,7 @@ final class VulkanEnvironment implements AutoCloseable {
         descriptorLayout = handle.get(0);
         VkDescriptorPoolSize.Buffer sizes = VkDescriptorPoolSize.calloc(2, stack);
         sizes.get(0).type(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER).descriptorCount(1);
-        sizes.get(1).type(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER).descriptorCount(3);
+        sizes.get(1).type(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER).descriptorCount(textures.length);
         VkDescriptorPoolCreateInfo pool = VkDescriptorPoolCreateInfo.calloc(stack).sType$Default().maxSets(1).pPoolSizes(sizes);
         VulkanPresenter.check(vkCreateDescriptorPool(device, pool, null, handle), "create environment descriptor pool");
         descriptorPool = handle.get(0);
@@ -95,7 +95,7 @@ final class VulkanEnvironment implements AutoCloseable {
 
     private void bindTextures() {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            VkWriteDescriptorSet.Buffer writes = VkWriteDescriptorSet.calloc(4, stack);
+            VkWriteDescriptorSet.Buffer writes = VkWriteDescriptorSet.calloc(1 + textures.length, stack);
             VkDescriptorBufferInfo.Buffer data = VkDescriptorBufferInfo.calloc(1, stack);
             data.get(0).buffer(uniformBuffer.handle()).range(FRAME_BYTES);
             writes.get(0).sType$Default().dstSet(descriptorSet).descriptorCount(1)
@@ -121,6 +121,7 @@ final class VulkanEnvironment implements AutoCloseable {
             upload(0, pendingImages.clouds, queue, commands);
             upload(1, pendingImages.sun, queue, commands);
             upload(2, pendingImages.moon, queue, commands);
+            upload(3, pendingImages.endSky, queue, commands);
             bindTextures();
             pendingImages = null;
         }
@@ -133,7 +134,7 @@ final class VulkanEnvironment implements AutoCloseable {
         uniforms.putFloat(frame.sunriseRed).putFloat(frame.sunriseGreen).putFloat(frame.sunriseBlue).putFloat(frame.sunriseAlpha);
         uniforms.putFloat(frame.celestialSine).putFloat(frame.celestialCosine).putFloat(frame.celestialVisibility).putFloat(frame.moonPhase);
         uniforms.putFloat(frame.cloudRed).putFloat(frame.cloudGreen).putFloat(frame.cloudBlue).putFloat(frame.cloudMode);
-        uniforms.putFloat(frame.cloudX).putFloat(frame.cloudZ).putFloat(frame.cloudHeight).putFloat(0);
+        uniforms.putFloat(frame.cloudX).putFloat(frame.cloudZ).putFloat(frame.cloudHeight).putFloat(frame.skyMode.ordinal());
     }
 
     private void upload(int index, NativeImage image, VkQueue queue, VkCommandBuffer commands) {
@@ -188,13 +189,21 @@ final class VulkanEnvironment implements AutoCloseable {
         }
     }
 
-    record Images(NativeImage clouds, NativeImage sun, NativeImage moon) {
+    record Images(NativeImage clouds, NativeImage sun, NativeImage moon, NativeImage endSky) {
     }
 
-    record Frame(boolean drawSkyColor, float skyRed, float skyGreen, float skyBlue, float stars,
+    enum SkyMode {
+        OVERWORLD, END, FOG
+    }
+
+    record Frame(SkyMode skyMode, boolean drawSkyColor, float skyRed, float skyGreen, float skyBlue, float stars,
                  float sunriseRed, float sunriseGreen, float sunriseBlue, float sunriseAlpha,
                  float celestialSine, float celestialCosine, float celestialVisibility, int moonPhase,
                  int cloudMode, float cloudRed, float cloudGreen, float cloudBlue, float cloudX, float cloudZ,
                  float cloudHeight) {
+        static Frame dimensionSky(SkyMode mode, float red, float green, float blue) {
+            return new Frame(mode, false, red, green, blue, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        }
     }
 }

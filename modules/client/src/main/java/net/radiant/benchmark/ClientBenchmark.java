@@ -382,7 +382,7 @@ public final class ClientBenchmark {
         }
     }
 
-    public static void recordVulkanEnvironmentFrame(boolean sky, boolean clouds) {
+    public static void recordVulkanEnvironmentFrame(boolean sky, boolean clouds, boolean endSky, boolean fogBackground) {
         Capture capture = active;
         if (capture != null) {
             if (sky) {
@@ -390,6 +390,12 @@ public final class ClientBenchmark {
             }
             if (clouds) {
                 capture.vulkanCloudFrames++;
+            }
+            if (endSky) {
+                capture.vulkanEndSkyFrames++;
+            }
+            if (fogBackground) {
+                capture.vulkanFogBackgroundFrames++;
             }
         }
     }
@@ -485,6 +491,8 @@ public final class ClientBenchmark {
         private long vulkanAtlasUploadBytes;
         private long vulkanSkyFrames;
         private long vulkanCloudFrames;
+        private long vulkanEndSkyFrames;
+        private long vulkanFogBackgroundFrames;
         private long buildCount;
         private long buildNanos;
         private long uploadCount;
@@ -612,6 +620,8 @@ public final class ClientBenchmark {
                 report.addProperty("vulkanAtlasUploadBytes", vulkanAtlasUploadBytes);
                 report.addProperty("vulkanSkyFrames", vulkanSkyFrames);
                 report.addProperty("vulkanCloudFrames", vulkanCloudFrames);
+                report.addProperty("vulkanEndSkyFrames", vulkanEndSkyFrames);
+                report.addProperty("vulkanFogBackgroundFrames", vulkanFogBackgroundFrames);
             }
             report.addProperty("chunkBuildCount", buildCount);
             report.addProperty("chunkBuildTotalMs", buildNanos / 1_000_000.0);

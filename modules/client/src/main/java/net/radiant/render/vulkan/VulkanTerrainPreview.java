@@ -272,7 +272,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         try {
             return new VulkanEnvironment.Images(NativeImage.loadFromResourceLocation(RenderGlobal.LOCATION_CLOUDS_PNG),
                     NativeImage.loadFromResourceLocation(RenderGlobal.LOCATION_SUN_PNG),
-                    NativeImage.loadFromResourceLocation(RenderGlobal.LOCATION_MOON_PHASES_PNG));
+                    NativeImage.loadFromResourceLocation(RenderGlobal.LOCATION_MOON_PHASES_PNG),
+                    NativeImage.loadFromResourceLocation(RenderGlobal.LOCATION_END_SKY_PNG));
         } catch (IOException e) {
             throw new UncheckedIOException("Could not load Vulkan sky and cloud textures", e);
         }
@@ -281,8 +282,16 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     private static VulkanEnvironment.Frame captureEnvironment(Minecraft mc, Entity view, double x, double y, double z,
                                                                float partialTicks, int cloudTick) {
         var world = mc.world;
+        if (world.provider.getDimensionId() == 1 && Config.isSkyEnabled()) {
+            Vec3 tint = new Vec3(40.0 / 255.0, 40.0 / 255.0, 40.0 / 255.0);
+            if (Config.isCustomColors()) {
+                tint = CustomColors.getWorldSkyColor(tint, world, view, partialTicks);
+            }
+            return VulkanEnvironment.Frame.dimensionSky(VulkanEnvironment.SkyMode.END,
+                    (float) tint.xCoord(), (float) tint.yCoord(), (float) tint.zCoord());
+        }
         if (!world.provider.isSurfaceWorld()) {
-            return null;
+            return VulkanEnvironment.Frame.dimensionSky(VulkanEnvironment.SkyMode.FOG, 0, 0, 0);
         }
         Vec3 sky = CustomColors.getSkyColor(world.getSkyColor(view, partialTicks), world, view.posX, view.posY + 1, view.posZ);
         float angle = world.getCelestialAngle(partialTicks);
@@ -296,7 +305,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         float cloudX = wrapCloudOffset(x + (cloudTick + partialTicks) * 0.03, period);
         float cloudZ = wrapCloudOffset(z + (mode == 2 ? 3.96 : 0.0), period);
         float cloudHeight = (float) (world.provider.getCloudHeight() + mc.gameSettings.ofCloudsHeight * 128 + 0.33 - y);
-        return new VulkanEnvironment.Frame(Config.isSkyEnabled(), (float) sky.xCoord(), (float) sky.yCoord(), (float) sky.zCoord(),
+        return new VulkanEnvironment.Frame(VulkanEnvironment.SkyMode.OVERWORLD, Config.isSkyEnabled(),
+                (float) sky.xCoord(), (float) sky.yCoord(), (float) sky.zCoord(),
                 stars, sunrise == null ? 0 : sunrise[0], sunrise == null ? 0 : sunrise[1],
                 sunrise == null ? 0 : sunrise[2], sunrise == null ? 0 : sunrise[3],
                 (float) Math.sin(radians), (float) Math.cos(radians), Config.isSunMoonEnabled() ? rainVisibility : 0, world.getMoonPhase(),
@@ -378,7 +388,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
                 preview.drawCalls += preview.terrain.drawCalls();
                 ClientBenchmark.recordVulkanTerrainFrame(preview.terrain.drawCalls(), preview.terrain.quads(),
                         preview.terrain.cutoutQuads(), preview.terrain.translucentQuads());
-                ClientBenchmark.recordVulkanEnvironmentFrame(preview.terrain.skyDrawn(), preview.terrain.cloudsDrawn());
+                ClientBenchmark.recordVulkanEnvironmentFrame(preview.terrain.skyDrawn(), preview.terrain.cloudsDrawn(),
+                        preview.terrain.endSkyDrawn(), preview.terrain.fogBackgroundDrawn());
                 ClientBenchmark.recordVulkanObjectFrame(preview.objects.entityTriangles(), preview.objects.blockEntityTriangles(),
                         preview.objects.blockEntityGlyphs());
                 ClientBenchmark.recordVulkanParticleFrame(preview.objects.particleTriangles(), preview.objects.terrainParticleTriangles(),

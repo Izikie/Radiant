@@ -84,7 +84,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     public static final ResourceLocation LOCATION_MOON_PHASES_PNG = new ResourceLocation("textures/environment/moon_phases.png");
     public static final ResourceLocation LOCATION_SUN_PNG = new ResourceLocation("textures/environment/sun.png");
     public static final ResourceLocation LOCATION_CLOUDS_PNG = new ResourceLocation("textures/environment/clouds.png");
-    private static final ResourceLocation LOCATION_END_SKY_PNG = new ResourceLocation("textures/environment/end_sky.png");
+    public static final ResourceLocation LOCATION_END_SKY_PNG = new ResourceLocation("textures/environment/end_sky.png");
     private static final ResourceLocation LOCATION_FORCEFIELD_PNG = new ResourceLocation("textures/misc/forcefield.png");
     public final Minecraft mc;
     private final TextureManager renderEngine;

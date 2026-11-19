@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiDownloadTerrain;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.settings.GameSettings;
@@ -155,6 +156,13 @@ final class BenchmarkSuite {
                 }
             }
             case TRAVELLING -> {
+                if (changingDimension()) {
+                    if (mc.world == null || mc.player == null || mc.currentScreen != null
+                            || mc.world.provider.getDimensionId() != warmupLocation.dimension) {
+                        return;
+                    }
+                    world = mc.world;
+                }
                 BlockPos floor = new BlockPos(warmupLocation.x, BenchmarkWorld.FLOOR_Y, warmupLocation.z);
                 if (pending == null && atDestination(mc, warmupLocation) && world.getWorldTime() == warmupLocation.worldTime
                         && world.getBlockState(floor).getBlock() == Blocks.STONEBRICK
@@ -223,19 +231,24 @@ final class BenchmarkSuite {
     }
 
     private String interruption(Minecraft mc) {
-        if (mc.getIntegratedServer() != server || (world != null && (mc.world != world || mc.player == null))) {
+        boolean transfer = changingDimension();
+        if (mc.getIntegratedServer() != server || (world != null && !transfer && (mc.world != world || mc.player == null))) {
             return "world changed";
         }
         if (mc.displayWidth != width || mc.displayHeight != height) {
             return "window size changed";
         }
-        if (world != null && mc.currentScreen != inventory) {
+        if (world != null && mc.currentScreen != inventory && !(transfer && mc.currentScreen instanceof GuiDownloadTerrain)) {
             return "unexpected screen opened or closed";
         }
         if (!exitAfterSuite && world != null && !Display.isActive()) {
             return "window lost focus";
         }
         return null;
+    }
+
+    private boolean changingDimension() {
+        return stage == Stage.TRAVELLING && world != null && world.provider.getDimensionId() != ROUTE[routeIndex].dimension;
     }
 
     private void preparePhase(Phase phase, long now) {
@@ -256,6 +269,11 @@ final class BenchmarkSuite {
             EntityPlayerMP player = server.getConfigurationManager().getPlayerByUsername(playerName);
             if (player == null) {
                 throw new IllegalStateException("Benchmark player disconnected");
+            }
+            if (player.dimension != phase.dimension) {
+                BenchmarkWorld.buildDimensionSky(server.worldServerForDimension(phase.dimension));
+                player = server.getConfigurationManager().recreatePlayerEntity(player, phase.dimension, true);
+                player.playerNetServerHandler.playerEntity = player;
             }
             player.capabilities.isFlying = true;
             player.sendPlayerAbilities();
@@ -551,7 +569,9 @@ final class BenchmarkSuite {
         BLOCK_INTERACTION("block-interaction", BenchmarkWorld.BLOCK_INTERACTION_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 0, 0),
         WORLD_BORDER("world-border", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 0, 12, -40, 6000),
         FIRST_PERSON_GLINT("first-person-glint", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 0),
-        CREATIVE_INVENTORY("creative-inventory", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 0);
+        CREATIVE_INVENTORY("creative-inventory", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 0),
+        NETHER_FOG("nether-fog", BenchmarkWorld.DIMENSION_SKY_X, EXHIBIT_Y, 0, -5, 35, -1),
+        END_SKY("end-sky", BenchmarkWorld.DIMENSION_SKY_X, EXHIBIT_Y, 0, -12, 55, 1);
 
         private final String scenario;
         private final int x;
@@ -562,9 +582,14 @@ final class BenchmarkSuite {
         private final float yaw;
         private final long worldTime;
         private final BiomeGenBase precipitationBiome;
+        private final int dimension;
 
         Phase(String scenario, int x, int y, int z, float pitch, float sweep) {
             this(scenario, x, y, z, pitch, sweep, 0, 6000);
+        }
+
+        Phase(String scenario, int x, int y, int z, float pitch, float sweep, int dimension) {
+            this(scenario, x, y, z, pitch, sweep, 0, 6000, null, dimension);
         }
 
         Phase(String scenario, int x, int y, int z, float pitch, float sweep, float yaw, long worldTime) {
@@ -573,6 +598,11 @@ final class BenchmarkSuite {
 
         Phase(String scenario, int x, int y, int z, float pitch, float sweep, float yaw, long worldTime,
               BiomeGenBase precipitationBiome) {
+            this(scenario, x, y, z, pitch, sweep, yaw, worldTime, precipitationBiome, 0);
+        }
+
+        Phase(String scenario, int x, int y, int z, float pitch, float sweep, float yaw, long worldTime,
+              BiomeGenBase precipitationBiome, int dimension) {
             this.scenario = scenario;
             this.x = x;
             this.y = y;
@@ -582,6 +612,7 @@ final class BenchmarkSuite {
             this.yaw = yaw;
             this.worldTime = worldTime;
             this.precipitationBiome = precipitationBiome;
+            this.dimension = dimension;
         }
 
         float rainStrength() {

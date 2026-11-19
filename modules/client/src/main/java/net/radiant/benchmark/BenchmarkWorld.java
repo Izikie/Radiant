@@ -25,7 +25,7 @@ import java.util.Arrays;
 
 final class BenchmarkWorld {
     static final long SEED = 681889L;
-    static final int LAYOUT_VERSION = 8;
+    static final int LAYOUT_VERSION = 9;
     static final int FLOOR_Y = 192;
     static final int GALLERY_X = 0;
     static final int ENTITY_X = 64;
@@ -39,6 +39,7 @@ final class BenchmarkWorld {
     static final int WATER_OVERLAY_X = RAIN_X - 10;
     static final int BLOCK_OVERLAY_X = RAIN_X + 10;
     static final int OVERLAY_FIXTURE_Z = 27;
+    static final int DIMENSION_SKY_X = 0;
     static final int BLOCK_INTERACTION_X = RAIN_X + 10;
     static final BlockPos BREAKING_SLAB = new BlockPos(BLOCK_INTERACTION_X, FLOOR_Y + 2, WEATHER_CAMERA_Z + 3);
     static final BlockPos BREAKING_CHEST = new BlockPos(BLOCK_INTERACTION_X + 2, FLOOR_Y + 1, WEATHER_CAMERA_Z + 3);
@@ -90,6 +91,18 @@ final class BenchmarkWorld {
         for (int dx = -1; dx <= 1; dx++) {
             for (int dz = -1; dz <= 1; dz++) {
                 world.setBlockState(new BlockPos(BLOCK_OVERLAY_X + dx, FLOOR_Y + 2, OVERLAY_FIXTURE_Z + dz), brickBlock, 2);
+            }
+        }
+    }
+
+    static void buildDimensionSky(WorldServer world) {
+        buildFloor(world, DIMENSION_SKY_X);
+        var pillar = (world.provider.getDimensionId() == -1 ? Blocks.NETHERRACK : Blocks.END_STONE).getDefaultState();
+        for (int z = 7; z <= 31; z += 8) {
+            for (int x = -5; x <= 5; x += 10) {
+                for (int y = 1; y <= 5; y++) {
+                    world.setBlockState(new BlockPos(DIMENSION_SKY_X + x, FLOOR_Y + y, z), pillar, 2);
+                }
             }
         }
     }
