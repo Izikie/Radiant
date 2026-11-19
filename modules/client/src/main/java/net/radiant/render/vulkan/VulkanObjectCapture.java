@@ -48,6 +48,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private final Image atlas = new Image(0, 0, null);
     private final List<Draw> draws = new ArrayList<>();
     private final List<Draw> outlineDraws = new ArrayList<>();
+    private final List<Draw> nameTagDraws = new ArrayList<>();
     private final int[] layerStarts = new int[Layer.values().length];
     private final int[] cameraOverlayQuads = new int[CameraOverlay.values().length];
     private final Matrix4f projection = new Matrix4f();
@@ -69,6 +70,8 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private int entityFireQuads;
     private int entityHitboxSegments;
     private int entityLeashTriangles;
+    private int entityNameTagGlyphs;
+    private int entityNameTagThroughWallGlyphs;
     private int outlineTriangles;
     private int lightningTriangles;
     private int blockEntityTriangles;
@@ -103,12 +106,15 @@ public final class VulkanObjectCapture implements AutoCloseable {
         releaseRetiredImages();
         draws.clear();
         outlineDraws.clear();
+        nameTagDraws.clear();
         vertices.clear();
         entityTriangles = 0;
         entityShadowQuads = 0;
         entityFireQuads = 0;
         entityHitboxSegments = 0;
         entityLeashTriangles = 0;
+        entityNameTagGlyphs = 0;
+        entityNameTagThroughWallGlyphs = 0;
         outlineTriangles = 0;
         lightningTriangles = 0;
         blockEntityTriangles = 0;
@@ -271,6 +277,18 @@ public final class VulkanObjectCapture implements AutoCloseable {
         }
     }
 
+    public static void beginEntityNameTag() {
+        if (active != null && active.phase == Phase.ENTITIES) {
+            active.phase = Phase.ENTITY_NAME_TAG;
+        }
+    }
+
+    public static void endEntityNameTag() {
+        if (active != null && active.phase == Phase.ENTITY_NAME_TAG) {
+            active.phase = Phase.ENTITIES;
+        }
+    }
+
     public static void beginEntityLeash() {
         if (active != null) {
             active.entityLeash = true;
@@ -371,8 +389,15 @@ public final class VulkanObjectCapture implements AutoCloseable {
         putGlyphVertex(data, x - skew, y + 7.99f, u0, v1);
         putGlyphVertex(data, x + width + skew, y, u1, v0);
         putGlyphVertex(data, x + width - skew, y + 7.99f, u1, v1);
-        active.append(new Mesh(data, Layout.GLYPH, GL_TRIANGLE_STRIP, 4), active.material());
+        Material material = active.material();
+        active.append(new Mesh(data, Layout.GLYPH, GL_TRIANGLE_STRIP, 4), material);
         switch (active.phase) {
+            case ENTITY_NAME_TAG -> {
+                active.entityNameTagGlyphs++;
+                if (!material.pipeline.state.depthTest()) {
+                    active.entityNameTagThroughWallGlyphs++;
+                }
+            }
             case BLOCK_ENTITIES -> active.blockEntityGlyphs++;
             case SCREEN -> active.screenGlyphs++;
             default -> { }
@@ -416,7 +441,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         VulkanGraphics.State state;
         if (glint != null || entityLeash || phase.layer.ui || phase == Phase.CAMERA_OVERLAYS || phase.drawsLines()
                 || phase == Phase.BLOCK_DAMAGE || phase == Phase.WORLD_BORDER || phase == Phase.LIGHTNING
-                || phase == Phase.ENTITY_SHADOWS || phase == Phase.ENTITY_FIRE) {
+                || phase == Phase.ENTITY_SHADOWS || phase == Phase.ENTITY_FIRE || phase == Phase.ENTITY_NAME_TAG) {
             state = VulkanOverlayState.capture(depthTest, depthWrite, blend);
         } else {
             VulkanGraphics.Pass pass = !depthTest ? VulkanGraphics.Pass.OBJECT_OVERLAY
@@ -500,10 +525,13 @@ public final class VulkanObjectCapture implements AutoCloseable {
                 writeVertex(mesh, material, vertexIndex(mesh.mode, primitive, corner));
             }
         }
-        boolean outline = phase == Phase.ENTITY_OUTLINES;
-        List<Draw> target = outline ? outlineDraws : draws;
+        List<Draw> target = switch (phase) {
+            case ENTITY_OUTLINES -> outlineDraws;
+            case ENTITY_NAME_TAG -> nameTagDraws;
+            default -> draws;
+        };
         int last = target.size() - 1;
-        boolean layerBoundary = !outline && target.size() == layerStarts[phase.layer.ordinal()];
+        boolean layerBoundary = target == draws && target.size() == layerStarts[phase.layer.ordinal()];
         if (last >= 0 && !layerBoundary && target.get(last).firstVertex + target.get(last).vertexCount == firstVertex
                 && target.get(last).material.equals(material)) {
             Draw previous = target.get(last);
@@ -537,6 +565,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
                 entityFireQuads += triangles / 2;
             }
             case ENTITY_HITBOX -> entityHitboxSegments += primitiveCount;
+            case ENTITY_NAME_TAG -> entityTriangles += triangles;
             case ENTITY_OUTLINES -> outlineTriangles += triangles;
             case LIGHTNING -> lightningTriangles += triangles;
             case BLOCK_ENTITIES -> blockEntityTriangles += triangles;
@@ -668,6 +697,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
         return outlineDraws;
     }
 
+    List<Draw> nameTagDraws() {
+        return nameTagDraws;
+    }
+
     int drawStart(Layer layer) {
         return drawBoundary(layer.ordinal());
     }
@@ -707,6 +740,14 @@ public final class VulkanObjectCapture implements AutoCloseable {
 
     int entityLeashTriangles() {
         return entityLeashTriangles;
+    }
+
+    int entityNameTagGlyphs() {
+        return entityNameTagGlyphs;
+    }
+
+    int entityNameTagThroughWallGlyphs() {
+        return entityNameTagThroughWallGlyphs;
     }
 
     int outlineTriangles() {
@@ -818,7 +859,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     }
 
     enum Phase {
-        ENTITIES, ENTITY_SHADOWS, ENTITY_FIRE, ENTITY_HITBOX, ENTITY_OUTLINES, LIGHTNING, BLOCK_ENTITIES,
+        ENTITIES, ENTITY_SHADOWS, ENTITY_FIRE, ENTITY_HITBOX, ENTITY_OUTLINES, ENTITY_NAME_TAG, LIGHTNING, BLOCK_ENTITIES,
         LIT_PARTICLES, PARTICLE_BILLBOARDS,
         RAIN, SNOW, SELECTION, BLOCK_DAMAGE, WORLD_BORDER,
         FIRST_PERSON(Layer.FIRST_PERSON), CAMERA_OVERLAYS(Layer.FIRST_PERSON), HUD(Layer.HUD), SCREEN(Layer.SCREEN);

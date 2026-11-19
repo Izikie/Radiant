@@ -179,6 +179,7 @@ final class VulkanTerrainScene implements VulkanScene {
         }
         pipeline.begin(stack, commands);
         drawCalls += pipeline.draw(stack, commands, frame.translucent, true);
+        objects.drawNameTags(stack, commands, objectCapture, frame.fog);
         drawOverlay(stack, commands, width, height, VulkanObjectCapture.Layer.FIRST_PERSON);
         if (!objectCapture.outlineDraws().isEmpty()) {
             outlines.draw(stack, commands);

@@ -291,6 +291,15 @@ public final class ClientBenchmark {
         }
     }
 
+    public static void recordVulkanEntityNameTags(int glyphs, int throughWallGlyphs) {
+        Capture capture = active;
+        if (capture != null && glyphs > 0) {
+            capture.vulkanEntityNameTagFrames++;
+            capture.vulkanEntityNameTagGlyphs += glyphs;
+            capture.vulkanEntityNameTagThroughWallGlyphs += throughWallGlyphs;
+        }
+    }
+
     public static void recordVulkanParticleFrame(int triangles, int terrainTriangles, int translucentTriangles, int litTriangles) {
         Capture capture = active;
         if (capture != null) {
@@ -492,6 +501,9 @@ public final class ClientBenchmark {
         private long vulkanEntityHitboxSegments;
         private long vulkanEntityLeashFrames;
         private long vulkanEntityLeashTriangles;
+        private long vulkanEntityNameTagFrames;
+        private long vulkanEntityNameTagGlyphs;
+        private long vulkanEntityNameTagThroughWallGlyphs;
         private long vulkanBlockEntityTriangles;
         private long vulkanBlockEntityGlyphs;
         private long vulkanParticleTriangles;
@@ -628,6 +640,9 @@ public final class ClientBenchmark {
                 report.addProperty("vulkanEntityHitboxSegments", vulkanEntityHitboxSegments);
                 report.addProperty("vulkanEntityLeashFrames", vulkanEntityLeashFrames);
                 report.addProperty("vulkanEntityLeashTriangles", vulkanEntityLeashTriangles);
+                report.addProperty("vulkanEntityNameTagFrames", vulkanEntityNameTagFrames);
+                report.addProperty("vulkanEntityNameTagGlyphs", vulkanEntityNameTagGlyphs);
+                report.addProperty("vulkanEntityNameTagThroughWallGlyphs", vulkanEntityNameTagThroughWallGlyphs);
                 report.addProperty("vulkanBlockEntityTriangles", vulkanBlockEntityTriangles);
                 report.addProperty("vulkanBlockEntityGlyphs", vulkanBlockEntityGlyphs);
                 report.addProperty("vulkanParticleTriangles", vulkanParticleTriangles);

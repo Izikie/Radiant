@@ -256,7 +256,7 @@ public class RenderManager {
             int k = i / 65536;
             OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j, k);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            render.renderName(entityIn, d0 - this.renderPosX, d1 - this.renderPosY, d2 - this.renderPosZ);
+            render.renderNameWithCapture(entityIn, d0 - this.renderPosX, d1 - this.renderPosY, d2 - this.renderPosZ);
         }
     }
 
