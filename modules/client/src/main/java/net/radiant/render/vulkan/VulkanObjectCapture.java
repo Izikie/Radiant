@@ -40,7 +40,8 @@ import static org.lwjgl.vulkan.VK10.VK_SAMPLER_ADDRESS_MODE_REPEAT;
 
 /** Extracts legacy draw geometry on the client thread, before its buffers are recycled. */
 public final class VulkanObjectCapture implements AutoCloseable {
-    static final int STRIDE = 32;
+    static final int STRIDE = 36;
+    private static final float UNORM8_TO_UNORM16 = 65535.0f / 255.0f;
     private static final int[] QUAD_INDICES = {0, 1, 2, 2, 3, 0};
     private static final Map<ModelRenderer, List<Mesh>> MODELS = new WeakHashMap<>();
     private static final Map<Integer, CpuImage> CPU_TEXTURES = new HashMap<>();
@@ -720,20 +721,21 @@ public final class VulkanObjectCapture implements AutoCloseable {
         float red = layout.color < 0 ? color.x : Byte.toUnsignedInt(data.get(rgba)) / 255f;
         float green = layout.color < 0 ? color.y : Byte.toUnsignedInt(data.get(rgba + 1)) / 255f;
         float blue = layout.color < 0 ? color.z : Byte.toUnsignedInt(data.get(rgba + 2)) / 255f;
-        float textureWeight = 1.0f - entityTint.w;
+        float colorScale = (1.0f - entityTint.w) * UNORM8_TO_UNORM16;
         // Fixed-function lighting clamps the lit vertex color before the texture combiners.
-        vertices.put((byte) Math.round(Math.min(red * shade, 1.0f) * lightmapColor.x * textureWeight));
-        vertices.put((byte) Math.round(Math.min(green * shade, 1.0f) * lightmapColor.y * textureWeight));
-        vertices.put((byte) Math.round(Math.min(blue * shade, 1.0f) * lightmapColor.z * textureWeight));
+        vertices.putShort((short) Math.round(Math.min(red * shade, 1.0f) * lightmapColor.x * colorScale));
+        vertices.putShort((short) Math.round(Math.min(green * shade, 1.0f) * lightmapColor.y * colorScale));
+        vertices.putShort((short) Math.round(Math.min(blue * shade, 1.0f) * lightmapColor.z * colorScale));
         if (entityTint.w > 0) {
             // The fixed-function combiner interpolates RGB before lightmapping and keeps texture alpha.
-            vertices.put((byte) 255);
+            vertices.putShort((short) 65535);
             vertices.put((byte) Math.round(entityTint.x * entityTint.w * lightmapColor.x));
             vertices.put((byte) Math.round(entityTint.y * entityTint.w * lightmapColor.y));
             vertices.put((byte) Math.round(entityTint.z * entityTint.w * lightmapColor.z));
             vertices.put((byte) 0);
         } else {
-            vertices.put(layout.color < 0 ? (byte) Math.round(color.w * 255) : data.get(rgba + 3));
+            float alpha = layout.color < 0 ? color.w * 255.0f : Byte.toUnsignedInt(data.get(rgba + 3));
+            vertices.putShort((short) Math.round(alpha * UNORM8_TO_UNORM16));
             vertices.putInt(0);
         }
     }

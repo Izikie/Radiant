@@ -116,8 +116,8 @@ final class VulkanObjectRenderer implements AutoCloseable {
             VkVertexInputAttributeDescription.Buffer attributes = VkVertexInputAttributeDescription.calloc(4, stack);
             attributes.get(0).location(0).format(VK_FORMAT_R32G32B32A32_SFLOAT);
             attributes.get(1).location(1).format(VK_FORMAT_R32G32_SFLOAT).offset(16);
-            attributes.get(2).location(2).format(VK_FORMAT_R8G8B8A8_UNORM).offset(24);
-            attributes.get(3).location(3).format(VK_FORMAT_R8G8B8A8_UNORM).offset(28);
+            attributes.get(2).location(2).format(VK_FORMAT_R16G16B16A16_UNORM).offset(24);
+            attributes.get(3).location(3).format(VK_FORMAT_R8G8B8A8_UNORM).offset(32);
             VkPipelineVertexInputStateCreateInfo input = VkPipelineVertexInputStateCreateInfo.calloc(stack).sType$Default()
                     .pVertexBindingDescriptions(bindings).pVertexAttributeDescriptions(attributes);
             int targetColor = pipeline.outlineMask() ? VulkanEntityOutline.MASK_FORMAT : colorFormat;
