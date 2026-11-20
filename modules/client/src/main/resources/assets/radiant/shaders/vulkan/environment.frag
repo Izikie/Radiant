@@ -175,20 +175,25 @@ void main() {
 
     // Undo the celestial rotation used by the world to locate the sun and current moon phase.
     vec3 local = vec3(ray.z, cosine * ray.y - sine * ray.x, -sine * ray.y - cosine * ray.x);
-    if (ray.y > -0.04) {
-        if (env.fogAndStars.a > 0.0) {
-            vec2 grid = vec2(atan(local.z, local.x) / 6.2831853, asin(clamp(local.y, -1.0, 1.0)) / 3.1415927)
-                    * vec2(480.0, 240.0);
-            float chance = hash(floor(grid));
-            float star = 1.0 - smoothstep(0.09, 0.21, length(fract(grid) - 0.5));
-            rgb += vec3(star * step(0.979, chance) * env.fogAndStars.a);
-        }
-        if (env.celestial.z > 0.0) {
+    if (ray.y > -0.04 && env.fogAndStars.a > 0.0) {
+        vec2 grid = vec2(atan(local.z, local.x) / 6.2831853, asin(clamp(local.y, -1.0, 1.0)) / 3.1415927)
+                * vec2(480.0, 240.0);
+        float chance = hash(floor(grid));
+        float star = 1.0 - smoothstep(0.09, 0.21, length(fract(grid) - 0.5));
+        rgb += vec3(star * step(0.979, chance) * env.fogAndStars.a);
+    }
+    if (env.celestial.z > 0.0 && abs(local.y) > 1e-6) {
+        vec3 localOrigin = vec3(origin.z, cosine * origin.y - sine * origin.x, -sine * origin.y - cosine * origin.x);
+        bool sunward = local.y > 0.0;
+        float distance = ((sunward ? 100.0 : -100.0) - localOrigin.y) / local.y;
+        vec4 clip = env.viewProjection * vec4(origin + ray * distance, 1.0);
+        if (distance >= 0.0 && clip.z <= clip.w) {
+            vec2 hit = localOrigin.xz + local.xz * distance;
             vec4 disc;
-            if (local.y > 0.0) {
-                disc = celestialDisc(sun, vec2(0.5) + local.xz / (local.y * 0.6), vec2(0.0), vec2(1.0));
+            if (sunward) {
+                disc = celestialDisc(sun, vec2(0.5) + hit / 60.0, vec2(0.0), vec2(1.0));
             } else {
-                vec2 uv = vec2(0.5) + vec2(-local.x, local.z) / (max(-local.y, 0.00001) * 0.4);
+                vec2 uv = vec2(0.5) + vec2(-hit.x, hit.y) / 40.0;
                 vec2 phase = vec2(mod(env.celestial.w, 4.0), floor(env.celestial.w / 4.0));
                 disc = celestialDisc(moon, uv, phase, vec2(4.0, 2.0));
             }
