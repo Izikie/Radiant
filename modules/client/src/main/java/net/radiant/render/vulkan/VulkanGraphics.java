@@ -85,6 +85,7 @@ final class VulkanGraphics {
 
     enum Pass {
         OPAQUE(true, true, false, false),
+        TERRAIN_OPAQUE(true, true, false, true),
         TRANSLUCENT(true, false, true, true),
         SKY(false, false, false, false),
         SKY_ADDITIVE(new State(false, false, VK_COMPARE_OP_ALWAYS, VK_CULL_MODE_BACK_BIT,

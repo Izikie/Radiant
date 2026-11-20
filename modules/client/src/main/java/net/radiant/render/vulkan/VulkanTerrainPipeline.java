@@ -136,7 +136,7 @@ final class VulkanTerrainPipeline implements AutoCloseable {
                     .pVertexBindingDescriptions(bindings).pVertexAttributeDescriptions(attributes);
             String fragment = "#version 450\n#define SRGB_TARGET " + (VulkanGraphics.isSrgb(colorFormat) ? "1\n" : "0\n") + FRAGMENT_SHADER;
             opaquePipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
-                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Pass.OPAQUE, vertexInput, VERTEX_SHADER, fragment);
+                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Pass.TERRAIN_OPAQUE, vertexInput, VERTEX_SHADER, fragment);
             translucentPipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
                     VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Pass.TRANSLUCENT, vertexInput, VERTEX_SHADER, fragment);
         }
