@@ -285,8 +285,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         return true;
     }
 
-    public static void registerObjectTexture(int texture, NativeImage image, boolean clamp) {
-        VulkanObjectCapture.registerTexture(texture, image, clamp);
+    public static void registerObjectTexture(int texture, NativeImage image, boolean blur, boolean clamp) {
+        VulkanObjectCapture.registerTexture(texture, image, blur, clamp);
         invalidateObjectTextureImage(texture);
     }
 

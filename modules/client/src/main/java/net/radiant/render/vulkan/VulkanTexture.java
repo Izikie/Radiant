@@ -23,26 +23,26 @@ final class VulkanTexture implements AutoCloseable {
     void initialize(VkPhysicalDevice physicalDevice, VkQueue queue, VkCommandBuffer commands,
                     int width, int height, ByteBuffer[] levels, boolean srgb) {
         initialize(physicalDevice, queue, commands, width, height, levels, srgb,
-                VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
+                VK_FILTER_NEAREST, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
     }
 
     void initialize(VkPhysicalDevice physicalDevice, VkQueue queue, VkCommandBuffer commands,
-                    int width, int height, ByteBuffer[] levels, boolean srgb, int addressModeU, int addressModeV) {
+                    int width, int height, ByteBuffer[] levels, boolean srgb, int filter, int addressModeU, int addressModeV) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             int format = srgb ? VK_FORMAT_R8G8B8A8_SRGB : VK_FORMAT_R8G8B8A8_UNORM;
             initializeImage(stack, physicalDevice, format, width, height, levels.length, VK_IMAGE_USAGE_TRANSFER_DST_BIT,
-                    addressModeU, addressModeV);
+                    filter, addressModeU, addressModeV);
             upload(stack, physicalDevice, queue, commands, width, height, levels);
         }
     }
 
     void initializeAttachment(MemoryStack stack, VkPhysicalDevice physicalDevice, int format, int width, int height) {
         initializeImage(stack, physicalDevice, format, width, height, 1, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
-                VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
+                VK_FILTER_NEAREST, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
     }
 
     private void initializeImage(MemoryStack stack, VkPhysicalDevice physicalDevice, int format, int width, int height,
-                                 int levels, int usage, int addressModeU, int addressModeV) {
+                                 int levels, int usage, int filter, int addressModeU, int addressModeV) {
         mipLevels = levels;
         LongBuffer handle = stack.mallocLong(1);
         VkImageCreateInfo imageInfo = VkImageCreateInfo.calloc(stack).sType$Default()
@@ -59,7 +59,7 @@ final class VulkanTexture implements AutoCloseable {
         VulkanPresenter.check(vkBindImageMemory(device, image, imageMemory, 0), "bind texture memory");
         view = VulkanMemory.createImageView(stack, device, image, format, VK_IMAGE_ASPECT_COLOR_BIT, levels);
         VkSamplerCreateInfo samplerInfo = VkSamplerCreateInfo.calloc(stack).sType$Default()
-                .magFilter(VK_FILTER_NEAREST).minFilter(VK_FILTER_NEAREST).mipmapMode(VK_SAMPLER_MIPMAP_MODE_LINEAR)
+                .magFilter(filter).minFilter(filter).mipmapMode(VK_SAMPLER_MIPMAP_MODE_LINEAR)
                 .addressModeU(addressModeU)
                 .addressModeV(addressModeV)
                 .addressModeW(VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE)

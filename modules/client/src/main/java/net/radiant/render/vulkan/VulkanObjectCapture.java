@@ -31,6 +31,8 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.vulkan.VK10.VK_BLEND_FACTOR_ONE;
 import static org.lwjgl.vulkan.VK10.VK_BLEND_FACTOR_SRC_COLOR;
+import static org.lwjgl.vulkan.VK10.VK_FILTER_LINEAR;
+import static org.lwjgl.vulkan.VK10.VK_FILTER_NEAREST;
 import static org.lwjgl.vulkan.VK10.VK_PRIMITIVE_TOPOLOGY_LINE_LIST;
 import static org.lwjgl.vulkan.VK10.VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
 import static org.lwjgl.vulkan.VK10.VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
@@ -478,14 +480,14 @@ public final class VulkanObjectCapture implements AutoCloseable {
         return glint != null || phase.layer.ui || phase == Phase.BLOCK_DAMAGE;
     }
 
-    static void registerTexture(int id, NativeImage image, boolean clamp) {
-        CPU_TEXTURES.put(id, new CpuImage(image.getWidth(), image.getHeight(), image.getData().clone(), false, clamp));
+    static void registerTexture(int id, NativeImage image, boolean blur, boolean clamp) {
+        CPU_TEXTURES.put(id, new CpuImage(image.getWidth(), image.getHeight(), image.getData().clone(), false, blur, clamp));
     }
 
     static void registerTexture(int id, int width, int height, int[] argb) {
         CpuImage source = CPU_TEXTURES.get(id);
         if (source == null || !source.dynamic || source.width != width || source.height != height) {
-            source = new CpuImage(width, height, new byte[Math.multiplyExact(Math.multiplyExact(width, height), 4)], true, false);
+            source = new CpuImage(width, height, new byte[Math.multiplyExact(Math.multiplyExact(width, height), 4)], true, false, false);
             CPU_TEXTURES.put(id, source);
         }
         VulkanAtlasUpdates.writeRgba(ByteBuffer.wrap(source.rgba), argb, 0, width * height);
@@ -500,7 +502,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         if (source == null || source.clamp == clamp) {
             return false;
         }
-        CPU_TEXTURES.put(id, new CpuImage(source.width, source.height, source.rgba, source.dynamic, clamp));
+        CPU_TEXTURES.put(id, new CpuImage(source.width, source.height, source.rgba, source.dynamic, source.blur, clamp));
         return true;
     }
 
@@ -518,7 +520,8 @@ public final class VulkanObjectCapture implements AutoCloseable {
         try {
             pixels.put(source.rgba).flip();
             int addressMode = source.clamp ? VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE : VK_SAMPLER_ADDRESS_MODE_REPEAT;
-            Image image = new Image(source.width, source.height, pixels, addressMode, addressMode);
+            int filter = source.blur ? VK_FILTER_LINEAR : VK_FILTER_NEAREST;
+            Image image = new Image(source.width, source.height, pixels, filter, addressMode, addressMode);
             textures.put(id, image);
             cpuTextureLoads++;
             if (source.dynamic) {
@@ -1049,25 +1052,27 @@ public final class VulkanObjectCapture implements AutoCloseable {
         }
     }
 
-    private record CpuImage(int width, int height, byte[] rgba, boolean dynamic, boolean clamp) {
+    private record CpuImage(int width, int height, byte[] rgba, boolean dynamic, boolean blur, boolean clamp) {
     }
 
     static final class Image {
         final int width;
         final int height;
+        final int filter;
         final int addressModeU;
         final int addressModeV;
         ByteBuffer pixels;
         boolean deleted;
 
         Image(int width, int height, ByteBuffer pixels) {
-            this(width, height, pixels, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
+            this(width, height, pixels, VK_FILTER_NEAREST, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
         }
 
-        Image(int width, int height, ByteBuffer pixels, int addressModeU, int addressModeV) {
+        Image(int width, int height, ByteBuffer pixels, int filter, int addressModeU, int addressModeV) {
             this.width = width;
             this.height = height;
             this.pixels = pixels;
+            this.filter = filter;
             this.addressModeU = addressModeU;
             this.addressModeV = addressModeV;
         }

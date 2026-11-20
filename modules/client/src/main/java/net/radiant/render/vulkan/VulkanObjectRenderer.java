@@ -202,7 +202,7 @@ final class VulkanObjectRenderer implements AutoCloseable {
         VulkanTexture texture = new VulkanTexture(device);
         try (MemoryStack stack = MemoryStack.stackPush()) {
             texture.initialize(physicalDevice, queue, commands, image.width, image.height, new ByteBuffer[]{image.pixels}, false,
-                    image.addressModeU, image.addressModeV);
+                    image.filter, image.addressModeU, image.addressModeV);
             Binding binding = allocateBinding(stack, texture);
             updateBinding(stack, binding.set, texture);
             textures.put(image, binding);

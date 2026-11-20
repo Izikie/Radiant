@@ -125,7 +125,7 @@ public class TextureUtil {
         allocateTexture(textureId, image.getWidth(), image.getHeight());
         uploadTextureImageSubImpl(image, 0, 0, blur, clamp);
         if (VulkanTerrainPreview.ENABLED) {
-            VulkanTerrainPreview.registerObjectTexture(textureId, image, clamp);
+            VulkanTerrainPreview.registerObjectTexture(textureId, image, blur, clamp);
         }
         return textureId;
     }
