@@ -87,6 +87,8 @@ final class VulkanGraphics {
         OPAQUE(true, true, false, false),
         TRANSLUCENT(true, false, true, true),
         SKY(false, false, false, false),
+        SKY_ADDITIVE(new State(false, false, VK_COMPARE_OP_ALWAYS, VK_CULL_MODE_BACK_BIT,
+                new Blend(VK_BLEND_FACTOR_SRC_ALPHA, VK_BLEND_FACTOR_ONE, VK_BLEND_FACTOR_ONE, VK_BLEND_FACTOR_ZERO), null)),
         BLENDED_DEPTH_WRITE(true, true, true, false),
         OBJECT_BLEND(true, false, true, false),
         OBJECT_READ_DEPTH(true, false, false, false),
@@ -97,6 +99,10 @@ final class VulkanGraphics {
         Pass(boolean depthTest, boolean depthWrite, boolean blend, boolean cull) {
             state = new State(depthTest, depthWrite, VK_COMPARE_OP_LESS_OR_EQUAL,
                     cull ? VK_CULL_MODE_BACK_BIT : VK_CULL_MODE_NONE, blend ? Blend.ALPHA : null, null);
+        }
+
+        Pass(State state) {
+            this.state = state;
         }
     }
 

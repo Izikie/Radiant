@@ -167,7 +167,7 @@ final class VulkanTerrainScene implements VulkanScene {
         View view = viewport(width, height);
         VulkanGraphics.viewport(stack, commands, (width - view.width) / 2, (height - view.height) / 2, view.width, view.height);
         if (frame.environment != null) {
-            environment.drawSky(stack, commands);
+            environment.drawSky(stack, commands, frame.environment);
             skyModeDrawn = frame.environment.skyMode();
         }
         pipeline.begin(stack, commands);

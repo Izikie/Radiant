@@ -14,7 +14,11 @@ layout(set = 0, binding = 1) uniform sampler2D clouds;
 layout(set = 0, binding = 2) uniform sampler2D sun;
 layout(set = 0, binding = 3) uniform sampler2D moon;
 layout(set = 0, binding = 4) uniform sampler2D endSky;
+#if STAR_PASS
+layout(location = 0) noperspective in vec2 ndc;
+#else
 layout(location = 0) in vec2 ndc;
+#endif
 layout(location = 0) out vec4 color;
 
 vec3 unproject(float depth) {
@@ -104,10 +108,6 @@ void main() {
     color = vec4(outputColor(env.cloudColor.rgb * texel.rgb * shade), alpha);
 }
 #else
-float hash(vec2 cell) {
-    return fract(sin(dot(cell, vec2(127.1, 311.7))) * 43758.5453);
-}
-
 vec4 celestialDisc(sampler2D image, vec2 uv, vec2 tile, vec2 sheet) {
     if (any(lessThan(uv, vec2(0.0))) || any(greaterThanEqual(uv, vec2(1.0)))) {
         return vec4(0.0);
@@ -154,6 +154,16 @@ float skyPlaneVisibility(vec3 origin, vec3 ray, float height) {
     return 1.0;
 }
 
+#if STAR_PASS
+void main() {
+    // The lower sky is drawn after the stars in OpenGL and covers them where the plane is visible.
+    vec3 origin = unproject(-1.0);
+    vec3 ray = normalize(unproject(1.0) - origin);
+    if (ray.y < 0.0 && skyPlaneVisibility(origin, ray, env.lowerSky.a) >= 0.0) discard;
+    float brightness = env.fogAndStars.a;
+    color = vec4(outputColor(vec3(brightness)), brightness);
+}
+#else
 void main() {
     if (env.cloudOffset.w == 2.0) {
         color = vec4(outputColor(env.fogAndStars.rgb), 1.0);
@@ -175,13 +185,6 @@ void main() {
 
     // Undo the celestial rotation used by the world to locate the sun and current moon phase.
     vec3 local = vec3(ray.z, cosine * ray.y - sine * ray.x, -sine * ray.y - cosine * ray.x);
-    if (ray.y > -0.04 && env.fogAndStars.a > 0.0) {
-        vec2 grid = vec2(atan(local.z, local.x) / 6.2831853, asin(clamp(local.y, -1.0, 1.0)) / 3.1415927)
-                * vec2(480.0, 240.0);
-        float chance = hash(floor(grid));
-        float star = 1.0 - smoothstep(0.09, 0.21, length(fract(grid) - 0.5));
-        rgb += vec3(star * step(0.979, chance) * env.fogAndStars.a);
-    }
     if (env.celestial.z > 0.0 && abs(local.y) > 1e-6) {
         vec3 localOrigin = vec3(origin.z, cosine * origin.y - sine * origin.x, -sine * origin.y - cosine * origin.x);
         bool sunward = local.y > 0.0;
@@ -204,4 +207,5 @@ void main() {
     if (lower >= 0.0) rgb = mix(env.fogAndStars.rgb, env.lowerSky.rgb, lower);
     color = vec4(outputColor(rgb), 1.0);
 }
+#endif
 #endif

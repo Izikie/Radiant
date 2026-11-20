@@ -327,7 +327,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
         if (this.vboEnabled) {
             this.starVBO = new VertexBuffer(this.vertexBufferFormat);
-            this.renderStars(worldrenderer);
+            renderStars(worldrenderer);
             worldrenderer.finishDrawing();
             worldrenderer.reset();
             this.starVBO.bufferData(worldrenderer.getByteBuffer());
@@ -335,14 +335,14 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             this.starGLCallList = GLAllocation.generateDisplayLists(1);
             GlStateManager.pushMatrix();
             GL11.glNewList(this.starGLCallList, GL11.GL_COMPILE);
-            this.renderStars(worldrenderer);
+            renderStars(worldrenderer);
             tessellator.draw();
             GL11.glEndList();
             GlStateManager.popMatrix();
         }
     }
 
-    private void renderStars(WorldRenderer worldRendererIn) {
+    public static void renderStars(WorldRenderer worldRendererIn) {
         Random random = new Random(10842L);
         worldRendererIn.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
 

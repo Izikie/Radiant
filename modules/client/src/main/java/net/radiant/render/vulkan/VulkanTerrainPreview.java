@@ -15,6 +15,7 @@ import net.minecraft.util.math.Vec3;
 import net.minecraft.world.border.WorldBorderStage;
 import net.optifine.Config;
 import net.optifine.CustomColors;
+import net.optifine.CustomSky;
 import net.radiant.benchmark.ClientBenchmark;
 import net.radiant.util.NativeImage;
 import org.joml.Matrix4f;
@@ -341,7 +342,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         float angle = world.getCelestialAngle(partialTicks);
         double radians = angle * Math.TAU;
         float rainVisibility = 1 - world.getRainStrength(partialTicks);
-        float stars = Config.isStarsEnabled() ? world.getStarBrightness(partialTicks) * rainVisibility : 0;
+        float stars = Config.isStarsEnabled() && !CustomSky.hasSkyLayers(world)
+                ? world.getStarBrightness(partialTicks) * rainVisibility : 0;
         float[] sunrise = Config.isSunMoonEnabled() ? world.provider.calcSunriseSunsetColors(angle, partialTicks) : null;
         int mode = Config.isCloudsOff() || mc.gameSettings.renderDistanceChunks < 4 ? 0 : Config.isCloudsFancy() ? 2 : 1;
         Vec3 cloudColor = mode == 0 ? new Vec3(0, 0, 0) : world.getCloudColour(partialTicks);

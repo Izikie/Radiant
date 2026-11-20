@@ -1,6 +1,8 @@
 package net.radiant.render.vulkan;
 
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderGlobal;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.util.math.Vec3;
 
 import net.radiant.util.NativeImage;
@@ -18,12 +20,34 @@ import static org.lwjgl.vulkan.VK10.*;
 
 final class VulkanEnvironment implements AutoCloseable {
     private static final int FRAME_BYTES = 128 + 8 * 16;
+    private static final int POSITION_BYTES = 3 * Float.BYTES;
     private static final String VERTEX_SHADER = """
             #version 450
             layout(location = 0) out vec2 ndc;
             void main() {
                 ndc = vec2(gl_VertexIndex == 1 ? 3.0 : -1.0, gl_VertexIndex == 2 ? 3.0 : -1.0);
                 gl_Position = vec4(ndc, 1.0, 1.0);
+            }
+            """;
+    private static final String STAR_VERTEX_SHADER = """
+            #version 450
+            layout(std140, set = 0, binding = 0) uniform Environment {
+                mat4 viewProjection;
+                mat4 inverseViewProjection;
+                vec4 fogAndStars;
+                vec4 skyColor;
+                vec4 sunrise;
+                vec4 celestial;
+            } env;
+            layout(location = 0) in vec3 position;
+            layout(location = 0) noperspective out vec2 ndc;
+            void main() {
+                float s = env.celestial.x;
+                float c = env.celestial.y;
+                vec3 rotated = vec3(-s * position.y - c * position.z, c * position.y - s * position.z, position.x);
+                vec4 clip = env.viewProjection * vec4(rotated, 1.0);
+                gl_Position = vec4(clip.x, -clip.y, (clip.z + clip.w) * 0.5, clip.w);
+                ndc = gl_Position.xy / gl_Position.w;
             }
             """;
 
@@ -39,6 +63,9 @@ final class VulkanEnvironment implements AutoCloseable {
     private long layout;
     private long sky;
     private long clouds;
+    private long stars;
+    private VulkanBuffer starVertices;
+    private int starVertexCount;
 
     void configureTarget(VkPhysicalDevice physicalDevice, VkDevice device, int colorFormat, int depthFormat) {
         destroyPipelines();
@@ -48,6 +75,7 @@ final class VulkanEnvironment implements AutoCloseable {
             if (uniformBuffer == null) {
                 uniformBuffer = VulkanBuffer.mapped(physicalDevice, device, FRAME_BYTES, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT);
                 createDescriptors(stack);
+                createStarVertices();
             }
             String defines = "#version 450\n#define SRGB_TARGET " + (VulkanGraphics.isSrgb(colorFormat) ? "1\n" : "0\n");
             String fragment = shaderSource();
@@ -56,6 +84,30 @@ final class VulkanEnvironment implements AutoCloseable {
                     VulkanGraphics.Pass.SKY, vertices, VERTEX_SHADER, defines + "#define CLOUD_PASS 0\n" + fragment);
             clouds = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
                     VulkanGraphics.Pass.BLENDED_DEPTH_WRITE, vertices, VERTEX_SHADER, defines + "#define CLOUD_PASS 1\n" + fragment);
+            var binding = VkVertexInputBindingDescription.calloc(1, stack);
+            binding.get(0).stride(POSITION_BYTES).inputRate(VK_VERTEX_INPUT_RATE_VERTEX);
+            var attribute = VkVertexInputAttributeDescription.calloc(1, stack);
+            attribute.get(0).format(VK_FORMAT_R32G32B32_SFLOAT);
+            vertices.pVertexBindingDescriptions(binding).pVertexAttributeDescriptions(attribute);
+            stars = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
+                    VulkanGraphics.Pass.SKY_ADDITIVE, vertices, STAR_VERTEX_SHADER, defines + "#define STAR_PASS 1\n" + fragment);
+        }
+    }
+
+    private void createStarVertices() {
+        WorldRenderer mesh = new WorldRenderer(16_384);
+        RenderGlobal.renderStars(mesh);
+        mesh.finishDrawing();
+        ByteBuffer quads = mesh.getByteBuffer();
+        int[] triangleCorners = {0, 1, 2, 2, 3, 0};
+        starVertexCount = mesh.getVertexCount() / 4 * triangleCorners.length;
+        starVertices = VulkanBuffer.mapped(physicalDevice, device, starVertexCount * POSITION_BYTES, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
+        ByteBuffer triangles = starVertices.data();
+        for (int quad = 0; quad < quads.limit(); quad += 4 * POSITION_BYTES) {
+            for (int corner : triangleCorners) {
+                int offset = quad + corner * POSITION_BYTES;
+                triangles.putFloat(quads.getFloat(offset)).putFloat(quads.getFloat(offset + 4)).putFloat(quads.getFloat(offset + 8));
+            }
         }
     }
 
@@ -77,6 +129,7 @@ final class VulkanEnvironment implements AutoCloseable {
             bindings.get(i).binding(i).descriptorCount(1).stageFlags(VK_SHADER_STAGE_FRAGMENT_BIT)
                     .descriptorType(i == 0 ? VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER : VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER);
         }
+        bindings.get(0).stageFlags(VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT);
         VkDescriptorSetLayoutCreateInfo descriptorInfo = VkDescriptorSetLayoutCreateInfo.calloc(stack).sType$Default().pBindings(bindings);
         VulkanPresenter.check(vkCreateDescriptorSetLayout(device, descriptorInfo, null, handle), "create environment descriptor layout");
         descriptorLayout = handle.get(0);
@@ -156,8 +209,13 @@ final class VulkanEnvironment implements AutoCloseable {
                 new ByteBuffer[]{ByteBuffer.wrap(image.getData())}, false);
     }
 
-    void drawSky(MemoryStack stack, VkCommandBuffer commands) {
+    void drawSky(MemoryStack stack, VkCommandBuffer commands, Frame frame) {
         draw(stack, commands, sky);
+        if (frame.stars > 0) {
+            vkCmdBindPipeline(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, stars);
+            vkCmdBindVertexBuffers(commands, 0, stack.longs(starVertices.handle()), stack.longs(0));
+            vkCmdDraw(commands, starVertexCount, 1, 0, 0);
+        }
     }
 
     void drawClouds(MemoryStack stack, VkCommandBuffer commands) {
@@ -171,6 +229,10 @@ final class VulkanEnvironment implements AutoCloseable {
     }
 
     private void destroyPipelines() {
+        if (stars != 0) {
+            vkDestroyPipeline(device, stars, null);
+            stars = 0;
+        }
         if (sky != 0) {
             vkDestroyPipeline(device, sky, null);
             sky = 0;
@@ -185,6 +247,7 @@ final class VulkanEnvironment implements AutoCloseable {
     public void close() {
         pendingImages = null;
         destroyPipelines();
+        if (starVertices != null) starVertices.close();
         if (layout != 0) vkDestroyPipelineLayout(device, layout, null);
         if (descriptorPool != 0) vkDestroyDescriptorPool(device, descriptorPool, null);
         if (descriptorLayout != 0) vkDestroyDescriptorSetLayout(device, descriptorLayout, null);
