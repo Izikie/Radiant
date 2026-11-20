@@ -711,7 +711,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
             normal.set(data.get(n), data.get(n + 1), data.get(n + 2));
             if (normal.lengthSquared() > 0) {
                 normal.mul(vertexNormal).normalize();
-                shade = Math.min(1, 0.4f + 0.6f * (Math.max(normal.dot(light0), 0) + Math.max(normal.dot(light1), 0)));
+                shade = 0.4f + 0.6f * (Math.max(normal.dot(light0), 0) + Math.max(normal.dot(light1), 0));
             }
         }
         int rgba = base + layout.color;
@@ -722,9 +722,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
         int lightGreen = (light >> 8) & 255;
         int lightBlue = light & 255;
         float textureWeight = 1.0f - entityTint.w;
-        vertices.put((byte) Math.round(red * lightRed * shade * textureWeight));
-        vertices.put((byte) Math.round(green * lightGreen * shade * textureWeight));
-        vertices.put((byte) Math.round(blue * lightBlue * shade * textureWeight));
+        // Fixed-function lighting clamps the lit vertex color before the texture combiners.
+        vertices.put((byte) Math.round(Math.min(red * shade, 1.0f) * lightRed * textureWeight));
+        vertices.put((byte) Math.round(Math.min(green * shade, 1.0f) * lightGreen * textureWeight));
+        vertices.put((byte) Math.round(Math.min(blue * shade, 1.0f) * lightBlue * textureWeight));
         if (entityTint.w > 0) {
             // The fixed-function combiner interpolates RGB before lightmapping and keeps texture alpha.
             vertices.put((byte) 255);
