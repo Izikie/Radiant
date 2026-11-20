@@ -113,7 +113,9 @@ final class VulkanTerrainPipeline implements AutoCloseable {
         var indexData = indices.data().asIntBuffer();
         for (int quad = 0; quad < QUADS_PER_DRAW; quad++) {
             int base = quad * 4;
-            indexData.put(base).put(base + 1).put(base + 2).put(base + 2).put(base + 3).put(base);
+            // Match the OpenGL reference diagonal so smooth lighting interpolates across the same triangles.
+            indexData.put(base).put(base + 1).put(base + 3);
+            indexData.put(base + 1).put(base + 2).put(base + 3);
         }
         try (MemoryStack stack = MemoryStack.stackPush()) {
             createDescriptors(stack);
