@@ -68,6 +68,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private final Matrix3f meshNormalMatrix = new Matrix3f();
     private final Vector3f light0 = new Vector3f();
     private final Vector3f light1 = new Vector3f();
+    private final Vector3f lightmapColor = new Vector3f();
     private final Vector3f normal = new Vector3f();
     private final Vector4f clip = new Vector4f();
     private final Vector4f color = new Vector4f();
@@ -698,12 +699,13 @@ public final class VulkanObjectCapture implements AutoCloseable {
             vertices.putFloat(u).putFloat(v);
         }
 
-        int light = 0xffffff;
         if (material.lightmapped) {
             int coordinate = base + layout.light;
-            int x = layout.light < 0 ? (int) OpenGlHelper.lastBrightnessX : data.getShort(coordinate);
-            int y = layout.light < 0 ? (int) OpenGlHelper.lastBrightnessY : data.getShort(coordinate + 2);
-            light = lightmap[Math.clamp(x / 16, 0, 15) + 16 * Math.clamp(y / 16, 0, 15)];
+            float x = layout.light < 0 ? OpenGlHelper.lastBrightnessX : data.getShort(coordinate);
+            float y = layout.light < 0 ? OpenGlHelper.lastBrightnessY : data.getShort(coordinate + 2);
+            sampleLightmap(x, y);
+        } else {
+            lightmapColor.set(255.0f);
         }
         float shade = 1;
         if (material.lit && layout.normal >= 0) {
@@ -718,25 +720,55 @@ public final class VulkanObjectCapture implements AutoCloseable {
         float red = layout.color < 0 ? color.x : Byte.toUnsignedInt(data.get(rgba)) / 255f;
         float green = layout.color < 0 ? color.y : Byte.toUnsignedInt(data.get(rgba + 1)) / 255f;
         float blue = layout.color < 0 ? color.z : Byte.toUnsignedInt(data.get(rgba + 2)) / 255f;
-        int lightRed = (light >> 16) & 255;
-        int lightGreen = (light >> 8) & 255;
-        int lightBlue = light & 255;
         float textureWeight = 1.0f - entityTint.w;
         // Fixed-function lighting clamps the lit vertex color before the texture combiners.
-        vertices.put((byte) Math.round(Math.min(red * shade, 1.0f) * lightRed * textureWeight));
-        vertices.put((byte) Math.round(Math.min(green * shade, 1.0f) * lightGreen * textureWeight));
-        vertices.put((byte) Math.round(Math.min(blue * shade, 1.0f) * lightBlue * textureWeight));
+        vertices.put((byte) Math.round(Math.min(red * shade, 1.0f) * lightmapColor.x * textureWeight));
+        vertices.put((byte) Math.round(Math.min(green * shade, 1.0f) * lightmapColor.y * textureWeight));
+        vertices.put((byte) Math.round(Math.min(blue * shade, 1.0f) * lightmapColor.z * textureWeight));
         if (entityTint.w > 0) {
             // The fixed-function combiner interpolates RGB before lightmapping and keeps texture alpha.
             vertices.put((byte) 255);
-            vertices.put((byte) Math.round(entityTint.x * entityTint.w * lightRed));
-            vertices.put((byte) Math.round(entityTint.y * entityTint.w * lightGreen));
-            vertices.put((byte) Math.round(entityTint.z * entityTint.w * lightBlue));
+            vertices.put((byte) Math.round(entityTint.x * entityTint.w * lightmapColor.x));
+            vertices.put((byte) Math.round(entityTint.y * entityTint.w * lightmapColor.y));
+            vertices.put((byte) Math.round(entityTint.z * entityTint.w * lightmapColor.z));
             vertices.put((byte) 0);
         } else {
             vertices.put(layout.color < 0 ? (byte) Math.round(color.w * 255) : data.get(rgba + 3));
             vertices.putInt(0);
         }
+    }
+
+    private void sampleLightmap(float x, float y) {
+        // The lightmap texture transform places multiples of 16 at texel centers.
+        x = Math.clamp(x / 16.0f, 0.0f, 15.0f);
+        y = Math.clamp(y / 16.0f, 0.0f, 15.0f);
+        int left = (int) x;
+        int top = (int) y;
+        float u = x - left;
+        float v = y - top;
+        int topLeft = lightmap[left + 16 * top];
+        if (u == 0.0f && v == 0.0f) {
+            lightmapColor.set((topLeft >>> 16) & 255, (topLeft >>> 8) & 255, topLeft & 255);
+            return;
+        }
+
+        int right = Math.min(left + 1, 15);
+        int bottom = Math.min(top + 1, 15);
+        int topRight = lightmap[right + 16 * top];
+        int bottomLeft = lightmap[left + 16 * bottom];
+        int bottomRight = lightmap[right + 16 * bottom];
+        lightmapColor.set(interpolateLightChannel(topLeft, topRight, bottomLeft, bottomRight, 16, u, v),
+                interpolateLightChannel(topLeft, topRight, bottomLeft, bottomRight, 8, u, v),
+                interpolateLightChannel(topLeft, topRight, bottomLeft, bottomRight, 0, u, v));
+    }
+
+    private static float interpolateLightChannel(int topLeft, int topRight, int bottomLeft, int bottomRight,
+                                                 int shift, float u, float v) {
+        int leftTop = (topLeft >>> shift) & 255;
+        int leftBottom = (bottomLeft >>> shift) & 255;
+        float top = leftTop + (((topRight >>> shift) & 255) - leftTop) * u;
+        float bottom = leftBottom + (((bottomRight >>> shift) & 255) - leftBottom) * u;
+        return top + (bottom - top) * v;
     }
 
     private static int lineCount(int mode, int count) {
