@@ -198,7 +198,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     }
 
     public static Extraction extract(Minecraft mc, Entity view, double x, double y, double z, float partialTicks,
-                                     int cloudTick, Matrix4fc projection, Matrix4fc viewMatrix, int[] lightmap) {
+                                     int cloudTick, Matrix4fc projection, Matrix4fc viewMatrix, int[] lightmap,
+                                     GlStateManager.FogParameters skyFog) {
         VulkanTerrainPreview preview = active;
         if (preview == null) {
             return null;
@@ -211,7 +212,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.atlasDirty = false;
         }
         Matrix4f viewProjection = projection.mul(viewMatrix, new Matrix4f());
-        VulkanEnvironment.Frame environment = captureEnvironment(mc, view, x, y, z, partialTicks, cloudTick);
+        VulkanEnvironment.Frame environment = captureEnvironment(mc, view, x, y, z, partialTicks, cloudTick, skyFog);
         return new Extraction(preview, x, y, z, view.getEyeHeight(), viewProjection, lightmap.clone(), captureFog(mc),
                 environment, Config.isRenderRegions(), mc.displayWidth, mc.displayHeight);
     }
@@ -323,7 +324,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     }
 
     private static VulkanEnvironment.Frame captureEnvironment(Minecraft mc, Entity view, double x, double y, double z,
-                                                               float partialTicks, int cloudTick) {
+                                                               float partialTicks, int cloudTick, GlStateManager.FogParameters skyFog) {
         var world = mc.world;
         if (world.provider.getDimensionId() == 1 && Config.isSkyEnabled()) {
             Vec3 tint = new Vec3(40.0 / 255.0, 40.0 / 255.0, 40.0 / 255.0);
@@ -348,12 +349,22 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         float cloudX = wrapCloudOffset(x + (cloudTick + partialTicks) * 0.03, period);
         float cloudZ = wrapCloudOffset(z + (mode == 2 ? 3.96 : 0.0), period);
         float cloudHeight = (float) (world.provider.getCloudHeight() + mc.gameSettings.ofCloudsHeight * 128 + 0.33 - y);
-        return new VulkanEnvironment.Frame(VulkanEnvironment.SkyMode.OVERWORLD, Config.isSkyEnabled(),
+        int chunks = mc.gameSettings.renderDistanceChunks;
+        float skyExtent = Config.isSkyEnabled() ? (chunks / 4 + 2) * 64 : 0;
+        float lowerHeight = (float) (world.getHorizon() - mc.player.getPositionEyes(partialTicks).yCoord());
+        Vec3 lowerColor = sky;
+        if (chunks <= 4) {
+            lowerColor = new Vec3(mc.entityRenderer.fogColorRed, mc.entityRenderer.fogColorGreen, mc.entityRenderer.fogColorBlue);
+        } else if (world.provider.isSkyColored()) {
+            lowerColor = new Vec3(sky.xCoord() * 0.2 + 0.04, sky.yCoord() * 0.2 + 0.04, sky.zCoord() * 0.6 + 0.1);
+        }
+        return new VulkanEnvironment.Frame(VulkanEnvironment.SkyMode.OVERWORLD, skyExtent,
                 (float) sky.xCoord(), (float) sky.yCoord(), (float) sky.zCoord(),
                 stars, sunrise == null ? 0 : sunrise[0], sunrise == null ? 0 : sunrise[1],
                 sunrise == null ? 0 : sunrise[2], sunrise == null ? 0 : sunrise[3],
                 (float) Math.sin(radians), (float) Math.cos(radians), Config.isSunMoonEnabled() ? rainVisibility : 0, world.getMoonPhase(),
-                mode, (float) cloudColor.xCoord(), (float) cloudColor.yCoord(), (float) cloudColor.zCoord(), cloudX, cloudZ, cloudHeight);
+                mode, (float) cloudColor.xCoord(), (float) cloudColor.yCoord(), (float) cloudColor.zCoord(), cloudX, cloudZ, cloudHeight,
+                lowerHeight, lowerColor, skyFog == null ? 0 : fogMode(skyFog), skyFog);
     }
 
     private static float wrapCloudOffset(double position, double period) {
@@ -363,17 +374,18 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     private static VulkanTerrainScene.Fog captureFog(Minecraft mc) {
         var renderer = mc.entityRenderer;
         var parameters = GlStateManager.fogParameters();
-        int mode = 0;
-        if (parameters.enabled() && !(renderer.fogStandard && Config.isFogOff())) {
-            mode = switch (parameters.mode()) {
-                case GL_LINEAR -> 1;
-                case GL_EXP -> 2;
-                case GL_EXP2 -> 3;
-                default -> 0;
-            };
-        }
+        int mode = renderer.fogStandard && Config.isFogOff() ? 0 : fogMode(parameters);
         return new VulkanTerrainScene.Fog(renderer.fogColorRed, renderer.fogColorGreen, renderer.fogColorBlue,
                 mode, parameters.start(), parameters.end(), parameters.density());
+    }
+
+    private static int fogMode(GlStateManager.FogParameters parameters) {
+        return parameters.enabled() ? switch (parameters.mode()) {
+            case GL_LINEAR -> 1;
+            case GL_EXP -> 2;
+            case GL_EXP2 -> 3;
+            default -> 0;
+        } : 0;
     }
 
     private static VulkanTerrainScene.Atlas buildAtlas(TextureMap texture) {

@@ -1,5 +1,8 @@
 package net.radiant.render.vulkan;
 
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.math.Vec3;
+
 import net.radiant.util.NativeImage;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fc;
@@ -14,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 import static org.lwjgl.vulkan.VK10.*;
 
 final class VulkanEnvironment implements AutoCloseable {
-    private static final int FRAME_BYTES = 128 + 6 * 16;
+    private static final int FRAME_BYTES = 128 + 8 * 16;
     private static final String VERTEX_SHADER = """
             #version 450
             layout(location = 0) out vec2 ndc;
@@ -130,11 +133,17 @@ final class VulkanEnvironment implements AutoCloseable {
         inverseViewProjection.set(viewProjection).invert().get(64, uniforms);
         uniforms.position(128);
         uniforms.putFloat(fog.red()).putFloat(fog.green()).putFloat(fog.blue()).putFloat(frame.stars);
-        uniforms.putFloat(frame.skyRed).putFloat(frame.skyGreen).putFloat(frame.skyBlue).putFloat(frame.drawSkyColor ? 1 : 0);
+        uniforms.putFloat(frame.skyRed).putFloat(frame.skyGreen).putFloat(frame.skyBlue).putFloat(frame.skyExtent);
         uniforms.putFloat(frame.sunriseRed).putFloat(frame.sunriseGreen).putFloat(frame.sunriseBlue).putFloat(frame.sunriseAlpha);
         uniforms.putFloat(frame.celestialSine).putFloat(frame.celestialCosine).putFloat(frame.celestialVisibility).putFloat(frame.moonPhase);
         uniforms.putFloat(frame.cloudRed).putFloat(frame.cloudGreen).putFloat(frame.cloudBlue).putFloat(frame.cloudMode);
         uniforms.putFloat(frame.cloudX).putFloat(frame.cloudZ).putFloat(frame.cloudHeight).putFloat(frame.skyMode.ordinal());
+        Vec3 lower = frame.lowerSkyColor;
+        uniforms.putFloat((float) lower.xCoord()).putFloat((float) lower.yCoord()).putFloat((float) lower.zCoord())
+                .putFloat(frame.lowerSkyHeight);
+        var skyFog = frame.skyFog;
+        uniforms.putFloat(frame.skyFogMode).putFloat(skyFog == null ? 0 : skyFog.start())
+                .putFloat(skyFog == null ? 0 : skyFog.end()).putFloat(skyFog == null ? 0 : skyFog.density());
     }
 
     private void upload(int index, NativeImage image, VkQueue queue, VkCommandBuffer commands) {
@@ -196,14 +205,15 @@ final class VulkanEnvironment implements AutoCloseable {
         OVERWORLD, END, FOG
     }
 
-    record Frame(SkyMode skyMode, boolean drawSkyColor, float skyRed, float skyGreen, float skyBlue, float stars,
+    record Frame(SkyMode skyMode, float skyExtent, float skyRed, float skyGreen, float skyBlue, float stars,
                  float sunriseRed, float sunriseGreen, float sunriseBlue, float sunriseAlpha,
                  float celestialSine, float celestialCosine, float celestialVisibility, int moonPhase,
                  int cloudMode, float cloudRed, float cloudGreen, float cloudBlue, float cloudX, float cloudZ,
-                 float cloudHeight) {
+                 float cloudHeight, float lowerSkyHeight, Vec3 lowerSkyColor, int skyFogMode,
+                 GlStateManager.FogParameters skyFog) {
         static Frame dimensionSky(SkyMode mode, float red, float green, float blue) {
-            return new Frame(mode, false, red, green, blue, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            return new Frame(mode, 0, red, green, blue, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, new Vec3(0, 0, 0), 0, null);
         }
     }
 }

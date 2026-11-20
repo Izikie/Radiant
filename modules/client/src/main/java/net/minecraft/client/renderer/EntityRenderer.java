@@ -1235,8 +1235,12 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             icamera.setPosition(xPos, yPos, zPos);
         }
 
+        GlStateManager.FogParameters skyFog = null;
         if ((Config.isSkyEnabled() || Config.isSunMoonEnabled() || Config.isStarsEnabled()) && !Shaders.isShadowPass) {
             this.setupFog(-1, partialTicks);
+            if (VulkanTerrainPreview.ENABLED && !(this.fogStandard && Config.isFogOff())) {
+                skyFog = GlStateManager.fogParameters();
+            }
             this.cameraProjection.identity();
             this.applyWorldProjection(partialTicks);
 
@@ -1280,7 +1284,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         if (VulkanTerrainPreview.ENABLED && pass == 2) {
             renderglobal.extractVulkanTerrain(entity, partialTicks,
-                    this.cameraProjection, this.cameraView, this.lightmapColors);
+                    this.cameraProjection, this.cameraView, this.lightmapColors, skyFog);
         }
 
         if (this.mc.gameSettings.ofSmoothFps && pass > 0) {

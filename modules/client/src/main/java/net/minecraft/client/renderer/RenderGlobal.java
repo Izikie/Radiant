@@ -761,12 +761,13 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         return "E: " + this.countEntitiesRendered + "/" + this.countEntitiesTotal + ", B: " + this.countEntitiesHidden + ", I: " + (this.countEntitiesTotal - this.countEntitiesHidden - this.countEntitiesRendered) + Config.getVersionDebug();
     }
 
-    public void extractVulkanTerrain(Entity view, float partialTicks, Matrix4fc projection, Matrix4fc viewMatrix, int[] lightmap) {
+    public void extractVulkanTerrain(Entity view, float partialTicks, Matrix4fc projection, Matrix4fc viewMatrix, int[] lightmap,
+                                     GlStateManager.FogParameters skyFog) {
         double x = view.lastTickPosX + (view.posX - view.lastTickPosX) * partialTicks;
         double y = view.lastTickPosY + (view.posY - view.lastTickPosY) * partialTicks;
         double z = view.lastTickPosZ + (view.posZ - view.lastTickPosZ) * partialTicks;
         VulkanTerrainPreview.Extraction frame = VulkanTerrainPreview.extract(
-                this.mc, view, x, y, z, partialTicks, this.cloudTickCounter, projection, viewMatrix, lightmap);
+                this.mc, view, x, y, z, partialTicks, this.cloudTickCounter, projection, viewMatrix, lightmap, skyFog);
         if (frame != null) {
             for (ContainerLocalRenderInformation visible : this.renderInfos) {
                 frame.add(visible.renderChunk);

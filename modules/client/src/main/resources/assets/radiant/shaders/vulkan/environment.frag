@@ -7,6 +7,8 @@ layout(std140, set = 0, binding = 0) uniform Environment {
     vec4 celestial;
     vec4 cloudColor;
     vec4 cloudOffset;
+    vec4 lowerSky;
+    vec4 skyFog;
 } env;
 layout(set = 0, binding = 1) uniform sampler2D clouds;
 layout(set = 0, binding = 2) uniform sampler2D sun;
@@ -130,6 +132,28 @@ vec2 endSkyUv(vec3 origin, vec3 ray) {
     return fract((face / 200.0 + 0.5) * 16.0);
 }
 
+// Negative visibility indicates that this ray misses the finite legacy sky plane.
+float skyPlaneVisibility(vec3 origin, vec3 ray, float height) {
+    float extent = env.skyColor.a;
+    if (extent <= 0.0 || abs(ray.y) < 1e-6) return -1.0;
+    float t = (height - origin.y) / ray.y;
+    vec3 point = origin + ray * t;
+    vec4 clip = env.viewProjection * vec4(point, 1.0);
+    if (t < 0.0 || clip.z > clip.w || any(lessThan(point.xz, vec2(-extent)))
+            || any(greaterThan(point.xz, vec2(extent + 64.0)))) return -1.0;
+
+    float depth = clip.w;
+    if (env.skyFog.x == 1.0) {
+        return clamp((env.skyFog.z - depth) / max(env.skyFog.z - env.skyFog.y, 1e-4), 0.0, 1.0);
+    }
+    if (env.skyFog.x == 2.0) return exp(-depth * env.skyFog.w);
+    if (env.skyFog.x == 3.0) {
+        float density = depth * env.skyFog.w;
+        return exp(-density * density);
+    }
+    return 1.0;
+}
+
 void main() {
     if (env.cloudOffset.w == 2.0) {
         color = vec4(outputColor(env.fogAndStars.rgb), 1.0);
@@ -142,7 +166,8 @@ void main() {
         color = vec4(outputColor(texel * env.skyColor.rgb), 1.0);
         return;
     }
-    vec3 rgb = mix(env.fogAndStars.rgb, env.skyColor.rgb, env.skyColor.a * smoothstep(-0.12, 0.32, ray.y));
+    float upper = ray.y > 0.0 ? skyPlaneVisibility(origin, ray, 16.0) : -1.0;
+    vec3 rgb = mix(env.fogAndStars.rgb, env.skyColor.rgb, max(upper, 0.0));
     float sine = env.celestial.x;
     float cosine = env.celestial.y;
     float horizonGlow = pow(max(0.0, -sign(sine) * ray.x), 6.0) * smoothstep(-0.25, 0.0, ray.y);
@@ -170,6 +195,8 @@ void main() {
             rgb += disc.rgb * disc.a * env.celestial.z;
         }
     }
+    float lower = ray.y < 0.0 ? skyPlaneVisibility(origin, ray, env.lowerSky.a) : -1.0;
+    if (lower >= 0.0) rgb = mix(env.fogAndStars.rgb, env.lowerSky.rgb, lower);
     color = vec4(outputColor(rgb), 1.0);
 }
 #endif
