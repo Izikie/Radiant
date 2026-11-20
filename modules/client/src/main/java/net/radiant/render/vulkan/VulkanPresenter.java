@@ -244,16 +244,23 @@ public final class VulkanPresenter implements AutoCloseable {
         VkSurfaceFormatKHR format = formats.get(0);
         for (int i = 0; i < count.get(0); i++) {
             VkSurfaceFormatKHR candidate = formats.get(i);
-            if (candidate.format() == VK_FORMAT_B8G8R8A8_SRGB && candidate.colorSpace() == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR) {
-                format = candidate;
-                break;
+            if (candidate.colorSpace() == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR) {
+                // Legacy OpenGL blends directly in the encoded color space used by Minecraft's textures.
+                if (candidate.format() == VK_FORMAT_B8G8R8A8_UNORM) {
+                    format = candidate;
+                    break;
+                }
+                if (candidate.format() == VK_FORMAT_R8G8B8A8_UNORM
+                        || (candidate.format() == VK_FORMAT_B8G8R8A8_SRGB && format.format() != VK_FORMAT_R8G8B8A8_UNORM)) {
+                    format = candidate;
+                }
             }
         }
         int imageCount = caps.minImageCount() + 1;
         if (caps.maxImageCount() != 0) {
             imageCount = Math.min(imageCount, caps.maxImageCount());
         }
-        int imageFormat = format.format() == VK_FORMAT_UNDEFINED ? VK_FORMAT_B8G8R8A8_SRGB : format.format();
+        int imageFormat = format.format() == VK_FORMAT_UNDEFINED ? VK_FORMAT_B8G8R8A8_UNORM : format.format();
         swapchainReadable = frameCaptureEnabled && (caps.supportedUsageFlags() & VK_IMAGE_USAGE_TRANSFER_SRC_BIT) != 0
                 && (imageFormat == VK_FORMAT_B8G8R8A8_SRGB || imageFormat == VK_FORMAT_B8G8R8A8_UNORM
                     || imageFormat == VK_FORMAT_R8G8B8A8_SRGB || imageFormat == VK_FORMAT_R8G8B8A8_UNORM);
