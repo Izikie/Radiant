@@ -948,7 +948,8 @@ public final class VulkanObjectCapture implements AutoCloseable {
         ENTITIES, ENTITY_SHADOWS, ENTITY_FIRE, ENTITY_HITBOX, ENTITY_OUTLINES, ENTITY_NAME_TAG, LIGHTNING, BLOCK_ENTITIES,
         LIT_PARTICLES, PARTICLE_BILLBOARDS,
         RAIN, SNOW, SELECTION, BLOCK_DAMAGE, WORLD_BORDER,
-        FIRST_PERSON(Layer.FIRST_PERSON), CAMERA_OVERLAYS(Layer.FIRST_PERSON), HUD(Layer.HUD), SCREEN(Layer.SCREEN);
+        FIRST_PERSON(Layer.FIRST_PERSON), CAMERA_OVERLAYS(Layer.FIRST_PERSON), HUD(Layer.HUD), SCREEN(Layer.SCREEN),
+        ACHIEVEMENT(Layer.ACHIEVEMENT);
 
         private final Layer layer;
 
@@ -974,7 +975,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     }
 
     enum Layer {
-        WORLD(false), FIRST_PERSON(false), HUD(true), SCREEN(true);
+        WORLD(false), FIRST_PERSON(false), HUD(true), SCREEN(true), ACHIEVEMENT(true);
 
         private final boolean ui;
 

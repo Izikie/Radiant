@@ -9,6 +9,8 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.ResourceLocation;
+import net.radiant.render.vulkan.VulkanObjectCapture;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 import org.lwjgl.opengl.GL11;
 
 public class GuiAchievement extends Gui {
@@ -77,49 +79,61 @@ public class GuiAchievement extends Gui {
                 d0 = 0.5D;
             }
 
-            this.updateAchievementWindowScale();
-            GlStateManager.disableDepth();
-            GlStateManager.depthMask(false);
-            double d1 = d0 * 2.0D;
-
-            if (d1 > 1.0D) {
-                d1 = 2.0D - d1;
+            boolean capture = VulkanTerrainPreview.ENABLED
+                    && VulkanTerrainPreview.beginAchievement(this.mc.getTextureMapBlocks().getGlTextureId());
+            try {
+                this.drawNotification(d0);
+            } finally {
+                if (capture) {
+                    VulkanObjectCapture.end();
+                }
             }
-
-            d1 = d1 * 4.0D;
-            d1 = 1.0D - d1;
-
-            if (d1 < 0.0D) {
-                d1 = 0.0D;
-            }
-
-            d1 = d1 * d1;
-            d1 = d1 * d1;
-            int i = this.width - 160;
-            int j = -(int) (d1 * 36.0D);
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            GlStateManager.enableTexture2D();
-            this.mc.getTextureManager().bindTexture(ACHIEVEMENT_BACKGROUND);
-            GlStateManager.disableLighting();
-            this.drawTexturedModalRect(i, j, 96, 202, 160, 32);
-
-            if (this.permanentNotification) {
-                this.mc.fontRendererObj.drawSplitString(this.achievementDescription, i + 30, j + 7, 120, -1);
-            } else {
-                this.mc.fontRendererObj.drawString(this.achievementTitle, i + 30, j + 7, -256);
-                this.mc.fontRendererObj.drawString(this.achievementDescription, i + 30, j + 18, -1);
-            }
-
-            RenderHelper.enableGUIStandardItemLighting();
-            GlStateManager.disableLighting();
-            GlStateManager.enableRescaleNormal();
-            GlStateManager.enableColorMaterial();
-            GlStateManager.enableLighting();
-            this.renderItem.renderItemAndEffectIntoGUI(this.theAchievement.theItemStack, i + 8, j + 8);
-            GlStateManager.disableLighting();
-            GlStateManager.depthMask(true);
-            GlStateManager.enableDepth();
         }
+    }
+
+    private void drawNotification(double progress) {
+        this.updateAchievementWindowScale();
+        GlStateManager.disableDepth();
+        GlStateManager.depthMask(false);
+        double d1 = progress * 2.0D;
+
+        if (d1 > 1.0D) {
+            d1 = 2.0D - d1;
+        }
+
+        d1 = d1 * 4.0D;
+        d1 = 1.0D - d1;
+
+        if (d1 < 0.0D) {
+            d1 = 0.0D;
+        }
+
+        d1 = d1 * d1;
+        d1 = d1 * d1;
+        int i = this.width - 160;
+        int j = -(int) (d1 * 36.0D);
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        GlStateManager.enableTexture2D();
+        this.mc.getTextureManager().bindTexture(ACHIEVEMENT_BACKGROUND);
+        GlStateManager.disableLighting();
+        this.drawTexturedModalRect(i, j, 96, 202, 160, 32);
+
+        if (this.permanentNotification) {
+            this.mc.fontRendererObj.drawSplitString(this.achievementDescription, i + 30, j + 7, 120, -1);
+        } else {
+            this.mc.fontRendererObj.drawString(this.achievementTitle, i + 30, j + 7, -256);
+            this.mc.fontRendererObj.drawString(this.achievementDescription, i + 30, j + 18, -1);
+        }
+
+        RenderHelper.enableGUIStandardItemLighting();
+        GlStateManager.disableLighting();
+        GlStateManager.enableRescaleNormal();
+        GlStateManager.enableColorMaterial();
+        GlStateManager.enableLighting();
+        this.renderItem.renderItemAndEffectIntoGUI(this.theAchievement.theItemStack, i + 8, j + 8);
+        GlStateManager.disableLighting();
+        GlStateManager.depthMask(true);
+        GlStateManager.enableDepth();
     }
 
     public void clearAchievements() {

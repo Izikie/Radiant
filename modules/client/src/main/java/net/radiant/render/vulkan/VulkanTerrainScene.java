@@ -186,6 +186,7 @@ final class VulkanTerrainScene implements VulkanScene {
         }
         drawOverlay(stack, commands, width, height, VulkanObjectCapture.Layer.HUD);
         drawOverlay(stack, commands, width, height, VulkanObjectCapture.Layer.SCREEN);
+        drawOverlay(stack, commands, width, height, VulkanObjectCapture.Layer.ACHIEVEMENT);
         for (Draw draw : frame.opaque) {
             quads += draw.mesh.quads();
             if (draw.layer != 0) {
