@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer;
 
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.optifine.Config;
 import net.optifine.SmartAnimations;
 import net.optifine.render.GlAlphaState;
@@ -43,6 +44,7 @@ public class GlStateManager {
     private static final BooleanState normalizeState = new BooleanState(2977);
     private static int activeTextureUnit = 0;
     private static final TextureState[] textureState = new TextureState[32];
+    private static final IntOpenHashSet texturesWithoutMipmaps = VulkanTerrainPreview.ENABLED ? new IntOpenHashSet() : null;
     private static int activeShadeModel = 7425;
     private static final BooleanState rescaleNormalState = new BooleanState(32826);
     private static final ColorMask colorMaskState = new ColorMask();
@@ -415,9 +417,26 @@ public class GlStateManager {
         return GL11.glGenTextures();
     }
 
+    public static void textureMinFilter(int filter) {
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, filter);
+        if (texturesWithoutMipmaps != null) {
+            int texture = getBoundTexture();
+            if (filter == GL11.GL_NEAREST || filter == GL11.GL_LINEAR) {
+                texturesWithoutMipmaps.add(texture);
+            } else {
+                texturesWithoutMipmaps.remove(texture);
+            }
+        }
+    }
+
+    public static boolean isTextureMipmapped(int texture) {
+        return texturesWithoutMipmaps == null || !texturesWithoutMipmaps.contains(texture);
+    }
+
     public static void deleteTexture(int texture) {
         if (texture != 0) {
             if (VulkanTerrainPreview.ENABLED) {
+                texturesWithoutMipmaps.remove(texture);
                 VulkanTerrainPreview.invalidateObjectTexture(texture);
             }
             GL11.glDeleteTextures(texture);

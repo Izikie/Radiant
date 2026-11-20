@@ -28,7 +28,7 @@ public abstract class AbstractTexture implements ITextureObject {
         }
 
         GlStateManager.bindTexture(this.getGlTextureId());
-        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, i);
+        GlStateManager.textureMinFilter(i);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, j);
     }
 

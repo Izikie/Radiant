@@ -39,6 +39,7 @@ final class VulkanObjectRenderer implements AutoCloseable {
                 vec4 fogColorAndAlphaCutoff;
                 vec4 fog;
                 float glintColorBlend;
+                float atlasBaseLevel;
             } draw;
             layout(location = 0) in vec2 uv;
             layout(location = 1) in vec4 tint;
@@ -46,7 +47,8 @@ final class VulkanObjectRenderer implements AutoCloseable {
             layout(location = 3) in vec3 overlay;
             layout(location = 0) out vec4 color;
             void main() {
-                vec4 lit = texture(image, uv) * tint;
+                vec4 texel = draw.atlasBaseLevel == 1.0 ? textureLod(image, uv, 0.0) : texture(image, uv);
+                vec4 lit = texel * tint;
                 if (lit.a <= draw.fogColorAndAlphaCutoff.a) discard;
                 float visibility = 1.0;
                 if (draw.fog.x == 1.0) {
@@ -136,7 +138,7 @@ final class VulkanObjectRenderer implements AutoCloseable {
                 "create object descriptor layout");
         descriptorLayout = handle.get(0);
         VkPushConstantRange.Buffer constants = VkPushConstantRange.calloc(1, stack);
-        constants.get(0).stageFlags(VK_SHADER_STAGE_FRAGMENT_BIT).size(36);
+        constants.get(0).stageFlags(VK_SHADER_STAGE_FRAGMENT_BIT).size(40);
         VkPipelineLayoutCreateInfo info = VkPipelineLayoutCreateInfo.calloc(stack).sType$Default()
                 .pSetLayouts(stack.longs(descriptorLayout)).pPushConstantRanges(constants);
         VulkanPresenter.check(vkCreatePipelineLayout(device, info, null, handle), "create object pipeline layout");
@@ -270,12 +272,13 @@ final class VulkanObjectRenderer implements AutoCloseable {
             return;
         }
         vkCmdBindVertexBuffers(commands, 0, stack.longs(vertices.handle()), stack.longs(0));
-        var constants = stack.floats(fog.red(), fog.green(), fog.blue(), 0, fogMode, fog.start(), fog.end(), fog.density(), 0);
+        var constants = stack.floats(fog.red(), fog.green(), fog.blue(), 0, fogMode, fog.start(), fog.end(), fog.density(), 0, 0);
         LongBuffer descriptor = stack.mallocLong(1);
         VulkanObjectCapture.PipelineKey previousPipeline = null;
         VulkanObjectCapture.Image previousImage = null;
         float previousCutoff = Float.NaN;
         boolean previousGlintBlend = false;
+        boolean previousAtlasBaseLevel = false;
         for (int i = from; i < to; i++) {
             VulkanObjectCapture.Draw draw = draws.get(i);
             VulkanObjectCapture.Material material = draw.material;
@@ -288,12 +291,15 @@ final class VulkanObjectRenderer implements AutoCloseable {
                 vkCmdBindDescriptorSets(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 0, descriptor.put(0, binding.set), null);
                 previousImage = material.image();
             }
-            if (material.alphaCutoff() != previousCutoff || material.glintColorBlend() != previousGlintBlend) {
+            if (material.alphaCutoff() != previousCutoff || material.glintColorBlend() != previousGlintBlend
+                    || material.atlasBaseLevel() != previousAtlasBaseLevel) {
                 constants.put(3, material.alphaCutoff());
                 constants.put(8, material.glintColorBlend() ? 1 : 0);
+                constants.put(9, material.atlasBaseLevel() ? 1 : 0);
                 vkCmdPushConstants(commands, layout, VK_SHADER_STAGE_FRAGMENT_BIT, 0, constants);
                 previousCutoff = material.alphaCutoff();
                 previousGlintBlend = material.glintColorBlend();
+                previousAtlasBaseLevel = material.atlasBaseLevel();
             }
             vkCmdDraw(commands, draw.vertexCount, 1, draw.firstVertex, 0);
         }
