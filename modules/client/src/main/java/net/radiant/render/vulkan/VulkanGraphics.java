@@ -17,13 +17,22 @@ final class VulkanGraphics {
                 || format == VK_FORMAT_A8B8G8R8_SRGB_PACK32;
     }
 
+    static boolean supportsTwoPixelLines(VkPhysicalDevice device, MemoryStack stack) {
+        VkPhysicalDeviceFeatures features = VkPhysicalDeviceFeatures.malloc(stack);
+        vkGetPhysicalDeviceFeatures(device, features);
+        VkPhysicalDeviceProperties properties = VkPhysicalDeviceProperties.malloc(stack);
+        vkGetPhysicalDeviceProperties(device, properties);
+        return features.wideLines() && properties.limits().lineWidthRange(0) <= 2.0f
+                && properties.limits().lineWidthRange(1) >= 2.0f;
+    }
+
     static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology, Pass pass,
                          VkPipelineVertexInputStateCreateInfo vertexInput, String vertexSource, String fragmentSource) {
         long vertex = vertexShader(stack, device, vertexSource);
         long fragment = 0;
         try {
             fragment = fragmentShader(stack, device, fragmentSource);
-            return pipeline(stack, device, layout, colorFormat, depthFormat, topology, pass.state, vertexInput, vertex, fragment);
+            return pipeline(stack, device, layout, colorFormat, depthFormat, topology, pass.state, vertexInput, vertex, fragment, 1.0f);
         } finally {
             if (fragment != 0) {
                 vkDestroyShaderModule(device, fragment, null);
@@ -33,7 +42,7 @@ final class VulkanGraphics {
     }
 
     static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology, State state,
-                         VkPipelineVertexInputStateCreateInfo vertexInput, long vertex, long fragment) {
+                         VkPipelineVertexInputStateCreateInfo vertexInput, long vertex, long fragment, float lineWidth) {
         VkPipelineShaderStageCreateInfo.Buffer stages = VkPipelineShaderStageCreateInfo.calloc(2, stack);
         stages.get(0).sType$Default().stage(VK_SHADER_STAGE_VERTEX_BIT).module(vertex).pName(stack.UTF8("main"));
         stages.get(1).sType$Default().stage(VK_SHADER_STAGE_FRAGMENT_BIT).module(fragment).pName(stack.UTF8("main"));
@@ -42,7 +51,7 @@ final class VulkanGraphics {
         VkPipelineColorBlendAttachmentState.Buffer blend = VkPipelineColorBlendAttachmentState.calloc(1, stack);
         blend.get(0).colorWriteMask(VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT);
         VkPipelineRasterizationStateCreateInfo rasterization = VkPipelineRasterizationStateCreateInfo.calloc(stack)
-                .sType$Default().lineWidth(1.0f);
+                .sType$Default().lineWidth(lineWidth);
         if (state.blend != null) {
             blend.get(0).blendEnable(true)
                     .srcColorBlendFactor(state.blend.sourceColor).dstColorBlendFactor(state.blend.destinationColor)

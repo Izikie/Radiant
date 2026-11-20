@@ -70,6 +70,7 @@ final class VulkanObjectRenderer implements AutoCloseable {
 
     private final VkPhysicalDevice physicalDevice;
     private final VkDevice device;
+    private final boolean twoPixelLines;
     private final Map<VulkanObjectCapture.PipelineKey, Long> pipelines = new HashMap<>();
     private final Map<VulkanObjectCapture.Image, Binding> textures = new IdentityHashMap<>();
     private final List<Pool> pools = new ArrayList<>();
@@ -87,6 +88,9 @@ final class VulkanObjectRenderer implements AutoCloseable {
     VulkanObjectRenderer(VkPhysicalDevice physicalDevice, VkDevice device) {
         this.physicalDevice = physicalDevice;
         this.device = device;
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            this.twoPixelLines = VulkanGraphics.supportsTwoPixelLines(physicalDevice, stack);
+        }
     }
 
     void configureTarget(int colorFormat, int depthFormat) {
@@ -117,7 +121,8 @@ final class VulkanObjectRenderer implements AutoCloseable {
             int targetColor = pipeline.outlineMask() ? VulkanEntityOutline.MASK_FORMAT : colorFormat;
             int targetDepth = pipeline.outlineMask() ? VK_FORMAT_UNDEFINED : depthFormat;
             return VulkanGraphics.pipeline(stack, device, layout, targetColor, targetDepth,
-                    pipeline.topology(), pipeline.state(), input, vertexShader, fragmentShader);
+                    pipeline.topology(), pipeline.state(), input, vertexShader, fragmentShader,
+                    twoPixelLines ? pipeline.lineWidth() : 1.0f);
         }
     }
 

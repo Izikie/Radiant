@@ -197,7 +197,9 @@ public final class VulkanPresenter implements AutoCloseable {
                 .ppEnabledExtensionNames(stack.pointers(stack.UTF8(VK_KHR_SWAPCHAIN_EXTENSION_NAME)));
         VkPhysicalDeviceVulkan13Features renderFeatures = VkPhysicalDeviceVulkan13Features.calloc(stack).sType$Default()
                 .dynamicRendering(true);
-        info.pNext(renderFeatures.address());
+        VkPhysicalDeviceFeatures features = VkPhysicalDeviceFeatures.calloc(stack)
+                .wideLines(VulkanGraphics.supportsTwoPixelLines(physicalDevice, stack));
+        info.pNext(renderFeatures.address()).pEnabledFeatures(features);
         PointerBuffer pointer = stack.mallocPointer(1);
         check(vkCreateDevice(physicalDevice, info, null, pointer), "create Vulkan device");
         device = new VkDevice(pointer.get(0), physicalDevice, info);
