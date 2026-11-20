@@ -33,18 +33,17 @@ final class VulkanTerrainPipeline implements AutoCloseable {
             layout(location = 0) out vec4 tint;
             layout(location = 1) out vec2 uv;
             layout(location = 2) out float distanceToCamera;
+            layout(location = 3) out vec2 lightCoord;
 
             void main() {
-                ivec2 light = clamp(lightUv / 16, ivec2(0), ivec2(15));
-                uint index = uint(light.x + light.y * 16);
-                uint packedColor = frame.lightmap[index / 4][index % 4];
-                vec3 lightColor = vec3((packedColor >> 16) & 255u, (packedColor >> 8) & 255u, packedColor & 255u) / 255.0;
                 vec3 relative = position + section.offsetAndLayer.xyz;
                 vec4 clip = frame.viewProjection * vec4(relative, 1.0);
                 gl_Position = vec4(clip.x, -clip.y, (clip.z + clip.w) * 0.5, clip.w);
                 distanceToCamera = abs(clip.w);
-                tint = blockColor * vec4(lightColor, 1.0);
+                tint = blockColor;
                 uv = atlasUv;
+                // Lightmap coordinates are in sixteenths of a texel, relative to its center.
+                lightCoord = vec2(lightUv) / 16.0;
             }
             """;
     private static final String FRAGMENT_SHADER = FRAME_LAYOUT + """
@@ -52,13 +51,30 @@ final class VulkanTerrainPipeline implements AutoCloseable {
             layout(location = 0) in vec4 tint;
             layout(location = 1) in vec2 uv;
             layout(location = 2) in float distanceToCamera;
+            layout(location = 3) in vec2 lightCoord;
             layout(location = 0) out vec4 color;
+
+            vec3 lightTexel(ivec2 coord) {
+                uint index = uint(coord.x + coord.y * 16);
+                uint packedColor = frame.lightmap[index / 4][index % 4];
+                return vec3((packedColor >> 16) & 255u, (packedColor >> 8) & 255u, packedColor & 255u) / 255.0;
+            }
+
+            vec3 sampleLightmap(vec2 coord) {
+                coord = clamp(coord, vec2(0.0), vec2(15.0));
+                ivec2 lo = ivec2(coord);
+                ivec2 hi = min(lo + 1, ivec2(15));
+                vec2 weight = fract(coord);
+                return mix(mix(lightTexel(lo), lightTexel(ivec2(hi.x, lo.y)), weight.x),
+                           mix(lightTexel(ivec2(lo.x, hi.y)), lightTexel(hi), weight.x), weight.y);
+            }
 
             void main() {
                 float layer = section.offsetAndLayer.w;
                 vec4 texel = layer == 2.0 ? textureLod(atlas, uv, 0.0) : texture(atlas, uv);
                 vec4 lit = texel * tint;
                 if (layer != 0.0 && lit.a <= 0.1) discard;
+                lit.rgb *= sampleLightmap(lightCoord);
                 float visibility = 1.0;
                 if (frame.fog.x == 1.0) {
                     visibility = (frame.fog.z - distanceToCamera) / max(frame.fog.z - frame.fog.y, 0.0001);
