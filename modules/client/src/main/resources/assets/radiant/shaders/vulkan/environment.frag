@@ -116,7 +116,9 @@ void main() {
     }
     vec4 clip = env.viewProjection * vec4(origin + ray * distance, 1.0);
     gl_FragDepth = clamp(clip.z / clip.w * 0.5 + 0.5, 0.0, 1.0);
-    vec3 rgb = mix(env.fogAndStars.rgb, env.cloudColor.rgb * texel.rgb * shade, fogVisibility(env.cloudFog, clip.w));
+    // The legacy cloud mesh stores its shaded tint in unsigned bytes before texturing and fog.
+    vec3 tint = floor(clamp(env.cloudColor.rgb * shade, 0.0, 1.0) * 255.0) / 255.0;
+    vec3 rgb = mix(env.fogAndStars.rgb, tint * texel.rgb, fogVisibility(env.cloudFog, clip.w));
     color = vec4(outputColor(rgb), alpha);
 }
 #else
