@@ -372,9 +372,6 @@ public final class VulkanObjectCapture implements AutoCloseable {
         if (active == null && compiling == null) {
             return;
         }
-        if (active != null && active.entityLeash && active.phase == Phase.ENTITY_OUTLINES) {
-            return;
-        }
         int mode = source.getDrawMode();
         int count = source.getVertexCount();
         boolean lines = active != null && active.phase.drawsLines();
