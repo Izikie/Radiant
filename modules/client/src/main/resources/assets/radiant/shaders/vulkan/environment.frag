@@ -113,18 +113,21 @@ vec4 celestialDisc(sampler2D image, vec2 uv, vec2 tile, vec2 sheet) {
     return textureLod(image, (tile + uv) / sheet, 0.0);
 }
 
-vec2 endSkyUv(vec3 ray) {
-    vec3 axis = abs(ray);
+vec2 endSkyUv(vec3 origin, vec3 ray) {
+    // Intersect the 200-block cube in camera-relative world space, including the eye offset.
+    vec3 exitDistance = (vec3(100.0) - sign(ray) * origin) / max(abs(ray), vec3(1e-8));
+    vec3 hit = origin + ray * min(exitDistance.x, min(exitDistance.y, exitDistance.z));
+    vec3 axis = abs(hit);
     vec2 face;
-    // Apply the inverse of the legacy cube-face rotations to the view ray.
+    // Apply the inverse of the legacy cube-face rotations to the intersection point.
     if (axis.y >= max(axis.x, axis.z)) {
-        face = vec2(ray.x, -sign(ray.y) * ray.z) / axis.y;
+        face = vec2(hit.x, -sign(hit.y) * hit.z);
     } else if (axis.z >= axis.x) {
-        face = vec2(ray.x, sign(ray.z) * ray.y) / axis.z;
+        face = vec2(hit.x, sign(hit.z) * hit.y);
     } else {
-        face = vec2(sign(ray.x) * ray.y, ray.z) / axis.x;
+        face = vec2(sign(hit.x) * hit.y, hit.z);
     }
-    return fract((face * 0.5 + 0.5) * 16.0);
+    return fract((face / 200.0 + 0.5) * 16.0);
 }
 
 void main() {
@@ -132,9 +135,10 @@ void main() {
         color = vec4(outputColor(env.fogAndStars.rgb), 1.0);
         return;
     }
-    vec3 ray = normalize(unproject(1.0) - unproject(-1.0));
+    vec3 origin = unproject(-1.0);
+    vec3 ray = normalize(unproject(1.0) - origin);
     if (env.cloudOffset.w == 1.0) {
-        vec3 texel = textureLod(endSky, endSkyUv(ray), 0.0).rgb;
+        vec3 texel = textureLod(endSky, endSkyUv(origin, ray), 0.0).rgb;
         color = vec4(outputColor(texel * env.skyColor.rgb), 1.0);
         return;
     }
