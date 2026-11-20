@@ -9,6 +9,7 @@ layout(std140, set = 0, binding = 0) uniform Environment {
     vec4 cloudOffset;
     vec4 lowerSky;
     vec4 skyFog;
+    vec4 cloudFog;
 } env;
 layout(set = 0, binding = 1) uniform sampler2D clouds;
 layout(set = 0, binding = 2) uniform sampler2D sun;
@@ -33,6 +34,16 @@ vec3 outputColor(vec3 rgb) {
 #else
     return rgb;
 #endif
+}
+
+float fogVisibility(vec4 fog, float depth) {
+    if (fog.x == 1.0) return clamp((fog.z - depth) / max(fog.z - fog.y, 1e-4), 0.0, 1.0);
+    if (fog.x == 2.0) return exp(-depth * fog.w);
+    if (fog.x == 3.0) {
+        float density = depth * fog.w;
+        return exp(-density * density);
+    }
+    return 1.0;
 }
 
 #if CLOUD_PASS
@@ -99,13 +110,14 @@ void main() {
     float distance;
     float shade;
     vec4 texel = traceCloud(origin, ray, range, distance, shade);
-    float alpha = texel.a * 0.8 * (1.0 - smoothstep(range * 0.72, range, distance));
+    float alpha = texel.a * 0.8;
     if (alpha <= 0.1) {
         discard;
     }
     vec4 clip = env.viewProjection * vec4(origin + ray * distance, 1.0);
     gl_FragDepth = clamp(clip.z / clip.w * 0.5 + 0.5, 0.0, 1.0);
-    color = vec4(outputColor(env.cloudColor.rgb * texel.rgb * shade), alpha);
+    vec3 rgb = mix(env.fogAndStars.rgb, env.cloudColor.rgb * texel.rgb * shade, fogVisibility(env.cloudFog, clip.w));
+    color = vec4(outputColor(rgb), alpha);
 }
 #else
 vec4 celestialDisc(sampler2D image, vec2 uv, vec2 tile, vec2 sheet) {
@@ -142,16 +154,7 @@ float skyPlaneVisibility(vec3 origin, vec3 ray, float height) {
     if (t < 0.0 || clip.z > clip.w || any(lessThan(point.xz, vec2(-extent)))
             || any(greaterThan(point.xz, vec2(extent + 64.0)))) return -1.0;
 
-    float depth = clip.w;
-    if (env.skyFog.x == 1.0) {
-        return clamp((env.skyFog.z - depth) / max(env.skyFog.z - env.skyFog.y, 1e-4), 0.0, 1.0);
-    }
-    if (env.skyFog.x == 2.0) return exp(-depth * env.skyFog.w);
-    if (env.skyFog.x == 3.0) {
-        float density = depth * env.skyFog.w;
-        return exp(-density * density);
-    }
-    return 1.0;
+    return fogVisibility(env.skyFog, clip.w);
 }
 
 #if STAR_PASS

@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 import static org.lwjgl.vulkan.VK10.*;
 
 final class VulkanEnvironment implements AutoCloseable {
-    private static final int FRAME_BYTES = 128 + 8 * 16;
+    private static final int FRAME_BYTES = 128 + 9 * 16;
     private static final int POSITION_BYTES = 3 * Float.BYTES;
     private static final String VERTEX_SHADER = """
             #version 450
@@ -197,6 +197,7 @@ final class VulkanEnvironment implements AutoCloseable {
         var skyFog = frame.skyFog;
         uniforms.putFloat(frame.skyFogMode).putFloat(skyFog == null ? 0 : skyFog.start())
                 .putFloat(skyFog == null ? 0 : skyFog.end()).putFloat(skyFog == null ? 0 : skyFog.density());
+        uniforms.putFloat(fog.mode()).putFloat(fog.start()).putFloat(fog.end()).putFloat(fog.density());
     }
 
     private void upload(int index, NativeImage image, VkQueue queue, VkCommandBuffer commands) {
