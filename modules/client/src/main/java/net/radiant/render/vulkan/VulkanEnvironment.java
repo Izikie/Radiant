@@ -29,6 +29,34 @@ final class VulkanEnvironment implements AutoCloseable {
                 gl_Position = vec4(ndc, 1.0, 1.0);
             }
             """;
+    private static final String END_SKY_VERTEX_SHADER = """
+            #version 450
+            layout(std140, set = 0, binding = 0) uniform Environment {
+                mat4 viewProjection;
+            } env;
+            layout(location = 0) out vec2 uv;
+
+            void main() {
+                const vec2 corners[6] = vec2[6](vec2(0, 0), vec2(0, 1), vec2(1, 0),
+                                                vec2(0, 1), vec2(1, 1), vec2(1, 0));
+                vec2 corner = corners[gl_VertexIndex];
+                vec2 edge = corner * 200.0 - 100.0;
+                float x = edge.x;
+                float z = edge.y;
+                // Rotate the bottom face by the same quarter turns as the legacy skybox.
+                vec3 position = vec3(x, -100.0, z);
+                switch (gl_InstanceIndex) {
+                    case 1: position = vec3(x, -z, -100.0); break;
+                    case 2: position = vec3(x, z, 100.0); break;
+                    case 3: position = vec3(x, 100.0, -z); break;
+                    case 4: position = vec3(100.0, x, z); break;
+                    case 5: position = vec3(-100.0, -x, z); break;
+                }
+                vec4 clip = env.viewProjection * vec4(position, 1.0);
+                gl_Position = vec4(clip.x, -clip.y, (clip.z + clip.w) * 0.5, clip.w);
+                uv = corner * 16.0;
+            }
+            """;
     private static final String STAR_VERTEX_SHADER = """
             #version 450
             layout(std140, set = 0, binding = 0) uniform Environment {
@@ -62,6 +90,7 @@ final class VulkanEnvironment implements AutoCloseable {
     private long descriptorSet;
     private long layout;
     private long sky;
+    private long endSky;
     private long clouds;
     private long stars;
     private VulkanBuffer starVertices;
@@ -82,6 +111,8 @@ final class VulkanEnvironment implements AutoCloseable {
             VkPipelineVertexInputStateCreateInfo vertices = VkPipelineVertexInputStateCreateInfo.calloc(stack).sType$Default();
             sky = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
                     VulkanGraphics.Pass.SKY, vertices, VERTEX_SHADER, defines + "#define CLOUD_PASS 0\n" + fragment);
+            endSky = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
+                    VulkanGraphics.Pass.SKY, vertices, END_SKY_VERTEX_SHADER, defines + "#define END_SKY_PASS 1\n" + fragment);
             clouds = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
                     VulkanGraphics.Pass.BLENDED_DEPTH_WRITE, vertices, VERTEX_SHADER, defines + "#define CLOUD_PASS 1\n" + fragment);
             var binding = VkVertexInputBindingDescription.calloc(1, stack);
@@ -174,10 +205,10 @@ final class VulkanEnvironment implements AutoCloseable {
 
     void prepare(VkQueue queue, VkCommandBuffer commands, Matrix4fc viewProjection, VulkanTerrainScene.Fog fog, Frame frame) {
         if (pendingImages != null) {
-            upload(0, pendingImages.clouds, queue, commands);
-            upload(1, pendingImages.sun, queue, commands);
-            upload(2, pendingImages.moon, queue, commands);
-            upload(3, pendingImages.endSky, queue, commands);
+            upload(0, pendingImages.clouds, queue, commands, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
+            upload(1, pendingImages.sun, queue, commands, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
+            upload(2, pendingImages.moon, queue, commands, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
+            upload(3, pendingImages.endSky, queue, commands, VK_SAMPLER_ADDRESS_MODE_REPEAT);
             bindTextures();
             pendingImages = null;
         }
@@ -200,18 +231,22 @@ final class VulkanEnvironment implements AutoCloseable {
         uniforms.putFloat(fog.mode()).putFloat(fog.start()).putFloat(fog.end()).putFloat(fog.density());
     }
 
-    private void upload(int index, NativeImage image, VkQueue queue, VkCommandBuffer commands) {
+    private void upload(int index, NativeImage image, VkQueue queue, VkCommandBuffer commands, int addressMode) {
         if (textures[index] != null) {
             textures[index].close();
         }
         VulkanTexture texture = new VulkanTexture(device);
         textures[index] = texture;
         texture.initialize(physicalDevice, queue, commands, image.getWidth(), image.getHeight(),
-                new ByteBuffer[]{ByteBuffer.wrap(image.getData())}, false);
+                new ByteBuffer[]{ByteBuffer.wrap(image.getData())}, false, VK_FILTER_NEAREST, addressMode, addressMode);
     }
 
     void drawSky(MemoryStack stack, VkCommandBuffer commands, Frame frame) {
-        draw(stack, commands, sky);
+        if (frame.skyMode == SkyMode.END) {
+            draw(stack, commands, endSky, 6, 6);
+            return;
+        }
+        draw(stack, commands, sky, 3, 1);
         if (frame.stars > 0) {
             vkCmdBindPipeline(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, stars);
             vkCmdBindVertexBuffers(commands, 0, stack.longs(starVertices.handle()), stack.longs(0));
@@ -220,13 +255,13 @@ final class VulkanEnvironment implements AutoCloseable {
     }
 
     void drawClouds(MemoryStack stack, VkCommandBuffer commands) {
-        draw(stack, commands, clouds);
+        draw(stack, commands, clouds, 3, 1);
     }
 
-    private void draw(MemoryStack stack, VkCommandBuffer commands, long pipeline) {
+    private void draw(MemoryStack stack, VkCommandBuffer commands, long pipeline, int vertices, int instances) {
         vkCmdBindPipeline(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline);
         vkCmdBindDescriptorSets(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 0, stack.longs(descriptorSet), null);
-        vkCmdDraw(commands, 3, 1, 0, 0);
+        vkCmdDraw(commands, vertices, instances, 0, 0);
     }
 
     private void destroyPipelines() {
@@ -237,6 +272,10 @@ final class VulkanEnvironment implements AutoCloseable {
         if (sky != 0) {
             vkDestroyPipeline(device, sky, null);
             sky = 0;
+        }
+        if (endSky != 0) {
+            vkDestroyPipeline(device, endSky, null);
+            endSky = 0;
         }
         if (clouds != 0) {
             vkDestroyPipeline(device, clouds, null);

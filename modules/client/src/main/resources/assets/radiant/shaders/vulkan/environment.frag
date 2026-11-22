@@ -15,17 +15,14 @@ layout(set = 0, binding = 1) uniform sampler2D clouds;
 layout(set = 0, binding = 2) uniform sampler2D sun;
 layout(set = 0, binding = 3) uniform sampler2D moon;
 layout(set = 0, binding = 4) uniform sampler2D endSky;
-#if STAR_PASS
+#if END_SKY_PASS
+layout(location = 0) in vec2 uv;
+#elif STAR_PASS
 layout(location = 0) noperspective in vec2 ndc;
 #else
 layout(location = 0) in vec2 ndc;
 #endif
 layout(location = 0) out vec4 color;
-
-vec3 unproject(float depth) {
-    vec4 relative = env.inverseViewProjection * vec4(ndc.x, -ndc.y, depth, 1.0);
-    return relative.xyz / relative.w;
-}
 
 vec3 outputColor(vec3 rgb) {
     rgb = clamp(rgb, 0.0, 1.0);
@@ -34,6 +31,17 @@ vec3 outputColor(vec3 rgb) {
 #else
     return rgb;
 #endif
+}
+
+#if END_SKY_PASS
+void main() {
+    vec3 texel = texture(endSky, uv).rgb;
+    color = vec4(outputColor(texel * env.skyColor.rgb), 1.0);
+}
+#else
+vec3 unproject(float depth) {
+    vec4 relative = env.inverseViewProjection * vec4(ndc.x, -ndc.y, depth, 1.0);
+    return relative.xyz / relative.w;
 }
 
 float fogVisibility(vec4 fog, float depth) {
@@ -129,23 +137,6 @@ vec4 celestialDisc(sampler2D image, vec2 uv, vec2 tile, vec2 sheet) {
     return textureLod(image, (tile + uv) / sheet, 0.0);
 }
 
-vec2 endSkyUv(vec3 origin, vec3 ray) {
-    // Intersect the 200-block cube in camera-relative world space, including the eye offset.
-    vec3 exitDistance = (vec3(100.0) - sign(ray) * origin) / max(abs(ray), vec3(1e-8));
-    vec3 hit = origin + ray * min(exitDistance.x, min(exitDistance.y, exitDistance.z));
-    vec3 axis = abs(hit);
-    vec2 face;
-    // Apply the inverse of the legacy cube-face rotations to the intersection point.
-    if (axis.y >= max(axis.x, axis.z)) {
-        face = vec2(hit.x, -sign(hit.y) * hit.z);
-    } else if (axis.z >= axis.x) {
-        face = vec2(hit.x, sign(hit.z) * hit.y);
-    } else {
-        face = vec2(sign(hit.x) * hit.y, hit.z);
-    }
-    return fract((face / 200.0 + 0.5) * 16.0);
-}
-
 // Negative visibility indicates that this ray misses the finite legacy sky plane.
 float skyPlaneVisibility(vec3 origin, vec3 ray, float height) {
     float extent = env.skyColor.a;
@@ -176,11 +167,6 @@ void main() {
     }
     vec3 origin = unproject(-1.0);
     vec3 ray = normalize(unproject(1.0) - origin);
-    if (env.cloudOffset.w == 1.0) {
-        vec3 texel = textureLod(endSky, endSkyUv(origin, ray), 0.0).rgb;
-        color = vec4(outputColor(texel * env.skyColor.rgb), 1.0);
-        return;
-    }
     float upper = ray.y > 0.0 ? skyPlaneVisibility(origin, ray, 16.0) : -1.0;
     vec3 rgb = mix(env.fogAndStars.rgb, env.skyColor.rgb, max(upper, 0.0));
     float sine = env.celestial.x;
@@ -212,5 +198,6 @@ void main() {
     if (lower >= 0.0) rgb = mix(env.fogAndStars.rgb, env.lowerSky.rgb, lower);
     color = vec4(outputColor(rgb), 1.0);
 }
+#endif
 #endif
 #endif
