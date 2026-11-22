@@ -68,7 +68,8 @@ public class GlStateManager {
             }
             drawEnables.push(new DrawEnables(alphaState.alphaTest.currentState, lightingState.currentState,
                     depthState.depthTest.currentState, blendState.blend.currentState, cullState.cullFace.currentState,
-                    polygonOffsetState.polygonOffsetFill.currentState, colorLogicState.colorLogicOp.currentState, textureEnables,
+                    polygonOffsetState.polygonOffsetFill.currentState, colorLogicState.colorLogicOp.currentState,
+                    fogState.fog.currentState, textureEnables,
                     new Vector3f(lightDirections[0]), new Vector3f(lightDirections[1])));
         }
         GL11.glPushAttrib(8256);
@@ -86,6 +87,7 @@ public class GlStateManager {
             cullState.cullFace.currentState = saved.cull;
             polygonOffsetState.polygonOffsetFill.currentState = saved.polygonOffset;
             colorLogicState.colorLogicOp.currentState = saved.colorLogic;
+            fogState.fog.currentState = saved.fog;
             lightDirections[0].set(saved.light0);
             lightDirections[1].set(saved.light1);
             for (int unit = 0; unit < textureState.length; unit++) {
@@ -95,7 +97,7 @@ public class GlStateManager {
     }
 
     private record DrawEnables(boolean alpha, boolean lighting, boolean depth, boolean blend, boolean cull,
-                               boolean polygonOffset, boolean colorLogic, int textures, Vector3f light0, Vector3f light1) {
+                               boolean polygonOffset, boolean colorLogic, boolean fog, int textures, Vector3f light0, Vector3f light1) {
     }
 
     public static DrawState drawState() {
@@ -105,12 +107,13 @@ public class GlStateManager {
                 blendState.blend.currentState, blendState.srcFactor, blendState.dstFactor, blendState.srcFactorAlpha, blendState.dstFactorAlpha,
                 cullState.cullFace.currentState ? cullState.mode : 0,
                 polygonOffsetState.polygonOffsetFill.currentState, polygonOffsetState.factor, polygonOffsetState.units,
-                colorLogicState.colorLogicOp.currentState ? colorLogicState.opcode : 0);
+                colorLogicState.colorLogicOp.currentState ? colorLogicState.opcode : 0, fogState.fog.currentState);
     }
 
     public record DrawState(boolean textured, boolean lit, float alphaCutoff, boolean depthTest, boolean depthWrite, int depthFunction,
                             boolean blending, int sourceColor, int destinationColor, int sourceAlpha, int destinationAlpha,
-                            int cullFace, boolean polygonOffset, float polygonFactor, float polygonUnits, int colorLogicOp) {
+                            int cullFace, boolean polygonOffset, float polygonFactor, float polygonUnits, int colorLogicOp,
+                            boolean fogEnabled) {
     }
 
     public static void disableAlpha() {

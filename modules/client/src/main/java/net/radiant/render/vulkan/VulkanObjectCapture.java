@@ -446,7 +446,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         if (phase == Phase.ENTITY_OUTLINES) {
             return new Material(white, new PipelineKey(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Pass.SKY.state, true, 1.0f,
                     VulkanGraphics.NO_LOGIC_OP),
-                    -1, false, false, false, false, false);
+                    -1, false, false, false, false, false, false);
         }
         Image image = white;
         int texture = GlStateManager.getBoundTexture();
@@ -471,9 +471,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
         // The legacy block selection pass requests a two-pixel outline.
         float lineWidth = phase == Phase.SELECTION ? 2.0f : 1.0f;
         int logicOp = VulkanOverlayState.colorLogicOp(draw.colorLogicOp());
+        boolean fogged = phase.layer == Layer.WORLD && draw.fogEnabled();
         return new Material(image, new PipelineKey(topology, state, false, lineWidth, logicOp), draw.alphaCutoff(),
                 lit, GlStateManager.isLightmapTextureEnabled(), glintColorBlend, emissiveEyes,
-                image == atlas && !GlStateManager.isTextureMipmapped(texture));
+                image == atlas && !GlStateManager.isTextureMipmapped(texture), fogged);
     }
 
     private boolean capturesTextureMatrix() {
@@ -1063,7 +1064,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     }
 
     record Material(Image image, PipelineKey pipeline, float alphaCutoff, boolean lit, boolean lightmapped,
-                    boolean glintColorBlend, boolean emissiveEyes, boolean atlasBaseLevel) {
+                    boolean glintColorBlend, boolean emissiveEyes, boolean atlasBaseLevel, boolean fogged) {
     }
 
     static final class Draw {
