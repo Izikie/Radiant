@@ -273,7 +273,7 @@ final class VulkanTerrainScene implements VulkanScene {
     record Fog(float red, float green, float blue, float mode, float start, float end, float density) {
     }
 
-    record Draw(VulkanTerrainMeshes.Slice mesh, float x, float y, float z, int layer, double distanceSquared) {
+    record Draw(VulkanTerrainMeshes.Slice mesh, float x, float y, float z, int layer) {
     }
 
     record Atlas(int width, int height, ByteBuffer[] levels) implements AutoCloseable {

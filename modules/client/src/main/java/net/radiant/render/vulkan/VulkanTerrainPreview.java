@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,8 +42,6 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     private static final boolean TERRAIN_ONLY = Boolean.getBoolean("radiant.vulkan.terrainOnly");
     private static final Logger LOGGER = LoggerFactory.getLogger(VulkanTerrainPreview.class);
     private static final RenderLayer[] LAYERS = RenderLayer.values();
-    private static final Comparator<VulkanTerrainScene.Draw> FAR_TO_NEAR =
-            Comparator.comparingDouble(VulkanTerrainScene.Draw::distanceSquared).reversed();
     private static VulkanTerrainPreview active;
     private static boolean manuallyClosed;
     private static boolean unsupportedSettings;
@@ -214,7 +211,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         }
         Matrix4f viewProjection = projection.mul(viewMatrix, new Matrix4f());
         VulkanEnvironment.Frame environment = captureEnvironment(mc, view, x, y, z, partialTicks, cloudTick, skyFog);
-        return new Extraction(preview, x, y, z, view.getEyeHeight(), viewProjection, lightmap.clone(), captureFog(mc),
+        return new Extraction(preview, x, y, z, viewProjection, lightmap.clone(), captureFog(mc),
                 environment, Config.isRenderRegions(), mc.displayWidth, mc.displayHeight);
     }
 
@@ -529,7 +526,6 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         private final double x;
         private final double y;
         private final double z;
-        private final double eyeY;
         private final Matrix4f matrix;
         private final int[] lightmap;
         private final VulkanTerrainScene.Fog fog;
@@ -540,14 +536,13 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         private final List<VulkanTerrainScene.Draw> opaque = new ArrayList<>();
         private final List<VulkanTerrainScene.Draw> translucent = new ArrayList<>();
 
-        private Extraction(VulkanTerrainPreview preview, double x, double y, double z, float eyeHeight, Matrix4f matrix,
+        private Extraction(VulkanTerrainPreview preview, double x, double y, double z, Matrix4f matrix,
                            int[] lightmap, VulkanTerrainScene.Fog fog, VulkanEnvironment.Frame environment,
                            boolean renderRegions, int width, int height) {
             this.preview = preview;
             this.x = x;
             this.y = y;
             this.z = z;
-            this.eyeY = y + eyeHeight;
             this.matrix = matrix;
             this.lightmap = lightmap;
             this.fog = fog;
@@ -571,24 +566,16 @@ public final class VulkanTerrainPreview implements AutoCloseable {
                 int index = layer.ordinal();
                 Mesh mesh = layers[index];
                 if (mesh != null && mesh.compiled == compiled && !compiled.isLayerEmpty(layer)) {
-                    if (layer == RenderLayer.TRANSLUCENT) {
-                        double dx = origin.getX() + 8.0 - x;
-                        double dy = origin.getY() + 8.0 - eyeY;
-                        double dz = origin.getZ() + 8.0 - z;
-                        // The legacy worker already sorts the quads within each uploaded section.
-                        translucent.add(new VulkanTerrainScene.Draw(mesh.slice, offsetX, offsetY, offsetZ,
-                                index, dx * dx + dy * dy + dz * dz));
-                    } else {
-                        opaque.add(new VulkanTerrainScene.Draw(mesh.slice, offsetX, offsetY, offsetZ, index, 0));
-                    }
+                    List<VulkanTerrainScene.Draw> draws = layer == RenderLayer.TRANSLUCENT ? translucent : opaque;
+                    draws.add(new VulkanTerrainScene.Draw(mesh.slice, offsetX, offsetY, offsetZ, index));
                 }
             }
         }
 
         public void finish() {
-            translucent.sort(FAR_TO_NEAR);
+            // OpenGL traverses visible sections in reverse for translucency. Their quads are already sorted.
             preview.pendingFrame = new VulkanTerrainScene.Frame(matrix, lightmap, fog, environment,
-                    List.copyOf(opaque), List.copyOf(translucent), width, height);
+                    List.copyOf(opaque), List.copyOf(translucent.reversed()), width, height);
         }
     }
 }
