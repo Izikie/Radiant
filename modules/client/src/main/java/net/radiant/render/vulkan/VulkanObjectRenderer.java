@@ -164,15 +164,11 @@ final class VulkanObjectRenderer implements AutoCloseable {
             for (VulkanObjectCapture.Draw draw : capture.draws()) {
                 prepareDraw(stack, queue, commands, capture, atlas, draw);
             }
-            for (VulkanObjectCapture.Draw draw : capture.nameTagDraws()) {
-                prepareDraw(stack, queue, commands, capture, atlas, draw);
-            }
             // A texture deleted mid-capture can still be referenced by this frame.
             for (var iterator = textures.entrySet().iterator(); iterator.hasNext(); ) {
                 var entry = iterator.next();
                 if (entry.getKey().deleted
-                        && capture.draws().stream().noneMatch(draw -> draw.material.image() == entry.getKey())
-                        && capture.nameTagDraws().stream().noneMatch(draw -> draw.material.image() == entry.getKey())) {
+                        && capture.draws().stream().noneMatch(draw -> draw.material.image() == entry.getKey())) {
                     Binding binding = entry.getValue();
                     VulkanPresenter.check(vkFreeDescriptorSets(device, binding.pool.handle, binding.set), "free object descriptor set");
                     binding.pool.available++;
@@ -259,11 +255,6 @@ final class VulkanObjectRenderer implements AutoCloseable {
     void drawOutlineMask(MemoryStack stack, VkCommandBuffer commands, VulkanObjectCapture capture, VulkanTerrainScene.Fog fog) {
         List<VulkanObjectCapture.Draw> draws = capture.outlineDraws();
         draw(stack, commands, capture.atlas(), draws, 0, draws.size(), fog, 0);
-    }
-
-    void drawNameTags(MemoryStack stack, VkCommandBuffer commands, VulkanObjectCapture capture, VulkanTerrainScene.Fog fog) {
-        List<VulkanObjectCapture.Draw> draws = capture.nameTagDraws();
-        draw(stack, commands, capture.atlas(), draws, 0, draws.size(), fog, fog.mode());
     }
 
     private void draw(MemoryStack stack, VkCommandBuffer commands, VulkanObjectCapture.Image atlas, List<VulkanObjectCapture.Draw> draws,

@@ -184,7 +184,6 @@ final class VulkanTerrainScene implements VulkanScene {
             environment.drawClouds(stack, commands);
         }
         cloudsDrawn = drawClouds;
-        objects.drawNameTags(stack, commands, objectCapture, frame.fog);
         drawOverlay(stack, commands, width, height, VulkanObjectCapture.Layer.FIRST_PERSON);
         if (!objectCapture.outlineDraws().isEmpty()) {
             outlines.draw(stack, commands);

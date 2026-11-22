@@ -55,7 +55,6 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private final Image atlas = new Image(0, 0, null);
     private final List<Draw> draws = new ArrayList<>();
     private final List<Draw> outlineDraws = new ArrayList<>();
-    private final List<Draw> nameTagDraws = new ArrayList<>();
     private final int[] layerStarts = new int[Layer.values().length];
     private final int[] cameraOverlayQuads = new int[CameraOverlay.values().length];
     private final Matrix4f projection = new Matrix4f();
@@ -123,7 +122,6 @@ public final class VulkanObjectCapture implements AutoCloseable {
         releaseRetiredImages();
         draws.clear();
         outlineDraws.clear();
-        nameTagDraws.clear();
         vertices.clear();
         entityTriangles = 0;
         entityShadowQuads = 0;
@@ -578,11 +576,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
                 writeVertex(mesh, material, vertexIndex(mesh.mode, primitive, corner), vertexTransform, vertexNormal);
             }
         }
-        List<Draw> target = switch (phase) {
-            case ENTITY_OUTLINES -> outlineDraws;
-            case ENTITY_NAME_TAG -> nameTagDraws;
-            default -> draws;
-        };
+        List<Draw> target = phase == Phase.ENTITY_OUTLINES ? outlineDraws : draws;
         int last = target.size() - 1;
         boolean layerBoundary = target == draws && target.size() == layerStarts[phase.layer.ordinal()];
         if (last >= 0 && !layerBoundary && target.get(last).firstVertex + target.get(last).vertexCount == firstVertex
@@ -801,10 +795,6 @@ public final class VulkanObjectCapture implements AutoCloseable {
 
     List<Draw> outlineDraws() {
         return outlineDraws;
-    }
-
-    List<Draw> nameTagDraws() {
-        return nameTagDraws;
     }
 
     int drawStart(Layer layer) {
