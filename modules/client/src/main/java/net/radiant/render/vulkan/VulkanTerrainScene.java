@@ -170,15 +170,20 @@ final class VulkanTerrainScene implements VulkanScene {
             environment.drawSky(stack, commands, frame.environment);
             skyModeDrawn = frame.environment.skyMode();
         }
+        boolean drawClouds = frame.environment != null && frame.environment.cloudMode() != 0;
+        boolean cloudsBeforeTerrain = drawClouds && frame.environment.cloudsBeforeTerrain();
+        if (cloudsBeforeTerrain) {
+            environment.drawClouds(stack, commands);
+        }
         pipeline.begin(stack, commands);
         drawCalls = pipeline.draw(stack, commands, frame.opaque, false);
         objects.draw(stack, commands, objectCapture, frame.fog, VulkanObjectCapture.Layer.WORLD);
-        if (frame.environment != null && frame.environment.cloudMode() != 0) {
-            environment.drawClouds(stack, commands);
-            cloudsDrawn = true;
-        }
         pipeline.begin(stack, commands);
         drawCalls += pipeline.draw(stack, commands, frame.translucent, true);
+        if (drawClouds && !cloudsBeforeTerrain) {
+            environment.drawClouds(stack, commands);
+        }
+        cloudsDrawn = drawClouds;
         objects.drawNameTags(stack, commands, objectCapture, frame.fog);
         drawOverlay(stack, commands, width, height, VulkanObjectCapture.Layer.FIRST_PERSON);
         if (!objectCapture.outlineDraws().isEmpty()) {

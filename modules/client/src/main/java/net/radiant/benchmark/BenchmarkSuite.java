@@ -628,6 +628,7 @@ final class BenchmarkSuite {
         ANIMATED_TEXTURES("animated-textures", BenchmarkWorld.TRANSLUCENT_X, EXHIBIT_Y + 3, 0, 20, 0),
         DAY_SKY("day-sky", BenchmarkWorld.SKY_X, 108, 0, -30, 0, -90, 500),
         NIGHT_SKY("night-sky", BenchmarkWorld.SKY_X, 108, 0, -30, 0, -90, 15_000),
+        ABOVE_CLOUDS("above-clouds", BenchmarkWorld.SKY_X, 152, 0, 30, 0, -90, 500),
         ENTITIES("entities-and-block-entities", BenchmarkWorld.ENTITY_X, EXHIBIT_Y, 0, 3, 36),
         PARTICLES("particles", BenchmarkWorld.PARTICLE_X, EXHIBIT_Y, 0, 3, 22),
         RAIN("rain", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 25, 0, 6000, BiomeGenBase.PLAINS),

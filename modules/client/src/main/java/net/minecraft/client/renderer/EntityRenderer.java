@@ -1263,7 +1263,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         this.setupFog(0, partialTicks);
         GlStateManager.shadeModel(GL11.GL_SMOOTH);
 
-        if (entity.posY + entity.getEyeHeight() < 128.0D + (this.mc.gameSettings.ofCloudsHeight * 128.0F)) {
+        boolean cloudsBeforeTerrain = cloudsBeforeTerrain(entity);
+        if (cloudsBeforeTerrain) {
             this.renderCloudsCheck(renderglobal, partialTicks, pass);
         }
 
@@ -1483,7 +1484,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         GlStateManager.disableBlend();
         GlStateManager.disableFog();
 
-        if (entity.posY + entity.getEyeHeight() >= 128.0D + (this.mc.gameSettings.ofCloudsHeight * 128.0F)) {
+        if (!cloudsBeforeTerrain) {
             this.renderCloudsCheck(renderglobal, partialTicks, pass);
         }
 
@@ -1519,6 +1520,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 VulkanObjectCapture.end();
             }
         }
+    }
+
+    public boolean cloudsBeforeTerrain(Entity view) {
+        return view.posY + view.getEyeHeight() < 128.0D + this.mc.gameSettings.ofCloudsHeight * 128.0F;
     }
 
     private void renderCloudsCheck(RenderGlobal renderGlobalIn, float partialTicks, int pass) {

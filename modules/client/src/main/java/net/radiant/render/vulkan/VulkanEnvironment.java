@@ -311,12 +311,12 @@ final class VulkanEnvironment implements AutoCloseable {
     record Frame(SkyMode skyMode, float skyExtent, float skyRed, float skyGreen, float skyBlue, float stars,
                  float sunriseRed, float sunriseGreen, float sunriseBlue, float sunriseAlpha,
                  float celestialSine, float celestialCosine, float celestialVisibility, int moonPhase,
-                 int cloudMode, float cloudRed, float cloudGreen, float cloudBlue, float cloudX, float cloudZ,
+                 int cloudMode, boolean cloudsBeforeTerrain, float cloudRed, float cloudGreen, float cloudBlue, float cloudX, float cloudZ,
                  float cloudHeight, float lowerSkyHeight, Vec3 lowerSkyColor, int skyFogMode,
                  GlStateManager.FogParameters skyFog) {
         static Frame dimensionSky(SkyMode mode, float red, float green, float blue) {
             return new Frame(mode, 0, red, green, blue, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, new Vec3(0, 0, 0), 0, null);
+                    0, 0, 0, 0, 0, false, 0, 0, 0, 0, 0, 0, 0, new Vec3(0, 0, 0), 0, null);
         }
     }
 }
