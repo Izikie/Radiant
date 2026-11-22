@@ -69,6 +69,7 @@ vec4 traceCloud(vec3 origin, vec3 ray, float range, out float distance, out floa
     shade = 1.0;
     distance = range;
     if (env.cloudColor.a < 2.0) {
+        if (abs(ray.y) < 1e-6) return vec4(0.0);
         distance = (base - origin.y) / ray.y;
         if (distance <= 0.0 || distance >= range) {
             return vec4(0.0);
@@ -82,10 +83,16 @@ vec4 traceCloud(vec3 origin, vec3 ray, float range, out float distance, out floa
     }
 
     // Fancy clouds are a four-block slab with one solid column for each covered texture cell.
-    float bottom = (base - origin.y) / ray.y;
-    float top = (base + 4.0 - origin.y) / ray.y;
-    float entry = max(0.0, min(bottom, top));
-    float exitDistance = min(range, max(bottom, top));
+    float entry = 0.0;
+    float exitDistance = range;
+    if (abs(ray.y) < 1e-6) {
+        if (origin.y < base || origin.y > base + 4.0) return vec4(0.0);
+    } else {
+        float bottom = (base - origin.y) / ray.y;
+        float top = (base + 4.0 - origin.y) / ray.y;
+        entry = max(entry, min(bottom, top));
+        exitDistance = min(exitDistance, max(bottom, top));
+    }
     // The fancy cloud mesh spans eight tiles per axis, starting three tiles behind its origin.
     vec2 tileOffset = mod(env.cloudOffset.xy, 12.0);
     vec2 lower = vec2(-288.0) - tileOffset;
@@ -110,28 +117,33 @@ vec4 traceCloud(vec3 origin, vec3 ray, float range, out float distance, out floa
     vec2 gridScale = size / 3072.0;
     vec2 speed = ray.xz * gridScale;
     vec2 stepDirection = sign(speed);
-    vec2 grid = (origin.xz + ray.xz * (entry + 0.001) + env.cloudOffset.xy) * gridScale;
+    vec2 grid = (origin.xz + ray.xz * entry + env.cloudOffset.xy) * gridScale;
     vec2 cell = floor(grid);
     vec2 next = vec2(1e8);
     vec2 stepDistance = vec2(1e8);
     for (int axis = 0; axis < 2; axis++) {
         if (abs(speed[axis]) > 0.000001) {
+            if (speed[axis] < 0.0 && grid[axis] == cell[axis]) {
+                cell[axis] -= 1.0;
+            }
             float boundary = cell[axis] + (speed[axis] > 0.0 ? 1.0 : 0.0);
-            next[axis] = entry + 0.001 + (boundary - grid[axis]) / speed[axis];
+            next[axis] = entry + (boundary - grid[axis]) / speed[axis];
             stepDistance[axis] = abs(1.0 / speed[axis]);
         }
     }
     distance = entry;
     for (int i = 0; i < 128 && distance < exitDistance; i++) {
-        vec4 texel = textureLod(clouds, fract((cell + 0.5) / size), 0.0);
-        if (texel.a * 0.8 > 0.1) {
-            return texel;
+        float boundary = min(next.x, next.y);
+        if (distance < boundary) {
+            vec4 texel = textureLod(clouds, fract((cell + 0.5) / size), 0.0);
+            if (texel.a * 0.8 > 0.1) return texel;
         }
-        int axis = next.x < next.y ? 0 : 1;
-        distance = next[axis];
-        next[axis] += stepDistance[axis];
-        cell[axis] += stepDirection[axis];
-        shade = axis == 0 ? 0.9 : 0.8;
+        // Cross both grid lines at a corner so the ray never samples a cell it only touches.
+        bvec2 crossing = lessThanEqual(next, vec2(boundary + max(1e-5, boundary * 1e-6)));
+        next += mix(vec2(0.0), stepDistance, crossing);
+        cell += mix(vec2(0.0), stepDirection, crossing);
+        distance = max(distance, boundary);
+        shade = crossing.x ? 0.9 : 0.8;
     }
     return vec4(0.0);
 }
@@ -140,9 +152,6 @@ void main() {
     vec3 origin = unproject(-1.0);
     vec3 span = unproject(1.0) - origin;
     vec3 ray = normalize(span);
-    if (abs(ray.y) < 0.00001) {
-        discard;
-    }
     const float nearPlane = 0.05;
     vec3 depthAxis = vec3(env.viewProjection[0].w, env.viewProjection[1].w, env.viewProjection[2].w);
     float range = (env.cloudClipDistance - nearPlane) / dot(depthAxis, ray);

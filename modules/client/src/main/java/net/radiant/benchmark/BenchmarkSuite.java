@@ -629,6 +629,7 @@ final class BenchmarkSuite {
         DAY_SKY("day-sky", BenchmarkWorld.SKY_X, 108, 0, -30, 0, -90, 500),
         NIGHT_SKY("night-sky", BenchmarkWorld.SKY_X, 108, 0, -30, 0, -90, 15_000),
         ABOVE_CLOUDS("above-clouds", BenchmarkWorld.SKY_X, 152, 0, 30, 0, -90, 500),
+        CLOUD_LEVEL("cloud-level", BenchmarkWorld.SKY_X, 128, 0, 0, 36, -90, 500),
         SUNSET_SKY("sunset-sky", BenchmarkWorld.SKY_X, 108, 0, 0, 0, 90, 14_000),
         SUNRISE_SKY("sunrise-sky", BenchmarkWorld.SKY_X, 108, 0, 0, 0, -90, 22_000),
         ENTITIES("entities-and-block-entities", BenchmarkWorld.ENTITY_X, EXHIBIT_Y, 0, 3, 36),
