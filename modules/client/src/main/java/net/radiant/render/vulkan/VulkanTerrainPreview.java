@@ -257,8 +257,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         if (preview == null || preview.pendingFrame == null) {
             return false;
         }
-        preview.objects.begin(preview.pendingFrame.lightmap(), 0, VulkanObjectCapture.Phase.WORLD_DIRECTIONS,
-                GlStateManager.projectionMatrix());
+        preview.objects.beginWorldDirections(preview.pendingFrame.lightmap(), GlStateManager.projectionMatrix(),
+                preview.pendingFrame.height());
         return true;
     }
 

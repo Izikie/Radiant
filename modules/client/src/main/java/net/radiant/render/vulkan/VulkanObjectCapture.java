@@ -191,6 +191,13 @@ public final class VulkanObjectCapture implements AutoCloseable {
         worldBorderStage = stage;
     }
 
+    void beginWorldDirections(int[] lightmap, Matrix4fc cameraProjection, int height) {
+        begin(lightmap, 0, Phase.WORLD_DIRECTIONS, cameraProjection);
+        // OpenGL resolves ties toward smaller window Y, which is down in the Vulkan viewport.
+        // Move the axes down one 256th of a pixel before rasterization.
+        projection.translateLocal(0.0f, -0.0078125f / height, 0.0f);
+    }
+
     public static void beginBlockEntities() {
         if (active != null) {
             active.phase = Phase.BLOCK_ENTITIES;
