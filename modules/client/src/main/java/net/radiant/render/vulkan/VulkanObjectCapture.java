@@ -449,17 +449,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
             image = texture == atlasId ? atlas : texture(texture);
         }
         boolean emissiveEyes = phase == Phase.ENTITIES && Config.getRenderGlobal().renderOverlayEyes;
-        VulkanGraphics.State state;
-        if (glint != null || entityLeash || emissiveEyes || phase.layer.ui || phase.layer == Layer.FIRST_PERSON || phase.drawsLines()
-                || phase == Phase.BLOCK_DAMAGE || phase == Phase.WORLD_BORDER || phase == Phase.LIGHTNING
-                || phase == Phase.ENTITY_SHADOWS || phase == Phase.ENTITY_FIRE || phase == Phase.ENTITY_NAME_TAG) {
-            state = VulkanOverlayState.capture(draw);
-        } else {
-            VulkanGraphics.Pass pass = !draw.depthTest() ? VulkanGraphics.Pass.OBJECT_OVERLAY
-                    : draw.blending() ? (draw.depthWrite() ? VulkanGraphics.Pass.BLENDED_DEPTH_WRITE : VulkanGraphics.Pass.OBJECT_BLEND)
-                    : (draw.depthWrite() ? VulkanGraphics.Pass.OPAQUE : VulkanGraphics.Pass.OBJECT_READ_DEPTH);
-            state = pass.state;
-        }
+        VulkanGraphics.State state = VulkanOverlayState.capture(draw);
         boolean lit = draw.lit();
         if (lit) {
             GlStateManager.copyLightDirection(0, light0);
@@ -647,7 +637,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
                 if (material.image == atlas) {
                     terrainParticleTriangles += triangles;
                 }
-                if (material.pipeline.state == VulkanGraphics.Pass.OBJECT_BLEND.state) {
+                if (material.pipeline.state.blend() != null && !material.pipeline.state.depthWrite()) {
                     translucentParticleTriangles += triangles;
                 }
             }

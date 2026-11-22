@@ -91,8 +91,6 @@ final class VulkanGraphics {
         SKY_ADDITIVE(new State(false, false, VK_COMPARE_OP_ALWAYS, VK_CULL_MODE_BACK_BIT,
                 new Blend(VK_BLEND_FACTOR_SRC_ALPHA, VK_BLEND_FACTOR_ONE, VK_BLEND_FACTOR_ONE, VK_BLEND_FACTOR_ZERO), null)),
         BLENDED_DEPTH_WRITE(true, true, true, false),
-        OBJECT_BLEND(true, false, true, false),
-        OBJECT_READ_DEPTH(true, false, false, false),
         OBJECT_OVERLAY(false, false, true, false);
 
         final State state;
