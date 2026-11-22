@@ -9,6 +9,8 @@ import static org.lwjgl.util.shaderc.Shaderc.*;
 import static org.lwjgl.vulkan.VK10.*;
 
 final class VulkanGraphics {
+    static final int NO_LOGIC_OP = -1;
+
     private VulkanGraphics() {
     }
 
@@ -26,13 +28,20 @@ final class VulkanGraphics {
                 && properties.limits().lineWidthRange(1) >= 2.0f;
     }
 
+    static boolean supportsLogicOps(VkPhysicalDevice device, MemoryStack stack) {
+        VkPhysicalDeviceFeatures features = VkPhysicalDeviceFeatures.malloc(stack);
+        vkGetPhysicalDeviceFeatures(device, features);
+        return features.logicOp();
+    }
+
     static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology, Pass pass,
                          VkPipelineVertexInputStateCreateInfo vertexInput, String vertexSource, String fragmentSource) {
         long vertex = vertexShader(stack, device, vertexSource);
         long fragment = 0;
         try {
             fragment = fragmentShader(stack, device, fragmentSource);
-            return pipeline(stack, device, layout, colorFormat, depthFormat, topology, pass.state, vertexInput, vertex, fragment, 1.0f);
+            return pipeline(stack, device, layout, colorFormat, depthFormat, topology, pass.state,
+                    vertexInput, vertex, fragment, 1.0f, NO_LOGIC_OP);
         } finally {
             if (fragment != 0) {
                 vkDestroyShaderModule(device, fragment, null);
@@ -42,7 +51,7 @@ final class VulkanGraphics {
     }
 
     static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology, State state,
-                         VkPipelineVertexInputStateCreateInfo vertexInput, long vertex, long fragment, float lineWidth) {
+                         VkPipelineVertexInputStateCreateInfo vertexInput, long vertex, long fragment, float lineWidth, int logicOp) {
         VkPipelineShaderStageCreateInfo.Buffer stages = VkPipelineShaderStageCreateInfo.calloc(2, stack);
         stages.get(0).sType$Default().stage(VK_SHADER_STAGE_VERTEX_BIT).module(vertex).pName(stack.UTF8("main"));
         stages.get(1).sType$Default().stage(VK_SHADER_STAGE_FRAGMENT_BIT).module(fragment).pName(stack.UTF8("main"));
@@ -52,7 +61,7 @@ final class VulkanGraphics {
         blend.get(0).colorWriteMask(VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT);
         VkPipelineRasterizationStateCreateInfo rasterization = VkPipelineRasterizationStateCreateInfo.calloc(stack)
                 .sType$Default().lineWidth(lineWidth);
-        if (state.blend != null) {
+        if (logicOp == NO_LOGIC_OP && state.blend != null) {
             blend.get(0).blendEnable(true)
                     .srcColorBlendFactor(state.blend.sourceColor).dstColorBlendFactor(state.blend.destinationColor)
                     .colorBlendOp(VK_BLEND_OP_ADD)
@@ -64,6 +73,11 @@ final class VulkanGraphics {
             rasterization.depthBiasEnable(true).depthBiasConstantFactor(state.depthBias.constant)
                     .depthBiasSlopeFactor(state.depthBias.slope);
         }
+        VkPipelineColorBlendStateCreateInfo colorBlend = VkPipelineColorBlendStateCreateInfo.calloc(stack).sType$Default()
+                .pAttachments(blend);
+        if (logicOp != NO_LOGIC_OP) {
+            colorBlend.logicOpEnable(true).logicOp(logicOp);
+        }
         VkGraphicsPipelineCreateInfo.Buffer configurations = VkGraphicsPipelineCreateInfo.calloc(1, stack);
         VkGraphicsPipelineCreateInfo config = configurations.get(0).sType$Default().pNext(rendering.address())
                 .pStages(stages).layout(layout).pVertexInputState(vertexInput)
@@ -71,7 +85,7 @@ final class VulkanGraphics {
                 .pViewportState(VkPipelineViewportStateCreateInfo.calloc(stack).sType$Default().viewportCount(1).scissorCount(1))
                 .pRasterizationState(rasterization)
                 .pMultisampleState(VkPipelineMultisampleStateCreateInfo.calloc(stack).sType$Default().rasterizationSamples(VK_SAMPLE_COUNT_1_BIT))
-                .pColorBlendState(VkPipelineColorBlendStateCreateInfo.calloc(stack).sType$Default().pAttachments(blend))
+                .pColorBlendState(colorBlend)
                 .pDynamicState(VkPipelineDynamicStateCreateInfo.calloc(stack).sType$Default()
                         .pDynamicStates(stack.ints(VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR)));
         if (depthFormat != VK_FORMAT_UNDEFINED) {

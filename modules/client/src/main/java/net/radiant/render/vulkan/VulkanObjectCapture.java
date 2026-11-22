@@ -437,7 +437,8 @@ public final class VulkanObjectCapture implements AutoCloseable {
         modelView.set(GlStateManager.modelViewMatrix());
         projection.mul(modelView, transform);
         if (phase == Phase.ENTITY_OUTLINES) {
-            return new Material(white, new PipelineKey(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Pass.SKY.state, true, 1.0f),
+            return new Material(white, new PipelineKey(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Pass.SKY.state, true, 1.0f,
+                    VulkanGraphics.NO_LOGIC_OP),
                     -1, false, false, false, false, false);
         }
         Image image = white;
@@ -462,7 +463,8 @@ public final class VulkanObjectCapture implements AutoCloseable {
                 && factors.destinationColor() == VK_BLEND_FACTOR_ONE;
         // The legacy block selection pass requests a two-pixel outline.
         float lineWidth = phase == Phase.SELECTION ? 2.0f : 1.0f;
-        return new Material(image, new PipelineKey(topology, state, false, lineWidth), draw.alphaCutoff(),
+        int logicOp = VulkanOverlayState.colorLogicOp(draw.colorLogicOp());
+        return new Material(image, new PipelineKey(topology, state, false, lineWidth, logicOp), draw.alphaCutoff(),
                 lit, GlStateManager.isLightmapTextureEnabled(), glintColorBlend, emissiveEyes,
                 image == atlas && !GlStateManager.isTextureMipmapped(texture));
     }
@@ -1049,7 +1051,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         }
     }
 
-    record PipelineKey(int topology, VulkanGraphics.State state, boolean outlineMask, float lineWidth) {
+    record PipelineKey(int topology, VulkanGraphics.State state, boolean outlineMask, float lineWidth, int logicOp) {
     }
 
     record Material(Image image, PipelineKey pipeline, float alphaCutoff, boolean lit, boolean lightmapped,

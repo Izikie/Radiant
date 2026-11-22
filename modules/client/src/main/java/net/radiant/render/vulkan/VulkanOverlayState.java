@@ -25,6 +25,14 @@ final class VulkanOverlayState {
         return new VulkanGraphics.State(draw.depthTest(), draw.depthTest() && draw.depthWrite(), compare, cullMode, blend, bias);
     }
 
+    static int colorLogicOp(int operation) {
+        if (operation >= GL_CLEAR && operation <= GL_SET) {
+            // Both APIs list the same 16 operations in order from CLEAR through SET.
+            return VK_LOGIC_OP_CLEAR + (operation - GL_CLEAR);
+        }
+        return VulkanGraphics.NO_LOGIC_OP;
+    }
+
     private static int depthCompare(int function) {
         return switch (function) {
             case GL_NEVER -> VK_COMPARE_OP_NEVER;
