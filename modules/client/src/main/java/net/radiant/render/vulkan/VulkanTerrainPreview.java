@@ -364,7 +364,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
                 (float) Math.sin(radians), (float) Math.cos(radians), Config.isSunMoonEnabled() ? rainVisibility : 0, world.getMoonPhase(),
                 mode, mc.entityRenderer.cloudsBeforeTerrain(view),
                 (float) cloudColor.xCoord(), (float) cloudColor.yCoord(), (float) cloudColor.zCoord(), cloudX, cloudZ, cloudHeight,
-                lowerHeight, lowerColor, skyFog == null ? 0 : fogMode(skyFog), skyFog);
+                mc.entityRenderer.cloudClipDistance(), lowerHeight, lowerColor, skyFog == null ? 0 : fogMode(skyFog), skyFog);
     }
 
     private static float wrapCloudOffset(double position, double period) {

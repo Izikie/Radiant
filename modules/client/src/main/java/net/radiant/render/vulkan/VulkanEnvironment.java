@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 import static org.lwjgl.vulkan.VK10.*;
 
 final class VulkanEnvironment implements AutoCloseable {
-    private static final int FRAME_BYTES = 128 + 9 * 16;
+    private static final int FRAME_BYTES = 128 + 10 * 16;
     private static final int POSITION_BYTES = 3 * Float.BYTES;
     private static final String VERTEX_SHADER = """
             #version 450
@@ -263,6 +263,7 @@ final class VulkanEnvironment implements AutoCloseable {
         uniforms.putFloat(frame.skyFogMode).putFloat(skyFog == null ? 0 : skyFog.start())
                 .putFloat(skyFog == null ? 0 : skyFog.end()).putFloat(skyFog == null ? 0 : skyFog.density());
         uniforms.putFloat(fog.mode()).putFloat(fog.start()).putFloat(fog.end()).putFloat(fog.density());
+        uniforms.putFloat(frame.cloudClipDistance);
     }
 
     private void upload(int index, NativeImage image, VkQueue queue, VkCommandBuffer commands, int addressMode) {
@@ -358,11 +359,11 @@ final class VulkanEnvironment implements AutoCloseable {
                  float sunriseRed, float sunriseGreen, float sunriseBlue, float sunriseAlpha,
                  float celestialSine, float celestialCosine, float celestialVisibility, int moonPhase,
                  int cloudMode, boolean cloudsBeforeTerrain, float cloudRed, float cloudGreen, float cloudBlue, float cloudX, float cloudZ,
-                 float cloudHeight, float lowerSkyHeight, Vec3 lowerSkyColor, int skyFogMode,
+                 float cloudHeight, float cloudClipDistance, float lowerSkyHeight, Vec3 lowerSkyColor, int skyFogMode,
                  GlStateManager.FogParameters skyFog) {
         static Frame dimensionSky(SkyMode mode, float red, float green, float blue) {
             return new Frame(mode, 0, red, green, blue, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, false, 0, 0, 0, 0, 0, 0, 0, new Vec3(0, 0, 0), 0, null);
+                    0, 0, 0, 0, 0, false, 0, 0, 0, 0, 0, 0, 0, 0, new Vec3(0, 0, 0), 0, null);
         }
     }
 }

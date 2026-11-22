@@ -10,6 +10,7 @@ layout(std140, set = 0, binding = 0) uniform Environment {
     vec4 lowerSky;
     vec4 skyFog;
     vec4 cloudFog;
+    float cloudClipDistance;
 } env;
 layout(set = 0, binding = 1) uniform sampler2D clouds;
 layout(set = 0, binding = 2) uniform sampler2D sun;
@@ -72,7 +73,11 @@ vec4 traceCloud(vec3 origin, vec3 ray, float range, out float distance, out floa
         if (distance <= 0.0 || distance >= range) {
             return vec4(0.0);
         }
-        vec2 uv = (origin.xz + ray.xz * distance + env.cloudOffset.xy) / 2048.0;
+        vec2 point = origin.xz + ray.xz * distance;
+        if (any(greaterThan(abs(point), vec2(256.0)))) {
+            return vec4(0.0);
+        }
+        vec2 uv = (point + env.cloudOffset.xy) / 2048.0;
         return textureLod(clouds, fract(uv), 0.0);
     }
 
@@ -81,6 +86,22 @@ vec4 traceCloud(vec3 origin, vec3 ray, float range, out float distance, out floa
     float top = (base + 4.0 - origin.y) / ray.y;
     float entry = max(0.0, min(bottom, top));
     float exitDistance = min(range, max(bottom, top));
+    // The fancy cloud mesh spans eight tiles per axis, starting three tiles behind its origin.
+    vec2 tileOffset = mod(env.cloudOffset.xy, 12.0);
+    vec2 lower = vec2(-288.0) - tileOffset;
+    vec2 upper = vec2(480.0) - tileOffset;
+    for (int axis = 0; axis < 2; axis++) {
+        float direction = ray.xz[axis];
+        float start = origin.xz[axis];
+        if (abs(direction) < 1e-6) {
+            if (start < lower[axis] || start > upper[axis]) return vec4(0.0);
+        } else {
+            float a = (lower[axis] - start) / direction;
+            float b = (upper[axis] - start) / direction;
+            entry = max(entry, min(a, b));
+            exitDistance = min(exitDistance, max(a, b));
+        }
+    }
     if (entry >= exitDistance) {
         return vec4(0.0);
     }
@@ -103,7 +124,7 @@ vec4 traceCloud(vec3 origin, vec3 ray, float range, out float distance, out floa
     distance = entry;
     for (int i = 0; i < 128 && distance < exitDistance; i++) {
         vec4 texel = textureLod(clouds, fract((cell + 0.5) / size), 0.0);
-        if (texel.a > 0.1) {
+        if (texel.a * 0.8 > 0.1) {
             return texel;
         }
         int axis = next.x < next.y ? 0 : 1;
@@ -122,7 +143,9 @@ void main() {
     if (abs(ray.y) < 0.00001) {
         discard;
     }
-    float range = min(length(span), env.cloudColor.a < 2.0 ? 256.0 : 384.0);
+    const float nearPlane = 0.05;
+    vec3 depthAxis = vec3(env.viewProjection[0].w, env.viewProjection[1].w, env.viewProjection[2].w);
+    float range = (env.cloudClipDistance - nearPlane) / dot(depthAxis, ray);
     float distance;
     float shade;
     vec4 texel = traceCloud(origin, ray, range, distance, shade);
@@ -131,7 +154,9 @@ void main() {
         discard;
     }
     vec4 clip = env.viewProjection * vec4(origin + ray * distance, 1.0);
-    gl_FragDepth = clamp(clip.z / clip.w * 0.5 + 0.5, 0.0, 1.0);
+    // Clouds use the same view and field of view with a farther clipping plane than terrain.
+    gl_FragDepth = clamp((1.0 - nearPlane / clip.w) * env.cloudClipDistance
+            / (env.cloudClipDistance - nearPlane), 0.0, 1.0);
     // The legacy cloud mesh stores its shaded tint in unsigned bytes before texturing and fog.
     vec3 tint = floor(clamp(env.cloudColor.rgb * shade, 0.0, 1.0) * 255.0) / 255.0;
     vec3 rgb = mix(env.fogAndStars.rgb, tint * texel.rgb, fogVisibility(env.cloudFog, clip.w));

@@ -1526,6 +1526,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         return view.posY + view.getEyeHeight() < 128.0D + this.mc.gameSettings.ofCloudsHeight * 128.0F;
     }
 
+    public float cloudClipDistance() {
+        return this.clipDistance * 4.0F;
+    }
+
     private void renderCloudsCheck(RenderGlobal renderGlobalIn, float partialTicks, int pass) {
         if (this.mc.gameSettings.renderDistanceChunks >= 4 && !Config.isCloudsOff() && Shaders.shouldRenderClouds(this.mc.gameSettings)) {
             GlStateManager.matrixMode(GL11.GL_PROJECTION);
@@ -1535,7 +1539,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     (float) Math.toRadians(this.getFOVModifier(partialTicks, true)),
                     (float) this.mc.displayWidth / this.mc.displayHeight,
                     0.05F,
-                    this.clipDistance * 4.0F
+                    this.cloudClipDistance()
             );
             FloatBuffer projectionBuffer = BufferUtils.createFloatBuffer(16);
             projectionMatrix.get(projectionBuffer);
