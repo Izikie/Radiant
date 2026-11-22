@@ -17,6 +17,9 @@ layout(set = 0, binding = 3) uniform sampler2D moon;
 layout(set = 0, binding = 4) uniform sampler2D endSky;
 #if END_SKY_PASS
 layout(location = 0) in vec2 uv;
+#elif SUNRISE_PASS
+layout(location = 0) in vec4 clipPosition;
+layout(location = 1) in float alpha;
 #elif STAR_PASS
 layout(location = 0) noperspective in vec2 ndc;
 #else
@@ -40,7 +43,12 @@ void main() {
 }
 #else
 vec3 unproject(float depth) {
-    vec4 relative = env.inverseViewProjection * vec4(ndc.x, -ndc.y, depth, 1.0);
+    #if SUNRISE_PASS
+    vec2 screen = clipPosition.xy / clipPosition.w;
+    #else
+    vec2 screen = ndc;
+    #endif
+    vec4 relative = env.inverseViewProjection * vec4(screen.x, -screen.y, depth, 1.0);
     return relative.xyz / relative.w;
 }
 
@@ -150,7 +158,15 @@ float skyPlaneVisibility(vec3 origin, vec3 ray, float height) {
     return fogVisibility(env.skyFog, clip.w);
 }
 
-#if STAR_PASS
+#if SUNRISE_PASS
+void main() {
+    vec3 origin = unproject(-1.0);
+    vec3 ray = normalize(unproject(1.0) - origin);
+    if (ray.y < 0.0 && skyPlaneVisibility(origin, ray, env.lowerSky.a) >= 0.0) discard;
+    vec3 tint = floor(env.sunrise.rgb * 255.0) / 255.0;
+    color = vec4(outputColor(tint), alpha);
+}
+#elif STAR_PASS
 void main() {
     // The lower sky is drawn after the stars in OpenGL and covers them where the plane is visible.
     vec3 origin = unproject(-1.0);
@@ -160,19 +176,9 @@ void main() {
     color = vec4(outputColor(vec3(brightness)), brightness);
 }
 #else
-void main() {
-    if (env.cloudOffset.w == 2.0) {
-        color = vec4(outputColor(env.fogAndStars.rgb), 1.0);
-        return;
-    }
-    vec3 origin = unproject(-1.0);
-    vec3 ray = normalize(unproject(1.0) - origin);
-    float upper = ray.y > 0.0 ? skyPlaneVisibility(origin, ray, 16.0) : -1.0;
-    vec3 rgb = mix(env.fogAndStars.rgb, env.skyColor.rgb, max(upper, 0.0));
+vec3 celestialColor(vec3 origin, vec3 ray) {
     float sine = env.celestial.x;
     float cosine = env.celestial.y;
-    float horizonGlow = pow(max(0.0, -sign(sine) * ray.x), 6.0) * smoothstep(-0.25, 0.0, ray.y);
-    rgb = mix(rgb, env.sunrise.rgb, horizonGlow * env.sunrise.a);
 
     // Undo the celestial rotation used by the world to locate the sun and current moon phase.
     vec3 local = vec3(ray.z, cosine * ray.y - sine * ray.x, -sine * ray.y - cosine * ray.x);
@@ -191,12 +197,30 @@ void main() {
                 vec2 phase = vec2(mod(env.celestial.w, 4.0), floor(env.celestial.w / 4.0));
                 disc = celestialDisc(moon, uv, phase, vec2(4.0, 2.0));
             }
-            rgb += disc.rgb * disc.a * env.celestial.z;
+            return disc.rgb * disc.a * env.celestial.z;
         }
     }
+    return vec3(0.0);
+}
+
+void main() {
+    if (env.cloudOffset.w == 2.0) {
+        color = vec4(outputColor(env.fogAndStars.rgb), 1.0);
+        return;
+    }
+    vec3 origin = unproject(-1.0);
+    vec3 ray = normalize(unproject(1.0) - origin);
     float lower = ray.y < 0.0 ? skyPlaneVisibility(origin, ray, env.lowerSky.a) : -1.0;
+    #if CELESTIAL_PASS
+    if (lower >= 0.0) discard;
+    color = vec4(outputColor(celestialColor(origin, ray)), 1.0);
+    #else
+    float upper = ray.y > 0.0 ? skyPlaneVisibility(origin, ray, 16.0) : -1.0;
+    vec3 rgb = mix(env.fogAndStars.rgb, env.skyColor.rgb, max(upper, 0.0));
+    if (env.sunrise.a <= 0.0) rgb += celestialColor(origin, ray);
     if (lower >= 0.0) rgb = mix(env.fogAndStars.rgb, env.lowerSky.rgb, lower);
     color = vec4(outputColor(rgb), 1.0);
+    #endif
 }
 #endif
 #endif

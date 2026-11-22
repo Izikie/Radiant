@@ -78,6 +78,34 @@ final class VulkanEnvironment implements AutoCloseable {
                 ndc = gl_Position.xy / gl_Position.w;
             }
             """;
+    private static final String SUNRISE_VERTEX_SHADER = """
+            #version 450
+            layout(std140, set = 0, binding = 0) uniform Environment {
+                mat4 viewProjection;
+                mat4 inverseViewProjection;
+                vec4 fogAndStars;
+                vec4 skyColor;
+                vec4 sunrise;
+                vec4 celestial;
+            } env;
+            layout(location = 0) out vec4 clipPosition;
+            layout(location = 1) out float alpha;
+
+            void main() {
+                float direction = env.celestial.x < 0.0 ? -1.0 : 1.0;
+                float angle = float(gl_VertexIndex - 1) * (6.283185307179586 / 16.0);
+                float rimHeight = cos(angle);
+                vec3 position = vec3(-direction * rimHeight * 120.0,
+                        rimHeight * 40.0 * env.sunrise.a, direction * sin(angle) * 120.0);
+                if (gl_VertexIndex == 0) {
+                    position = vec3(-direction * 100.0, 0.0, 0.0);
+                }
+                vec4 clip = env.viewProjection * vec4(position, 1.0);
+                gl_Position = vec4(clip.x, -clip.y, (clip.z + clip.w) * 0.5, clip.w);
+                clipPosition = gl_Position;
+                alpha = gl_VertexIndex == 0 ? floor(env.sunrise.a * 255.0) / 255.0 : 0.0;
+            }
+            """;
 
     private final Matrix4f inverseViewProjection = new Matrix4f();
     private final VulkanTexture[] textures = new VulkanTexture[4];
@@ -90,6 +118,8 @@ final class VulkanEnvironment implements AutoCloseable {
     private long descriptorSet;
     private long layout;
     private long sky;
+    private long sunrise;
+    private long celestial;
     private long endSky;
     private long clouds;
     private long stars;
@@ -111,6 +141,10 @@ final class VulkanEnvironment implements AutoCloseable {
             VkPipelineVertexInputStateCreateInfo vertices = VkPipelineVertexInputStateCreateInfo.calloc(stack).sType$Default();
             sky = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
                     VulkanGraphics.Pass.SKY, vertices, VERTEX_SHADER, defines + "#define CLOUD_PASS 0\n" + fragment);
+            sunrise = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN,
+                    VulkanGraphics.Pass.OBJECT_OVERLAY, vertices, SUNRISE_VERTEX_SHADER, defines + "#define SUNRISE_PASS 1\n" + fragment);
+            celestial = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
+                    VulkanGraphics.Pass.SKY_ADDITIVE_OVERLAY, vertices, VERTEX_SHADER, defines + "#define CELESTIAL_PASS 1\n" + fragment);
             endSky = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
                     VulkanGraphics.Pass.SKY, vertices, END_SKY_VERTEX_SHADER, defines + "#define END_SKY_PASS 1\n" + fragment);
             clouds = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
@@ -247,6 +281,10 @@ final class VulkanEnvironment implements AutoCloseable {
             return;
         }
         draw(stack, commands, sky, 3, 1);
+        if (frame.sunriseAlpha > 0) {
+            draw(stack, commands, sunrise, 18, 1);
+            draw(stack, commands, celestial, 3, 1);
+        }
         if (frame.stars > 0) {
             vkCmdBindPipeline(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, stars);
             vkCmdBindVertexBuffers(commands, 0, stack.longs(starVertices.handle()), stack.longs(0));
@@ -265,6 +303,14 @@ final class VulkanEnvironment implements AutoCloseable {
     }
 
     private void destroyPipelines() {
+        if (sunrise != 0) {
+            vkDestroyPipeline(device, sunrise, null);
+            sunrise = 0;
+        }
+        if (celestial != 0) {
+            vkDestroyPipeline(device, celestial, null);
+            celestial = 0;
+        }
         if (stars != 0) {
             vkDestroyPipeline(device, stars, null);
             stars = 0;
