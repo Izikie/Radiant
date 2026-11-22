@@ -450,7 +450,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         }
         boolean emissiveEyes = phase == Phase.ENTITIES && Config.getRenderGlobal().renderOverlayEyes;
         VulkanGraphics.State state;
-        if (glint != null || entityLeash || emissiveEyes || phase.layer.ui || phase == Phase.CAMERA_OVERLAYS || phase.drawsLines()
+        if (glint != null || entityLeash || emissiveEyes || phase.layer.ui || phase.layer == Layer.FIRST_PERSON || phase.drawsLines()
                 || phase == Phase.BLOCK_DAMAGE || phase == Phase.WORLD_BORDER || phase == Phase.LIGHTNING
                 || phase == Phase.ENTITY_SHADOWS || phase == Phase.ENTITY_FIRE || phase == Phase.ENTITY_NAME_TAG) {
             state = VulkanOverlayState.capture(draw);

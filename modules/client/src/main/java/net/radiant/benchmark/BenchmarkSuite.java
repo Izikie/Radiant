@@ -303,9 +303,10 @@ final class BenchmarkSuite {
             }
             setWeather(serverWorld, player, phase.rainStrength());
             if (phase == Phase.FIRST_PERSON_HAND || phase == Phase.FIRST_PERSON_ITEM || phase == Phase.WATER_OVERLAY
-                    || phase == Phase.FIRST_PERSON_GLINT || phase == Phase.CREATIVE_INVENTORY) {
+                    || phase == Phase.FIRST_PERSON_GLASS || phase == Phase.FIRST_PERSON_GLINT || phase == Phase.CREATIVE_INVENTORY) {
                 ItemStack stack = switch (phase) {
                     case FIRST_PERSON_ITEM -> new ItemStack(Items.DIAMOND_SWORD);
+                    case FIRST_PERSON_GLASS -> new ItemStack(Blocks.STAINED_GLASS);
                     case FIRST_PERSON_GLINT -> enchantedSword();
                     case CREATIVE_INVENTORY -> new ItemStack(Items.APPLE, 16);
                     default -> null;
@@ -393,6 +394,7 @@ final class BenchmarkSuite {
         return switch (phase) {
             case FIRST_PERSON_HAND, WATER_OVERLAY, BLOCK_OVERLAY, FIRE_OVERLAY -> stack == null;
             case FIRST_PERSON_ITEM -> stack != null && stack.getItem() == Items.DIAMOND_SWORD;
+            case FIRST_PERSON_GLASS -> stack != null && Block.getBlockFromItem(stack.getItem()) == Blocks.STAINED_GLASS;
             case FIRST_PERSON_GLINT -> stack != null && stack.getItem() == Items.DIAMOND_SWORD && stack.hasEffect();
             case CREATIVE_INVENTORY -> stack != null && stack.getItem() == Items.APPLE;
             default -> true;
@@ -633,6 +635,7 @@ final class BenchmarkSuite {
         THUNDERSTORM("thunderstorm", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, -12, 10, -22, 13000, BiomeGenBase.PLAINS),
         FIRST_PERSON_HAND("first-person-hand", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_SHELTER_BACK_Z - 1, 3, 0),
         FIRST_PERSON_ITEM("first-person-held-item", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_SHELTER_BACK_Z - 1, 3, 0),
+        FIRST_PERSON_GLASS("first-person-held-glass", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_SHELTER_BACK_Z - 1, 3, 0),
         WATER_OVERLAY("water-overlay", BenchmarkWorld.WATER_OVERLAY_X, EXHIBIT_Y, BenchmarkWorld.OVERLAY_FIXTURE_Z, 5, 25),
         BLOCK_OVERLAY("block-overlay", BenchmarkWorld.BLOCK_OVERLAY_X, EXHIBIT_Y, BenchmarkWorld.OVERLAY_FIXTURE_Z, 0, 0),
         FIRE_OVERLAY("fire-overlay", BenchmarkWorld.RAIN_X, EXHIBIT_Y, BenchmarkWorld.WEATHER_CAMERA_Z, 4, 12),
