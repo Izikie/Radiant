@@ -399,9 +399,11 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     private static VulkanTerrainScene.Fog captureFog(Minecraft mc) {
         var renderer = mc.entityRenderer;
         var parameters = GlStateManager.fogParameters();
-        int mode = renderer.fogStandard && Config.isFogOff() ? 0 : fogMode(parameters);
+        int mode = fogMode(parameters);
+        // The legacy terrain pass disables standard fog after the sky and cloud setup.
+        int terrainMode = renderer.fogStandard && Config.isFogOff() ? 0 : mode;
         return new VulkanTerrainScene.Fog(renderer.fogColorRed, renderer.fogColorGreen, renderer.fogColorBlue,
-                mode, parameters.start(), parameters.end(), parameters.density());
+                mode, terrainMode, parameters.start(), parameters.end(), parameters.density());
     }
 
     private static int fogMode(GlStateManager.FogParameters parameters) {
@@ -486,7 +488,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
                 ClientBenchmark.recordVulkanTerrainFrame(preview.terrain.drawCalls(), preview.terrain.quads(),
                         preview.terrain.cutoutQuads(), preview.terrain.translucentQuads());
                 ClientBenchmark.recordVulkanEnvironmentFrame(preview.terrain.skyDrawn(), preview.terrain.cloudsDrawn(),
-                        preview.terrain.endSkyDrawn(), preview.terrain.fogBackgroundDrawn(), (int) fog.mode());
+                        preview.terrain.endSkyDrawn(), preview.terrain.fogBackgroundDrawn(), (int) fog.terrainMode());
                 ClientBenchmark.recordVulkanObjectFrame(preview.objects.entityTriangles(), preview.objects.blockEntityTriangles(),
                         preview.objects.blockEntityGlyphs());
                 ClientBenchmark.recordVulkanEntityShadows(preview.objects.entityShadowQuads());

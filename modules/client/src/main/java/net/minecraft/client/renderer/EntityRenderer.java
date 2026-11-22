@@ -1248,7 +1248,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         GlStateManager.FogParameters skyFog = null;
         if ((Config.isSkyEnabled() || Config.isSunMoonEnabled() || Config.isStarsEnabled()) && !Shaders.isShadowPass) {
             this.setupFog(-1, partialTicks);
-            if (VulkanTerrainPreview.ENABLED && !(this.fogStandard && Config.isFogOff())) {
+            if (VulkanTerrainPreview.ENABLED) {
                 skyFog = GlStateManager.fogParameters();
             }
             this.cameraProjection.identity();

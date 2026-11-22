@@ -188,7 +188,7 @@ final class VulkanTerrainPipeline implements AutoCloseable {
             data.putInt(color);
         }
         data.putFloat(fog.red()).putFloat(fog.green()).putFloat(fog.blue()).putFloat(1);
-        data.putFloat(fog.mode()).putFloat(fog.start()).putFloat(fog.end()).putFloat(fog.density());
+        data.putFloat(fog.terrainMode()).putFloat(fog.start()).putFloat(fog.end()).putFloat(fog.density());
     }
 
     void begin(MemoryStack stack, VkCommandBuffer commands) {
