@@ -777,9 +777,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     }
 
     public void setupTerrain(Entity viewEntity, double partialTicks, ICamera camera, int frameCount, boolean playerSpectator) {
-        if (VulkanTerrainPreview.ENABLED) {
-            VulkanTerrainPreview.openIfNeeded(this.mc);
-        }
         if (this.mc.gameSettings.renderDistanceChunks != this.renderDistanceChunks || VulkanTerrainPreview.needsOpenGlTerrainRebuild()) {
             this.loadRenderers();
         }
@@ -1370,7 +1367,15 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             float f15 = 1.0F - this.theWorld.getRainStrength(partialTicks);
             GlStateManager.color(1.0F, 1.0F, 1.0F, f15);
             GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
-            CustomSky.renderSky(this.theWorld, this.renderEngine, partialTicks);
+            boolean captureSky = VulkanTerrainPreview.ENABLED && pass == 2 && CustomSky.hasSkyLayers(this.theWorld)
+                    && VulkanTerrainPreview.beginCustomSky();
+            try {
+                CustomSky.renderSky(this.theWorld, this.renderEngine, partialTicks);
+            } finally {
+                if (captureSky) {
+                    VulkanObjectCapture.end();
+                }
+            }
 
             if (flag) {
                 Shaders.preCelestialRotate();

@@ -11,6 +11,7 @@ layout(std140, set = 0, binding = 0) uniform Environment {
     vec4 skyFog;
     vec4 cloudFog;
     float cloudClipDistance;
+    float customSky;
 } env;
 layout(set = 0, binding = 1) uniform sampler2D clouds;
 layout(set = 0, binding = 2) uniform sampler2D sun;
@@ -245,14 +246,19 @@ void main() {
     vec3 origin = unproject(-1.0);
     vec3 ray = normalize(unproject(1.0) - origin);
     float lower = ray.y < 0.0 ? skyPlaneVisibility(origin, ray, env.lowerSky.a) : -1.0;
-    #if CELESTIAL_PASS
+    #if LOWER_SKY_PASS
+    if (lower < 0.0) discard;
+    color = vec4(outputColor(mix(env.fogAndStars.rgb, env.lowerSky.rgb, lower)), 1.0);
+    #elif CELESTIAL_PASS
     if (lower >= 0.0) discard;
     color = vec4(outputColor(celestialColor(origin, ray)), 1.0);
     #else
     float upper = ray.y > 0.0 ? skyPlaneVisibility(origin, ray, 16.0) : -1.0;
     vec3 rgb = mix(env.fogAndStars.rgb, env.skyColor.rgb, max(upper, 0.0));
-    if (env.sunrise.a <= 0.0) rgb += celestialColor(origin, ray);
-    if (lower >= 0.0) rgb = mix(env.fogAndStars.rgb, env.lowerSky.rgb, lower);
+    if (env.customSky == 0.0) {
+        if (env.sunrise.a <= 0.0) rgb += celestialColor(origin, ray);
+        if (lower >= 0.0) rgb = mix(env.fogAndStars.rgb, env.lowerSky.rgb, lower);
+    }
     color = vec4(outputColor(rgb), 1.0);
     #endif
 }

@@ -120,6 +120,7 @@ final class VulkanEnvironment implements AutoCloseable {
     private long sky;
     private long sunrise;
     private long celestial;
+    private long lowerSky;
     private long endSky;
     private long clouds;
     private long stars;
@@ -145,6 +146,8 @@ final class VulkanEnvironment implements AutoCloseable {
                     VulkanGraphics.Pass.OBJECT_OVERLAY, vertices, SUNRISE_VERTEX_SHADER, defines + "#define SUNRISE_PASS 1\n" + fragment);
             celestial = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
                     VulkanGraphics.Pass.SKY_ADDITIVE_OVERLAY, vertices, VERTEX_SHADER, defines + "#define CELESTIAL_PASS 1\n" + fragment);
+            lowerSky = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
+                    VulkanGraphics.Pass.SKY, vertices, VERTEX_SHADER, defines + "#define LOWER_SKY_PASS 1\n" + fragment);
             endSky = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
                     VulkanGraphics.Pass.SKY_TRANSLUCENT, vertices, END_SKY_VERTEX_SHADER, defines + "#define END_SKY_PASS 1\n" + fragment);
             clouds = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
@@ -237,7 +240,8 @@ final class VulkanEnvironment implements AutoCloseable {
         pendingImages = images;
     }
 
-    void prepare(VkQueue queue, VkCommandBuffer commands, Matrix4fc viewProjection, VulkanTerrainScene.Fog fog, Frame frame) {
+    void prepare(VkQueue queue, VkCommandBuffer commands, Matrix4fc viewProjection, VulkanTerrainScene.Fog fog, Frame frame,
+                 boolean customSky) {
         if (pendingImages != null) {
             upload(0, pendingImages.clouds, queue, commands, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
             upload(1, pendingImages.sun, queue, commands, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
@@ -263,7 +267,7 @@ final class VulkanEnvironment implements AutoCloseable {
         uniforms.putFloat(frame.skyFogMode).putFloat(skyFog == null ? 0 : skyFog.start())
                 .putFloat(skyFog == null ? 0 : skyFog.end()).putFloat(skyFog == null ? 0 : skyFog.density());
         uniforms.putFloat(fog.mode()).putFloat(fog.start()).putFloat(fog.end()).putFloat(fog.density());
-        uniforms.putFloat(frame.cloudClipDistance);
+        uniforms.putFloat(frame.cloudClipDistance).putFloat(customSky ? 1.0f : 0.0f);
     }
 
     private void upload(int index, NativeImage image, VkQueue queue, VkCommandBuffer commands, int addressMode) {
@@ -276,7 +280,7 @@ final class VulkanEnvironment implements AutoCloseable {
                 new ByteBuffer[]{ByteBuffer.wrap(image.getData())}, false, VK_FILTER_NEAREST, addressMode, addressMode);
     }
 
-    void drawSky(MemoryStack stack, VkCommandBuffer commands, Frame frame) {
+    void drawSky(MemoryStack stack, VkCommandBuffer commands, Frame frame, Runnable customSky) {
         if (frame.skyMode == SkyMode.END) {
             draw(stack, commands, endSky, 6, 6);
             return;
@@ -284,12 +288,20 @@ final class VulkanEnvironment implements AutoCloseable {
         draw(stack, commands, sky, 3, 1);
         if (frame.sunriseAlpha > 0) {
             draw(stack, commands, sunrise, 18, 1);
+        }
+        if (customSky != null) {
+            customSky.run();
+        }
+        if (frame.sunriseAlpha > 0 || customSky != null) {
             draw(stack, commands, celestial, 3, 1);
         }
         if (frame.stars > 0) {
             vkCmdBindPipeline(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, stars);
             vkCmdBindVertexBuffers(commands, 0, stack.longs(starVertices.handle()), stack.longs(0));
             vkCmdDraw(commands, starVertexCount, 1, 0, 0);
+        }
+        if (customSky != null) {
+            draw(stack, commands, lowerSky, 3, 1);
         }
     }
 
@@ -311,6 +323,10 @@ final class VulkanEnvironment implements AutoCloseable {
         if (celestial != 0) {
             vkDestroyPipeline(device, celestial, null);
             celestial = 0;
+        }
+        if (lowerSky != 0) {
+            vkDestroyPipeline(device, lowerSky, null);
+            lowerSky = 0;
         }
         if (stars != 0) {
             vkDestroyPipeline(device, stars, null);

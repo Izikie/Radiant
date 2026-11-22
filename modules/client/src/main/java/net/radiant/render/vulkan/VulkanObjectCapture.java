@@ -148,7 +148,6 @@ public final class VulkanObjectCapture implements AutoCloseable {
         worldBorderStage = null;
         Arrays.fill(layerStarts, -1);
         Arrays.fill(cameraOverlayQuads, 0);
-        layerStarts[Layer.WORLD.ordinal()] = 0;
         handTriangles = 0;
         heldItemTriangles = 0;
         heldGlintTriangles = 0;
@@ -472,8 +471,9 @@ public final class VulkanObjectCapture implements AutoCloseable {
         float lineWidth = phase == Phase.SELECTION ? 2.0f : 1.0f;
         int logicOp = VulkanOverlayState.colorLogicOp(draw.colorLogicOp());
         boolean fogged = phase.layer == Layer.WORLD && draw.fogEnabled();
+        boolean lightmapped = phase.layer != Layer.SKY && GlStateManager.isLightmapTextureEnabled();
         return new Material(image, new PipelineKey(topology, state, false, lineWidth, logicOp), draw.alphaCutoff(),
-                lit, GlStateManager.isLightmapTextureEnabled(), glintColorBlend, emissiveEyes,
+                lit, lightmapped, glintColorBlend, emissiveEyes,
                 image == atlas && !GlStateManager.isTextureMipmapped(texture), fogged);
     }
 
@@ -973,6 +973,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     }
 
     enum Phase {
+        CUSTOM_SKY(Layer.SKY),
         ENTITIES, ENTITY_SHADOWS, ENTITY_FIRE, ENTITY_HITBOX, ENTITY_OUTLINES, ENTITY_NAME_TAG, LIGHTNING, BLOCK_ENTITIES,
         LIT_PARTICLES, PARTICLE_BILLBOARDS,
         RAIN, SNOW, SELECTION, BLOCK_DAMAGE, WORLD_BORDER,
@@ -1004,7 +1005,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
     }
 
     enum Layer {
-        WORLD(false), FIRST_PERSON(false), HUD(true), SCREEN(true), ACHIEVEMENT(true);
+        SKY(false), WORLD(false), FIRST_PERSON(false), HUD(true), SCREEN(true), ACHIEVEMENT(true);
 
         private final boolean ui;
 

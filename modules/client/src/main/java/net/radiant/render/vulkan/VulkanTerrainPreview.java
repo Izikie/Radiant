@@ -64,7 +64,14 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         this.presenter = new VulkanPresenter(window, terrain, ClientBenchmark.COMPARE_FRAMES && !TERRAIN_ONLY);
     }
 
-    public static void openIfNeeded(Minecraft mc) {
+    public static void beginWorldFrame(Minecraft mc) {
+        openIfNeeded(mc);
+        if (active != null) {
+            active.objects.reset();
+        }
+    }
+
+    private static void openIfNeeded(Minecraft mc) {
         if (manuallyClosed) {
             return;
         }
@@ -202,7 +209,6 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         if (preview == null) {
             return null;
         }
-        preview.objects.reset();
         preview.objects.setWorldProjection(projection);
         if (preview.atlasDirty) {
             preview.terrain.setAtlas(buildAtlas(mc.getTextureMapBlocks()));
@@ -217,6 +223,15 @@ public final class VulkanTerrainPreview implements AutoCloseable {
 
     public static boolean beginObjects(int[] lightmap, int atlas) {
         return beginObjects(lightmap, atlas, VulkanObjectCapture.Phase.ENTITIES);
+    }
+
+    public static boolean beginCustomSky() {
+        VulkanTerrainPreview preview = active;
+        if (preview == null) {
+            return false;
+        }
+        preview.objects.begin(null, 0, VulkanObjectCapture.Phase.CUSTOM_SKY, GlStateManager.projectionMatrix());
+        return true;
     }
 
     public static boolean beginParticles(int[] lightmap, int atlas) {

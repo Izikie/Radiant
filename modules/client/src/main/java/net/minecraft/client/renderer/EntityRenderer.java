@@ -1187,6 +1187,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         GlStateManager.enableAlpha();
         GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
 
+        if (VulkanTerrainPreview.ENABLED) {
+            VulkanTerrainPreview.beginWorldFrame(this.mc);
+        }
         this.renderWorldPass(2, partialTicks, finishTimeNano);
     }
 

@@ -154,7 +154,7 @@ final class VulkanTerrainScene implements VulkanScene {
             pipeline.updateFrame(frame.viewProjection, frame.lightmap, frame.fog);
             objects.prepare(queue, commands, objectCapture, atlas);
             if (frame.environment != null) {
-                environment.prepare(queue, commands, frame.viewProjection, frame.fog, frame.environment);
+                environment.prepare(queue, commands, frame.viewProjection, frame.fog, frame.environment, hasCustomSky());
             }
         }
     }
@@ -167,7 +167,9 @@ final class VulkanTerrainScene implements VulkanScene {
         View view = viewport(width, height);
         VulkanGraphics.viewport(stack, commands, (width - view.width) / 2, (height - view.height) / 2, view.width, view.height);
         if (frame.environment != null) {
-            environment.drawSky(stack, commands, frame.environment);
+            Runnable customSky = hasCustomSky()
+                    ? () -> objects.draw(stack, commands, objectCapture, frame.fog, VulkanObjectCapture.Layer.SKY) : null;
+            environment.drawSky(stack, commands, frame.environment, customSky);
             skyModeDrawn = frame.environment.skyMode();
         }
         boolean drawClouds = frame.environment != null && frame.environment.cloudMode() != 0;
@@ -201,6 +203,10 @@ final class VulkanTerrainScene implements VulkanScene {
             translucentQuads += draw.mesh.quads();
         }
         quads += translucentQuads;
+    }
+
+    private boolean hasCustomSky() {
+        return objectCapture.drawStart(VulkanObjectCapture.Layer.SKY) != objectCapture.drawEnd(VulkanObjectCapture.Layer.SKY);
     }
 
     private View viewport(int width, int height) {
