@@ -89,6 +89,7 @@ final class VulkanTerrainScene implements VulkanScene {
     public void recordUploads(MemoryStack stack, VkCommandBuffer commands) {
         if (atlas != null) {
             atlasUpdates.record(stack, physicalDevice, device, commands, atlas);
+            objects.recordTextureUpdates(stack, commands);
         }
     }
 

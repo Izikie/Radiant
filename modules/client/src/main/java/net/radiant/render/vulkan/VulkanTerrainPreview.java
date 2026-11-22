@@ -317,6 +317,10 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         invalidateObjectTextureImage(texture);
     }
 
+    public static void updateObjectTextureRegion(int texture, int x, int y, int width, int height, ByteBuffer pixels) {
+        VulkanObjectCapture.updateTextureRegion(texture, x, y, width, height, pixels, active == null ? null : active.objects);
+    }
+
     public static void invalidateObjectTexture(int texture) {
         VulkanObjectCapture.forgetTexture(texture);
         invalidateObjectTextureImage(texture);

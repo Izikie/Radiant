@@ -8,8 +8,10 @@ import java.nio.LongBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.IdentityHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.lwjgl.vulkan.VK10.*;
 
@@ -76,6 +78,7 @@ final class VulkanObjectRenderer implements AutoCloseable {
     private final boolean logicOps;
     private final Map<VulkanObjectCapture.PipelineKey, Long> pipelines = new HashMap<>();
     private final Map<VulkanObjectCapture.Image, Binding> textures = new IdentityHashMap<>();
+    private final Set<VulkanObjectCapture.Image> textureUpdates = new LinkedHashSet<>();
     private final List<Pool> pools = new ArrayList<>();
     private long descriptorLayout;
     private long layout;
@@ -87,6 +90,8 @@ final class VulkanObjectRenderer implements AutoCloseable {
     private VulkanTexture boundAtlas;
     private VulkanBuffer vertices;
     private int vertexCapacity;
+    private VulkanBuffer textureStaging;
+    private int textureStagingCapacity;
 
     VulkanObjectRenderer(VkPhysicalDevice physicalDevice, VkDevice device) {
         this.physicalDevice = physicalDevice;
@@ -149,6 +154,7 @@ final class VulkanObjectRenderer implements AutoCloseable {
     }
 
     void prepare(VkQueue queue, VkCommandBuffer commands, VulkanObjectCapture capture, VulkanTexture atlas) {
+        textureUpdates.clear();
         ByteBuffer data = capture.vertices();
         if (data.hasRemaining()) {
             if (data.remaining() > vertexCapacity) {
@@ -196,7 +202,47 @@ final class VulkanObjectRenderer implements AutoCloseable {
             }
         } else if (!textures.containsKey(image)) {
             upload(queue, commands, image);
+        } else if (image.pendingUpdate != null) {
+            textureUpdates.add(image);
         }
+    }
+
+    void recordTextureUpdates(MemoryStack stack, VkCommandBuffer commands) {
+        if (textureUpdates.isEmpty()) {
+            return;
+        }
+        int bytes = 0;
+        for (VulkanObjectCapture.Image image : textureUpdates) {
+            var region = image.pendingUpdate;
+            bytes = Math.addExact(bytes, region.width() * region.height() * 4);
+        }
+        if (textureStagingCapacity < bytes) {
+            int capacity = Math.max(4096, bytes);
+            VulkanBuffer replacement = VulkanBuffer.mapped(physicalDevice, device, capacity, VK_BUFFER_USAGE_TRANSFER_SRC_BIT);
+            if (textureStaging != null) {
+                textureStaging.close();
+            }
+            textureStaging = replacement;
+            textureStagingCapacity = capacity;
+        }
+
+        ByteBuffer output = textureStaging.data();
+        VkBufferImageCopy.Buffer copy = VkBufferImageCopy.calloc(1, stack);
+        copy.get(0).imageSubresource().aspectMask(VK_IMAGE_ASPECT_COLOR_BIT).layerCount(1);
+        for (VulkanObjectCapture.Image image : textureUpdates) {
+            var region = image.pendingUpdate;
+            copy.get(0).bufferOffset(output.position());
+            copy.get(0).imageOffset().set(region.left(), region.top(), 0);
+            copy.get(0).imageExtent().set(region.width(), region.height(), 1);
+            for (int y = region.top(); y < region.bottom(); y++) {
+                output.put(region.pixels(), (y * image.width + region.left()) * 4, region.width() * 4);
+            }
+            try (MemoryStack local = MemoryStack.stackPush()) {
+                textures.get(image).texture.recordCopies(local, commands, textureStaging.handle(), copy, false);
+            }
+            image.pendingUpdate = null;
+        }
+        textureUpdates.clear();
     }
 
     private void upload(VkQueue queue, VkCommandBuffer commands, VulkanObjectCapture.Image image) {
@@ -321,6 +367,7 @@ final class VulkanObjectRenderer implements AutoCloseable {
         if (descriptorLayout != 0) vkDestroyDescriptorSetLayout(device, descriptorLayout, null);
         textures.values().forEach(binding -> binding.texture.close());
         if (vertices != null) vertices.close();
+        if (textureStaging != null) textureStaging.close();
     }
 
     private static final class Pool {
