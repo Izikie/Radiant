@@ -252,6 +252,16 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         return beginObjects(lightmap, atlas, VulkanObjectCapture.Phase.CAMERA_OVERLAYS, projection);
     }
 
+    public static boolean beginWorldDirections() {
+        VulkanTerrainPreview preview = active;
+        if (preview == null || preview.pendingFrame == null) {
+            return false;
+        }
+        preview.objects.begin(preview.pendingFrame.lightmap(), 0, VulkanObjectCapture.Phase.WORLD_DIRECTIONS,
+                GlStateManager.projectionMatrix());
+        return true;
+    }
+
     public static boolean beginHud(int[] lightmap, int atlas) {
         return beginObjects(lightmap, atlas, VulkanObjectCapture.Phase.HUD);
     }

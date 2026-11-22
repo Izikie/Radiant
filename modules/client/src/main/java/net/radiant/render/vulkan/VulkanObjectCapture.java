@@ -968,7 +968,8 @@ public final class VulkanObjectCapture implements AutoCloseable {
         ENTITIES, ENTITY_SHADOWS, ENTITY_FIRE, ENTITY_HITBOX, ENTITY_OUTLINES, ENTITY_NAME_TAG, LIGHTNING, BLOCK_ENTITIES,
         LIT_PARTICLES, PARTICLE_BILLBOARDS,
         RAIN, SNOW, SELECTION, BLOCK_DAMAGE, WORLD_BORDER,
-        FIRST_PERSON(Layer.FIRST_PERSON), CAMERA_OVERLAYS(Layer.FIRST_PERSON), HUD(Layer.HUD), SCREEN(Layer.SCREEN),
+        FIRST_PERSON(Layer.FIRST_PERSON), CAMERA_OVERLAYS(Layer.FIRST_PERSON), WORLD_DIRECTIONS(Layer.FIRST_PERSON),
+        HUD(Layer.HUD), SCREEN(Layer.SCREEN),
         ACHIEVEMENT(Layer.ACHIEVEMENT);
 
         private final Layer layer;
@@ -982,7 +983,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         }
 
         private boolean drawsLines() {
-            return this == SELECTION || this == ENTITY_HITBOX;
+            return this == SELECTION || this == ENTITY_HITBOX || this == WORLD_DIRECTIONS;
         }
     }
 
