@@ -102,6 +102,8 @@ final class VulkanGraphics {
         TERRAIN_OPAQUE(true, true, false, true),
         TRANSLUCENT(true, false, true, true),
         SKY(false, false, false, false),
+        SKY_TRANSLUCENT(new State(false, false, VK_COMPARE_OP_ALWAYS, VK_CULL_MODE_NONE,
+                new Blend(VK_BLEND_FACTOR_SRC_ALPHA, VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA, VK_BLEND_FACTOR_ONE, VK_BLEND_FACTOR_ZERO), null)),
         SKY_ADDITIVE(new State(false, false, VK_COMPARE_OP_ALWAYS, VK_CULL_MODE_BACK_BIT,
                 new Blend(VK_BLEND_FACTOR_SRC_ALPHA, VK_BLEND_FACTOR_ONE, VK_BLEND_FACTOR_ONE, VK_BLEND_FACTOR_ZERO), null)),
         SKY_ADDITIVE_OVERLAY(new State(false, false, VK_COMPARE_OP_ALWAYS, VK_CULL_MODE_NONE,

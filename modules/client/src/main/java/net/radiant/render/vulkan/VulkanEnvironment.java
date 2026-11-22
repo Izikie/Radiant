@@ -146,7 +146,7 @@ final class VulkanEnvironment implements AutoCloseable {
             celestial = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
                     VulkanGraphics.Pass.SKY_ADDITIVE_OVERLAY, vertices, VERTEX_SHADER, defines + "#define CELESTIAL_PASS 1\n" + fragment);
             endSky = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
-                    VulkanGraphics.Pass.SKY, vertices, END_SKY_VERTEX_SHADER, defines + "#define END_SKY_PASS 1\n" + fragment);
+                    VulkanGraphics.Pass.SKY_TRANSLUCENT, vertices, END_SKY_VERTEX_SHADER, defines + "#define END_SKY_PASS 1\n" + fragment);
             clouds = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
                     VulkanGraphics.Pass.BLENDED_DEPTH_WRITE, vertices, VERTEX_SHADER, defines + "#define CLOUD_PASS 1\n" + fragment);
             var binding = VkVertexInputBindingDescription.calloc(1, stack);

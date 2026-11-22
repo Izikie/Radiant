@@ -39,8 +39,8 @@ vec3 outputColor(vec3 rgb) {
 
 #if END_SKY_PASS
 void main() {
-    vec3 texel = texture(endSky, uv).rgb;
-    color = vec4(outputColor(texel * env.skyColor.rgb), 1.0);
+    vec4 texel = texture(endSky, uv);
+    color = vec4(outputColor(texel.rgb * env.skyColor.rgb), texel.a);
 }
 #else
 vec3 unproject(float depth) {
