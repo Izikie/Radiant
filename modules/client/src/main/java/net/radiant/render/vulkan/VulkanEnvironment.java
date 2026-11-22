@@ -3,6 +3,7 @@ package net.radiant.render.vulkan;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3;
 
 import net.radiant.util.NativeImage;
@@ -15,12 +16,16 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.LongBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.lwjgl.vulkan.VK10.*;
 
 final class VulkanEnvironment implements AutoCloseable {
     private static final int FRAME_BYTES = 128 + 10 * 16;
     private static final int POSITION_BYTES = 3 * Float.BYTES;
+    private static final List<ResourceLocation> TEXTURE_LOCATIONS = List.of(RenderGlobal.LOCATION_CLOUDS_PNG,
+            RenderGlobal.LOCATION_SUN_PNG, RenderGlobal.LOCATION_MOON_PHASES_PNG, RenderGlobal.LOCATION_END_SKY_PNG);
     private static final String VERTEX_SHADER = """
             #version 450
             layout(location = 0) out vec2 ndc;
@@ -108,7 +113,8 @@ final class VulkanEnvironment implements AutoCloseable {
             """;
 
     private final Matrix4f inverseViewProjection = new Matrix4f();
-    private final VulkanTexture[] textures = new VulkanTexture[4];
+    private final VulkanTexture[] textures = new VulkanTexture[TEXTURE_LOCATIONS.size()];
+    private final VulkanTextureUpdates.Region[] pendingUpdates = new VulkanTextureUpdates.Region[textures.length];
     private Images pendingImages;
     private VkPhysicalDevice physicalDevice;
     private VkDevice device;
@@ -238,6 +244,35 @@ final class VulkanEnvironment implements AutoCloseable {
 
     void setImages(Images images) {
         pendingImages = images;
+        Arrays.fill(pendingUpdates, null);
+    }
+
+    void updateTextureRegion(ResourceLocation location, VulkanTextureUpdates.Region region) {
+        int index = TEXTURE_LOCATIONS.indexOf(location);
+        if (index >= 0) {
+            pendingUpdates[index] = region.include(pendingUpdates[index]);
+        }
+    }
+
+    void collectTextureUpdates(VulkanTextureUpdates updates, Frame frame) {
+        if (frame.skyMode == SkyMode.END) {
+            collectTextureUpdate(updates, 3);
+        } else if (frame.skyMode == SkyMode.OVERWORLD) {
+            if (frame.cloudMode != 0) {
+                collectTextureUpdate(updates, 0);
+            }
+            if (frame.celestialVisibility > 0.0f) {
+                collectTextureUpdate(updates, 1);
+                collectTextureUpdate(updates, 2);
+            }
+        }
+    }
+
+    private void collectTextureUpdate(VulkanTextureUpdates updates, int index) {
+        if (pendingUpdates[index] != null) {
+            updates.add(textures[index], pendingUpdates[index]);
+            pendingUpdates[index] = null;
+        }
     }
 
     void prepare(VkQueue queue, VkCommandBuffer commands, Matrix4fc viewProjection, VulkanTerrainScene.Fog fog, Frame frame,

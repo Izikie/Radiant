@@ -1,5 +1,6 @@
 package net.radiant.render.vulkan;
 
+import net.minecraft.util.ResourceLocation;
 import org.joml.Matrix4fc;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.vulkan.VkClearAttachment;
@@ -18,6 +19,7 @@ import static org.lwjgl.vulkan.VK10.*;
 
 final class VulkanTerrainScene implements VulkanScene {
     private final VulkanAtlasUpdates atlasUpdates = new VulkanAtlasUpdates();
+    private final VulkanTextureUpdates textureUpdates = new VulkanTextureUpdates();
     private final VulkanEnvironment environment = new VulkanEnvironment();
     private final VulkanObjectCapture objectCapture;
     private VkPhysicalDevice physicalDevice;
@@ -81,6 +83,10 @@ final class VulkanTerrainScene implements VulkanScene {
         environment.setImages(images);
     }
 
+    void updateEnvironmentTexture(ResourceLocation location, VulkanTextureUpdates.Region region) {
+        environment.updateTextureRegion(location, region);
+    }
+
     void updateSprite(String name, int x, int y, int width, int height, int[][] pixels) {
         atlasUpdates.update(name, x, y, width, height, pixels);
     }
@@ -89,7 +95,11 @@ final class VulkanTerrainScene implements VulkanScene {
     public void recordUploads(MemoryStack stack, VkCommandBuffer commands) {
         if (atlas != null) {
             atlasUpdates.record(stack, physicalDevice, device, commands, atlas);
-            objects.recordTextureUpdates(stack, commands);
+            objects.collectTextureUpdates(textureUpdates);
+            if (frame != null && frame.environment != null) {
+                environment.collectTextureUpdates(textureUpdates, frame.environment);
+            }
+            textureUpdates.record(stack, physicalDevice, device, commands);
         }
     }
 
@@ -268,6 +278,7 @@ final class VulkanTerrainScene implements VulkanScene {
     public void close() {
         setAtlas(null);
         atlasUpdates.close();
+        textureUpdates.close();
         environment.close();
         if (outlines != null) outlines.close();
         if (objects != null) objects.close();

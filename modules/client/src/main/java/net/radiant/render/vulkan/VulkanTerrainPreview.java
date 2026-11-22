@@ -8,9 +8,11 @@ import net.minecraft.client.renderer.chunk.CompiledChunk;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.RenderLayer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3;
 import net.minecraft.world.border.WorldBorderStage;
 import net.optifine.Config;
@@ -212,7 +214,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         preview.objects.setWorldProjection(projection);
         if (preview.atlasDirty) {
             preview.terrain.setAtlas(buildAtlas(mc.getTextureMapBlocks()));
-            preview.terrain.setEnvironmentImages(loadEnvironmentImages());
+            preview.terrain.setEnvironmentImages(loadEnvironmentImages(mc.getTextureManager()));
             preview.atlasDirty = false;
         }
         Matrix4f viewProjection = projection.mul(viewMatrix, new Matrix4f());
@@ -317,8 +319,13 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         invalidateObjectTextureImage(texture);
     }
 
-    public static void updateObjectTextureRegion(int texture, int x, int y, int width, int height, ByteBuffer pixels) {
-        VulkanObjectCapture.updateTextureRegion(texture, x, y, width, height, pixels, active == null ? null : active.objects);
+    public static void updateAnimatedTextureRegion(ResourceLocation location, int texture, int x, int y, int width, int height,
+                                                   ByteBuffer pixels) {
+        VulkanTerrainPreview preview = active;
+        var region = VulkanObjectCapture.updateTextureRegion(texture, x, y, width, height, pixels, preview == null ? null : preview.objects);
+        if (preview != null && region != null) {
+            preview.terrain.updateEnvironmentTexture(location, region);
+        }
     }
 
     public static void invalidateObjectTexture(int texture) {
@@ -339,15 +346,21 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         }
     }
 
-    private static VulkanEnvironment.Images loadEnvironmentImages() {
+    private static VulkanEnvironment.Images loadEnvironmentImages(TextureManager textures) {
         try {
-            return new VulkanEnvironment.Images(NativeImage.loadFromResourceLocation(RenderGlobal.LOCATION_CLOUDS_PNG),
-                    NativeImage.loadFromResourceLocation(RenderGlobal.LOCATION_SUN_PNG),
-                    NativeImage.loadFromResourceLocation(RenderGlobal.LOCATION_MOON_PHASES_PNG),
-                    NativeImage.loadFromResourceLocation(RenderGlobal.LOCATION_END_SKY_PNG));
+            return new VulkanEnvironment.Images(loadEnvironmentImage(textures, RenderGlobal.LOCATION_CLOUDS_PNG),
+                    loadEnvironmentImage(textures, RenderGlobal.LOCATION_SUN_PNG),
+                    loadEnvironmentImage(textures, RenderGlobal.LOCATION_MOON_PHASES_PNG),
+                    loadEnvironmentImage(textures, RenderGlobal.LOCATION_END_SKY_PNG));
         } catch (IOException e) {
             throw new UncheckedIOException("Could not load Vulkan sky and cloud textures", e);
         }
+    }
+
+    private static NativeImage loadEnvironmentImage(TextureManager textures, ResourceLocation location) throws IOException {
+        var texture = textures.getTexture(location);
+        NativeImage snapshot = texture == null ? null : VulkanObjectCapture.snapshotTexture(texture.getGlTextureId());
+        return snapshot != null ? snapshot : NativeImage.loadFromResourceLocation(location);
     }
 
     private static VulkanEnvironment.Frame captureEnvironment(Minecraft mc, Entity view, double x, double y, double z,

@@ -494,11 +494,12 @@ public final class VulkanObjectCapture implements AutoCloseable {
         VulkanAtlasUpdates.writeRgba(ByteBuffer.wrap(source.rgba), argb, 0, width * height);
     }
 
-    static void updateTextureRegion(int id, int x, int y, int width, int height, ByteBuffer pixels, VulkanObjectCapture capture) {
+    static VulkanTextureUpdates.Region updateTextureRegion(int id, int x, int y, int width, int height,
+                                                           ByteBuffer pixels, VulkanObjectCapture capture) {
         CpuImage source = CPU_TEXTURES.get(id);
         if (source == null || x < 0 || y < 0 || width <= 0 || height <= 0 || width > source.width - x
                 || height > source.height - y || pixels.remaining() < width * height * 4) {
-            return;
+            return null;
         }
         Image image = capture == null ? null : capture.textures.get(id);
         ByteBuffer pendingPixels = image == null ? null : image.pixels;
@@ -510,11 +511,24 @@ public final class VulkanObjectCapture implements AutoCloseable {
                 pendingPixels.put(offset, source.rgba, offset, rowBytes);
             }
         }
-        if (image != null && pendingPixels == null) {
-            TextureRegion previous = image.pendingUpdate;
-            image.pendingUpdate = previous == null ? new TextureRegion(source.rgba, x, y, x + width, y + height)
-                    : previous.union(x, y, x + width, y + height);
+        if (capture == null) {
+            return null;
         }
+        var region = new VulkanTextureUpdates.Region(source.rgba, source.width, x, y, x + width, y + height);
+        if (image != null && pendingPixels == null) {
+            image.pendingUpdate = region.include(image.pendingUpdate);
+        }
+        return region;
+    }
+
+    static NativeImage snapshotTexture(int id) {
+        CpuImage source = CPU_TEXTURES.get(id);
+        if (source == null) {
+            return null;
+        }
+        NativeImage image = NativeImage.createBlankImage(source.width, source.height);
+        System.arraycopy(source.rgba, 0, image.getData(), 0, source.rgba.length);
+        return image;
     }
 
     static void forgetTexture(int id) {
@@ -1106,20 +1120,6 @@ public final class VulkanObjectCapture implements AutoCloseable {
     private record CpuImage(int width, int height, byte[] rgba, boolean dynamic, boolean blur, boolean clamp) {
     }
 
-    record TextureRegion(byte[] pixels, int left, int top, int right, int bottom) {
-        int width() {
-            return right - left;
-        }
-
-        int height() {
-            return bottom - top;
-        }
-
-        TextureRegion union(int x1, int y1, int x2, int y2) {
-            return new TextureRegion(pixels, Math.min(left, x1), Math.min(top, y1), Math.max(right, x2), Math.max(bottom, y2));
-        }
-    }
-
     static final class Image {
         final int width;
         final int height;
@@ -1127,7 +1127,7 @@ public final class VulkanObjectCapture implements AutoCloseable {
         final int addressModeU;
         final int addressModeV;
         ByteBuffer pixels;
-        TextureRegion pendingUpdate;
+        VulkanTextureUpdates.Region pendingUpdate;
         boolean deleted;
 
         Image(int width, int height, ByteBuffer pixels) {

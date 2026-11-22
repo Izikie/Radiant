@@ -90,8 +90,6 @@ final class VulkanObjectRenderer implements AutoCloseable {
     private VulkanTexture boundAtlas;
     private VulkanBuffer vertices;
     private int vertexCapacity;
-    private VulkanBuffer textureStaging;
-    private int textureStagingCapacity;
 
     VulkanObjectRenderer(VkPhysicalDevice physicalDevice, VkDevice device) {
         this.physicalDevice = physicalDevice;
@@ -207,39 +205,9 @@ final class VulkanObjectRenderer implements AutoCloseable {
         }
     }
 
-    void recordTextureUpdates(MemoryStack stack, VkCommandBuffer commands) {
-        if (textureUpdates.isEmpty()) {
-            return;
-        }
-        int bytes = 0;
+    void collectTextureUpdates(VulkanTextureUpdates updates) {
         for (VulkanObjectCapture.Image image : textureUpdates) {
-            var region = image.pendingUpdate;
-            bytes = Math.addExact(bytes, region.width() * region.height() * 4);
-        }
-        if (textureStagingCapacity < bytes) {
-            int capacity = Math.max(4096, bytes);
-            VulkanBuffer replacement = VulkanBuffer.mapped(physicalDevice, device, capacity, VK_BUFFER_USAGE_TRANSFER_SRC_BIT);
-            if (textureStaging != null) {
-                textureStaging.close();
-            }
-            textureStaging = replacement;
-            textureStagingCapacity = capacity;
-        }
-
-        ByteBuffer output = textureStaging.data();
-        VkBufferImageCopy.Buffer copy = VkBufferImageCopy.calloc(1, stack);
-        copy.get(0).imageSubresource().aspectMask(VK_IMAGE_ASPECT_COLOR_BIT).layerCount(1);
-        for (VulkanObjectCapture.Image image : textureUpdates) {
-            var region = image.pendingUpdate;
-            copy.get(0).bufferOffset(output.position());
-            copy.get(0).imageOffset().set(region.left(), region.top(), 0);
-            copy.get(0).imageExtent().set(region.width(), region.height(), 1);
-            for (int y = region.top(); y < region.bottom(); y++) {
-                output.put(region.pixels(), (y * image.width + region.left()) * 4, region.width() * 4);
-            }
-            try (MemoryStack local = MemoryStack.stackPush()) {
-                textures.get(image).texture.recordCopies(local, commands, textureStaging.handle(), copy, false);
-            }
+            updates.add(textures.get(image).texture, image.pendingUpdate);
             image.pendingUpdate = null;
         }
         textureUpdates.clear();
@@ -367,7 +335,6 @@ final class VulkanObjectRenderer implements AutoCloseable {
         if (descriptorLayout != 0) vkDestroyDescriptorSetLayout(device, descriptorLayout, null);
         textures.values().forEach(binding -> binding.texture.close());
         if (vertices != null) vertices.close();
-        if (textureStaging != null) textureStaging.close();
     }
 
     private static final class Pool {

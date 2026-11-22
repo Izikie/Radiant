@@ -194,7 +194,8 @@ public class TextureAnimation {
         GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, 0, this.dstX, this.dstY, this.frameWidth, this.frameHeight,
                 GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, pixels);
         if (VulkanTerrainPreview.ENABLED) {
-            VulkanTerrainPreview.updateObjectTextureRegion(this.dstTextId, this.dstX, this.dstY, this.frameWidth, this.frameHeight, pixels);
+            VulkanTerrainPreview.updateAnimatedTextureRegion(this.dstTexLoc, this.dstTextId, this.dstX, this.dstY,
+                    this.frameWidth, this.frameHeight, pixels);
         }
     }
 
