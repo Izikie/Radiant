@@ -533,7 +533,9 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         private final boolean renderRegions;
         private final int width;
         private final int height;
-        private final List<VulkanTerrainScene.Draw> opaque = new ArrayList<>();
+        private final List<VulkanTerrainScene.Draw> solid = new ArrayList<>();
+        private final List<VulkanTerrainScene.Draw> cutoutMipped = new ArrayList<>();
+        private final List<VulkanTerrainScene.Draw> cutout = new ArrayList<>();
         private final List<VulkanTerrainScene.Draw> translucent = new ArrayList<>();
 
         private Extraction(VulkanTerrainPreview preview, double x, double y, double z, Matrix4f matrix,
@@ -566,13 +568,23 @@ public final class VulkanTerrainPreview implements AutoCloseable {
                 int index = layer.ordinal();
                 Mesh mesh = layers[index];
                 if (mesh != null && mesh.compiled == compiled && !compiled.isLayerEmpty(layer)) {
-                    List<VulkanTerrainScene.Draw> draws = layer == RenderLayer.TRANSLUCENT ? translucent : opaque;
+                    List<VulkanTerrainScene.Draw> draws = switch (layer) {
+                        case SOLID -> solid;
+                        case CUTOUT_MIPPED -> cutoutMipped;
+                        case CUTOUT -> cutout;
+                        case TRANSLUCENT -> translucent;
+                    };
                     draws.add(new VulkanTerrainScene.Draw(mesh.slice, offsetX, offsetY, offsetZ, index));
                 }
             }
         }
 
         public void finish() {
+            // Submit each opaque layer across all sections before advancing to the next layer.
+            var opaque = new ArrayList<VulkanTerrainScene.Draw>(solid.size() + cutoutMipped.size() + cutout.size());
+            opaque.addAll(solid);
+            opaque.addAll(cutoutMipped);
+            opaque.addAll(cutout);
             // OpenGL traverses visible sections in reverse for translucency. Their quads are already sorted.
             preview.pendingFrame = new VulkanTerrainScene.Frame(matrix, lightmap, fog, environment,
                     List.copyOf(opaque), List.copyOf(translucent.reversed()), width, height);
