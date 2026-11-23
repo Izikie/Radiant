@@ -6,13 +6,14 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListenableFutureTask;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.vertex.VertexBuffer;
+import net.minecraft.client.renderer.RegionRenderCacheBuilder;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.util.RenderLayer;
 import net.minecraft.util.math.Vec3;
 import net.radiant.benchmark.ClientBenchmark;
-import net.radiant.render.vulkan.VulkanTerrainPreview;
-import org.lwjgl.opengl.GL11;
+import net.radiant.render.ChunkMeshUploader;
+import net.radiant.render.opengl.OpenGlChunkMeshUploader;
+import net.radiant.render.vulkan.VulkanPreviewChunkMeshUploader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,8 +30,7 @@ public class ChunkRenderDispatcher {
     private final List<ChunkRenderWorker> listThreadedWorkers;
     private final ChunkCompileQueue queueChunkUpdates = new ChunkCompileQueue();
     private final BlockingQueue<RegionRenderCacheBuilder> queueFreeRenderBuilders;
-    private final WorldVertexBufferUploader worldVertexUploader;
-    private final VertexBufferUploader vertexUploader;
+    private final ChunkMeshUploader meshUploader;
     private final Queue<ListenableFutureTask<?>> queueChunkUploads;
     private final ChunkRenderWorker renderWorker;
     private final int countRenderBuilders;
@@ -42,8 +42,7 @@ public class ChunkRenderDispatcher {
 
     public ChunkRenderDispatcher(int p_i4_1_) {
         this.listThreadedWorkers = new ArrayList<>();
-        this.worldVertexUploader = new WorldVertexBufferUploader();
-        this.vertexUploader = new VertexBufferUploader();
+        this.meshUploader = VulkanPreviewChunkMeshUploader.wrapIfEnabled(new OpenGlChunkMeshUploader());
         this.queueChunkUploads = Queues.newArrayDeque();
         this.listPausedBuilders = new ArrayList<>();
         int i = Math.max(1, (int) (Runtime.getRuntime().maxMemory() * 0.3D) / 10485760);
@@ -200,16 +199,7 @@ public class ChunkRenderDispatcher {
     public ListenableFuture<Object> uploadChunk(RenderLayer player, WorldRenderer p_178503_2_, RenderChunk chunkRenderer, CompiledChunk compiledChunkIn) {
         if (Minecraft.get().isCallingFromMinecraftThread()) {
             long started = ClientBenchmark.ENABLED ? ClientBenchmark.startChunkWork() : 0;
-            boolean skipOpenGl = VulkanTerrainPreview.ENABLED
-                    && VulkanTerrainPreview.upload(chunkRenderer, compiledChunkIn, player, p_178503_2_);
-            if (!skipOpenGl) {
-                if (OpenGlHelper.useVbo()) {
-                    this.uploadVertexBuffer(p_178503_2_, chunkRenderer.getVertexBufferByLayer(player.ordinal()));
-                } else {
-                    this.uploadDisplayList(p_178503_2_, ((ListedRenderChunk) chunkRenderer).getDisplayList(player, compiledChunkIn), chunkRenderer);
-                }
-                ClientBenchmark.recordTerrainUpload(false);
-            }
+            this.meshUploader.upload(chunkRenderer, compiledChunkIn, player, p_178503_2_);
             if (started != 0) {
                 ClientBenchmark.recordChunkWork(started, true);
             }
@@ -224,20 +214,6 @@ public class ChunkRenderDispatcher {
                 return listenablefuturetask;
             }
         }
-    }
-
-    private void uploadDisplayList(WorldRenderer p_178510_1_, int p_178510_2_, RenderChunk chunkRenderer) {
-        GL11.glNewList(p_178510_2_, GL11.GL_COMPILE);
-        GlStateManager.pushMatrix();
-        chunkRenderer.multModelviewMatrix();
-        this.worldVertexUploader.draw(p_178510_1_);
-        GlStateManager.popMatrix();
-        GL11.glEndList();
-    }
-
-    private void uploadVertexBuffer(WorldRenderer p_178506_1_, VertexBuffer vertexBufferIn) {
-        this.vertexUploader.setVertexBuffer(vertexBufferIn);
-        this.vertexUploader.draw(p_178506_1_);
     }
 
     public void clearChunkUpdates() {
