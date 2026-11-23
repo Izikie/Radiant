@@ -83,7 +83,7 @@ import net.optifine.Lang;
 import net.radiant.benchmark.ClientBenchmark;
 import net.radiant.render.FramePresenter;
 import net.radiant.render.opengl.OpenGlFramePresenter;
-import net.radiant.render.vulkan.VulkanTerrainPreview;
+import net.radiant.render.vulkan.VulkanPreviewFramePresenter;
 import net.radiant.lwjgl.LWJGLException;
 import net.radiant.lwjgl.input.Keyboard;
 import net.radiant.lwjgl.input.Mouse;
@@ -191,7 +191,7 @@ public class Minecraft implements IThreadListener {
     private ResourcePackRepository mcResourcePackRepository;
     private LanguageManager mcLanguageManager;
     private Framebuffer framebufferMc;
-    private final FramePresenter framePresenter = new OpenGlFramePresenter(this);
+    private final FramePresenter framePresenter = VulkanPreviewFramePresenter.wrapIfEnabled(new OpenGlFramePresenter(this));
     private TextureMap textureMapBlocks;
     private SoundHandler mcSoundHandler;
     private MusicTicker mcMusicTicker;
@@ -777,13 +777,7 @@ public class Minecraft implements IThreadListener {
 
             mcSoundHandler.unloadSounds();
         } finally {
-            try {
-                if (VulkanTerrainPreview.ENABLED) {
-                    VulkanTerrainPreview.shutdown();
-                }
-            } finally {
-                framePresenter.close();
-            }
+            framePresenter.close();
 
             if (!hasCrashed) {
                 System.exit(0);
@@ -847,9 +841,6 @@ public class Minecraft implements IThreadListener {
 
         framePresenter.prepareFrame();
 
-        if (VulkanTerrainPreview.ENABLED) {
-            VulkanTerrainPreview.present();
-        }
         if (ClientBenchmark.CAPTURE_REFERENCE && !skipRenderWorld) {
             ClientBenchmark.captureReference(this, renderPartialTicks);
         }
