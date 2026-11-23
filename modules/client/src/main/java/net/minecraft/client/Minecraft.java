@@ -191,7 +191,8 @@ public class Minecraft implements IThreadListener {
     private ResourcePackRepository mcResourcePackRepository;
     private LanguageManager mcLanguageManager;
     private Framebuffer framebufferMc;
-    private final FramePresenter framePresenter = VulkanPreviewFramePresenter.wrapIfEnabled(new OpenGlFramePresenter(this));
+    private final FramePresenter openGlPresenter = new OpenGlFramePresenter(this, this::resize);
+    private final FramePresenter framePresenter = VulkanPreviewFramePresenter.wrapIfEnabled(openGlPresenter);
     private TextureMap textureMapBlocks;
     private SoundHandler mcSoundHandler;
     private MusicTicker mcMusicTicker;
@@ -873,29 +874,8 @@ public class Minecraft implements IThreadListener {
     }
 
     public void updateDisplay() {
-        Display.update();
-        checkWindowResize();
-    }
-
-    protected void checkWindowResize() {
-        if (!fullscreen && Display.wasResized()) {
-            int i = displayWidth;
-            int j = displayHeight;
-            displayWidth = Display.getWidth();
-            displayHeight = Display.getHeight();
-
-            if (displayWidth != i || displayHeight != j) {
-                if (displayWidth <= 0) {
-                    displayWidth = 1;
-                }
-
-                if (displayHeight <= 0) {
-                    displayHeight = 1;
-                }
-
-                resize(displayWidth, displayHeight);
-            }
-        }
+        // Loading screens and fullscreen changes only swap the OpenGL window.
+        openGlPresenter.present();
     }
 
     public int getLimitFramerate() {

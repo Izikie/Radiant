@@ -7,6 +7,7 @@ import net.radiant.render.FramePresenter;
 import net.radiant.util.NativeImage;
 
 import java.nio.IntBuffer;
+import java.util.function.BiConsumer;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL12.GL_BGRA;
@@ -16,9 +17,11 @@ import static org.lwjgl.system.MemoryUtil.memFree;
 
 public final class OpenGlFramePresenter implements FramePresenter {
     private final Minecraft client;
+    private final BiConsumer<Integer, Integer> resize;
 
-    public OpenGlFramePresenter(Minecraft client) {
+    public OpenGlFramePresenter(Minecraft client, BiConsumer<Integer, Integer> resize) {
         this.client = client;
+        this.resize = resize;
     }
 
     @Override
@@ -57,7 +60,14 @@ public final class OpenGlFramePresenter implements FramePresenter {
 
     @Override
     public void present() {
-        client.updateDisplay();
+        Display.update();
+        if (!client.isFullScreen() && Display.wasResized()) {
+            int width = Display.getWidth();
+            int height = Display.getHeight();
+            if (width != client.displayWidth || height != client.displayHeight) {
+                resize.accept(width, height);
+            }
+        }
     }
 
     @Override
