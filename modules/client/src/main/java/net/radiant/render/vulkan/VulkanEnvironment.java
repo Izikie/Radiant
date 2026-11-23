@@ -73,14 +73,12 @@ final class VulkanEnvironment implements AutoCloseable {
                 vec4 celestial;
             } env;
             layout(location = 0) in vec3 position;
-            layout(location = 0) noperspective out vec2 ndc;
             void main() {
                 float s = env.celestial.x;
                 float c = env.celestial.y;
                 vec3 rotated = vec3(-s * position.y - c * position.z, c * position.y - s * position.z, position.x);
                 vec4 clip = env.viewProjection * vec4(rotated, 1.0);
                 gl_Position = vec4(clip.x, -clip.y, (clip.z + clip.w) * 0.5, clip.w);
-                ndc = gl_Position.xy / gl_Position.w;
             }
             """;
     private static final String SUNRISE_VERTEX_SHADER = """
@@ -93,8 +91,7 @@ final class VulkanEnvironment implements AutoCloseable {
                 vec4 sunrise;
                 vec4 celestial;
             } env;
-            layout(location = 0) out vec4 clipPosition;
-            layout(location = 1) out float alpha;
+            layout(location = 0) out float alpha;
 
             void main() {
                 float direction = env.celestial.x < 0.0 ? -1.0 : 1.0;
@@ -107,8 +104,34 @@ final class VulkanEnvironment implements AutoCloseable {
                 }
                 vec4 clip = env.viewProjection * vec4(position, 1.0);
                 gl_Position = vec4(clip.x, -clip.y, (clip.z + clip.w) * 0.5, clip.w);
-                clipPosition = gl_Position;
                 alpha = gl_VertexIndex == 0 ? floor(env.sunrise.a * 255.0) / 255.0 : 0.0;
+            }
+            """;
+    private static final String LOWER_SKY_VERTEX_SHADER = """
+            #version 450
+            layout(std140, set = 0, binding = 0) uniform Environment {
+                mat4 viewProjection;
+                mat4 inverseViewProjection;
+                vec4 fogAndStars;
+                vec4 skyColor;
+                vec4 sunrise;
+                vec4 celestial;
+                vec4 cloudColor;
+                vec4 cloudOffset;
+                vec4 lowerSky;
+            } env;
+            layout(location = 0) out float fogDepth;
+
+            void main() {
+                const vec2 corners[6] = vec2[6](vec2(1, 0), vec2(0, 0), vec2(1, 1),
+                                                vec2(0, 0), vec2(0, 1), vec2(1, 1));
+                float extent = env.skyColor.a;
+                int tilesPerSide = int(extent / 32.0) + 1;
+                vec2 tile = vec2(gl_InstanceIndex / tilesPerSide, gl_InstanceIndex % tilesPerSide);
+                vec2 point = (tile + corners[gl_VertexIndex]) * 64.0 - extent;
+                vec4 clip = env.viewProjection * vec4(point.x, env.lowerSky.a, point.y, 1.0);
+                gl_Position = vec4(clip.x, -clip.y, (clip.z + clip.w) * 0.5, clip.w);
+                fogDepth = abs(clip.w);
             }
             """;
 
@@ -153,7 +176,7 @@ final class VulkanEnvironment implements AutoCloseable {
             celestial = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
                     VulkanGraphics.Pass.SKY_ADDITIVE_OVERLAY, vertices, VERTEX_SHADER, defines + "#define CELESTIAL_PASS 1\n" + fragment);
             lowerSky = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
-                    VulkanGraphics.Pass.SKY, vertices, VERTEX_SHADER, defines + "#define LOWER_SKY_PASS 1\n" + fragment);
+                    VulkanGraphics.Pass.SKY_CULLED, vertices, LOWER_SKY_VERTEX_SHADER, defines + "#define LOWER_SKY_PASS 1\n" + fragment);
             endSky = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
                     VulkanGraphics.Pass.SKY_TRANSLUCENT, vertices, END_SKY_VERTEX_SHADER, defines + "#define END_SKY_PASS 1\n" + fragment);
             clouds = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
@@ -335,8 +358,9 @@ final class VulkanEnvironment implements AutoCloseable {
             vkCmdBindVertexBuffers(commands, 0, stack.longs(starVertices.handle()), stack.longs(0));
             vkCmdDraw(commands, starVertexCount, 1, 0, 0);
         }
-        if (customSky != null) {
-            draw(stack, commands, lowerSky, 3, 1);
+        if (frame.skyExtent > 0.0f) {
+            int tilesPerSide = (int) frame.skyExtent / 32 + 1;
+            draw(stack, commands, lowerSky, 6, tilesPerSide * tilesPerSide);
         }
     }
 

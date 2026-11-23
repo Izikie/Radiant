@@ -19,12 +19,11 @@ layout(set = 0, binding = 3) uniform sampler2D moon;
 layout(set = 0, binding = 4) uniform sampler2D endSky;
 #if END_SKY_PASS
 layout(location = 0) in vec2 uv;
+#elif LOWER_SKY_PASS
+layout(location = 0) in float fogDepth;
 #elif SUNRISE_PASS
-layout(location = 0) in vec4 clipPosition;
-layout(location = 1) in float alpha;
-#elif STAR_PASS
-layout(location = 0) noperspective in vec2 ndc;
-#else
+layout(location = 0) in float alpha;
+#elif !STAR_PASS
 layout(location = 0) in vec2 ndc;
 #endif
 layout(location = 0) out vec4 color;
@@ -44,16 +43,6 @@ void main() {
     color = vec4(outputColor(texel.rgb * env.skyColor.rgb), texel.a);
 }
 #else
-vec3 unproject(float depth) {
-    #if SUNRISE_PASS
-    vec2 screen = clipPosition.xy / clipPosition.w;
-    #else
-    vec2 screen = ndc;
-    #endif
-    vec4 relative = env.inverseViewProjection * vec4(screen.x, -screen.y, depth, 1.0);
-    return relative.xyz / relative.w;
-}
-
 float fogVisibility(vec4 fog, float depth) {
     if (fog.x == 1.0) return clamp((fog.z - depth) / max(fog.z - fog.y, 1e-4), 0.0, 1.0);
     if (fog.x == 2.0) return exp(-depth * fog.w);
@@ -62,6 +51,28 @@ float fogVisibility(vec4 fog, float depth) {
         return exp(-density * density);
     }
     return 1.0;
+}
+
+#if LOWER_SKY_PASS
+void main() {
+    float visibility = fogVisibility(env.skyFog, fogDepth);
+    vec3 rgb = mix(env.fogAndStars.rgb, env.lowerSky.rgb, visibility);
+    color = vec4(outputColor(rgb), 1.0);
+}
+#elif SUNRISE_PASS
+void main() {
+    vec3 tint = floor(env.sunrise.rgb * 255.0) / 255.0;
+    color = vec4(outputColor(tint), alpha);
+}
+#elif STAR_PASS
+void main() {
+    float brightness = env.fogAndStars.a;
+    color = vec4(outputColor(vec3(brightness)), brightness);
+}
+#else
+vec3 unproject(float depth) {
+    vec4 relative = env.inverseViewProjection * vec4(ndc.x, -ndc.y, depth, 1.0);
+    return relative.xyz / relative.w;
 }
 
 #if CLOUD_PASS
@@ -180,37 +191,18 @@ vec4 celestialDisc(sampler2D image, vec2 uv, vec2 tile, vec2 sheet) {
     return textureLod(image, (tile + uv) / sheet, 0.0);
 }
 
-// Negative visibility indicates that this ray misses the finite legacy sky plane.
-float skyPlaneVisibility(vec3 origin, vec3 ray, float height) {
+float upperSkyVisibility(vec3 origin, vec3 ray) {
     float extent = env.skyColor.a;
-    if (extent <= 0.0 || abs(ray.y) < 1e-6) return -1.0;
-    float t = (height - origin.y) / ray.y;
+    if (extent <= 0.0 || ray.y < 1e-6) return 0.0;
+    float t = (16.0 - origin.y) / ray.y;
     vec3 point = origin + ray * t;
     vec4 clip = env.viewProjection * vec4(point, 1.0);
     if (t < 0.0 || clip.z > clip.w || any(lessThan(point.xz, vec2(-extent)))
-            || any(greaterThan(point.xz, vec2(extent + 64.0)))) return -1.0;
+            || any(greaterThan(point.xz, vec2(extent + 64.0)))) return 0.0;
 
     return fogVisibility(env.skyFog, clip.w);
 }
 
-#if SUNRISE_PASS
-void main() {
-    vec3 origin = unproject(-1.0);
-    vec3 ray = normalize(unproject(1.0) - origin);
-    if (ray.y < 0.0 && skyPlaneVisibility(origin, ray, env.lowerSky.a) >= 0.0) discard;
-    vec3 tint = floor(env.sunrise.rgb * 255.0) / 255.0;
-    color = vec4(outputColor(tint), alpha);
-}
-#elif STAR_PASS
-void main() {
-    // The lower sky is drawn after the stars in OpenGL and covers them where the plane is visible.
-    vec3 origin = unproject(-1.0);
-    vec3 ray = normalize(unproject(1.0) - origin);
-    if (ray.y < 0.0 && skyPlaneVisibility(origin, ray, env.lowerSky.a) >= 0.0) discard;
-    float brightness = env.fogAndStars.a;
-    color = vec4(outputColor(vec3(brightness)), brightness);
-}
-#else
 vec3 celestialColor(vec3 origin, vec3 ray) {
     float sine = env.celestial.x;
     float cosine = env.celestial.y;
@@ -245,19 +237,12 @@ void main() {
     }
     vec3 origin = unproject(-1.0);
     vec3 ray = normalize(unproject(1.0) - origin);
-    float lower = ray.y < 0.0 ? skyPlaneVisibility(origin, ray, env.lowerSky.a) : -1.0;
-    #if LOWER_SKY_PASS
-    if (lower < 0.0) discard;
-    color = vec4(outputColor(mix(env.fogAndStars.rgb, env.lowerSky.rgb, lower)), 1.0);
-    #elif CELESTIAL_PASS
-    if (lower >= 0.0) discard;
+    #if CELESTIAL_PASS
     color = vec4(outputColor(celestialColor(origin, ray)), 1.0);
     #else
-    float upper = ray.y > 0.0 ? skyPlaneVisibility(origin, ray, 16.0) : -1.0;
-    vec3 rgb = mix(env.fogAndStars.rgb, env.skyColor.rgb, max(upper, 0.0));
-    if (env.customSky == 0.0) {
-        if (env.sunrise.a <= 0.0) rgb += celestialColor(origin, ray);
-        if (lower >= 0.0) rgb = mix(env.fogAndStars.rgb, env.lowerSky.rgb, lower);
+    vec3 rgb = mix(env.fogAndStars.rgb, env.skyColor.rgb, upperSkyVisibility(origin, ray));
+    if (env.customSky == 0.0 && env.sunrise.a <= 0.0) {
+        rgb += celestialColor(origin, ray);
     }
     color = vec4(outputColor(rgb), 1.0);
     #endif
