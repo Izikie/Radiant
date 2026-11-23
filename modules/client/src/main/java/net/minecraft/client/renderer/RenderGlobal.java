@@ -767,7 +767,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         double y = view.lastTickPosY + (view.posY - view.lastTickPosY) * partialTicks;
         double z = view.lastTickPosZ + (view.posZ - view.lastTickPosZ) * partialTicks;
         VulkanTerrainPreview.Extraction frame = VulkanTerrainPreview.extract(
-                this.mc, view, x, y, z, partialTicks, this.cloudTickCounter, projection, viewMatrix, lightmap, skyFog);
+                this.mc, view, x, y, z, partialTicks, projection, viewMatrix, lightmap, skyFog);
         if (frame != null) {
             for (ContainerLocalRenderInformation visible : this.renderInfos) {
                 frame.add(visible.renderChunk);
@@ -1556,7 +1556,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                             }
                         }
 
-                        tessellator.draw();
+                        this.cloudRenderer.drawMesh(tessellator);
                         this.cloudRenderer.endUpdateGlList();
                     }
 
@@ -1706,7 +1706,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                         }
                     }
 
-                    tessellator.draw();
+                    this.cloudRenderer.drawMesh(tessellator);
                 }
             }
 

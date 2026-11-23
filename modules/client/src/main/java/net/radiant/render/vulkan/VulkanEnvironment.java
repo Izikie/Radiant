@@ -22,7 +22,8 @@ import java.util.List;
 import static org.lwjgl.vulkan.VK10.*;
 
 final class VulkanEnvironment implements AutoCloseable {
-    private static final int FRAME_BYTES = 128 + 10 * 16;
+    private static final int CLOUD_MATRIX_OFFSET = 2 * 64 + 8 * 16;
+    private static final int FRAME_BYTES = CLOUD_MATRIX_OFFSET + 64;
     private static final int POSITION_BYTES = 3 * Float.BYTES;
     private static final List<ResourceLocation> TEXTURE_LOCATIONS = List.of(RenderGlobal.LOCATION_CLOUDS_PNG,
             RenderGlobal.LOCATION_SUN_PNG, RenderGlobal.LOCATION_MOON_PHASES_PNG, RenderGlobal.LOCATION_END_SKY_PNG);
@@ -116,8 +117,6 @@ final class VulkanEnvironment implements AutoCloseable {
                 vec4 skyColor;
                 vec4 sunrise;
                 vec4 celestial;
-                vec4 cloudColor;
-                vec4 cloudOffset;
                 vec4 lowerSky;
             } env;
             layout(location = 0) out float fogDepth;
@@ -134,6 +133,24 @@ final class VulkanEnvironment implements AutoCloseable {
                 fogDepth = abs(clip.w);
             }
             """;
+    private static final String CLOUD_VERTEX_SHADER = """
+            #version 450
+            layout(std140, set = 0, binding = 0) uniform Environment {
+                layout(offset = %d) mat4 cloudViewProjection;
+            } env;
+            layout(location = 0) in vec3 position;
+            layout(location = 1) in vec2 texCoord;
+            layout(location = 2) in vec4 tint;
+            layout(location = 0) out vec2 uv;
+            layout(location = 1) out vec4 cloudTint;
+
+            void main() {
+                vec4 clip = env.cloudViewProjection * vec4(position, 1.0);
+                gl_Position = vec4(clip.x, -clip.y, (clip.z + clip.w) * 0.5, clip.w);
+                uv = texCoord;
+                cloudTint = tint;
+            }
+            """.formatted(CLOUD_MATRIX_OFFSET);
 
     private final Matrix4f inverseViewProjection = new Matrix4f();
     private final VulkanTexture[] textures = new VulkanTexture[TEXTURE_LOCATIONS.size()];
@@ -152,6 +169,10 @@ final class VulkanEnvironment implements AutoCloseable {
     private long lowerSky;
     private long endSky;
     private long clouds;
+    private long cloudDepth;
+    private VulkanBuffer cloudVertices;
+    private int cloudVertexCapacity;
+    private VulkanCloudMesh uploadedCloudMesh;
     private long stars;
     private VulkanBuffer starVertices;
     private int starVertexCount;
@@ -179,8 +200,6 @@ final class VulkanEnvironment implements AutoCloseable {
                     VulkanGraphics.Pass.SKY_CULLED, vertices, LOWER_SKY_VERTEX_SHADER, defines + "#define LOWER_SKY_PASS 1\n" + fragment);
             endSky = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
                     VulkanGraphics.Pass.SKY_TRANSLUCENT, vertices, END_SKY_VERTEX_SHADER, defines + "#define END_SKY_PASS 1\n" + fragment);
-            clouds = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
-                    VulkanGraphics.Pass.BLENDED_DEPTH_WRITE, vertices, VERTEX_SHADER, defines + "#define CLOUD_PASS 1\n" + fragment);
             var binding = VkVertexInputBindingDescription.calloc(1, stack);
             binding.get(0).stride(POSITION_BYTES).inputRate(VK_VERTEX_INPUT_RATE_VERTEX);
             var attribute = VkVertexInputAttributeDescription.calloc(1, stack);
@@ -188,6 +207,18 @@ final class VulkanEnvironment implements AutoCloseable {
             vertices.pVertexBindingDescriptions(binding).pVertexAttributeDescriptions(attribute);
             stars = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
                     VulkanGraphics.Pass.SKY_ADDITIVE, vertices, STAR_VERTEX_SHADER, defines + "#define STAR_PASS 1\n" + fragment);
+
+            binding.get(0).stride(VulkanCloudMesh.STRIDE);
+            var cloudAttributes = VkVertexInputAttributeDescription.calloc(3, stack);
+            cloudAttributes.get(0).location(0).format(VK_FORMAT_R32G32B32_SFLOAT);
+            cloudAttributes.get(1).location(1).format(VK_FORMAT_R32G32_SFLOAT).offset(12);
+            cloudAttributes.get(2).location(2).format(VK_FORMAT_R8G8B8A8_UNORM).offset(20);
+            vertices.pVertexAttributeDescriptions(cloudAttributes);
+            String cloudFragment = defines + "#define CLOUD_PASS 1\n" + fragment;
+            clouds = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
+                    VulkanGraphics.Pass.BLENDED_DEPTH_WRITE, vertices, CLOUD_VERTEX_SHADER, cloudFragment);
+            cloudDepth = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
+                    VulkanGraphics.Pass.CLOUD_DEPTH, vertices, CLOUD_VERTEX_SHADER, cloudFragment);
         }
     }
 
@@ -277,11 +308,11 @@ final class VulkanEnvironment implements AutoCloseable {
         }
     }
 
-    void collectTextureUpdates(VulkanTextureUpdates updates, Frame frame) {
+    void collectTextureUpdates(VulkanTextureUpdates updates, Frame frame, boolean drawClouds) {
         if (frame.skyMode == SkyMode.END) {
             collectTextureUpdate(updates, 3);
         } else if (frame.skyMode == SkyMode.OVERWORLD) {
-            if (frame.cloudMode != 0) {
+            if (drawClouds) {
                 collectTextureUpdate(updates, 0);
             }
             if (frame.celestialVisibility > 0.0f) {
@@ -299,9 +330,9 @@ final class VulkanEnvironment implements AutoCloseable {
     }
 
     void prepare(VkQueue queue, VkCommandBuffer commands, Matrix4fc viewProjection, VulkanTerrainScene.Fog fog, Frame frame,
-                 boolean customSky) {
+                 CloudFrame cloud, boolean customSky) {
         if (pendingImages != null) {
-            upload(0, pendingImages.clouds, queue, commands, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
+            upload(0, pendingImages.clouds, queue, commands, VK_SAMPLER_ADDRESS_MODE_REPEAT);
             upload(1, pendingImages.sun, queue, commands, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
             upload(2, pendingImages.moon, queue, commands, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
             upload(3, pendingImages.endSky, queue, commands, VK_SAMPLER_ADDRESS_MODE_REPEAT);
@@ -316,16 +347,35 @@ final class VulkanEnvironment implements AutoCloseable {
         uniforms.putFloat(frame.skyRed).putFloat(frame.skyGreen).putFloat(frame.skyBlue).putFloat(frame.skyExtent);
         uniforms.putFloat(frame.sunriseRed).putFloat(frame.sunriseGreen).putFloat(frame.sunriseBlue).putFloat(frame.sunriseAlpha);
         uniforms.putFloat(frame.celestialSine).putFloat(frame.celestialCosine).putFloat(frame.celestialVisibility).putFloat(frame.moonPhase);
-        uniforms.putFloat(frame.cloudRed).putFloat(frame.cloudGreen).putFloat(frame.cloudBlue).putFloat(frame.cloudMode);
-        uniforms.putFloat(frame.cloudX).putFloat(frame.cloudZ).putFloat(frame.cloudHeight).putFloat(frame.skyMode.ordinal());
         Vec3 lower = frame.lowerSkyColor;
         uniforms.putFloat((float) lower.xCoord()).putFloat((float) lower.yCoord()).putFloat((float) lower.zCoord())
                 .putFloat(frame.lowerSkyHeight);
         var skyFog = frame.skyFog;
         uniforms.putFloat(frame.skyFogMode).putFloat(skyFog == null ? 0 : skyFog.start())
                 .putFloat(skyFog == null ? 0 : skyFog.end()).putFloat(skyFog == null ? 0 : skyFog.density());
-        uniforms.putFloat(fog.mode()).putFloat(fog.start()).putFloat(fog.end()).putFloat(fog.density());
-        uniforms.putFloat(frame.cloudClipDistance).putFloat(customSky ? 1.0f : 0.0f);
+        if (cloud != null) {
+            prepareCloudMesh(cloud.mesh);
+            uniforms.putFloat(cloud.fogMode).putFloat(cloud.fog.start()).putFloat(cloud.fog.end()).putFloat(cloud.fog.density());
+            cloud.viewProjection.get(CLOUD_MATRIX_OFFSET, uniforms);
+        }
+        uniforms.position(CLOUD_MATRIX_OFFSET - 16);
+        uniforms.putFloat(frame.skyMode.ordinal()).putFloat(customSky ? 1.0f : 0.0f);
+    }
+
+    private void prepareCloudMesh(VulkanCloudMesh mesh) {
+        if (uploadedCloudMesh == mesh) {
+            return;
+        }
+        if (cloudVertexCapacity < mesh.byteSize()) {
+            VulkanBuffer replacement = VulkanBuffer.mapped(physicalDevice, device, mesh.byteSize(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
+            if (cloudVertices != null) {
+                cloudVertices.close();
+            }
+            cloudVertices = replacement;
+            cloudVertexCapacity = mesh.byteSize();
+        }
+        mesh.copyTo(cloudVertices.data());
+        uploadedCloudMesh = mesh;
     }
 
     private void upload(int index, NativeImage image, VkQueue queue, VkCommandBuffer commands, int addressMode) {
@@ -364,8 +414,13 @@ final class VulkanEnvironment implements AutoCloseable {
         }
     }
 
-    void drawClouds(MemoryStack stack, VkCommandBuffer commands) {
-        draw(stack, commands, clouds, 3, 1);
+    void drawClouds(MemoryStack stack, VkCommandBuffer commands, CloudFrame frame) {
+        vkCmdBindVertexBuffers(commands, 0, stack.longs(cloudVertices.handle()), stack.longs(0));
+        int vertices = frame.mesh.byteSize() / VulkanCloudMesh.STRIDE;
+        if (frame.fancy) {
+            draw(stack, commands, cloudDepth, vertices, 1);
+        }
+        draw(stack, commands, clouds, vertices, 1);
     }
 
     private void draw(MemoryStack stack, VkCommandBuffer commands, long pipeline, int vertices, int instances) {
@@ -403,6 +458,10 @@ final class VulkanEnvironment implements AutoCloseable {
             vkDestroyPipeline(device, clouds, null);
             clouds = 0;
         }
+        if (cloudDepth != 0) {
+            vkDestroyPipeline(device, cloudDepth, null);
+            cloudDepth = 0;
+        }
     }
 
     @Override
@@ -410,6 +469,7 @@ final class VulkanEnvironment implements AutoCloseable {
         pendingImages = null;
         destroyPipelines();
         if (starVertices != null) starVertices.close();
+        if (cloudVertices != null) cloudVertices.close();
         if (layout != 0) vkDestroyPipelineLayout(device, layout, null);
         if (descriptorPool != 0) vkDestroyDescriptorPool(device, descriptorPool, null);
         if (descriptorLayout != 0) vkDestroyDescriptorSetLayout(device, descriptorLayout, null);
@@ -430,15 +490,17 @@ final class VulkanEnvironment implements AutoCloseable {
         OVERWORLD, END, FOG
     }
 
+    record CloudFrame(VulkanCloudMesh mesh, Matrix4fc viewProjection, boolean fancy, int fogMode, GlStateManager.FogParameters fog) {
+    }
+
     record Frame(SkyMode skyMode, float skyExtent, float skyRed, float skyGreen, float skyBlue, float stars,
                  float sunriseRed, float sunriseGreen, float sunriseBlue, float sunriseAlpha,
                  float celestialSine, float celestialCosine, float celestialVisibility, int moonPhase,
-                 int cloudMode, boolean cloudsBeforeTerrain, float cloudRed, float cloudGreen, float cloudBlue, float cloudX, float cloudZ,
-                 float cloudHeight, float cloudClipDistance, float lowerSkyHeight, Vec3 lowerSkyColor, int skyFogMode,
+                 boolean cloudsBeforeTerrain, float lowerSkyHeight, Vec3 lowerSkyColor, int skyFogMode,
                  GlStateManager.FogParameters skyFog) {
         static Frame dimensionSky(SkyMode mode, float red, float green, float blue) {
             return new Frame(mode, 0, red, green, blue, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, false, 0, 0, 0, 0, 0, 0, 0, 0, new Vec3(0, 0, 0), 0, null);
+                    0, 0, 0, 0, false, 0, new Vec3(0, 0, 0), 0, null);
         }
     }
 }

@@ -1536,7 +1536,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         return view.posY + view.getEyeHeight() < 128.0D + this.mc.gameSettings.ofCloudsHeight * 128.0F;
     }
 
-    public float cloudClipDistance() {
+    private float cloudClipDistance() {
         return this.clipDistance * 4.0F;
     }
 

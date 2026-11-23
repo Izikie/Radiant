@@ -10,6 +10,7 @@ import static org.lwjgl.vulkan.VK10.*;
 
 final class VulkanGraphics {
     static final int NO_LOGIC_OP = -1;
+    private static final int WRITE_RGBA = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
 
     private VulkanGraphics() {
     }
@@ -41,7 +42,7 @@ final class VulkanGraphics {
         try {
             fragment = fragmentShader(stack, device, fragmentSource);
             return pipeline(stack, device, layout, colorFormat, depthFormat, topology, pass.state,
-                    vertexInput, vertex, fragment, 1.0f, NO_LOGIC_OP);
+                    vertexInput, vertex, fragment, 1.0f, NO_LOGIC_OP, pass == Pass.CLOUD_DEPTH ? 0 : WRITE_RGBA);
         } finally {
             if (fragment != 0) {
                 vkDestroyShaderModule(device, fragment, null);
@@ -52,13 +53,19 @@ final class VulkanGraphics {
 
     static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology, State state,
                          VkPipelineVertexInputStateCreateInfo vertexInput, long vertex, long fragment, float lineWidth, int logicOp) {
+        return pipeline(stack, device, layout, colorFormat, depthFormat, topology, state, vertexInput, vertex, fragment, lineWidth, logicOp, WRITE_RGBA);
+    }
+
+    private static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology, State state,
+                                 VkPipelineVertexInputStateCreateInfo vertexInput, long vertex, long fragment, float lineWidth, int logicOp,
+                                 int colorWriteMask) {
         VkPipelineShaderStageCreateInfo.Buffer stages = VkPipelineShaderStageCreateInfo.calloc(2, stack);
         stages.get(0).sType$Default().stage(VK_SHADER_STAGE_VERTEX_BIT).module(vertex).pName(stack.UTF8("main"));
         stages.get(1).sType$Default().stage(VK_SHADER_STAGE_FRAGMENT_BIT).module(fragment).pName(stack.UTF8("main"));
         VkPipelineRenderingCreateInfo rendering = VkPipelineRenderingCreateInfo.calloc(stack).sType$Default()
                 .pColorAttachmentFormats(stack.ints(colorFormat)).depthAttachmentFormat(depthFormat);
         VkPipelineColorBlendAttachmentState.Buffer blend = VkPipelineColorBlendAttachmentState.calloc(1, stack);
-        blend.get(0).colorWriteMask(VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT);
+        blend.get(0).colorWriteMask(colorWriteMask);
         VkPipelineRasterizationStateCreateInfo rasterization = VkPipelineRasterizationStateCreateInfo.calloc(stack)
                 .sType$Default().lineWidth(lineWidth);
         if (logicOp == NO_LOGIC_OP && state.blend != null) {
@@ -110,6 +117,7 @@ final class VulkanGraphics {
         SKY_ADDITIVE_OVERLAY(new State(false, false, VK_COMPARE_OP_ALWAYS, VK_CULL_MODE_NONE,
                 new Blend(VK_BLEND_FACTOR_ONE, VK_BLEND_FACTOR_ONE, VK_BLEND_FACTOR_ONE, VK_BLEND_FACTOR_ZERO), null)),
         BLENDED_DEPTH_WRITE(true, true, true, false),
+        CLOUD_DEPTH(true, true, false, false),
         OBJECT_OVERLAY(false, false, true, false);
 
         final State state;

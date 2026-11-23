@@ -5,19 +5,20 @@ layout(std140, set = 0, binding = 0) uniform Environment {
     vec4 skyColor;
     vec4 sunrise;
     vec4 celestial;
-    vec4 cloudColor;
-    vec4 cloudOffset;
     vec4 lowerSky;
     vec4 skyFog;
     vec4 cloudFog;
-    float cloudClipDistance;
+    float skyMode;
     float customSky;
 } env;
 layout(set = 0, binding = 1) uniform sampler2D clouds;
 layout(set = 0, binding = 2) uniform sampler2D sun;
 layout(set = 0, binding = 3) uniform sampler2D moon;
 layout(set = 0, binding = 4) uniform sampler2D endSky;
-#if END_SKY_PASS
+#if CLOUD_PASS
+layout(location = 0) in vec2 uv;
+layout(location = 1) in vec4 cloudTint;
+#elif END_SKY_PASS
 layout(location = 0) in vec2 uv;
 #elif LOWER_SKY_PASS
 layout(location = 0) in float fogDepth;
@@ -69,121 +70,19 @@ void main() {
     float brightness = env.fogAndStars.a;
     color = vec4(outputColor(vec3(brightness)), brightness);
 }
+#elif CLOUD_PASS
+void main() {
+    vec4 texel = texture(clouds, uv) * cloudTint;
+    if (texel.a <= 0.1) discard;
+    vec3 rgb = mix(env.fogAndStars.rgb, texel.rgb, fogVisibility(env.cloudFog, 1.0 / gl_FragCoord.w));
+    color = vec4(outputColor(rgb), texel.a);
+}
 #else
 vec3 unproject(float depth) {
     vec4 relative = env.inverseViewProjection * vec4(ndc.x, -ndc.y, depth, 1.0);
     return relative.xyz / relative.w;
 }
 
-#if CLOUD_PASS
-vec4 traceCloud(vec3 origin, vec3 ray, float range, out float distance, out float shade) {
-    float base = env.cloudOffset.z;
-    shade = 1.0;
-    distance = range;
-    if (env.cloudColor.a < 2.0) {
-        if (abs(ray.y) < 1e-6) return vec4(0.0);
-        distance = (base - origin.y) / ray.y;
-        if (distance <= 0.0 || distance >= range) {
-            return vec4(0.0);
-        }
-        vec2 point = origin.xz + ray.xz * distance;
-        if (any(greaterThan(abs(point), vec2(256.0)))) {
-            return vec4(0.0);
-        }
-        vec2 uv = (point + env.cloudOffset.xy) / 2048.0;
-        return textureLod(clouds, fract(uv), 0.0);
-    }
-
-    // Fancy clouds are a four-block slab with one solid column for each covered texture cell.
-    float entry = 0.0;
-    float exitDistance = range;
-    if (abs(ray.y) < 1e-6) {
-        if (origin.y < base || origin.y > base + 4.0) return vec4(0.0);
-    } else {
-        float bottom = (base - origin.y) / ray.y;
-        float top = (base + 4.0 - origin.y) / ray.y;
-        entry = max(entry, min(bottom, top));
-        exitDistance = min(exitDistance, max(bottom, top));
-    }
-    // The fancy cloud mesh spans eight tiles per axis, starting three tiles behind its origin.
-    vec2 tileOffset = mod(env.cloudOffset.xy, 12.0);
-    vec2 lower = vec2(-288.0) - tileOffset;
-    vec2 upper = vec2(480.0) - tileOffset;
-    for (int axis = 0; axis < 2; axis++) {
-        float direction = ray.xz[axis];
-        float start = origin.xz[axis];
-        if (abs(direction) < 1e-6) {
-            if (start < lower[axis] || start > upper[axis]) return vec4(0.0);
-        } else {
-            float a = (lower[axis] - start) / direction;
-            float b = (upper[axis] - start) / direction;
-            entry = max(entry, min(a, b));
-            exitDistance = min(exitDistance, max(a, b));
-        }
-    }
-    if (entry >= exitDistance) {
-        return vec4(0.0);
-    }
-    shade = ray.y > 0.0 ? 0.7 : 1.0;
-    vec2 size = vec2(textureSize(clouds, 0));
-    vec2 gridScale = size / 3072.0;
-    vec2 speed = ray.xz * gridScale;
-    vec2 stepDirection = sign(speed);
-    vec2 grid = (origin.xz + ray.xz * entry + env.cloudOffset.xy) * gridScale;
-    vec2 cell = floor(grid);
-    vec2 next = vec2(1e8);
-    vec2 stepDistance = vec2(1e8);
-    for (int axis = 0; axis < 2; axis++) {
-        if (abs(speed[axis]) > 0.000001) {
-            if (speed[axis] < 0.0 && grid[axis] == cell[axis]) {
-                cell[axis] -= 1.0;
-            }
-            float boundary = cell[axis] + (speed[axis] > 0.0 ? 1.0 : 0.0);
-            next[axis] = entry + (boundary - grid[axis]) / speed[axis];
-            stepDistance[axis] = abs(1.0 / speed[axis]);
-        }
-    }
-    distance = entry;
-    for (int i = 0; i < 128 && distance < exitDistance; i++) {
-        float boundary = min(next.x, next.y);
-        if (distance < boundary) {
-            vec4 texel = textureLod(clouds, fract((cell + 0.5) / size), 0.0);
-            if (texel.a * 0.8 > 0.1) return texel;
-        }
-        // Cross both grid lines at a corner so the ray never samples a cell it only touches.
-        bvec2 crossing = lessThanEqual(next, vec2(boundary + max(1e-5, boundary * 1e-6)));
-        next += mix(vec2(0.0), stepDistance, crossing);
-        cell += mix(vec2(0.0), stepDirection, crossing);
-        distance = max(distance, boundary);
-        shade = crossing.x ? 0.9 : 0.8;
-    }
-    return vec4(0.0);
-}
-
-void main() {
-    vec3 origin = unproject(-1.0);
-    vec3 span = unproject(1.0) - origin;
-    vec3 ray = normalize(span);
-    const float nearPlane = 0.05;
-    vec3 depthAxis = vec3(env.viewProjection[0].w, env.viewProjection[1].w, env.viewProjection[2].w);
-    float range = (env.cloudClipDistance - nearPlane) / dot(depthAxis, ray);
-    float distance;
-    float shade;
-    vec4 texel = traceCloud(origin, ray, range, distance, shade);
-    float alpha = texel.a * 0.8;
-    if (alpha <= 0.1) {
-        discard;
-    }
-    vec4 clip = env.viewProjection * vec4(origin + ray * distance, 1.0);
-    // Clouds use the same view and field of view with a farther clipping plane than terrain.
-    gl_FragDepth = clamp((1.0 - nearPlane / clip.w) * env.cloudClipDistance
-            / (env.cloudClipDistance - nearPlane), 0.0, 1.0);
-    // The legacy cloud mesh stores its shaded tint in unsigned bytes before texturing and fog.
-    vec3 tint = floor(clamp(env.cloudColor.rgb * shade, 0.0, 1.0) * 255.0) / 255.0;
-    vec3 rgb = mix(env.fogAndStars.rgb, tint * texel.rgb, fogVisibility(env.cloudFog, clip.w));
-    color = vec4(outputColor(rgb), alpha);
-}
-#else
 vec4 celestialDisc(sampler2D image, vec2 uv, vec2 tile, vec2 sheet) {
     if (any(lessThan(uv, vec2(0.0))) || any(greaterThanEqual(uv, vec2(1.0)))) {
         return vec4(0.0);
@@ -231,7 +130,7 @@ vec3 celestialColor(vec3 origin, vec3 ray) {
 }
 
 void main() {
-    if (env.cloudOffset.w == 2.0) {
+    if (env.skyMode == 2.0) {
         color = vec4(outputColor(env.fogAndStars.rgb), 1.0);
         return;
     }
@@ -247,6 +146,5 @@ void main() {
     color = vec4(outputColor(rgb), 1.0);
     #endif
 }
-#endif
 #endif
 #endif

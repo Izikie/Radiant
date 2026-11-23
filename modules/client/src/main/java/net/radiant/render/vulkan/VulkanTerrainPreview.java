@@ -58,6 +58,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     private boolean windowVisible;
     private boolean skippedOpenGlUpload;
     private VulkanTerrainScene.Frame pendingFrame;
+    private VulkanEnvironment.CloudFrame clouds;
     private long frames;
     private long drawCalls;
 
@@ -70,6 +71,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         openIfNeeded(mc);
         if (active != null) {
             active.objects.reset();
+            active.clouds = null;
         }
     }
 
@@ -205,7 +207,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     }
 
     public static Extraction extract(Minecraft mc, Entity view, double x, double y, double z, float partialTicks,
-                                     int cloudTick, Matrix4fc projection, Matrix4fc viewMatrix, int[] lightmap,
+                                     Matrix4fc projection, Matrix4fc viewMatrix, int[] lightmap,
                                      GlStateManager.FogParameters skyFog) {
         VulkanTerrainPreview preview = active;
         if (preview == null) {
@@ -218,7 +220,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.atlasDirty = false;
         }
         Matrix4f viewProjection = projection.mul(viewMatrix, new Matrix4f());
-        VulkanEnvironment.Frame environment = captureEnvironment(mc, view, x, y, z, partialTicks, cloudTick, skyFog);
+        VulkanEnvironment.Frame environment = captureEnvironment(mc, view, partialTicks, skyFog);
         return new Extraction(preview, x, y, z, viewProjection, lightmap.clone(), captureFog(mc),
                 environment, Config.isRenderRegions(), mc.displayWidth, mc.displayHeight);
     }
@@ -234,6 +236,15 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         }
         preview.objects.begin(null, 0, VulkanObjectCapture.Phase.CUSTOM_SKY, GlStateManager.projectionMatrix());
         return true;
+    }
+
+    public static void captureClouds(VulkanCloudMesh mesh, boolean fancy) {
+        var preview = active;
+        if (preview != null && preview.clouds == null) {
+            Matrix4f matrix = GlStateManager.projectionMatrix().mul(GlStateManager.modelViewMatrix(), new Matrix4f());
+            var fog = GlStateManager.fogParameters();
+            preview.clouds = new VulkanEnvironment.CloudFrame(mesh, matrix, fancy, fogMode(fog), fog);
+        }
     }
 
     public static boolean beginParticles(int[] lightmap, int atlas) {
@@ -363,8 +374,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         return snapshot != null ? snapshot : NativeImage.loadFromResourceLocation(location);
     }
 
-    private static VulkanEnvironment.Frame captureEnvironment(Minecraft mc, Entity view, double x, double y, double z,
-                                                               float partialTicks, int cloudTick, GlStateManager.FogParameters skyFog) {
+    private static VulkanEnvironment.Frame captureEnvironment(Minecraft mc, Entity view, float partialTicks,
+                                                               GlStateManager.FogParameters skyFog) {
         var world = mc.world;
         if (world.provider.getDimensionId() == 1 && Config.isSkyEnabled()) {
             Vec3 tint = new Vec3(40.0 / 255.0, 40.0 / 255.0, 40.0 / 255.0);
@@ -384,12 +395,6 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         float stars = Config.isStarsEnabled() && !CustomSky.hasSkyLayers(world)
                 ? world.getStarBrightness(partialTicks) * rainVisibility : 0;
         float[] sunrise = Config.isSunMoonEnabled() ? world.provider.calcSunriseSunsetColors(angle, partialTicks) : null;
-        int mode = Config.isCloudsOff() || mc.gameSettings.renderDistanceChunks < 4 ? 0 : Config.isCloudsFancy() ? 2 : 1;
-        Vec3 cloudColor = mode == 0 ? new Vec3(0, 0, 0) : world.getCloudColour(partialTicks);
-        double period = mode == 2 ? 3072.0 : 2048.0;
-        float cloudX = wrapCloudOffset(x + (cloudTick + partialTicks) * 0.03, period);
-        float cloudZ = wrapCloudOffset(z + (mode == 2 ? 3.96 : 0.0), period);
-        float cloudHeight = (float) (world.provider.getCloudHeight() + mc.gameSettings.ofCloudsHeight * 128 + 0.33 - y);
         int chunks = mc.gameSettings.renderDistanceChunks;
         float skyExtent = Config.isSkyEnabled() ? (chunks / 4 + 2) * 64 : 0;
         float lowerHeight = (float) (world.getHorizon() - mc.player.getPositionEyes(partialTicks).yCoord());
@@ -404,13 +409,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
                 stars, sunrise == null ? 0 : sunrise[0], sunrise == null ? 0 : sunrise[1],
                 sunrise == null ? 0 : sunrise[2], sunrise == null ? 0 : sunrise[3],
                 (float) Math.sin(radians), (float) Math.cos(radians), Config.isSunMoonEnabled() ? rainVisibility : 0, world.getMoonPhase(),
-                mode, mc.entityRenderer.cloudsBeforeTerrain(view),
-                (float) cloudColor.xCoord(), (float) cloudColor.yCoord(), (float) cloudColor.zCoord(), cloudX, cloudZ, cloudHeight,
-                mc.entityRenderer.cloudClipDistance(), lowerHeight, lowerColor, skyFog == null ? 0 : fogMode(skyFog), skyFog);
-    }
-
-    private static float wrapCloudOffset(double position, double period) {
-        return (float) (position - Math.floor(position / period) * period);
+                mc.entityRenderer.cloudsBeforeTerrain(view), lowerHeight, lowerColor, skyFog == null ? 0 : fogMode(skyFog), skyFog);
     }
 
     private static VulkanTerrainScene.Fog captureFog(Minecraft mc) {
@@ -487,7 +486,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         if (frame == null) {
             return;
         }
-        preview.terrain.setFrame(frame);
+        preview.terrain.setFrame(frame, preview.clouds);
         try {
             VulkanTerrainScene.Fog fog = frame.fog();
             VulkanPresenter.FrameCapture capture = null;
@@ -536,7 +535,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
                         preview.objects.screenTriangles(), preview.objects.screenItemTriangles(), preview.objects.screenGlyphs());
             }
         } finally {
-            preview.terrain.setFrame(null);
+            preview.terrain.setFrame(null, null);
         }
     }
 

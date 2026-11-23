@@ -34,6 +34,7 @@ final class VulkanTerrainScene implements VulkanScene {
     private VulkanTexture atlas;
     private Atlas pendingAtlas;
     private Frame frame;
+    private VulkanEnvironment.CloudFrame clouds;
     private int drawCalls;
     private int quads;
     private int cutoutQuads;
@@ -97,7 +98,7 @@ final class VulkanTerrainScene implements VulkanScene {
             atlasUpdates.record(stack, physicalDevice, device, commands, atlas);
             objects.collectTextureUpdates(textureUpdates);
             if (frame != null && frame.environment != null) {
-                environment.collectTextureUpdates(textureUpdates, frame.environment);
+                environment.collectTextureUpdates(textureUpdates, frame.environment, clouds != null);
             }
             textureUpdates.record(stack, physicalDevice, device, commands);
         }
@@ -132,8 +133,9 @@ final class VulkanTerrainScene implements VulkanScene {
         outlines.recordMask(stack, commands, width, height, view.width, view.height, objects, objectCapture, frame.fog);
     }
 
-    void setFrame(Frame frame) {
+    void setFrame(Frame frame, VulkanEnvironment.CloudFrame clouds) {
         this.frame = frame;
+        this.clouds = clouds;
         drawCalls = 0;
         quads = 0;
         cutoutQuads = 0;
@@ -165,7 +167,7 @@ final class VulkanTerrainScene implements VulkanScene {
             pipeline.updateFrame(frame.viewProjection, frame.lightmap, frame.fog);
             objects.prepare(queue, commands, objectCapture, atlas);
             if (frame.environment != null) {
-                environment.prepare(queue, commands, frame.viewProjection, frame.fog, frame.environment, hasCustomSky());
+                environment.prepare(queue, commands, frame.viewProjection, frame.fog, frame.environment, clouds, hasCustomSky());
             }
         }
     }
@@ -183,10 +185,10 @@ final class VulkanTerrainScene implements VulkanScene {
             environment.drawSky(stack, commands, frame.environment, customSky);
             skyModeDrawn = frame.environment.skyMode();
         }
-        boolean drawClouds = frame.environment != null && frame.environment.cloudMode() != 0;
+        boolean drawClouds = frame.environment != null && clouds != null;
         boolean cloudsBeforeTerrain = drawClouds && frame.environment.cloudsBeforeTerrain();
         if (cloudsBeforeTerrain) {
-            environment.drawClouds(stack, commands);
+            environment.drawClouds(stack, commands, clouds);
         }
         pipeline.begin(stack, commands);
         drawCalls = pipeline.draw(stack, commands, frame.opaque, false);
@@ -194,7 +196,7 @@ final class VulkanTerrainScene implements VulkanScene {
         pipeline.begin(stack, commands);
         drawCalls += pipeline.draw(stack, commands, frame.translucent, true);
         if (drawClouds && !cloudsBeforeTerrain) {
-            environment.drawClouds(stack, commands);
+            environment.drawClouds(stack, commands, clouds);
         }
         cloudsDrawn = drawClouds;
         drawOverlay(stack, commands, width, height, VulkanObjectCapture.Layer.FIRST_PERSON);

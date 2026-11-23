@@ -3,13 +3,18 @@ package net.optifine.render;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3;
+import net.radiant.render.vulkan.VulkanCloudMesh;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 import org.lwjgl.opengl.GL11;
 
 public class CloudRenderer {
     private final Minecraft mc;
     private final int glListClouds;
+    private final VulkanCloudMesh.Builder vulkanBuilder = VulkanTerrainPreview.ENABLED ? new VulkanCloudMesh.Builder() : null;
+    private VulkanCloudMesh vulkanMesh;
     int cloudTickCounter;
     float partialTicks;
     private boolean updated = false;
@@ -59,8 +64,18 @@ public class CloudRenderer {
         GL11.glNewList(this.glListClouds, GL11.GL_COMPILE);
     }
 
+    public void drawMesh(Tessellator tessellator) {
+        if (this.vulkanBuilder != null) {
+            this.vulkanBuilder.append(tessellator.getWorldRenderer());
+        }
+        tessellator.draw();
+    }
+
     public void endUpdateGlList() {
         GL11.glEndList();
+        if (this.vulkanBuilder != null) {
+            this.vulkanMesh = this.vulkanBuilder.finish();
+        }
         this.updateRenderFancy = this.renderFancy;
         this.updateCloudTickCounter = this.cloudTickCounter;
         this.updateCloudColor = this.cloudColor;
@@ -88,6 +103,9 @@ public class CloudRenderer {
             GlStateManager.translate(-f, -f1, -f2);
         }
 
+        if (this.vulkanMesh != null) {
+            VulkanTerrainPreview.captureClouds(this.vulkanMesh, this.renderFancy);
+        }
         GlStateManager.callList(this.glListClouds);
         GlStateManager.popMatrix();
         GlStateManager.resetColor();
