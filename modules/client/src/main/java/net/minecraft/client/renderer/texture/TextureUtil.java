@@ -6,21 +6,25 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.Config;
 import net.optifine.Mipmaps;
+import net.radiant.render.TextureBackend;
+import net.radiant.render.TextureHandle;
+import net.radiant.render.opengl.OpenGlTextureBackend;
 import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.radiant.util.NativeImage;
 import org.apache.commons.io.IOUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-import org.lwjgl.opengl.GL14;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
 public class TextureUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(TextureUtil.class);
+    private static final TextureBackend BACKEND = new OpenGlTextureBackend();
     private static final IntBuffer DATA_BUFFER = GLAllocation.createDirectIntBuffer(4194304);
     public static final DynamicTexture MISSING_TEXTURE = new DynamicTexture(16, 16);
     public static final int[] MISSING_TEXTURE_DATA = MISSING_TEXTURE.getTextureData();
@@ -28,11 +32,11 @@ public class TextureUtil {
     private static final int[] DATA_ARRAY = new int[4194304];
 
     public static int glGenTextures() {
-        return GlStateManager.generateTexture();
+        return BACKEND.create().legacyId();
     }
 
     public static void deleteTexture(int textureId) {
-        GlStateManager.deleteTexture(textureId);
+        BACKEND.delete(new TextureHandle(textureId));
     }
 
     public static int uploadTextureImage(int p_110987_0_, NativeImage p_110987_1_) {
@@ -117,7 +121,7 @@ public class TextureUtil {
             j = Math.min(i, p_147947_3_ - l);
             int i1 = p_147947_2_ * j;
             copyToBufferPos(p_147947_1_, k, i1);
-            GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, p_147947_0_, p_147947_4_, p_147947_5_ + l, p_147947_2_, j, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, DATA_BUFFER);
+            BACKEND.uploadBoundArgb(p_147947_0_, p_147947_4_, p_147947_5_ + l, p_147947_2_, j, DATA_BUFFER);
         }
     }
 
@@ -140,16 +144,12 @@ public class TextureUtil {
             bindTexture(p_180600_0_);
         }
 
-        if (p_180600_1_ >= 0) {
-            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL12.GL_TEXTURE_MAX_LEVEL, p_180600_1_);
-            GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL12.GL_TEXTURE_MIN_LOD, 0.0F);
-            GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL12.GL_TEXTURE_MAX_LOD, p_180600_1_);
-            GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, 0.0F);
-        }
+        BACKEND.allocateBound(p_180600_1_, p_180600_2_, p_180600_3_);
+    }
 
-        for (int i = 0; i <= p_180600_1_; ++i) {
-            GL11.glTexImage2D(GL11.GL_TEXTURE_2D, i, GL11.GL_RGBA, p_180600_2_ >> i, p_180600_3_ >> i, 0, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, (IntBuffer) null);
-        }
+    public static void uploadTextureRgba(int textureId, int x, int y, int width, int height, ByteBuffer pixels) {
+        bindTexture(textureId);
+        BACKEND.uploadBoundRgba(0, x, y, width, height, pixels);
     }
 
     public static int uploadTextureImageSub(int textureId, NativeImage p_110995_1_, int p_110995_2_, int p_110995_3_, boolean p_110995_4_, boolean p_110995_5_) {
@@ -175,7 +175,7 @@ public class TextureUtil {
             int k1 = i * j1;
             image.getRGB(0, i1, i, j1, aint, 0, i);
             copyToBuffer(aint, k1);
-            GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, 0, p_110993_1_, p_110993_2_ + i1, i, j1, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, DATA_BUFFER);
+            BACKEND.uploadBoundArgb(0, p_110993_1_, p_110993_2_ + i1, i, j1, DATA_BUFFER);
         }
     }
 
@@ -218,7 +218,7 @@ public class TextureUtil {
     }
 
     static void bindTexture(int p_94277_0_) {
-        GlStateManager.bindTexture(p_94277_0_);
+        BACKEND.bind(new TextureHandle(p_94277_0_));
     }
 
     public static int[] readImageData(IResourceManager resourceManager, ResourceLocation imageLocation) throws IOException {

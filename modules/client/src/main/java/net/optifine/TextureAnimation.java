@@ -1,12 +1,11 @@
 package net.optifine;
 
 import net.minecraft.client.renderer.GLAllocation;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.ITextureObject;
+import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.util.TextureUtils;
 import net.radiant.render.vulkan.VulkanTerrainPreview;
-import org.lwjgl.opengl.GL11;
 
 import java.nio.ByteBuffer;
 import java.util.Properties;
@@ -190,9 +189,7 @@ public class TextureAnimation {
     }
 
     private void uploadFrame(ByteBuffer pixels) {
-        GlStateManager.bindTexture(this.dstTextId);
-        GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, 0, this.dstX, this.dstY, this.frameWidth, this.frameHeight,
-                GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, pixels);
+        TextureUtil.uploadTextureRgba(this.dstTextId, this.dstX, this.dstY, this.frameWidth, this.frameHeight, pixels);
         if (VulkanTerrainPreview.ENABLED) {
             VulkanTerrainPreview.updateAnimatedTextureRegion(this.dstTexLoc, this.dstTextId, this.dstX, this.dstY,
                     this.frameWidth, this.frameHeight, pixels);
