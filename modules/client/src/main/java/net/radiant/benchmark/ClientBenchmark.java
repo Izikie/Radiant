@@ -32,6 +32,8 @@ import java.util.concurrent.TimeUnit;
 public final class ClientBenchmark {
     public static final boolean ENABLED = Boolean.getBoolean("radiant.benchmark");
     public static final boolean COMPARE_FRAMES = ENABLED && Boolean.getBoolean("radiant.benchmark.compare");
+    public static final boolean CAPTURE_REFERENCE = ENABLED && Boolean.getBoolean("radiant.benchmark.captureReference");
+    public static final boolean FIXED_CAPTURE = Boolean.getBoolean("radiant.benchmark.fixedCapture");
     static final boolean ENTITY_DAMAGE = ENABLED && Boolean.getBoolean("radiant.benchmark.entityDamage");
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ClientBenchmark.class);
@@ -77,14 +79,37 @@ public final class ClientBenchmark {
         }
     }
 
-    public static void beforeRender(Minecraft mc) {
+    private static boolean fixedCaptureFrame;
+
+    public static float beforeRender(Minecraft mc, float partialTicks) {
+        fixedCaptureFrame = false;
         if (suite != null) {
             suite.beforeRender(mc);
+            if (FIXED_CAPTURE && suite.wantsFrameComparison(mc)) {
+                suite.fixCaptureCamera(mc);
+                fixedCaptureFrame = true;
+                return 0.25F;
+            }
+        }
+        return partialTicks;
+    }
+
+    public static void captureReference(Minecraft mc, float partialTicks) {
+        if (CAPTURE_REFERENCE && captureReady(mc)) {
+            suite.saveFrameComparison(mc, partialTicks, null);
         }
     }
 
+    public static long borderTextureTime(long time) {
+        return fixedCaptureFrame ? 750L : time;
+    }
+
     public static boolean wantsFrameComparison(Minecraft mc) {
-        return COMPARE_FRAMES && suite != null && suite.wantsFrameComparison(mc);
+        return COMPARE_FRAMES && captureReady(mc);
+    }
+
+    private static boolean captureReady(Minecraft mc) {
+        return (!FIXED_CAPTURE || fixedCaptureFrame) && suite != null && suite.wantsFrameComparison(mc);
     }
 
     public static void saveFrameComparison(Minecraft mc, float partialTicks, NativeImage vulkan) {

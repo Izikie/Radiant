@@ -89,7 +89,7 @@ final class BenchmarkSuite {
 
     private BenchmarkSuite(Minecraft mc, String folder, boolean exitAfterSuite) {
         server = mc.getIntegratedServer();
-        comparisonDir = ClientBenchmark.COMPARE_FRAMES ? Path.of(folder) : null;
+        comparisonDir = ClientBenchmark.COMPARE_FRAMES || ClientBenchmark.CAPTURE_REFERENCE ? Path.of(folder) : null;
         this.exitAfterSuite = exitAfterSuite;
         originalPerspective = mc.gameSettings.thirdPersonView;
         originalPauseOnLostFocus = mc.gameSettings.pauseOnLostFocus;
@@ -205,7 +205,7 @@ final class BenchmarkSuite {
                         if (comparison == null) {
                             comparison = new JsonObject();
                             comparison.addProperty("status", "unavailable");
-                            comparison.addProperty("reason", "No matching OpenGL and Vulkan frame was available");
+                            comparison.addProperty("reason", "No eligible frame was captured");
                         }
                         result.add("comparison", comparison);
                     }
@@ -352,7 +352,7 @@ final class BenchmarkSuite {
     }
 
     boolean wantsFrameComparison(Minecraft mc) {
-        if (stage != Stage.CAPTURING || comparison != null || world != mc.world || mc.player == null
+        if (comparisonDir == null || stage != Stage.CAPTURING || comparison != null || world != mc.world || mc.player == null
                 || mc.displayWidth != width || mc.displayHeight != height
                 || Display.getFramebufferWidth() < width || Display.getFramebufferHeight() < height
                 || mc.currentScreen != inventory) {
@@ -363,13 +363,25 @@ final class BenchmarkSuite {
                 && ClientBenchmark.phaseElapsedNanos() >= TimeUnit.MILLISECONDS.toNanos(Math.min(seconds * 500L, 1_000L));
     }
 
+    void fixCaptureCamera(Minecraft mc) {
+        Phase phase = ROUTE[routeIndex];
+        mc.player.rotationYaw = mc.player.prevRotationYaw = phase.yaw;
+        mc.player.rotationPitch = mc.player.prevRotationPitch = phase.pitch;
+    }
+
     void saveFrameComparison(Minecraft mc, float partialTicks, NativeImage vulkan) {
         String scenario = ROUTE[routeIndex].scenario;
         comparison = new JsonObject();
         try {
-            BenchmarkFrameComparison.save(comparisonDir.resolve(scenario), vulkan, comparison);
+            if (vulkan == null) {
+                BenchmarkFrameComparison.saveReference(comparisonDir.resolve(scenario), width, height, comparison);
+            } else {
+                BenchmarkFrameComparison.save(comparisonDir.resolve(scenario), vulkan, comparison);
+            }
             comparison.addProperty("status", "captured");
             comparison.addProperty("worldTick", world.getTotalWorldTime());
+            comparison.addProperty("worldTime", world.getWorldTime());
+            comparison.addProperty("fixedCapture", ClientBenchmark.FIXED_CAPTURE);
             comparison.addProperty("partialTicks", partialTicks);
             comparison.addProperty("yaw", mc.player.rotationYaw);
             comparison.addProperty("pitch", mc.player.rotationPitch);

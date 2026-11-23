@@ -83,6 +83,14 @@ tasks.withType<JavaExec>().configureEach {
         }
         systemProperty("radiant.benchmark.compare", "true")
     }
+    if (name == "RunClientBenchmark" && providers.gradleProperty("benchmarkCaptureReference").orNull == "true") {
+        doFirst {
+            require(!compareFrames && !vulkanTerrainOnly && providers.gradleProperty("vulkanTerrain").orNull != "true") {
+                "benchmarkCaptureReference requires an OpenGL-only run."
+            }
+        }
+        systemProperty("radiant.benchmark.captureReference", "true")
+    }
     if ((name == "RunClient" || name == "RunClientBenchmark") &&
         (compareFrames || vulkanTerrainOnly || providers.gradleProperty("vulkanTerrain").orNull == "true")) {
         systemProperty("radiant.vulkan.terrain", "true")
@@ -124,6 +132,7 @@ tasks.register<JavaExec>("RunClientBenchmark") {
         "benchmarkWarmup" to "warmup",
         "benchmarkSeconds" to "seconds",
         "benchmarkAutoStart" to "autoStart",
+        "benchmarkFixedCapture" to "fixedCapture",
         "benchmarkEntityHitboxes" to "entityHitboxes",
         "benchmarkEntityDamage" to "entityDamage"
     ).forEach { (property, option) ->

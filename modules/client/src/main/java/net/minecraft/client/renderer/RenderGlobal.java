@@ -1822,7 +1822,11 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
             GlStateManager.enableAlpha();
             GlStateManager.disableCull();
-            float f3 = (Minecraft.getSystemTime() % 3000L) / 3000.0F;
+            long textureTime = Minecraft.getSystemTime();
+            if (ClientBenchmark.ENABLED) {
+                textureTime = ClientBenchmark.borderTextureTime(textureTime);
+            }
+            float f3 = (textureTime % 3000L) / 3000.0F;
             worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
             worldrenderer.setTranslation(-d2, -d3, -d4);
             double d5 = Math.max(MathHelper.floor(d4 - d0), worldborder.minZ());

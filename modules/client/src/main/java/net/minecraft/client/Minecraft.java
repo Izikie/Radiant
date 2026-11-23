@@ -830,11 +830,12 @@ public class Minecraft implements IThreadListener {
         }
 
 
+        float renderPartialTicks = timer.renderPartialTicks;
         if (ClientBenchmark.ENABLED) {
-            ClientBenchmark.beforeRender(this);
+            renderPartialTicks = ClientBenchmark.beforeRender(this, renderPartialTicks);
         }
         if (!skipRenderWorld) {
-            entityRenderer.updateCameraAndRender(timer.renderPartialTicks, i);
+            entityRenderer.updateCameraAndRender(renderPartialTicks, i);
         }
 
         guiAchievement.updateAchievementWindow();
@@ -847,6 +848,9 @@ public class Minecraft implements IThreadListener {
 
         if (VulkanTerrainPreview.ENABLED) {
             VulkanTerrainPreview.present();
+        }
+        if (ClientBenchmark.CAPTURE_REFERENCE && !skipRenderWorld) {
+            ClientBenchmark.captureReference(this, renderPartialTicks);
         }
         updateDisplay();
         if (ClientBenchmark.ENABLED) {

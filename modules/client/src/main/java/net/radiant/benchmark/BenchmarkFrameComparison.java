@@ -19,6 +19,14 @@ final class BenchmarkFrameComparison {
     private BenchmarkFrameComparison() {
     }
 
+    static void saveReference(Path relativeDir, int width, int height, JsonObject result) throws IOException {
+        Path directory = Files.createDirectories(Path.of("benchmarks").resolve(relativeDir));
+        writePng(readOpenGl(width, height), directory.resolve("opengl.png"));
+        result.addProperty("opengl", relativeDir.toString().replace(File.separatorChar, '/') + "/opengl.png");
+        result.addProperty("width", width);
+        result.addProperty("height", height);
+    }
+
     static void save(Path relativeDir, NativeImage vulkan, JsonObject result) throws IOException {
         int width = vulkan.getWidth();
         int height = vulkan.getHeight();
