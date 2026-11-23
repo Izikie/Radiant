@@ -54,6 +54,9 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3;
 import net.radiant.benchmark.ClientBenchmark;
+import net.radiant.render.TerrainDrawSubmitter;
+import net.radiant.render.opengl.OpenGlTerrainDrawSubmitter;
+import net.radiant.render.vulkan.VulkanPreviewTerrainDrawSubmitter;
 import net.radiant.render.vulkan.VulkanObjectCapture;
 import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.minecraft.world.IWorldAccess;
@@ -121,7 +124,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private double lastViewEntityPitch = Double.MIN_VALUE;
     private double lastViewEntityYaw = Double.MIN_VALUE;
     private final ChunkRenderDispatcher renderDispatcher = new ChunkRenderDispatcher();
-    private ChunkRenderContainer renderContainer;
+    private TerrainDrawSubmitter terrainDraws;
     private int renderDistanceChunks = -1;
     private int renderEntitiesStartupCounter = 2;
     private int countEntitiesTotal;
@@ -168,19 +171,18 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         this.updateDestroyBlockIcons();
         this.vboEnabled = OpenGlHelper.useVbo();
 
-        if (this.vboEnabled) {
-            this.renderContainer = new VboRenderList();
-            this.renderChunkFactory = new VboChunkFactory();
-        } else {
-            this.renderContainer = new RenderList();
-            this.renderChunkFactory = new ListChunkFactory();
-        }
+        this.configureTerrainDrawing();
 
         this.vertexBufferFormat = new VertexFormat();
         this.vertexBufferFormat.addElement(new VertexFormatElement(0, VertexFormatElement.EnumType.FLOAT, VertexFormatElement.EnumUsage.POSITION, 3));
         this.generateStars();
         this.generateSky();
         this.generateSky2();
+    }
+
+    private void configureTerrainDrawing() {
+        this.terrainDraws = VulkanPreviewTerrainDrawSubmitter.wrapIfEnabled(new OpenGlTerrainDrawSubmitter(this.mc, this.vboEnabled));
+        this.renderChunkFactory = this.vboEnabled ? new VboChunkFactory() : new ListChunkFactory();
     }
 
     @Override
@@ -444,12 +446,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             boolean flag = this.vboEnabled;
             this.vboEnabled = OpenGlHelper.useVbo();
 
-            if (flag && !this.vboEnabled) {
-                this.renderContainer = new RenderList();
-                this.renderChunkFactory = new ListChunkFactory();
-            } else if (!flag && this.vboEnabled) {
-                this.renderContainer = new VboRenderList();
-                this.renderChunkFactory = new VboChunkFactory();
+            if (flag != this.vboEnabled) {
+                this.configureTerrainDrawing();
             }
 
             this.generateStars();
@@ -802,7 +800,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         double xPos = viewEntity.lastTickPosX + (viewEntity.posX - viewEntity.lastTickPosX) * partialTicks;
         double yPos = viewEntity.lastTickPosY + (viewEntity.posY - viewEntity.lastTickPosY) * partialTicks;
         double zPos = viewEntity.lastTickPosZ + (viewEntity.posZ - viewEntity.lastTickPosZ) * partialTicks;
-        this.renderContainer.initialize(xPos, yPos, zPos);
+        this.terrainDraws.beginFrame(xPos, yPos, zPos);
         this.renderDispatcher.setCameraPosition(new Vec3(xPos, yPos + viewEntity.getEyeHeight(), zPos));
 
         BlockPos blockpos = new BlockPos(xPos, yPos + viewEntity.getEyeHeight(), zPos);
@@ -1070,7 +1068,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         }
 
         // Keep the section resort queue active for Vulkan's translucent meshes.
-        if (pass == 2 && VulkanTerrainPreview.replacesTerrainDraws()) {
+        if (!this.terrainDraws.acceptsPass(pass)) {
             return 0;
         }
 
@@ -1085,69 +1083,14 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
             if (!renderchunk.getCompiledChunk().isLayerEmpty(blockLayerIn)) {
                 ++l;
-                this.renderContainer.addRenderChunk(renderchunk, blockLayerIn);
+                this.terrainDraws.addChunk(renderchunk, blockLayerIn);
             }
         }
 
         if (l != 0) {
-            if (Config.isFogOff() && this.mc.entityRenderer.fogStandard) {
-                GlStateManager.disableFog();
-            }
-
-            this.renderBlockLayer(blockLayerIn);
-            ClientBenchmark.recordGlTerrainBatch();
+            this.terrainDraws.drawLayer(blockLayerIn);
         }
         return l;
-    }
-
-
-    private void renderBlockLayer(RenderLayer blockLayerIn) {
-        this.mc.entityRenderer.enableLightmap();
-
-        if (OpenGlHelper.useVbo()) {
-            GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
-            OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
-            GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
-            OpenGlHelper.setClientActiveTexture(OpenGlHelper.lightmapTexUnit);
-            GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
-            OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
-            GL11.glEnableClientState(GL11.GL_COLOR_ARRAY);
-        }
-
-        if (Config.isShaders()) {
-            ShadersRender.preRenderChunkLayer(blockLayerIn);
-        }
-
-        this.renderContainer.renderChunkLayer(blockLayerIn);
-
-        if (Config.isShaders()) {
-            ShadersRender.postRenderChunkLayer(blockLayerIn);
-        }
-
-        if (OpenGlHelper.useVbo()) {
-            for (VertexFormatElement vertexformatelement : DefaultVertexFormats.BLOCK.getElements()) {
-                VertexFormatElement.EnumUsage vertexformatelement$enumusage = vertexformatelement.usage();
-                int i = vertexformatelement.index();
-
-                switch (vertexformatelement$enumusage) {
-                    case POSITION:
-                        GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
-                        break;
-
-                    case UV:
-                        OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit + i);
-                        GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
-                        OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
-                        break;
-
-                    case COLOR:
-                        GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
-                        GlStateManager.resetColor();
-                }
-            }
-        }
-
-        this.mc.entityRenderer.disableLightmap();
     }
 
     private void cleanupDamagedBlocks(Iterator<DestroyBlockProgress> iteratorIn) {
