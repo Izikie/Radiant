@@ -842,7 +842,7 @@ public class Minecraft implements IThreadListener {
         framePresenter.prepareFrame();
 
         if (ClientBenchmark.CAPTURE_REFERENCE && !skipRenderWorld) {
-            ClientBenchmark.captureReference(this, renderPartialTicks);
+            ClientBenchmark.captureReference(this, renderPartialTicks, framePresenter::readFrame);
         }
         framePresenter.present();
         if (ClientBenchmark.ENABLED) {

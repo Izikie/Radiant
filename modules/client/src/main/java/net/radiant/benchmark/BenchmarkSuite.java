@@ -369,14 +369,14 @@ final class BenchmarkSuite {
         mc.player.rotationPitch = mc.player.prevRotationPitch = phase.pitch;
     }
 
-    void saveFrameComparison(Minecraft mc, float partialTicks, NativeImage vulkan) {
+    void saveFrameComparison(Minecraft mc, float partialTicks, NativeImage reference, NativeImage vulkan) {
         String scenario = ROUTE[routeIndex].scenario;
         comparison = new JsonObject();
         try {
             if (vulkan == null) {
-                BenchmarkFrameComparison.saveReference(comparisonDir.resolve(scenario), width, height, comparison);
+                BenchmarkFrameComparison.saveReference(comparisonDir.resolve(scenario), reference, comparison);
             } else {
-                BenchmarkFrameComparison.save(comparisonDir.resolve(scenario), vulkan, comparison);
+                BenchmarkFrameComparison.save(comparisonDir.resolve(scenario), reference, vulkan, comparison);
             }
             comparison.addProperty("status", "captured");
             comparison.addProperty("worldTick", world.getTotalWorldTime());

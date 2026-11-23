@@ -28,6 +28,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 public final class ClientBenchmark {
     public static final boolean ENABLED = Boolean.getBoolean("radiant.benchmark");
@@ -94,9 +95,9 @@ public final class ClientBenchmark {
         return partialTicks;
     }
 
-    public static void captureReference(Minecraft mc, float partialTicks) {
+    public static void captureReference(Minecraft mc, float partialTicks, Supplier<NativeImage> readFrame) {
         if (CAPTURE_REFERENCE && captureReady(mc)) {
-            suite.saveFrameComparison(mc, partialTicks, null);
+            suite.saveFrameComparison(mc, partialTicks, readFrame.get(), null);
         }
     }
 
@@ -112,8 +113,8 @@ public final class ClientBenchmark {
         return (!FIXED_CAPTURE || fixedCaptureFrame) && suite != null && suite.wantsFrameComparison(mc);
     }
 
-    public static void saveFrameComparison(Minecraft mc, float partialTicks, NativeImage vulkan) {
-        suite.saveFrameComparison(mc, partialTicks, vulkan);
+    public static void saveFrameComparison(Minecraft mc, float partialTicks, NativeImage reference, NativeImage vulkan) {
+        suite.saveFrameComparison(mc, partialTicks, reference, vulkan);
     }
 
     public static boolean controlsCamera() {

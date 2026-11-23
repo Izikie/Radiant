@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
@@ -481,7 +482,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         }
     }
 
-    public static void present() {
+    static void present(Consumer<NativeImage> receiveCapture) {
         VulkanTerrainPreview preview = active;
         if (preview == null) {
             return;
@@ -499,15 +500,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         preview.terrain.setFrame(frame, preview.clouds);
         try {
             VulkanTerrainScene.Fog fog = frame.fog();
-            VulkanPresenter.FrameCapture capture = null;
-            if (ClientBenchmark.COMPARE_FRAMES && !TERRAIN_ONLY) {
-                Minecraft mc = Minecraft.get();
-                if (ClientBenchmark.wantsFrameComparison(mc)) {
-                    float partialTicks = Config.renderPartialTicks;
-                    capture = new VulkanPresenter.FrameCapture(frame.width(), frame.height(),
-                            image -> ClientBenchmark.saveFrameComparison(mc, partialTicks, image));
-                }
-            }
+            VulkanPresenter.FrameCapture capture = receiveCapture == null || TERRAIN_ONLY ? null
+                    : new VulkanPresenter.FrameCapture(frame.width(), frame.height(), receiveCapture);
             if (preview.presenter.present(fog.red(), fog.green(), fog.blue(), capture)) {
                 preview.frames++;
                 preview.drawCalls += preview.terrain.drawCalls();
