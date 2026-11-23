@@ -43,6 +43,8 @@ public final class VulkanObjectCapture implements AutoCloseable {
     static final int STRIDE = 36;
     private static final float UNORM8_TO_UNORM16 = 65535.0f / 255.0f;
     private static final int[] QUAD_INDICES = {0, 1, 2, 2, 3, 0};
+    // Match the legacy diagonal so the tall border faces interpolate the same texture coordinates.
+    private static final int[] BORDER_QUAD_INDICES = {0, 1, 3, 1, 2, 3};
     private static final Map<ModelRenderer, List<Mesh>> MODELS = new WeakHashMap<>();
     private static final Map<Integer, CpuImage> CPU_TEXTURES = new HashMap<>();
     private static List<Mesh> compiling;
@@ -621,9 +623,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
             int position = vertices.position();
             vertices = memRealloc(vertices, Math.max(required, vertices.capacity() * 2)).clear().position(position);
         }
+        int[] quadIndices = phase == Phase.WORLD_BORDER ? BORDER_QUAD_INDICES : QUAD_INDICES;
         for (int primitive = 0; primitive < primitiveCount; primitive++) {
             for (int corner = 0; corner < verticesPerPrimitive; corner++) {
-                writeVertex(mesh, material, vertexIndex(mesh.mode, primitive, corner), vertexTransform, vertexNormal);
+                writeVertex(mesh, material, vertexIndex(mesh.mode, primitive, corner, quadIndices), vertexTransform, vertexNormal);
             }
         }
         List<Draw> target = phase == Phase.ENTITY_OUTLINES ? outlineDraws : draws;
@@ -824,11 +827,11 @@ public final class VulkanObjectCapture implements AutoCloseable {
         };
     }
 
-    private static int vertexIndex(int mode, int primitive, int corner) {
+    private static int vertexIndex(int mode, int primitive, int corner, int[] quadIndices) {
         return switch (mode) {
             case GL_LINES -> primitive * 2 + corner;
             case GL_LINE_STRIP -> primitive + corner;
-            case GL_QUADS -> primitive / 2 * 4 + QUAD_INDICES[(primitive % 2) * 3 + corner];
+            case GL_QUADS -> primitive / 2 * 4 + quadIndices[(primitive % 2) * 3 + corner];
             case GL_TRIANGLE_STRIP -> primitive + (corner == 2 ? 2 : (corner ^ (primitive & 1)));
             case GL_TRIANGLE_FAN -> corner == 0 ? 0 : primitive + corner;
             default -> primitive * 3 + corner;
