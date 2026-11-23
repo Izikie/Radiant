@@ -83,6 +83,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.function.IntFunction;
 
 public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListener {
     private static final Logger LOGGER = LoggerFactory.getLogger(RenderGlobal.class);
@@ -97,6 +98,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private WorldClient theWorld;
     private Set<RenderChunk> chunksToUpdate = new LinkedHashSet<>();
     private List<ContainerLocalRenderInformation> renderInfos = new ArrayList<>(69696);
+    private final IntFunction<RenderChunk> visibleChunk = index -> this.renderInfos.get(index).renderChunk;
     private final Set<TileEntity> setTileEntities = new HashSet<>();
     private ViewFrustum viewFrustum;
     private int starGLCallList = -1;
@@ -181,7 +183,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     }
 
     private void configureTerrainDrawing() {
-        this.terrainDraws = VulkanPreviewTerrainDrawSubmitter.wrapIfEnabled(new OpenGlTerrainDrawSubmitter(this.mc, this.vboEnabled));
+        this.terrainDraws = VulkanPreviewTerrainDrawSubmitter.wrapIfEnabled(this.mc, new OpenGlTerrainDrawSubmitter(this.mc, this.vboEnabled));
         this.renderChunkFactory = this.vboEnabled ? new VboChunkFactory() : new ListChunkFactory();
     }
 
@@ -759,19 +761,10 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         return "E: " + this.countEntitiesRendered + "/" + this.countEntitiesTotal + ", B: " + this.countEntitiesHidden + ", I: " + (this.countEntitiesTotal - this.countEntitiesHidden - this.countEntitiesRendered) + Config.getVersionDebug();
     }
 
-    public void extractVulkanTerrain(Entity view, float partialTicks, Matrix4fc projection, Matrix4fc viewMatrix, int[] lightmap,
-                                     GlStateManager.FogParameters skyFog) {
-        double x = view.lastTickPosX + (view.posX - view.lastTickPosX) * partialTicks;
-        double y = view.lastTickPosY + (view.posY - view.lastTickPosY) * partialTicks;
-        double z = view.lastTickPosZ + (view.posZ - view.lastTickPosZ) * partialTicks;
-        VulkanTerrainPreview.Extraction frame = VulkanTerrainPreview.extract(
-                this.mc, view, x, y, z, partialTicks, projection, viewMatrix, lightmap, skyFog);
-        if (frame != null) {
-            for (ContainerLocalRenderInformation visible : this.renderInfos) {
-                frame.add(visible.renderChunk);
-            }
-            frame.finish();
-        }
+    public void extractTerrainFrame(Entity view, float partialTicks, Matrix4fc projection, Matrix4fc viewMatrix,
+                                    int[] lightmap, GlStateManager.FogParameters skyFog) {
+        this.terrainDraws.extractFrame(view, partialTicks, projection, viewMatrix, lightmap, skyFog,
+                this.renderInfos.size(), this.visibleChunk);
     }
 
     public void setupTerrain(Entity viewEntity, double partialTicks, ICamera camera, int frameCount, boolean playerSpectator) {

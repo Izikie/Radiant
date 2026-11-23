@@ -1293,8 +1293,8 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             this.mc.renderGlobal.updateChunks(finishTimeNano);
         }
 
-        if (VulkanTerrainPreview.ENABLED && pass == 2) {
-            renderglobal.extractVulkanTerrain(entity, partialTicks,
+        if (pass == 2) {
+            renderglobal.extractTerrainFrame(entity, partialTicks,
                     this.cameraProjection, this.cameraView, this.lightmapColors, skyFog);
         }
 

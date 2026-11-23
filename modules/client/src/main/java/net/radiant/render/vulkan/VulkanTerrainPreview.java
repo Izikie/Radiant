@@ -208,7 +208,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         }
     }
 
-    public static Extraction extract(Minecraft mc, Entity view, double x, double y, double z, float partialTicks,
+    static Extraction extract(Minecraft mc, Entity view, double x, double y, double z, float partialTicks,
                                      Matrix4fc projection, Matrix4fc viewMatrix, int[] lightmap,
                                      GlStateManager.FogParameters skyFog) {
         VulkanTerrainPreview preview = active;
@@ -569,7 +569,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     private record Mesh(CompiledChunk compiled, VulkanTerrainMeshes.Slice slice) {
     }
 
-    public static final class Extraction {
+    static final class Extraction {
         private final VulkanTerrainPreview preview;
         private final double x;
         private final double y;
