@@ -8,6 +8,8 @@ import net.optifine.render.GlBlendState;
 import net.optifine.shaders.Shaders;
 import net.optifine.util.LockCounter;
 import net.radiant.benchmark.ClientBenchmark;
+import net.radiant.render.TextureBackends;
+import net.radiant.render.TextureHandle;
 import net.radiant.render.vulkan.VulkanTerrainPreview;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fc;
@@ -442,7 +444,7 @@ public class GlStateManager {
         if (texture != 0) {
             if (VulkanTerrainPreview.ENABLED) {
                 texturesWithoutMipmaps.remove(texture);
-                VulkanTerrainPreview.invalidateObjectTexture(texture);
+                TextureBackends.ACTIVE.legacyTextureDeleted(new TextureHandle(texture));
             }
             GL11.glDeleteTextures(texture);
 

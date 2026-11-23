@@ -9,7 +9,6 @@ import net.optifine.Mipmaps;
 import net.radiant.render.TextureBackend;
 import net.radiant.render.TextureHandle;
 import net.radiant.render.TextureBackends;
-import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.radiant.util.NativeImage;
 import org.apache.commons.io.IOUtils;
 import org.lwjgl.opengl.GL11;
@@ -43,12 +42,10 @@ public class TextureUtil {
         return uploadTextureImageAllocate(p_110987_0_, p_110987_1_, false, false);
     }
 
-    public static void uploadTexture(int textureId, int[] p_110988_1_, int p_110988_2_, int p_110988_3_) {
+    public static void uploadTexture(int textureId, int[] argb, int width, int height) {
         bindTexture(textureId);
-        uploadTextureSub(0, p_110988_1_, p_110988_2_, p_110988_3_, 0, 0, false, false, false);
-        if (VulkanTerrainPreview.ENABLED) {
-            VulkanTerrainPreview.registerObjectTexture(textureId, p_110988_2_, p_110988_3_, p_110988_1_);
-        }
+        uploadTextureSub(0, argb, width, height, 0, 0, false, false, false);
+        BACKEND.dynamicTextureUploaded(new TextureHandle(textureId), width, height, argb);
     }
 
     public static int[][] generateMipmapData(int p_147949_0_, int p_147949_1_, int[][] p_147949_2_) {
@@ -136,9 +133,7 @@ public class TextureUtil {
     public static int uploadTextureImageAllocate(int textureId, NativeImage image, boolean blur, boolean clamp) {
         allocateTexture(textureId, image.getWidth(), image.getHeight());
         uploadTextureImageSubImpl(image, 0, 0, blur, clamp);
-        if (VulkanTerrainPreview.ENABLED) {
-            VulkanTerrainPreview.registerObjectTexture(textureId, image, blur, clamp);
-        }
+        BACKEND.textureUploaded(new TextureHandle(textureId), image, blur, clamp);
         return textureId;
     }
 
@@ -155,17 +150,18 @@ public class TextureUtil {
         BACKEND.allocateBound(p_180600_1_, p_180600_2_, p_180600_3_);
     }
 
-    public static void uploadTextureRgba(int textureId, int x, int y, int width, int height, ByteBuffer pixels) {
-        bindTexture(textureId);
+    public static void uploadAnimatedTextureRegion(ResourceLocation location, int textureId, int x, int y, int width,
+                                                   int height, ByteBuffer pixels) {
+        TextureHandle texture = new TextureHandle(textureId);
+        BACKEND.bind(texture);
         BACKEND.uploadBoundRgba(0, x, y, width, height, pixels);
+        BACKEND.animatedTextureRegionUploaded(location, texture, x, y, width, height, pixels);
     }
 
-    public static int uploadTextureImageSub(int textureId, NativeImage p_110995_1_, int p_110995_2_, int p_110995_3_, boolean p_110995_4_, boolean p_110995_5_) {
+    public static int uploadTextureImageSub(int textureId, NativeImage image, int x, int y, boolean blur, boolean clamp) {
         bindTexture(textureId);
-        uploadTextureImageSubImpl(p_110995_1_, p_110995_2_, p_110995_3_, p_110995_4_, p_110995_5_);
-        if (VulkanTerrainPreview.ENABLED) {
-            VulkanTerrainPreview.invalidateObjectTexture(textureId);
-        }
+        uploadTextureImageSubImpl(image, x, y, blur, clamp);
+        BACKEND.textureRegionUploaded(new TextureHandle(textureId), image, x, y, blur, clamp);
         return textureId;
     }
 
@@ -188,9 +184,7 @@ public class TextureUtil {
     }
 
     public static void setTextureClamped(boolean p_110997_0_) {
-        if (VulkanTerrainPreview.ENABLED) {
-            VulkanTerrainPreview.setObjectTextureClamped(GlStateManager.getBoundTexture(), p_110997_0_);
-        }
+        BACKEND.textureClamped(new TextureHandle(GlStateManager.getBoundTexture()), p_110997_0_);
         if (p_110997_0_) {
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);

@@ -19,6 +19,7 @@ import net.optifine.Config;
 import net.optifine.CustomColors;
 import net.optifine.CustomSky;
 import net.radiant.benchmark.ClientBenchmark;
+import net.radiant.render.TextureHandle;
 import net.radiant.util.NativeImage;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fc;
@@ -325,37 +326,17 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         return true;
     }
 
-    public static void registerObjectTexture(int texture, NativeImage image, boolean blur, boolean clamp) {
-        VulkanObjectCapture.registerTexture(texture, image, blur, clamp);
-        invalidateObjectTextureImage(texture);
-    }
-
-    public static void registerObjectTexture(int texture, int width, int height, int[] argb) {
-        VulkanObjectCapture.registerTexture(texture, width, height, argb);
-        invalidateObjectTextureImage(texture);
-    }
-
-    public static void updateAnimatedTextureRegion(ResourceLocation location, int texture, int x, int y, int width, int height,
-                                                   ByteBuffer pixels) {
+    static void updateObjectTextureRegion(ResourceLocation location, TextureHandle texture, VulkanTextureUpdates.Region region) {
         VulkanTerrainPreview preview = active;
-        var region = VulkanObjectCapture.updateTextureRegion(texture, x, y, width, height, pixels, preview == null ? null : preview.objects);
-        if (preview != null && region != null) {
-            preview.terrain.updateEnvironmentTexture(location, region);
+        if (preview != null) {
+            preview.objects.updateTextureRegion(texture, region);
+            if (location != null) {
+                preview.terrain.updateEnvironmentTexture(location, region);
+            }
         }
     }
 
-    public static void invalidateObjectTexture(int texture) {
-        VulkanObjectCapture.forgetTexture(texture);
-        invalidateObjectTextureImage(texture);
-    }
-
-    public static void setObjectTextureClamped(int texture, boolean clamp) {
-        if (VulkanObjectCapture.setTextureClamped(texture, clamp)) {
-            invalidateObjectTextureImage(texture);
-        }
-    }
-
-    private static void invalidateObjectTextureImage(int texture) {
+    static void invalidateObjectTextureImage(TextureHandle texture) {
         VulkanTerrainPreview preview = active;
         if (preview != null) {
             preview.objects.invalidateTexture(texture);
@@ -373,9 +354,10 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         }
     }
 
-    private static VulkanObjectCapture.TextureSnapshot loadEnvironmentImage(TextureManager textures, ResourceLocation location) throws IOException {
+    private static VulkanTextureSources.Snapshot loadEnvironmentImage(TextureManager textures, ResourceLocation location) throws IOException {
         var texture = textures.getTexture(location);
-        var snapshot = texture == null ? null : VulkanObjectCapture.snapshotTexture(texture.getGlTextureId());
+        var snapshot = texture == null ? null
+                : VulkanPreviewTextureBackend.INSTANCE.textures().snapshot(new TextureHandle(texture.getGlTextureId()));
         if (snapshot != null) {
             return snapshot;
         }
@@ -383,7 +365,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         try (var stream = resource.getInputStream()) {
             var image = NativeImage.loadFromInputStream(stream);
             var metadata = SimpleTexture.readTextureMetadata(resource);
-            return new VulkanObjectCapture.TextureSnapshot(image, metadata != null && metadata.textureBlur(),
+            return new VulkanTextureSources.Snapshot(image, metadata != null && metadata.textureBlur(),
                     metadata != null && metadata.textureClamp());
         }
     }

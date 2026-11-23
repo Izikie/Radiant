@@ -3,7 +3,10 @@ package net.radiant.render.vulkan;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.util.ResourceLocation;
+import net.radiant.render.TextureHandle;
 import net.radiant.render.opengl.OpenGlTextureBackend;
+import net.radiant.util.NativeImage;
 
 import java.nio.ByteBuffer;
 import java.util.IdentityHashMap;
@@ -16,6 +19,7 @@ import static org.lwjgl.system.MemoryUtil.memFree;
 public final class VulkanPreviewTextureBackend extends OpenGlTextureBackend {
     public static final VulkanPreviewTextureBackend INSTANCE = new VulkanPreviewTextureBackend();
 
+    private final VulkanTextureSources textures = new VulkanTextureSources();
     private AtlasSource atlas;
 
     private VulkanPreviewTextureBackend() {
@@ -42,6 +46,54 @@ public final class VulkanPreviewTextureBackend extends OpenGlTextureBackend {
         if (atlas != null && atlas.frames().replace(sprite, pixels) != null) {
             VulkanTerrainPreview.updateSprite(sprite, pixels);
         }
+    }
+
+    @Override
+    public void textureUploaded(TextureHandle texture, NativeImage image, boolean blur, boolean clamp) {
+        textures.put(texture, image, blur, clamp);
+        VulkanTerrainPreview.invalidateObjectTextureImage(texture);
+    }
+
+    @Override
+    public void dynamicTextureUploaded(TextureHandle texture, int width, int height, int[] argb) {
+        textures.putDynamic(texture, width, height, argb);
+        VulkanTerrainPreview.invalidateObjectTextureImage(texture);
+    }
+
+    @Override
+    public void textureRegionUploaded(TextureHandle texture, NativeImage image, int x, int y, boolean blur, boolean clamp) {
+        var region = textures.updateRegion(texture, x, y, image.getWidth(), image.getHeight(), ByteBuffer.wrap(image.getData()));
+        if (textures.setSampler(texture, blur, clamp)) {
+            VulkanTerrainPreview.invalidateObjectTextureImage(texture);
+        } else if (region != null) {
+            VulkanTerrainPreview.updateObjectTextureRegion(null, texture, region);
+        }
+    }
+
+    @Override
+    public void animatedTextureRegionUploaded(ResourceLocation location, TextureHandle texture, int x, int y,
+                                              int width, int height, ByteBuffer pixels) {
+        var region = textures.updateRegion(texture, x, y, width, height, pixels);
+        if (region != null) {
+            VulkanTerrainPreview.updateObjectTextureRegion(location, texture, region);
+        }
+    }
+
+    @Override
+    public void textureClamped(TextureHandle texture, boolean clamp) {
+        if (textures.setClamped(texture, clamp)) {
+            VulkanTerrainPreview.invalidateObjectTextureImage(texture);
+        }
+    }
+
+    @Override
+    public void legacyTextureDeleted(TextureHandle texture) {
+        textures.remove(texture);
+        VulkanTerrainPreview.invalidateObjectTextureImage(texture);
+    }
+
+    VulkanTextureSources textures() {
+        return textures;
     }
 
     VulkanTerrainScene.Atlas snapshotAtlas() {

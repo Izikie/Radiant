@@ -5,7 +5,6 @@ import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.util.TextureUtils;
-import net.radiant.render.vulkan.VulkanTerrainPreview;
 
 import java.nio.ByteBuffer;
 import java.util.Properties;
@@ -189,11 +188,8 @@ public class TextureAnimation {
     }
 
     private void uploadFrame(ByteBuffer pixels) {
-        TextureUtil.uploadTextureRgba(this.dstTextId, this.dstX, this.dstY, this.frameWidth, this.frameHeight, pixels);
-        if (VulkanTerrainPreview.ENABLED) {
-            VulkanTerrainPreview.updateAnimatedTextureRegion(this.dstTexLoc, this.dstTextId, this.dstX, this.dstY,
-                    this.frameWidth, this.frameHeight, pixels);
-        }
+        TextureUtil.uploadAnimatedTextureRegion(this.dstTexLoc, this.dstTextId, this.dstX, this.dstY,
+                this.frameWidth, this.frameHeight, pixels);
     }
 
     private int mix(int col1, int col2, double k) {

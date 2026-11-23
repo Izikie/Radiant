@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3;
 
-import net.radiant.render.vulkan.VulkanObjectCapture.TextureSnapshot;
+import net.radiant.render.vulkan.VulkanTextureSources.Snapshot;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fc;
 import org.lwjgl.system.MemoryStack;
@@ -380,7 +380,7 @@ final class VulkanEnvironment implements AutoCloseable {
         uploadedCloudMesh = mesh;
     }
 
-    private void upload(int index, TextureSnapshot snapshot, VkQueue queue, VkCommandBuffer commands) {
+    private void upload(int index, Snapshot snapshot, VkQueue queue, VkCommandBuffer commands) {
         if (textures[index] != null) {
             textures[index].close();
         }
@@ -489,7 +489,7 @@ final class VulkanEnvironment implements AutoCloseable {
         }
     }
 
-    record Images(TextureSnapshot clouds, TextureSnapshot sun, TextureSnapshot moon, TextureSnapshot endSky) {
+    record Images(Snapshot clouds, Snapshot sun, Snapshot moon, Snapshot endSky) {
     }
 
     enum SkyMode {

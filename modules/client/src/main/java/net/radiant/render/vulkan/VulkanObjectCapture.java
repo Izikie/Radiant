@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.world.border.WorldBorderStage;
 import net.optifine.Config;
-import net.radiant.util.NativeImage;
+import net.radiant.render.TextureHandle;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fc;
@@ -46,11 +46,10 @@ public final class VulkanObjectCapture implements AutoCloseable {
     // Match the legacy diagonal so the tall border faces interpolate the same texture coordinates.
     private static final int[] BORDER_QUAD_INDICES = {0, 1, 3, 1, 2, 3};
     private static final Map<ModelRenderer, List<Mesh>> MODELS = new WeakHashMap<>();
-    private static final Map<Integer, CpuImage> CPU_TEXTURES = new HashMap<>();
     private static List<Mesh> compiling;
     private static VulkanObjectCapture active;
 
-    private final Map<Integer, Image> textures = new HashMap<>();
+    private final Map<TextureHandle, Image> textures = new HashMap<>();
     private final Set<Integer> missingTextureSources = new HashSet<>();
     private final List<Image> retiredImages = new ArrayList<>();
     private final Image white = new Image(1, 1, memAlloc(4).putInt(0, -1));
@@ -483,91 +482,41 @@ public final class VulkanObjectCapture implements AutoCloseable {
         return glint != null || phase.layer.ui || phase == Phase.BLOCK_DAMAGE;
     }
 
-    static void registerTexture(int id, NativeImage image, boolean blur, boolean clamp) {
-        CPU_TEXTURES.put(id, new CpuImage(image.getWidth(), image.getHeight(), image.getData().clone(), false, blur, clamp));
-    }
-
-    static void registerTexture(int id, int width, int height, int[] argb) {
-        CpuImage source = CPU_TEXTURES.get(id);
-        if (source == null || !source.dynamic || source.width != width || source.height != height) {
-            source = new CpuImage(width, height, new byte[Math.multiplyExact(Math.multiplyExact(width, height), 4)], true, false, false);
-            CPU_TEXTURES.put(id, source);
+    void updateTextureRegion(TextureHandle texture, VulkanTextureUpdates.Region region) {
+        Image image = textures.get(texture);
+        if (image == null) {
+            return;
         }
-        VulkanAtlasUpdates.writeRgba(ByteBuffer.wrap(source.rgba), argb, 0, width * height);
-    }
-
-    static VulkanTextureUpdates.Region updateTextureRegion(int id, int x, int y, int width, int height,
-                                                           ByteBuffer pixels, VulkanObjectCapture capture) {
-        CpuImage source = CPU_TEXTURES.get(id);
-        if (source == null || x < 0 || y < 0 || width <= 0 || height <= 0 || width > source.width - x
-                || height > source.height - y || pixels.remaining() < width * height * 4) {
-            return null;
-        }
-        Image image = capture == null ? null : capture.textures.get(id);
-        ByteBuffer pendingPixels = image == null ? null : image.pixels;
-        int rowBytes = width * 4;
-        for (int row = 0; row < height; row++) {
-            int offset = ((y + row) * source.width + x) * 4;
-            pixels.get(pixels.position() + row * rowBytes, source.rgba, offset, rowBytes);
-            if (pendingPixels != null) {
-                pendingPixels.put(offset, source.rgba, offset, rowBytes);
-            }
-        }
-        if (capture == null) {
-            return null;
-        }
-        var region = new VulkanTextureUpdates.Region(source.rgba, source.width, x, y, x + width, y + height);
-        if (image != null && pendingPixels == null) {
+        if (image.pixels == null) {
             image.pendingUpdate = region.include(image.pendingUpdate);
+            return;
         }
-        return region;
-    }
-
-    static TextureSnapshot snapshotTexture(int id) {
-        CpuImage source = CPU_TEXTURES.get(id);
-        if (source == null) {
-            return null;
+        for (int row = region.top(); row < region.bottom(); row++) {
+            int offset = (row * region.stride() + region.left()) * 4;
+            image.pixels.put(offset, region.pixels(), offset, region.width() * 4);
         }
-        NativeImage image = NativeImage.createBlankImage(source.width, source.height);
-        System.arraycopy(source.rgba, 0, image.getData(), 0, source.rgba.length);
-        return new TextureSnapshot(image, source.blur, source.clamp);
-    }
-
-    record TextureSnapshot(NativeImage image, boolean blur, boolean clamp) {
-    }
-
-    static void forgetTexture(int id) {
-        CPU_TEXTURES.remove(id);
-    }
-
-    static boolean setTextureClamped(int id, boolean clamp) {
-        CpuImage source = CPU_TEXTURES.get(id);
-        if (source == null || source.clamp == clamp) {
-            return false;
-        }
-        CPU_TEXTURES.put(id, new CpuImage(source.width, source.height, source.rgba, source.dynamic, source.blur, clamp));
-        return true;
     }
 
     private Image texture(int id) {
-        Image cached = textures.get(id);
+        TextureHandle handle = new TextureHandle(id);
+        Image cached = textures.get(handle);
         if (cached != null) {
             return cached;
         }
-        CpuImage source = CPU_TEXTURES.get(id);
+        var source = VulkanPreviewTextureBackend.INSTANCE.textures().get(handle);
         if (source == null) {
             missingTextureSources.add(id);
             return white;
         }
-        ByteBuffer pixels = memAlloc(source.rgba.length);
+        ByteBuffer pixels = memAlloc(source.rgba().length);
         try {
-            pixels.put(source.rgba).flip();
-            int addressMode = source.clamp ? VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE : VK_SAMPLER_ADDRESS_MODE_REPEAT;
-            int filter = source.blur ? VK_FILTER_LINEAR : VK_FILTER_NEAREST;
-            Image image = new Image(source.width, source.height, pixels, filter, addressMode, addressMode);
-            textures.put(id, image);
+            pixels.put(source.rgba()).flip();
+            int addressMode = source.clamp() ? VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE : VK_SAMPLER_ADDRESS_MODE_REPEAT;
+            int filter = source.blur() ? VK_FILTER_LINEAR : VK_FILTER_NEAREST;
+            Image image = new Image(source.width(), source.height(), pixels, filter, addressMode, addressMode);
+            textures.put(handle, image);
             cpuTextureLoads++;
-            if (source.dynamic) {
+            if (source.dynamic()) {
                 dynamicTextureLoads++;
             }
             return image;
@@ -589,8 +538,8 @@ public final class VulkanObjectCapture implements AutoCloseable {
         return dynamicTextureLoads;
     }
 
-    void invalidateTexture(int id) {
-        Image image = textures.remove(id);
+    void invalidateTexture(TextureHandle texture) {
+        Image image = textures.remove(texture);
         if (image != null) {
             image.deleted = true;
             // A frame being captured may still contain draws that reference the old image.
@@ -1121,9 +1070,6 @@ public final class VulkanObjectCapture implements AutoCloseable {
             this.firstVertex = firstVertex;
             this.vertexCount = vertexCount;
         }
-    }
-
-    private record CpuImage(int width, int height, byte[] rgba, boolean dynamic, boolean blur, boolean clamp) {
     }
 
     static final class Image {

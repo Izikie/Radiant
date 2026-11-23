@@ -175,7 +175,8 @@ final class VulkanObjectRenderer implements AutoCloseable {
             for (var iterator = textures.entrySet().iterator(); iterator.hasNext(); ) {
                 var entry = iterator.next();
                 if (entry.getKey().deleted
-                        && capture.draws().stream().noneMatch(draw -> draw.material.image() == entry.getKey())) {
+                        && capture.draws().stream().noneMatch(draw -> draw.material.image() == entry.getKey())
+                        && capture.outlineDraws().stream().noneMatch(draw -> draw.material.image() == entry.getKey())) {
                     Binding binding = entry.getValue();
                     VulkanPresenter.check(vkFreeDescriptorSets(device, binding.pool.handle, binding.set), "free object descriptor set");
                     binding.pool.available++;
