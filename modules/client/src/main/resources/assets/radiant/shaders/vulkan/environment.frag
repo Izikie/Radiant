@@ -102,7 +102,7 @@ float upperSkyVisibility(vec3 origin, vec3 ray) {
     return fogVisibility(env.skyFog, clip.w);
 }
 
-vec3 celestialColor(vec3 origin, vec3 ray) {
+vec4 celestialSample(vec3 origin, vec3 ray) {
     float sine = env.celestial.x;
     float cosine = env.celestial.y;
 
@@ -123,10 +123,10 @@ vec3 celestialColor(vec3 origin, vec3 ray) {
                 vec2 phase = vec2(mod(env.celestial.w, 4.0), floor(env.celestial.w / 4.0));
                 disc = celestialDisc(moon, uv, phase, vec2(4.0, 2.0));
             }
-            return disc.rgb * disc.a * env.celestial.z;
+            return vec4(disc.rgb, disc.a * env.celestial.z);
         }
     }
-    return vec3(0.0);
+    return vec4(0.0);
 }
 
 void main() {
@@ -137,12 +137,21 @@ void main() {
     vec3 origin = unproject(-1.0);
     vec3 ray = normalize(unproject(1.0) - origin);
     #if CELESTIAL_PASS
-    color = vec4(outputColor(celestialColor(origin, ray)), 1.0);
+    vec4 disc = celestialSample(origin, ray);
+    if (disc.a == 0.0) discard;
+    #if SRGB_TARGET
+    color = vec4(outputColor(disc.rgb * disc.a), 1.0);
+    #else
+    color = disc;
+    #endif
     #else
     vec3 rgb = mix(env.fogAndStars.rgb, env.skyColor.rgb, upperSkyVisibility(origin, ray));
+    #if SRGB_TARGET
     if (env.customSky == 0.0 && env.sunrise.a <= 0.0) {
-        rgb += celestialColor(origin, ray);
+        vec4 disc = celestialSample(origin, ray);
+        rgb += disc.rgb * disc.a;
     }
+    #endif
     color = vec4(outputColor(rgb), 1.0);
     #endif
 }

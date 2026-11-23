@@ -158,6 +158,7 @@ final class VulkanEnvironment implements AutoCloseable {
     private Images pendingImages;
     private VkPhysicalDevice physicalDevice;
     private VkDevice device;
+    private boolean srgbTarget;
     private VulkanBuffer uniformBuffer;
     private long descriptorLayout;
     private long descriptorPool;
@@ -181,13 +182,14 @@ final class VulkanEnvironment implements AutoCloseable {
         destroyPipelines();
         this.physicalDevice = physicalDevice;
         this.device = device;
+        srgbTarget = VulkanGraphics.isSrgb(colorFormat);
         try (MemoryStack stack = MemoryStack.stackPush()) {
             if (uniformBuffer == null) {
                 uniformBuffer = VulkanBuffer.mapped(physicalDevice, device, FRAME_BYTES, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT);
                 createDescriptors(stack);
                 createStarVertices();
             }
-            String defines = "#version 450\n#define SRGB_TARGET " + (VulkanGraphics.isSrgb(colorFormat) ? "1\n" : "0\n");
+            String defines = "#version 450\n#define SRGB_TARGET " + (srgbTarget ? "1\n" : "0\n");
             String fragment = shaderSource();
             VkPipelineVertexInputStateCreateInfo vertices = VkPipelineVertexInputStateCreateInfo.calloc(stack).sType$Default();
             sky = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
@@ -403,7 +405,8 @@ final class VulkanEnvironment implements AutoCloseable {
         if (customSky != null) {
             customSky.run();
         }
-        if (frame.sunriseAlpha > 0 || customSky != null) {
+        // UNORM attachments blend into the stored sky color with the same rounding as OpenGL.
+        if (frame.celestialVisibility > 0 && (!srgbTarget || frame.sunriseAlpha > 0 || customSky != null)) {
             draw(stack, commands, celestial, 3, 1);
         }
         if (frame.stars > 0) {
