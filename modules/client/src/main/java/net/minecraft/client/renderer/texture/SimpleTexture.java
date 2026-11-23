@@ -31,21 +31,9 @@ public class SimpleTexture extends AbstractTexture {
 
         try (InputStream inputstream = iresource.getInputStream()) {
             NativeImage bufferedimage = NativeImage.loadFromInputStream(inputstream);
-            boolean flag = false;
-            boolean flag1 = false;
-
-            if (iresource.hasMetadata()) {
-                try {
-                    TextureMetadataSection texturemetadatasection = iresource.getMetadata("texture");
-
-                    if (texturemetadatasection != null) {
-                        flag = texturemetadatasection.textureBlur();
-                        flag1 = texturemetadatasection.textureClamp();
-                    }
-                } catch (RuntimeException exception) {
-                    LOGGER.warn("Failed reading metadata of: {}", this.textureLocation, exception);
-                }
-            }
+            TextureMetadataSection metadata = readTextureMetadata(iresource);
+            boolean flag = metadata != null && metadata.textureBlur();
+            boolean flag1 = metadata != null && metadata.textureClamp();
 
             if (Config.isShaders()) {
                 ShadersTex.loadSimpleTexture(this.getGlTextureId(), bufferedimage, flag, flag1, resourceManager, this.textureLocation, this.getMultiTexID());
@@ -57,5 +45,16 @@ public class SimpleTexture extends AbstractTexture {
                 EmissiveTextures.loadTexture(this.textureLocation, this);
             }
         }
+    }
+
+    public static TextureMetadataSection readTextureMetadata(IResource resource) {
+        if (resource.hasMetadata()) {
+            try {
+                return resource.getMetadata("texture");
+            } catch (RuntimeException exception) {
+                LOGGER.warn("Failed reading metadata of: {}", resource.getResourceLocation(), exception);
+            }
+        }
+        return null;
     }
 }

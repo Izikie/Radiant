@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3;
 
-import net.radiant.util.NativeImage;
+import net.radiant.render.vulkan.VulkanObjectCapture.TextureSnapshot;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fc;
 import org.lwjgl.system.MemoryStack;
@@ -332,10 +332,10 @@ final class VulkanEnvironment implements AutoCloseable {
     void prepare(VkQueue queue, VkCommandBuffer commands, Matrix4fc viewProjection, VulkanTerrainScene.Fog fog, Frame frame,
                  CloudFrame cloud, boolean customSky) {
         if (pendingImages != null) {
-            upload(0, pendingImages.clouds, queue, commands, VK_SAMPLER_ADDRESS_MODE_REPEAT);
-            upload(1, pendingImages.sun, queue, commands, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
-            upload(2, pendingImages.moon, queue, commands, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
-            upload(3, pendingImages.endSky, queue, commands, VK_SAMPLER_ADDRESS_MODE_REPEAT);
+            upload(0, pendingImages.clouds, queue, commands);
+            upload(1, pendingImages.sun, queue, commands);
+            upload(2, pendingImages.moon, queue, commands);
+            upload(3, pendingImages.endSky, queue, commands);
             bindTextures();
             pendingImages = null;
         }
@@ -378,14 +378,17 @@ final class VulkanEnvironment implements AutoCloseable {
         uploadedCloudMesh = mesh;
     }
 
-    private void upload(int index, NativeImage image, VkQueue queue, VkCommandBuffer commands, int addressMode) {
+    private void upload(int index, TextureSnapshot snapshot, VkQueue queue, VkCommandBuffer commands) {
         if (textures[index] != null) {
             textures[index].close();
         }
         VulkanTexture texture = new VulkanTexture(device);
         textures[index] = texture;
+        var image = snapshot.image();
+        int filter = snapshot.blur() ? VK_FILTER_LINEAR : VK_FILTER_NEAREST;
+        int addressMode = snapshot.clamp() ? VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE : VK_SAMPLER_ADDRESS_MODE_REPEAT;
         texture.initialize(physicalDevice, queue, commands, image.getWidth(), image.getHeight(),
-                new ByteBuffer[]{ByteBuffer.wrap(image.getData())}, false, VK_FILTER_NEAREST, addressMode, addressMode);
+                new ByteBuffer[]{ByteBuffer.wrap(image.getData())}, false, filter, addressMode, addressMode);
     }
 
     void drawSky(MemoryStack stack, VkCommandBuffer commands, Frame frame, Runnable customSky) {
@@ -483,7 +486,7 @@ final class VulkanEnvironment implements AutoCloseable {
         }
     }
 
-    record Images(NativeImage clouds, NativeImage sun, NativeImage moon, NativeImage endSky) {
+    record Images(TextureSnapshot clouds, TextureSnapshot sun, TextureSnapshot moon, TextureSnapshot endSky) {
     }
 
     enum SkyMode {

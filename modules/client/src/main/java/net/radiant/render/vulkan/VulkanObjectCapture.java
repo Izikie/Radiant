@@ -521,14 +521,17 @@ public final class VulkanObjectCapture implements AutoCloseable {
         return region;
     }
 
-    static NativeImage snapshotTexture(int id) {
+    static TextureSnapshot snapshotTexture(int id) {
         CpuImage source = CPU_TEXTURES.get(id);
         if (source == null) {
             return null;
         }
         NativeImage image = NativeImage.createBlankImage(source.width, source.height);
         System.arraycopy(source.rgba, 0, image.getData(), 0, source.rgba.length);
-        return image;
+        return new TextureSnapshot(image, source.blur, source.clamp);
+    }
+
+    record TextureSnapshot(NativeImage image, boolean blur, boolean clamp) {
     }
 
     static void forgetTexture(int id) {

@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.chunk.CompiledChunk;
 import net.minecraft.client.renderer.chunk.RenderChunk;
+import net.minecraft.client.renderer.texture.SimpleTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -368,10 +369,19 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         }
     }
 
-    private static NativeImage loadEnvironmentImage(TextureManager textures, ResourceLocation location) throws IOException {
+    private static VulkanObjectCapture.TextureSnapshot loadEnvironmentImage(TextureManager textures, ResourceLocation location) throws IOException {
         var texture = textures.getTexture(location);
-        NativeImage snapshot = texture == null ? null : VulkanObjectCapture.snapshotTexture(texture.getGlTextureId());
-        return snapshot != null ? snapshot : NativeImage.loadFromResourceLocation(location);
+        var snapshot = texture == null ? null : VulkanObjectCapture.snapshotTexture(texture.getGlTextureId());
+        if (snapshot != null) {
+            return snapshot;
+        }
+        var resource = Minecraft.get().getResourceManager().getResource(location);
+        try (var stream = resource.getInputStream()) {
+            var image = NativeImage.loadFromInputStream(stream);
+            var metadata = SimpleTexture.readTextureMetadata(resource);
+            return new VulkanObjectCapture.TextureSnapshot(image, metadata != null && metadata.textureBlur(),
+                    metadata != null && metadata.textureClamp());
+        }
     }
 
     private static VulkanEnvironment.Frame captureEnvironment(Minecraft mc, Entity view, float partialTicks,
