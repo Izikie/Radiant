@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.chunk.CompiledChunk;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.client.renderer.texture.SimpleTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockPos;
@@ -37,8 +36,6 @@ import java.util.function.Consumer;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.system.MemoryUtil.memCalloc;
-import static org.lwjgl.system.MemoryUtil.memFree;
 
 /** Temporary presentation bridge while 1.8.9 runs its game loop and chunk builders. */
 public final class VulkanTerrainPreview implements AutoCloseable {
@@ -188,16 +185,22 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         }
     }
 
-    public static void updateSprite(TextureAtlasSprite sprite, int[][] pixels) {
+    static void atlasStitched() {
+        VulkanTerrainPreview preview = active;
+        if (preview != null) {
+            preview.pendingFrame = null;
+            preview.atlasDirty = true;
+            preview.terrain.setAtlas(null);
+        }
+    }
+
+    static void updateSprite(TextureAtlasSprite sprite, int[][] pixels) {
         VulkanTerrainPreview preview = active;
         if (preview == null || preview.atlasDirty) {
             return;
         }
-        String name = sprite.getIconName();
-        if (Minecraft.get().getTextureMapBlocks().getAtlasSprite(name) == sprite) {
-            preview.terrain.updateSprite(name, sprite.getOriginX(), sprite.getOriginY(),
-                    sprite.getIconWidth(), sprite.getIconHeight(), pixels);
-        }
+        preview.terrain.updateSprite(sprite.getIconName(), sprite.getOriginX(), sprite.getOriginY(),
+                sprite.getIconWidth(), sprite.getIconHeight(), pixels);
     }
 
     public static void leaveWorld() {
@@ -217,7 +220,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         }
         preview.objects.setWorldProjection(projection);
         if (preview.atlasDirty) {
-            preview.terrain.setAtlas(buildAtlas(mc.getTextureMapBlocks()));
+            preview.terrain.setAtlas(VulkanPreviewTextureBackend.INSTANCE.snapshotAtlas());
             preview.terrain.setEnvironmentImages(loadEnvironmentImages(mc.getTextureManager()));
             preview.atlasDirty = false;
         }
@@ -440,46 +443,6 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             case GL_EXP2 -> 3;
             default -> 0;
         } : 0;
-    }
-
-    private static VulkanTerrainScene.Atlas buildAtlas(TextureMap texture) {
-        int width = texture.atlasWidth;
-        int height = texture.atlasHeight;
-        if (width <= 0 || height <= 0) {
-            throw new IllegalStateException("Block atlas has not been stitched");
-        }
-        ByteBuffer[] levels = new ByteBuffer[texture.getMipmapLevels() + 1];
-        try {
-            for (int level = 0; level < levels.length; level++) {
-                int mipWidth = width >> level;
-                int mipHeight = height >> level;
-                levels[level] = memCalloc(Math.multiplyExact(Math.multiplyExact(mipWidth, mipHeight), 4));
-            }
-            for (TextureAtlasSprite sprite : texture.getUploadedSprites()) {
-                int[][] pixels = sprite.getUploadedFrameTextureData();
-                for (int level = 0; level < Math.min(levels.length, pixels.length); level++) {
-                    int mipWidth = width >> level;
-                    int spriteWidth = sprite.getIconWidth() >> level;
-                    int spriteHeight = sprite.getIconHeight() >> level;
-                    int x = sprite.getOriginX() >> level;
-                    int y = sprite.getOriginY() >> level;
-                    ByteBuffer mip = levels[level];
-                    for (int row = 0; row < spriteHeight; row++) {
-                        mip.position(((y + row) * mipWidth + x) * 4);
-                        VulkanAtlasUpdates.writeRgba(mip, pixels[level], row * spriteWidth, spriteWidth);
-                    }
-                }
-            }
-            for (ByteBuffer mip : levels) {
-                mip.clear();
-            }
-            return new VulkanTerrainScene.Atlas(width, height, levels);
-        } catch (RuntimeException | Error e) {
-            for (ByteBuffer mip : levels) {
-                memFree(mip);
-            }
-            throw e;
-        }
     }
 
     static void present(Consumer<NativeImage> receiveCapture) {

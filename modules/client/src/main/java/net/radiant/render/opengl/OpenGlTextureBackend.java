@@ -10,7 +10,7 @@ import org.lwjgl.opengl.GL14;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
-public final class OpenGlTextureBackend implements TextureBackend {
+public class OpenGlTextureBackend implements TextureBackend {
     @Override
     public TextureHandle create() {
         return new TextureHandle(GlStateManager.generateTexture());

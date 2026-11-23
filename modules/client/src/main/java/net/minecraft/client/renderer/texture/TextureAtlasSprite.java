@@ -12,7 +12,6 @@ import net.optifine.SmartAnimations;
 import net.optifine.shaders.Shaders;
 import net.optifine.util.CounterInt;
 import net.optifine.util.TextureUtils;
-import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.radiant.util.NativeImage;
 
 import java.io.IOException;
@@ -23,7 +22,6 @@ public class TextureAtlasSprite {
     private final String iconName;
     protected List<int[][]> framesTextureData = new ArrayList<>();
     protected int[][] interpolatedFrameData;
-    private int[][] uploadedFramePixels;
     private AnimationMetadataSection animationMetadata;
     protected boolean rotated;
     protected int originX;
@@ -82,7 +80,6 @@ public class TextureAtlasSprite {
     }
 
     public void initSprite(int inX, int inY, int originInX, int originInY, boolean rotatedIn) {
-        this.uploadedFramePixels = null;
         this.originX = originInX;
         this.originY = originInY;
         this.rotated = rotatedIn;
@@ -251,20 +248,9 @@ public class TextureAtlasSprite {
         return this.framesTextureData.get(index);
     }
 
-    public int[][] getUploadedFrameTextureData() {
-        return this.uploadedFramePixels;
-    }
-
-    void rememberUploadedFrame(int[][] pixels) {
-        this.uploadedFramePixels = pixels;
-    }
-
     protected void uploadAnimationFrame(int[][] pixels, boolean clamp) {
         TextureUtil.uploadTextureMipmap(pixels, this.width, this.height, this.originX, this.originY, false, clamp);
-        if (VulkanTerrainPreview.ENABLED) {
-            this.rememberUploadedFrame(pixels);
-            VulkanTerrainPreview.updateSprite(this, pixels);
-        }
+        TextureUtil.atlasAnimationUploaded(this, pixels);
     }
 
     public int getFrameCount() {

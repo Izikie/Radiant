@@ -8,7 +8,7 @@ import net.optifine.Config;
 import net.optifine.Mipmaps;
 import net.radiant.render.TextureBackend;
 import net.radiant.render.TextureHandle;
-import net.radiant.render.opengl.OpenGlTextureBackend;
+import net.radiant.render.TextureBackends;
 import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.radiant.util.NativeImage;
 import org.apache.commons.io.IOUtils;
@@ -24,7 +24,7 @@ import java.nio.IntBuffer;
 
 public class TextureUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(TextureUtil.class);
-    private static final TextureBackend BACKEND = new OpenGlTextureBackend();
+    private static final TextureBackend BACKEND = TextureBackends.ACTIVE;
     private static final IntBuffer DATA_BUFFER = GLAllocation.createDirectIntBuffer(4194304);
     public static final DynamicTexture MISSING_TEXTURE = new DynamicTexture(16, 16);
     public static final int[] MISSING_TEXTURE_DATA = MISSING_TEXTURE.getTextureData();
@@ -101,6 +101,14 @@ public class TextureUtil {
         float f3 = (float) Math.pow(((p_147944_3_ >> p_147944_4_ & 255) / 255.0F), 2.2D);
         float f4 = (float) Math.pow((f + f1 + f2 + f3) * 0.25D, 0.45454545454545453D);
         return (int) (f4 * 255.0D);
+    }
+
+    static void atlasStitched(TextureMap atlas) {
+        BACKEND.atlasStitched(atlas);
+    }
+
+    static void atlasAnimationUploaded(TextureAtlasSprite sprite, int[][] pixels) {
+        BACKEND.atlasAnimationUploaded(sprite, pixels);
     }
 
     public static void uploadTextureMipmap(int[][] p_147955_0_, int p_147955_1_, int p_147955_2_, int p_147955_3_, int p_147955_4_, boolean p_147955_5_, boolean p_147955_6_) {

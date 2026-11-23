@@ -16,7 +16,6 @@ import net.optifine.*;
 import net.optifine.shaders.ShadersTex;
 import net.optifine.util.CounterInt;
 import net.optifine.util.TextureUtils;
-import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.radiant.util.NativeImage;
 import org.joml.Vector2i;
 import org.slf4j.Logger;
@@ -313,10 +312,6 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                     } else {
                         TextureUtil.uploadTextureMipmap(pixels, textureatlassprite2.getIconWidth(), textureatlassprite2.getIconHeight(), textureatlassprite2.getOriginX(), textureatlassprite2.getOriginY(), false, false);
                     }
-                    if (VulkanTerrainPreview.ENABLED) {
-                        // Model baking releases the frame lists for static sprites after stitching.
-                        textureatlassprite2.rememberUploadedFrame(pixels);
-                    }
                 } catch (Throwable throwable) {
                     CrashReport report = CrashReport.makeCrashReport(throwable, "Stitching texture atlas");
                     CrashReportCategory category = report.makeCategory("Texture being stitched together");
@@ -379,6 +374,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
             }
 
             this.updateIconGrid(stitcher.getCurrentWidth(), stitcher.getCurrentHeight());
+            TextureUtil.atlasStitched(this);
 
             if (Objects.equals(System.getProperty("saveTextureMap"), "true")) {
                 Log.info("Exporting texture map: " + this.basePath);
