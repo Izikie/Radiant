@@ -32,7 +32,7 @@ final class VulkanTerrainPipeline implements AutoCloseable {
             layout(location = 3) in ivec2 lightUv;
             layout(location = 0) out vec4 tint;
             layout(location = 1) out vec2 uv;
-            layout(location = 2) out float distanceToCamera;
+            layout(location = 2) out float eyeSpaceZ;
             layout(location = 3) out vec2 lightCoord;
 
             void main() {
@@ -42,8 +42,8 @@ final class VulkanTerrainPipeline implements AutoCloseable {
                 #else
                 gl_Position = vec4(clip.xy, (clip.z + clip.w) * 0.5, clip.w);
                 #endif
-                // The reference evaluates planar fog from eye-space Z before projection.
-                distanceToCamera = abs(dot(section.eyeZ, vec4(position, 1.0)));
+                // Preserve the sign through clipping when a face crosses the eye plane.
+                eyeSpaceZ = dot(section.eyeZ, vec4(position, 1.0));
                 tint = blockColor;
                 uv = atlasUv;
                 // Lightmap coordinates are in sixteenths of a texel, relative to its center.
@@ -54,7 +54,7 @@ final class VulkanTerrainPipeline implements AutoCloseable {
             layout(set = 0, binding = 0) uniform sampler2D atlas;
             layout(location = 0) in vec4 tint;
             layout(location = 1) in vec2 uv;
-            layout(location = 2) in float distanceToCamera;
+            layout(location = 2) in float eyeSpaceZ;
             layout(location = 3) in vec2 lightCoord;
             layout(location = 0) out vec4 color;
 
@@ -70,6 +70,7 @@ final class VulkanTerrainPipeline implements AutoCloseable {
                 vec4 lit = texel * tint;
                 if (layer != 0.0 && lit.a <= 0.1) discard;
                 lit.rgb *= texture(lightmap, lightCoord).rgb;
+                float distanceToCamera = abs(eyeSpaceZ);
                 float visibility = 1.0;
                 if (frame.fog.x == 1.0) {
                     visibility = (frame.fog.z - distanceToCamera) / max(frame.fog.z - frame.fog.y, 0.0001);

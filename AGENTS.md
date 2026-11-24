@@ -12,6 +12,8 @@ Keep dual rendering throughout the port. OpenGL presents the reference frame in 
 
 The port is on `modern-renderer`. The initial changes are split into three local commits so the OpenGL baseline and the opt-in Vulkan path can be tested independently.
 
+The launcher copy of the 26.3 jar was absent during the underwater verification. A local reference copy is available at `build/renderer-reference-26.3/26.3.jar` (41,483,720 bytes, SHA-1 `e877b6a07acd633fb3bb475002175cec036e7b87`), verified against the client download in Mojang's 26.3 release metadata. Keep the binary in the ignored build directory.
+
 | Commit | Scope |
 | --- | --- |
 | `095b0ec6` | OpenGL window framebuffer presentation and the existing quad fallback |
@@ -46,7 +48,13 @@ The sRGB presentation follow-up uses a compatible UNORM attachment view so trans
 
 The ordinary fog discrepancy at pixel (115, 256) was resolved by computing the planar fog coordinate from the model-view matrix's Z row before projection. Replaying the same 48 air frames with the previous clip-W calculation gave seven differing pixels. Eye-space Z matched every frame. The four production runs on the four-second route matched all 249 populated frames across display lists and VBOs with regions on and off, with zero Vulkan validation errors. See `build/terrain-eye-z-paired-air.log` and `build/terrain-eye-z-{list,list-regions,vbo,vbo-regions}.log`.
 
-Continue with the underwater comparison. The isolated liquid fixture places water around the gallery camera and lava around the entity camera. The paired run matched all nine sampled lava frames. A full liquid-route run had 165,217 differing pixels across 62 populated frames, with a maximum channel difference of one. Frame 11 shows a large difference on the close water face at the right edge. See the pair directory in `build/terrain-eye-z-liquid.log`. Rebuild the production classes without temporary source overrides after a diagnostic.
+The underwater discrepancy occurred on a translucent face crossing the eye plane. Interpolate signed eye-space Z through clipping and take its magnitude in the fragment shader. On the three failing frames, replaying that change removed all 98,724 differing pixels (`build/terrain-water-arrival.log`).
+
+On the RX 7900 XT at 854 × 480, all 265 populated frames on the ordinary route and all 355 populated frames on the liquid fixture matched OpenGL exactly. Both routes used display lists and VBOs with render regions on and off. The fixture sampled the first frames after entering a liquid, covering 203 underwater frames and 52 in lava. All eight runs completed with zero Vulkan validation errors. See `build/terrain-signed-z-{air,liquid}-*.log`.
+
+The additional BGRA8 sRGB liquid run with display lists and regions on matched all 90 populated frames, with zero validation errors (`build/terrain-signed-z-srgb.log`).
+
+Next, verify overlapping translucent terrain during chunk rebuilds and transparency re-sorting. Keep the same-frame comparison as passes are added to the Vulkan window. Rebuild production classes without temporary source overrides after a diagnostic.
 
 The RGBA32F probe also exposed a difference with fog disabled. OpenGL wrote the lit color directly, while evaluating the Vulkan fog mix at full visibility changed the blue channel by one floating-point step. The Vulkan shader now skips the mix when fog is disabled. See `build/terrain-float-pixel.log` for the probe and `build/terrain-fog-bypass-*.log` for production comparisons.
 
