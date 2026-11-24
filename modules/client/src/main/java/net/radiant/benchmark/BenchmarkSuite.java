@@ -189,7 +189,7 @@ final class BenchmarkSuite {
         if (world != null && mc.currentScreen != inventory) {
             return "unexpected screen opened or closed";
         }
-        if (!exitAfterSuite && world != null && !Display.isActive()) {
+        if (!exitAfterSuite && !ClientBenchmark.BACKGROUND && world != null && !Display.isActive()) {
             return "window lost focus";
         }
         return null;

@@ -58,4 +58,6 @@ Launch the interactive comparison from the same directory.
 
 For the unattended benchmark, use `:dev:RunClientBenchmark` with the same two properties and `-PbenchmarkAutoStart=true -PbenchmarkWarmup=0 -PbenchmarkSeconds=2`. Add `"-Pradiant.vulkan.validation=true"` when running with the validation layer installed. The four existing local reference profiles are `run/terrain-pass-parity-{list,list-regions,vbo,vbo-regions}`. Select each with `-I build/sky-validation.init.gradle` and `-PskyVerificationProfile=terrain-pass-parity-<mode>`.
 
+For background AI testing, pass `-PbenchmarkBackground=true` alongside `-PbenchmarkAutoStart=true`. The benchmark stays windowed, shows its windows without requesting focus, and leaves the desktop mouse free.
+
 Update this checkpoint when a verified result, implementation decision, or user instruction changes the next step.

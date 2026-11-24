@@ -224,7 +224,7 @@ public class Minecraft implements IThreadListener {
         displayHeight = Math.max(1, gameConfig.displayInfo().height());
         tempDisplayWidth = gameConfig.displayInfo().width();
         tempDisplayHeight = gameConfig.displayInfo().height();
-        fullscreen = gameConfig.displayInfo().fullscreen();
+        fullscreen = !ClientBenchmark.BACKGROUND && gameConfig.displayInfo().fullscreen();
 
         theIntegratedServer = new IntegratedServer(this);
 
@@ -1056,6 +1056,9 @@ public class Minecraft implements IThreadListener {
     }
 
     public void toggleFullscreen() {
+        if (ClientBenchmark.BACKGROUND) {
+            return;
+        }
         try {
             fullscreen = !fullscreen;
             gameSettings.fullScreen = fullscreen;

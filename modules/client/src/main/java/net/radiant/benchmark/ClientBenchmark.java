@@ -28,6 +28,8 @@ import java.util.concurrent.TimeUnit;
 public final class ClientBenchmark {
     public static final boolean ENABLED = Boolean.getBoolean("radiant.benchmark");
 
+    public static final boolean BACKGROUND = ENABLED && Boolean.getBoolean("radiant.benchmark.background");
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ClientBenchmark.class);
     private static final int MAX_FRAME_SAMPLES = 250_000;
     private static final int MAX_TICK_SAMPLES = 20_000;
@@ -169,7 +171,7 @@ public final class ClientBenchmark {
     }
 
     private static boolean isInWorld(Minecraft mc) {
-        return mc.world != null && mc.player != null && mc.currentScreen == null && Display.isActive();
+        return mc.world != null && mc.player != null && mc.currentScreen == null && (BACKGROUND || Display.isActive());
     }
 
     private static void cancel(String reason) {

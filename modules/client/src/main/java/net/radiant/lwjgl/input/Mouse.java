@@ -1,5 +1,6 @@
 package net.radiant.lwjgl.input;
 
+import net.radiant.benchmark.ClientBenchmark;
 import net.radiant.lwjgl.LWJGLException;
 import net.radiant.lwjgl.opengl.Display;
 import org.lwjgl.glfw.GLFW;
@@ -102,6 +103,9 @@ public class Mouse {
     }
 
     public static void setGrabbed(boolean grab) {
+        if (ClientBenchmark.BACKGROUND) {
+            return;
+        }
         GLFW.glfwSetInputMode(Display.getHandle(),
                 GLFW.GLFW_CURSOR,
                 grab ? GLFW.GLFW_CURSOR_DISABLED : GLFW.GLFW_CURSOR_NORMAL
@@ -185,7 +189,9 @@ public class Mouse {
     }
 
     public static void setCursorPosition(int new_x, int new_y) {
-        GLFW.glfwSetCursorPos(Display.getHandle(), new_x, new_y);
+        if (!ClientBenchmark.BACKGROUND) {
+            GLFW.glfwSetCursorPos(Display.getHandle(), new_x, new_y);
+        }
     }
 
     public static Cursor setNativeCursor(Cursor cursor) throws LWJGLException {

@@ -58,6 +58,7 @@ The suite controls player movement and camera input while the route runs.
 Suite captures default to 10 seconds per phase and a 3-second warmup. Set `-PbenchmarkAutoStart=true` to start
 the suite from the command line and close the client after it writes the report. For a quick smoke run, use
 `-PbenchmarkAutoStart=true -PbenchmarkWarmup=0 -PbenchmarkSeconds=2`.
+Add `-PbenchmarkBackground=true` for unattended desktop testing. The client opens windowed without taking focus and leaves the mouse cursor free throughout the run.
 The unattended run continues if the window loses focus and records unfocused frames so you can identify
 captures affected by background rendering.
 The report is a single `run/benchmarks/suite-*.json` with metrics for each completed phase and a completion flag.

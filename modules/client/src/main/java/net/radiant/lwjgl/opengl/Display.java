@@ -1,5 +1,6 @@
 package net.radiant.lwjgl.opengl;
 
+import net.radiant.benchmark.ClientBenchmark;
 import net.radiant.lwjgl.BufferUtils;
 import net.radiant.lwjgl.LWJGLException;
 import net.radiant.lwjgl.LWJGLUtil;
@@ -203,6 +204,10 @@ public class Display {
 
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
+        if (ClientBenchmark.BACKGROUND) {
+            glfwWindowHint(GLFW_FOCUSED, GLFW_FALSE);
+            glfwWindowHint(GLFW_FOCUS_ON_SHOW, GLFW_FALSE);
+        }
         glfwWindowHint(GLFW_RESIZABLE, displayResizable ? GL_TRUE : GL_FALSE);
         glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 
@@ -351,6 +356,7 @@ public class Display {
 
         //glfwSwapInterval(0);
         glfwShowWindow(Window.handle);
+        displayFocused = glfwGetWindowAttrib(Window.handle, GLFW_FOCUSED) == GLFW_TRUE;
         Mouse.create();
         Keyboard.create();
 
