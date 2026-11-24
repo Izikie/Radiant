@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.radiant.render.opengl.OpenGlWindowBlit;
 import org.lwjgl.opengl.GL11;
 
 import java.nio.ByteBuffer;
@@ -177,43 +178,73 @@ public class Framebuffer {
         this.framebufferRenderExt(p_147615_1_, p_147615_2_, true);
     }
 
-    public void framebufferRenderExt(int p_178038_1_, int p_178038_2_, boolean p_178038_3_) {
+    public void blitToWindow(int width, int height) {
+        if (!OpenGlHelper.isFramebufferEnabled()) {
+            return;
+        }
+
+        if (this.framebufferObject <= 0 || this.framebufferWidth != width || this.framebufferHeight != height
+                || this.framebufferTextureWidth != width || this.framebufferTextureHeight != height
+                || !OpenGlWindowBlit.canBlit()) {
+            this.framebufferRender(width, height);
+            return;
+        }
+
+        // Keep the render state expected by callers of the original window presentation.
+        this.prepareFramebufferRender(width, height, true);
+        try {
+            OpenGlWindowBlit.copyColor(this.framebufferObject, width, height);
+        } finally {
+            GlStateManager.resetColor();
+            this.finishFramebufferRender();
+        }
+    }
+
+    public void framebufferRenderExt(int width, int height, boolean disableBlend) {
         if (OpenGlHelper.isFramebufferEnabled()) {
-            GlStateManager.colorMask(true, true, true, false);
-            GlStateManager.disableDepth();
-            GlStateManager.depthMask(false);
-            GlStateManager.matrixMode(GL11.GL_PROJECTION);
-            GlStateManager.loadIdentity();
-            GlStateManager.ortho(0.0D, p_178038_1_, p_178038_2_, 0.0D, 1000.0D, 3000.0D);
-            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
-            GlStateManager.loadIdentity();
-            GlStateManager.translate(0.0F, 0.0F, -2000.0F);
-            GlStateManager.viewport(0, 0, p_178038_1_, p_178038_2_);
-            GlStateManager.enableTexture2D();
-            GlStateManager.disableLighting();
-            GlStateManager.disableAlpha();
-
-            if (p_178038_3_) {
-                GlStateManager.disableBlend();
-                GlStateManager.enableColorMaterial();
-            }
-
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            this.prepareFramebufferRender(width, height, disableBlend);
             this.bindFramebufferTexture();
             float f2 = (float) this.framebufferWidth / this.framebufferTextureWidth;
             float f3 = (float) this.framebufferHeight / this.framebufferTextureHeight;
             Tessellator tessellator = Tessellator.get();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
-            worldrenderer.pos(0.0D, (float) p_178038_2_, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
-            worldrenderer.pos((float) p_178038_1_, (float) p_178038_2_, 0.0D).tex(f2, 0.0D).color(255, 255, 255, 255).endVertex();
-            worldrenderer.pos((float) p_178038_1_, 0.0D, 0.0D).tex(f2, f3).color(255, 255, 255, 255).endVertex();
+            worldrenderer.pos(0.0D, (float) height, 0.0D).tex(0.0D, 0.0D).color(255, 255, 255, 255).endVertex();
+            worldrenderer.pos((float) width, (float) height, 0.0D).tex(f2, 0.0D).color(255, 255, 255, 255).endVertex();
+            worldrenderer.pos((float) width, 0.0D, 0.0D).tex(f2, f3).color(255, 255, 255, 255).endVertex();
             worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, f3).color(255, 255, 255, 255).endVertex();
             tessellator.draw();
-            this.unbindFramebufferTexture();
-            GlStateManager.depthMask(true);
-            GlStateManager.colorMask(true, true, true, true);
+            this.finishFramebufferRender();
         }
+    }
+
+    private void prepareFramebufferRender(int width, int height, boolean disableBlend) {
+        GlStateManager.colorMask(true, true, true, false);
+        GlStateManager.disableDepth();
+        GlStateManager.depthMask(false);
+        GlStateManager.matrixMode(GL11.GL_PROJECTION);
+        GlStateManager.loadIdentity();
+        GlStateManager.ortho(0.0D, width, height, 0.0D, 1000.0D, 3000.0D);
+        GlStateManager.matrixMode(GL11.GL_MODELVIEW);
+        GlStateManager.loadIdentity();
+        GlStateManager.translate(0.0F, 0.0F, -2000.0F);
+        GlStateManager.viewport(0, 0, width, height);
+        GlStateManager.enableTexture2D();
+        GlStateManager.disableLighting();
+        GlStateManager.disableAlpha();
+
+        if (disableBlend) {
+            GlStateManager.disableBlend();
+            GlStateManager.enableColorMaterial();
+        }
+
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+    }
+
+    private void finishFramebufferRender() {
+        this.unbindFramebufferTexture();
+        GlStateManager.depthMask(true);
+        GlStateManager.colorMask(true, true, true, true);
     }
 
     public void framebufferClear() {

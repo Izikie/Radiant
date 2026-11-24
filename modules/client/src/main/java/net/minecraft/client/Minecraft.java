@@ -835,7 +835,7 @@ public class Minecraft implements IThreadListener {
         GlStateManager.popMatrix();
 
         GlStateManager.pushMatrix();
-        framebufferMc.framebufferRender(displayWidth, displayHeight);
+        framebufferMc.blitToWindow(displayWidth, displayHeight);
         GlStateManager.popMatrix();
 
         updateDisplay();
