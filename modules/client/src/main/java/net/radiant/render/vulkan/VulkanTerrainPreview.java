@@ -45,7 +45,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     private final long window;
     private final VulkanTerrainScene terrain = new VulkanTerrainScene();
     private final VulkanPresenter presenter;
-    private final Map<RenderChunk, Mesh[]> sections = new IdentityHashMap<>();
+    private final Map<RenderChunk, VulkanTerrainMeshes.Slice[]> sections = new IdentityHashMap<>();
     private boolean atlasDirty = true;
     private boolean windowVisible;
     private int sourceWidth;
@@ -114,24 +114,30 @@ public final class VulkanTerrainPreview implements AutoCloseable {
 
     public static void upload(RenderChunk chunk, CompiledChunk compiled, RenderLayer layer, WorldRenderer mesh) {
         VulkanTerrainPreview preview = active;
-        if (preview == null || compiled.isLayerEmpty(layer)) {
+        if (preview == null) {
             return;
         }
         if (Config.isShaders() || Config.isMultiTexture()) {
             return;
         }
+        // An empty display-list upload does not target the chunk's layer list.
+        // VBO uploads replace the layer buffer even when the upload is empty.
+        if (!OpenGlHelper.useVbo() && compiled.isLayerEmpty(layer)) {
+            return;
+        }
         ByteBuffer vertices = mesh.getByteBuffer();
         int vertexCount = mesh.getVertexCount();
         if (mesh.getDrawMode() != GL_QUADS || mesh.getVertexFormat().getNextOffset() != VulkanTerrainMeshes.STRIDE
-                || vertexCount == 0 || vertexCount % 4 != 0 || vertices.remaining() != vertexCount * VulkanTerrainMeshes.STRIDE) {
+                || vertexCount % 4 != 0 || vertices.remaining() != vertexCount * VulkanTerrainMeshes.STRIDE) {
             throw new IllegalStateException("Unexpected chunk vertex buffer for Vulkan terrain");
         }
-        Mesh[] layers = preview.sections.computeIfAbsent(chunk, unused -> new Mesh[LAYERS.length]);
+        VulkanTerrainMeshes.Slice[] layers = preview.sections.computeIfAbsent(chunk,
+                unused -> new VulkanTerrainMeshes.Slice[LAYERS.length]);
         int index = layer.ordinal();
-        Mesh previous = layers[index];
-        layers[index] = new Mesh(compiled, preview.terrain.upload(vertices));
+        VulkanTerrainMeshes.Slice previous = layers[index];
+        layers[index] = vertexCount == 0 ? null : preview.terrain.upload(vertices);
         if (previous != null) {
-            preview.terrain.retire(previous.slice);
+            preview.terrain.retire(previous);
         }
     }
 
@@ -142,11 +148,11 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         }
     }
 
-    private void retire(Mesh[] layers) {
+    private void retire(VulkanTerrainMeshes.Slice[] layers) {
         if (layers != null) {
-            for (Mesh mesh : layers) {
+            for (VulkanTerrainMeshes.Slice mesh : layers) {
                 if (mesh != null) {
-                    terrain.retire(mesh.slice);
+                    terrain.retire(mesh);
                 }
             }
         }
@@ -316,9 +322,6 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         }
     }
 
-    private record Mesh(CompiledChunk compiled, VulkanTerrainMeshes.Slice slice) {
-    }
-
     private static final class Extraction {
         private final VulkanTerrainPreview preview;
         private final double x;
@@ -348,9 +351,11 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         }
 
         void add(RenderChunk chunk, RenderLayer layer, boolean mipmapped) {
-            Mesh[] layers = preview.sections.get(chunk);
-            Mesh mesh = layers == null ? null : layers[layer.ordinal()];
-            if (mesh == null || mesh.compiled != chunk.getCompiledChunk()) return;
+            // The shared submission selects visible layers. Each GL layer starts using its
+            // uploaded vertices immediately, even while other layers of the section are rebuilding.
+            VulkanTerrainMeshes.Slice[] layers = preview.sections.get(chunk);
+            VulkanTerrainMeshes.Slice mesh = layers == null ? null : layers[layer.ordinal()];
+            if (mesh == null) return;
             BlockPos origin = chunk.getPosition();
             float offsetX = (float) ((renderRegions ? chunk.regionX : origin.getX()) - x);
             float offsetY = (float) ((renderRegions ? 0 : origin.getY()) - y);
@@ -358,7 +363,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             var draws = layer == RenderLayer.TRANSLUCENT ? translucent : opaque;
             Vector4f eyeZ = new Vector4f();
             Matrix4f transform = captureTransform(chunk, offsetX, offsetY, offsetZ, eyeZ);
-            draws.add(new VulkanTerrainScene.Draw(mesh.slice, transform, eyeZ, layer.ordinal(), mipmapped));
+            draws.add(new VulkanTerrainScene.Draw(mesh, transform, eyeZ, layer.ordinal(), mipmapped));
         }
 
         // A float-rounded translation before projection moves texture and coverage boundaries,

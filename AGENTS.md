@@ -54,7 +54,13 @@ On the RX 7900 XT at 854 × 480, all 265 populated frames on the ordinary route 
 
 The additional BGRA8 sRGB liquid run with display lists and regions on matched all 90 populated frames, with zero validation errors (`build/terrain-signed-z-srgb.log`).
 
-Next, verify overlapping translucent terrain during chunk rebuilds and transparency re-sorting. Keep the same-frame comparison as passes are added to the Vulkan window. Rebuild production classes without temporary source overrides after a diagnostic.
+During chunk rebuilds, OpenGL replaces each layer's vertices at upload time. The shared submission still selects visible layers from the published compiled section. Vulkan now draws the latest uploaded vertices for each submitted layer, including when a frame falls between solid and translucent uploads. An empty VBO upload clears that layer. An empty display-list upload leaves the section's layer list intact.
+
+The glass-panel fixture moves the camera and edits overlapping terrain across section boundaries. It yields after selected solid uploads to expose the intermediate frames. Before the fix, 62 of 107 populated frames differed across two runs, with a maximum RGB channel error of 202. After the fix, all 216 populated frames across the four OpenGL configurations matched exactly, including runs with 189 split uploads and 51 completed transparency re-sorts in total. All four runs had zero Vulkan validation errors. See `build/terrain-panel-{before,after}-*.log`. To repeat the fixture, use the profile command below with the additional `-I build/terrain-panel-fixture.init.gradle`, four seconds of warmup and six seconds of measurement. Refresh the fixture's instrumented source copies when production code changes, then rebuild production classes without the fixture script.
+
+After rebuilding production classes, the ordinary benchmark route matched all 136 populated frames across the same four configurations, with zero validation errors. See `build/terrain-panel-control-*.log`.
+
+Next, compare the first terrain frames after a resource reload and after leaving and re-entering a world. Check the atlas and section meshes against the same-frame OpenGL reference as terrain becomes visible again.
 
 The RGBA32F probe also exposed a difference with fog disabled. OpenGL wrote the lit color directly, while evaluating the Vulkan fog mix at full visibility changed the blue channel by one floating-point step. The Vulkan shader now skips the mix when fog is disabled. See `build/terrain-float-pixel.log` for the probe and `build/terrain-fog-bypass-*.log` for production comparisons.
 
