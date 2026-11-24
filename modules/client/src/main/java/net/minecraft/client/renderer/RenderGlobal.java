@@ -63,6 +63,8 @@ import net.optifine.render.CloudRenderer;
 import net.optifine.render.RenderEnv;
 import net.optifine.shaders.Shaders;
 import net.optifine.shaders.ShadersRender;
+import net.radiant.render.opengl.OpenGlTerrainDrawSubmitter;
+import net.radiant.render.terrain.TerrainDrawSubmitter;
 import net.optifine.shaders.ShadowUtils;
 import net.optifine.shaders.gui.GuiShaderOptions;
 import net.optifine.util.RenderChunkUtils;
@@ -115,7 +117,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private double lastViewEntityPitch = Double.MIN_VALUE;
     private double lastViewEntityYaw = Double.MIN_VALUE;
     private final ChunkRenderDispatcher renderDispatcher = new ChunkRenderDispatcher();
-    private ChunkRenderContainer renderContainer;
+    private TerrainDrawSubmitter terrainDraws;
+    private final List<RenderChunk> terrainSections = new ArrayList<>();
     private int renderDistanceChunks = -1;
     private int renderEntitiesStartupCounter = 2;
     private int countEntitiesTotal;
@@ -163,19 +166,18 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         this.updateDestroyBlockIcons();
         this.vboEnabled = OpenGlHelper.useVbo();
 
-        if (this.vboEnabled) {
-            this.renderContainer = new VboRenderList();
-            this.renderChunkFactory = new VboChunkFactory();
-        } else {
-            this.renderContainer = new RenderList();
-            this.renderChunkFactory = new ListChunkFactory();
-        }
+        this.configureTerrainRenderer();
 
         this.vertexBufferFormat = new VertexFormat();
         this.vertexBufferFormat.addElement(new VertexFormatElement(0, VertexFormatElement.EnumType.FLOAT, VertexFormatElement.EnumUsage.POSITION, 3));
         this.generateStars();
         this.generateSky();
         this.generateSky2();
+    }
+
+    private void configureTerrainRenderer() {
+        this.terrainDraws = new OpenGlTerrainDrawSubmitter(this.mc, this.vboEnabled);
+        this.renderChunkFactory = this.vboEnabled ? new VboChunkFactory() : new ListChunkFactory();
     }
 
     @Override
@@ -434,12 +436,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             boolean flag = this.vboEnabled;
             this.vboEnabled = OpenGlHelper.useVbo();
 
-            if (flag && !this.vboEnabled) {
-                this.renderContainer = new RenderList();
-                this.renderChunkFactory = new ListChunkFactory();
-            } else if (!flag && this.vboEnabled) {
-                this.renderContainer = new VboRenderList();
-                this.renderChunkFactory = new VboChunkFactory();
+            if (flag != this.vboEnabled) {
+                this.configureTerrainRenderer();
             }
 
             this.generateStars();
@@ -764,7 +762,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         double xPos = viewEntity.lastTickPosX + (viewEntity.posX - viewEntity.lastTickPosX) * partialTicks;
         double yPos = viewEntity.lastTickPosY + (viewEntity.posY - viewEntity.lastTickPosY) * partialTicks;
         double zPos = viewEntity.lastTickPosZ + (viewEntity.posZ - viewEntity.lastTickPosZ) * partialTicks;
-        this.renderContainer.initialize(xPos, yPos, zPos);
+        this.terrainDraws.beginFrame(xPos, yPos, zPos);
 
         BlockPos blockpos = new BlockPos(xPos, yPos + viewEntity.getEyeHeight(), zPos);
         RenderChunk renderchunk = this.viewFrustum.getRenderChunk(blockpos);
@@ -1030,79 +1028,26 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
         }
 
-        int l = 0;
-        boolean flag = blockLayerIn == RenderLayer.TRANSLUCENT;
-        int i1 = flag ? this.renderInfos.size() - 1 : 0;
-        int i = flag ? -1 : this.renderInfos.size();
-        int j1 = flag ? -1 : 1;
-
-        for (int j = i1; j != i; j += j1) {
-            RenderChunk renderchunk = this.renderInfos.get(j).renderChunk;
-
-            if (!renderchunk.getCompiledChunk().isLayerEmpty(blockLayerIn)) {
-                ++l;
-                this.renderContainer.addRenderChunk(renderchunk, blockLayerIn);
+        boolean translucent = blockLayerIn == RenderLayer.TRANSLUCENT;
+        int start = translucent ? this.renderInfos.size() - 1 : 0;
+        int end = translucent ? -1 : this.renderInfos.size();
+        int step = translucent ? -1 : 1;
+        for (int i = start; i != end; i += step) {
+            RenderChunk section = this.renderInfos.get(i).renderChunk;
+            if (!section.getCompiledChunk().isLayerEmpty(blockLayerIn)) {
+                this.terrainSections.add(section);
             }
         }
 
-        if (l != 0) {
-            if (Config.isFogOff() && this.mc.entityRenderer.fogStandard) {
-                GlStateManager.disableFog();
-            }
-
-            this.renderBlockLayer(blockLayerIn);
-        }
-        return l;
-    }
-
-
-    private void renderBlockLayer(RenderLayer blockLayerIn) {
-        this.mc.entityRenderer.enableLightmap();
-
-        if (OpenGlHelper.useVbo()) {
-            GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
-            OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
-            GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
-            OpenGlHelper.setClientActiveTexture(OpenGlHelper.lightmapTexUnit);
-            GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
-            OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
-            GL11.glEnableClientState(GL11.GL_COLOR_ARRAY);
-        }
-
-        if (Config.isShaders()) {
-            ShadersRender.preRenderChunkLayer(blockLayerIn);
-        }
-
-        this.renderContainer.renderChunkLayer(blockLayerIn);
-
-        if (Config.isShaders()) {
-            ShadersRender.postRenderChunkLayer(blockLayerIn);
-        }
-
-        if (OpenGlHelper.useVbo()) {
-            for (VertexFormatElement vertexformatelement : DefaultVertexFormats.BLOCK.getElements()) {
-                VertexFormatElement.EnumUsage vertexformatelement$enumusage = vertexformatelement.usage();
-                int i = vertexformatelement.index();
-
-                switch (vertexformatelement$enumusage) {
-                    case POSITION:
-                        GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
-                        break;
-
-                    case UV:
-                        OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit + i);
-                        GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
-                        OpenGlHelper.setClientActiveTexture(OpenGlHelper.defaultTexUnit);
-                        break;
-
-                    case COLOR:
-                        GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
-                        GlStateManager.resetColor();
-                }
+        int count = this.terrainSections.size();
+        if (count != 0) {
+            try {
+                this.terrainDraws.drawLayer(blockLayerIn, this.terrainSections);
+            } finally {
+                this.terrainSections.clear();
             }
         }
-
-        this.mc.entityRenderer.disableLightmap();
+        return count;
     }
 
     private void cleanupDamagedBlocks(Iterator<DestroyBlockProgress> iteratorIn) {
