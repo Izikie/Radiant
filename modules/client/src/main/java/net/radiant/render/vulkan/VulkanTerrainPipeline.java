@@ -78,9 +78,6 @@ final class VulkanTerrainPipeline implements AutoCloseable {
                     visibility = exp(-density * density);
                 }
                 vec3 rgb = mix(frame.fogColor.rgb, lit.rgb, clamp(visibility, 0.0, 1.0));
-                #if SRGB_TARGET
-                rgb = mix(rgb / 12.92, pow((rgb + 0.055) / 1.055, vec3(2.4)), greaterThan(rgb, vec3(0.04045)));
-                #endif
                 color = vec4(rgb, layer == 3.0 ? lit.a : 1.0);
             }
             """;
@@ -131,7 +128,7 @@ final class VulkanTerrainPipeline implements AutoCloseable {
                     .pVertexBindingDescriptions(bindings).pVertexAttributeDescriptions(attributes);
             String vertex = "#version 450\n#define OPENGL_CLIP_DEPTH " +
                     (device.getCapabilities().VK_EXT_depth_clip_control ? "1\n" : "0\n") + VERTEX_SHADER;
-            String fragment = "#version 450\n#define SRGB_TARGET " + ((colorFormat == VK_FORMAT_R8G8B8A8_SRGB || colorFormat == VK_FORMAT_B8G8R8A8_SRGB) ? "1\n" : "0\n") + FRAGMENT_SHADER;
+            String fragment = "#version 450\n" + FRAGMENT_SHADER;
             opaquePipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
                     VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, false, vertexInput, vertex, fragment);
             translucentPipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,

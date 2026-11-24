@@ -17,8 +17,9 @@ final class VulkanRenderTarget implements AutoCloseable {
         this.device = device;
     }
 
-    void initialize(MemoryStack stack, VkPhysicalDevice physicalDevice, int format, int width, int height, int usage, int aspect) {
+    void initialize(MemoryStack stack, VkPhysicalDevice physicalDevice, int format, int viewFormat, int width, int height, int usage, int aspect) {
         VkImageCreateInfo info = VkImageCreateInfo.calloc(stack).sType$Default()
+                .flags(format == viewFormat ? 0 : VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT)
                 .imageType(VK_IMAGE_TYPE_2D).format(format).mipLevels(1).arrayLayers(1)
                 .samples(VK_SAMPLE_COUNT_1_BIT).tiling(VK_IMAGE_TILING_OPTIMAL)
                 .usage(usage).sharingMode(VK_SHARING_MODE_EXCLUSIVE);
@@ -30,7 +31,7 @@ final class VulkanRenderTarget implements AutoCloseable {
         vkGetImageMemoryRequirements(device, image, requirements);
         memory = VulkanMemory.allocate(stack, physicalDevice, device, requirements, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
         VulkanPresenter.check(vkBindImageMemory(device, image, memory, 0), "bind render target");
-        view = VulkanMemory.createImageView(stack, device, image, format, aspect);
+        view = VulkanMemory.createImageView(stack, device, image, viewFormat, aspect);
     }
 
     long image() {

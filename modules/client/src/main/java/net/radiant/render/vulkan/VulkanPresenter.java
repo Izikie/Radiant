@@ -313,17 +313,23 @@ public final class VulkanPresenter implements AutoCloseable {
         framebufferHeight = height;
         imageWidth = info.imageExtent().width();
         imageHeight = info.imageExtent().height();
+        // Blend the legacy encoded RGB values in a UNORM attachment even when the surface is sRGB.
+        int attachmentFormat = switch (imageFormat) {
+            case VK_FORMAT_B8G8R8A8_SRGB -> VK_FORMAT_B8G8R8A8_UNORM;
+            case VK_FORMAT_R8G8B8A8_SRGB -> VK_FORMAT_R8G8B8A8_UNORM;
+            default -> imageFormat;
+        };
         colorTarget = new VulkanRenderTarget(device);
-        colorTarget.initialize(stack, physicalDevice, imageFormat, imageWidth, imageHeight,
+        colorTarget.initialize(stack, physicalDevice, imageFormat, attachmentFormat, imageWidth, imageHeight,
                 VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT, VK_IMAGE_ASPECT_COLOR_BIT);
         if (scene.depthFormat() != VK_FORMAT_UNDEFINED) {
             depth = new VulkanRenderTarget(device);
-            depth.initialize(stack, physicalDevice, scene.depthFormat(), imageWidth, imageHeight,
+            depth.initialize(stack, physicalDevice, scene.depthFormat(), scene.depthFormat(), imageWidth, imageHeight,
                     VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_IMAGE_ASPECT_DEPTH_BIT);
         }
-        if (pipelineFormat != info.imageFormat()) {
-            scene.configureTarget(info.imageFormat());
-            pipelineFormat = info.imageFormat();
+        if (pipelineFormat != attachmentFormat) {
+            scene.configureTarget(attachmentFormat);
+            pipelineFormat = attachmentFormat;
         }
     }
 
@@ -462,7 +468,7 @@ public final class VulkanPresenter implements AutoCloseable {
     private NativeImage readScreenshot(VulkanBuffer readback) {
         ByteBuffer pixels = readback.data();
         NativeImage screenshot = NativeImage.createBlankImage(imageWidth, imageHeight);
-        boolean bgra = pipelineFormat == VK_FORMAT_B8G8R8A8_SRGB || pipelineFormat == VK_FORMAT_B8G8R8A8_UNORM;
+        boolean bgra = pipelineFormat == VK_FORMAT_B8G8R8A8_UNORM;
         int redOffset = bgra ? 2 : 0;
         int blueOffset = bgra ? 0 : 2;
         for (int y = 0; y < imageHeight; y++) {
