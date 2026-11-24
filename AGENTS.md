@@ -42,7 +42,11 @@ The sRGB presentation follow-up uses a compatible UNORM attachment view so trans
 
 ## Resume terrain work
 
-Start with the first differing PNG pair listed in each integrated log. The fog-off and no-mipmap controls in `build/terrain-rounding-{fogoff,nomip}.log` each still had a differing sample. Three completed shader experiments tested fused fog blending, a rearranged fog factor, and distance from fragment W. All three still had one-level differences in the display-list/render-region run. See `build/resume-terrain-*.log`. The production shader retains its original fog equation. Rebuild without any temporary source override after running a diagnostic.
+For the outstanding fog-enabled case, use the four-second display-list/render-region route at 854 × 480. At pixel (115, 256) during the final inventory scene, the solid pass alone produced RGB (92, 92, 93) in OpenGL and (92, 92, 92) in Vulkan. The difference carried through translucent blending. See `build/terrain-water-target-{opaque,full}.log`. At this pixel the two backends agreed in a separate RGBA32F capture with ordinary fog. Investigate the RGBA8 color output path. Earlier fog equation experiments still had one-level differences. Rebuild the production classes without temporary source overrides after a diagnostic.
+
+The RGBA32F probe also exposed a difference with fog disabled. OpenGL wrote the lit color directly, while evaluating the Vulkan fog mix at full visibility changed the blue channel by one floating-point step. The Vulkan shader now skips the mix when fog is disabled. See `build/terrain-float-pixel.log` for the probe and `build/terrain-fog-bypass-*.log` for production comparisons.
+
+All 129 populated fog-off frames in the production runs matched OpenGL exactly across display lists and VBOs, with regions on and off. The enabled-fog control had one differing pixel by one channel level across 33 populated frames. All five runs completed with zero Vulkan validation errors on the RX 7900 XT.
 
 Run the production build from the repository root.
 

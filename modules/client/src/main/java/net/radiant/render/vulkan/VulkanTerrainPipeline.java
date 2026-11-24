@@ -77,7 +77,9 @@ final class VulkanTerrainPipeline implements AutoCloseable {
                     float density = distanceToCamera * frame.fog.w;
                     visibility = exp(-density * density);
                 }
-                vec3 rgb = mix(frame.fogColor.rgb, lit.rgb, clamp(visibility, 0.0, 1.0));
+                // Fixed-function OpenGL writes the lit color directly when fog is disabled.
+                vec3 rgb = frame.fog.x == 0.0 ? lit.rgb
+                        : mix(frame.fogColor.rgb, lit.rgb, clamp(visibility, 0.0, 1.0));
                 color = vec4(rgb, layer == 3.0 ? lit.a : 1.0);
             }
             """;
