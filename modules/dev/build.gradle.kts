@@ -89,7 +89,7 @@ tasks.register<JavaExec>("RunClientBenchmark") {
     group = "RadiantMCP"
     description = "Starts the isolated client with the benchmark suite and manual F8 capture."
 
-    val benchmarkGameDir = rootProject.file("run/benchmark-game")
+    val benchmarkGameDir = rootProject.file(providers.gradleProperty("benchmarkGameDir").getOrElse("run/benchmark-game"))
     doFirst {
         benchmarkGameDir.mkdirs()
     }
