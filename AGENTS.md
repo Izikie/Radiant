@@ -6,6 +6,8 @@ Port the rendering engine from Minecraft 26.3 into Radiant's Minecraft 1.8.9 MCP
 
 Support both OpenGL and Vulkan. Preserve Radiant's OpenGL display-list and VBO paths, including render regions on and off. For terrain, both backends consume the same ordered section submissions, including the translucent draw order.
 
+Keep dual rendering throughout the port. OpenGL presents the reference frame in the main window. Add each ported pass to the Vulkan comparison window and compare both backends on the same frame. Defer switching the main window to Vulkan until the complete Vulkan frame has verified 1:1 visual parity with Radiant 1.8.9 OpenGL.
+
 ## Current checkpoint
 
 The port is on `modern-renderer`. The initial changes are split into three local commits so the OpenGL baseline and the opt-in Vulkan path can be tested independently.
