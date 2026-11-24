@@ -70,6 +70,11 @@ tasks.withType<JavaExec>().configureEach {
     mainClass.set("net.radiant.dev.start.LaunchWrapper")
 
     args("--accessToken", "0", "--userProperties", "{}")
+    for (option in listOf("terrain", "compareTerrain", "validation")) {
+        providers.gradleProperty("radiant.vulkan.$option").orNull?.let {
+            systemProperty("radiant.vulkan.$option", it)
+        }
+    }
     if (name != "RunClientBenchmark") {
         args("--gameDir", minecraftDir)
     }

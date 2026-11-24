@@ -780,6 +780,10 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         }
     }
 
+    public int[] copyTerrainLightmap() {
+        return this.lightmapColors.clone();
+    }
+
     public void enableLightmap() {
         GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
         GlStateManager.matrixMode(GL11.GL_TEXTURE);

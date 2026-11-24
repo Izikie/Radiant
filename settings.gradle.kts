@@ -30,7 +30,7 @@ val lwjglNatives = "natives-${
 gradle.projectsLoaded {
     rootProject.extra["lwjglNatives"] = lwjglNatives
     rootProject.extra["lwjglModules"] = listOf(
-        "lwjgl", "lwjgl-glfw", "lwjgl-opengl", "lwjgl-openal", "lwjgl-stb"
+        "lwjgl", "lwjgl-glfw", "lwjgl-opengl", "lwjgl-openal", "lwjgl-stb", "lwjgl-shaderc"
     )
 }
 

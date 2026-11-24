@@ -65,6 +65,8 @@ import net.optifine.shaders.Shaders;
 import net.optifine.shaders.ShadersRender;
 import net.radiant.render.opengl.OpenGlTerrainDrawSubmitter;
 import net.radiant.render.terrain.TerrainDrawSubmitter;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
+import net.radiant.render.vulkan.VulkanTerrainDrawSubmitter;
 import net.optifine.shaders.ShadowUtils;
 import net.optifine.shaders.gui.GuiShaderOptions;
 import net.optifine.util.RenderChunkUtils;
@@ -177,6 +179,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
     private void configureTerrainRenderer() {
         this.terrainDraws = new OpenGlTerrainDrawSubmitter(this.mc, this.vboEnabled);
+        if (VulkanTerrainPreview.ENABLED) {
+            this.terrainDraws = new VulkanTerrainDrawSubmitter(this.mc, this.terrainDraws);
+        }
         this.renderChunkFactory = this.vboEnabled ? new VboChunkFactory() : new ListChunkFactory();
     }
 
@@ -415,6 +420,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
 
             this.viewFrustum = null;
+            if (VulkanTerrainPreview.ENABLED) VulkanTerrainPreview.leaveWorld();
         }
     }
 
@@ -449,6 +455,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
 
             this.stopChunkUpdates();
+            if (VulkanTerrainPreview.ENABLED) VulkanTerrainPreview.invalidateTerrain();
 
             synchronized (this.setTileEntities) {
                 this.setTileEntities.clear();

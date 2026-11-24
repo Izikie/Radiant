@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.util.RenderLayer;
 import net.radiant.benchmark.ClientBenchmark;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 import org.lwjgl.opengl.GL11;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -198,6 +199,7 @@ public class ChunkRenderDispatcher {
 
     public ListenableFuture<Object> uploadChunk(RenderLayer player, WorldRenderer p_178503_2_, RenderChunk chunkRenderer, CompiledChunk compiledChunkIn) {
         if (Minecraft.get().isCallingFromMinecraftThread()) {
+            if (VulkanTerrainPreview.ENABLED) VulkanTerrainPreview.upload(chunkRenderer, compiledChunkIn, player, p_178503_2_);
             long started = ClientBenchmark.ENABLED ? ClientBenchmark.startChunkWork() : 0;
             if (OpenGlHelper.useVbo()) {
                 this.uploadVertexBuffer(p_178503_2_, chunkRenderer.getVertexBufferByLayer(player.ordinal()));
