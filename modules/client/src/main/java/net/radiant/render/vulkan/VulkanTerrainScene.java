@@ -1,6 +1,7 @@
 package net.radiant.render.vulkan;
 
 import org.joml.Matrix4fc;
+import org.joml.Vector4fc;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.vulkan.VkCommandBuffer;
 import org.lwjgl.vulkan.VkDevice;
@@ -197,7 +198,7 @@ final class VulkanTerrainScene implements VulkanScene {
     record Fog(float red, float green, float blue, float mode, float start, float end, float density) {
     }
 
-    record Draw(VulkanTerrainMeshes.Slice mesh, Matrix4fc transform, int layer, boolean mipmapped) {
+    record Draw(VulkanTerrainMeshes.Slice mesh, Matrix4fc transform, Vector4fc eyeZ, int layer, boolean mipmapped) {
     }
 
     record Atlas(int width, int height, ByteBuffer[] levels, float[] mipWeights) implements AutoCloseable {

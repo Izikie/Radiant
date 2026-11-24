@@ -14,6 +14,7 @@ import net.optifine.Config;
 import net.radiant.render.opengl.OpenGlMipmapFilter;
 import net.radiant.render.terrain.TerrainDrawSubmitter;
 import org.joml.Matrix4f;
+import org.joml.Vector4f;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.system.MemoryStack;
 import org.slf4j.Logger;
@@ -355,13 +356,14 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             float offsetY = (float) ((renderRegions ? 0 : origin.getY()) - y);
             float offsetZ = (float) ((renderRegions ? chunk.regionZ : origin.getZ()) - z);
             var draws = layer == RenderLayer.TRANSLUCENT ? translucent : opaque;
-            Matrix4f transform = captureTransform(chunk, offsetX, offsetY, offsetZ);
-            draws.add(new VulkanTerrainScene.Draw(mesh.slice, transform, layer.ordinal(), mipmapped));
+            Vector4f eyeZ = new Vector4f();
+            Matrix4f transform = captureTransform(chunk, offsetX, offsetY, offsetZ, eyeZ);
+            draws.add(new VulkanTerrainScene.Draw(mesh.slice, transform, eyeZ, layer.ordinal(), mipmapped));
         }
 
         // A float-rounded translation before projection moves texture and coverage boundaries,
         // particularly for region-relative coordinates. Use the same stack operations as the draw.
-        private Matrix4f captureTransform(RenderChunk chunk, float x, float y, float z) {
+        private Matrix4f captureTransform(RenderChunk chunk, float x, float y, float z, Vector4f eyeZ) {
             try (MemoryStack stack = MemoryStack.stackPush()) {
                 FloatBuffer matrix = stack.mallocFloat(16);
                 glPushMatrix();
@@ -371,6 +373,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
                         chunk.multModelviewMatrix();
                     }
                     glGetFloatv(GL_MODELVIEW_MATRIX, matrix);
+                    eyeZ.set(matrix.get(2), matrix.get(6), matrix.get(10), matrix.get(14));
                 } finally {
                     glPopMatrix();
                 }

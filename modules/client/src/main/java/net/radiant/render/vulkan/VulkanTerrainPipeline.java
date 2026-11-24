@@ -22,6 +22,7 @@ final class VulkanTerrainPipeline implements AutoCloseable {
             layout(push_constant) uniform Draw {
                 mat4 transform;
                 vec4 parameters;
+                vec4 eyeZ;
             } section;
             """;
     private static final String VERTEX_SHADER = FRAME_LAYOUT + """
@@ -41,7 +42,8 @@ final class VulkanTerrainPipeline implements AutoCloseable {
                 #else
                 gl_Position = vec4(clip.xy, (clip.z + clip.w) * 0.5, clip.w);
                 #endif
-                distanceToCamera = abs(clip.w);
+                // The reference evaluates planar fog from eye-space Z before projection.
+                distanceToCamera = abs(dot(section.eyeZ, vec4(position, 1.0)));
                 tint = blockColor;
                 uv = atlasUv;
                 // Lightmap coordinates are in sixteenths of a texel, relative to its center.
@@ -112,7 +114,7 @@ final class VulkanTerrainPipeline implements AutoCloseable {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             createDescriptors(stack);
             VkPushConstantRange.Buffer constants = VkPushConstantRange.calloc(1, stack);
-            constants.get(0).stageFlags(DRAW_STAGES).size(80);
+            constants.get(0).stageFlags(DRAW_STAGES).size(96);
             VkPipelineLayoutCreateInfo layoutInfo = VkPipelineLayoutCreateInfo.calloc(stack).sType$Default()
                     .pSetLayouts(stack.longs(descriptorLayout)).pPushConstantRanges(constants);
             LongBuffer handle = stack.mallocLong(1);
@@ -204,7 +206,7 @@ final class VulkanTerrainPipeline implements AutoCloseable {
             return 0;
         }
         vkCmdBindPipeline(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, translucent ? translucentPipeline : opaquePipeline);
-        FloatBuffer constants = stack.callocFloat(20);
+        FloatBuffer constants = stack.callocFloat(24);
         LongBuffer buffer = stack.mallocLong(1);
         LongBuffer offset = stack.mallocLong(1);
         int calls = 0;
@@ -212,6 +214,7 @@ final class VulkanTerrainPipeline implements AutoCloseable {
             VulkanTerrainMeshes.Slice mesh = draw.mesh();
             draw.transform().get(0, constants);
             constants.put(16, draw.layer()).put(17, draw.mipmapped() ? 1 : 0);
+            draw.eyeZ().get(20, constants);
             vkCmdPushConstants(commands, layout, DRAW_STAGES, 0, constants);
             buffer.put(0, mesh.buffer());
             for (int base = 0; base < mesh.quads(); base += QUADS_PER_DRAW) {
