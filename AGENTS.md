@@ -8,9 +8,9 @@ Keep dual rendering. OpenGL presents the full game in the main window. Add each 
 
 ## Resume on modern-renderer
 
-Next, port the sunrise and sunset gradient between the sky planes using 26.3's `SkyRenderer.renderSunriseAndSunset` and Radiant's `RenderGlobal.renderSky`. Compare its direction and blending at dawn and dusk.
-At `dde18013`, the world clear, upper sky, lower horizon and terrain matched the same-frame OpenGL reference across all four configurations. See [the parity history](renderer-port/docs/terrain-parity-history.md).
-The twilight gradient, sun, moon, stars and clouds still need Vulkan draws.
+Next, port the textured sun and moon using 26.3's `SkyRenderer.renderSun` and `renderMoon`. Compare their orientation, additive blending and moon-phase texture coordinates against Radiant OpenGL.
+At `b6fa98c4`, both twilight gradients matched OpenGL across all four terrain configurations. See [the parity history](renderer-port/docs/terrain-parity-history.md).
+The sun, moon, stars and clouds still need Vulkan draws.
 
 ## Where to look
 
