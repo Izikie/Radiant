@@ -8,9 +8,9 @@ Keep dual rendering. OpenGL presents the full game in the main window. Add each 
 
 ## Resume on modern-renderer
 
-**Next comparison:** capture the first populated terrain frames after a resource reload and after leaving and re-entering a world. Confirm each transition actually occurred and compare the rebuilt atlas and section meshes as terrain reappears. The ordinary benchmark samples every 47 frames and can miss the transition.
-
-At `7361ee62`, Vulkan picks up each terrain layer when OpenGL uploads it. On the RX 7900 XT at 854 × 480, all 216 populated glass-panel frames and all 136 ordinary route samples matched exactly across the four configurations. The fixture exercised 189 split uploads and 51 completed transparency re-sorts. All eight runs reported zero validation errors. The preceding signed eye-depth fix at `f0db3ae0` passed the ordinary and liquid routes, including underwater and lava. Earlier measurements, diagnostic log names and known driver coverage are in [the parity history](docs/rendering/terrain-parity-history.md).
+Verify the first terrain frames after a resource reload and same-world re-entry against Radiant OpenGL.
+Commit under test: `7361ee62`.
+Remaining gap: complete the transition matrix with production lifecycle fixes. See [the parity history](docs/rendering/terrain-parity-history.md).
 
 ## Where to look
 
