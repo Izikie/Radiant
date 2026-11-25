@@ -24,6 +24,6 @@ Remaining gap: complete the transition matrix with production lifecycle fixes. S
 
 - Use the [terrain parity skill](.agents/skills/radiant-terrain-parity/SKILL.md) for background runs, fixtures, pixel differences and production rebuilds. From the root, `python tools/terrain_parity.py run` runs the four-mode comparison.
 - The Vulkan preview currently covers terrain with shader packs, antialiasing and anisotropic filtering off.
-- Read the modern implementation from `%APPDATA%\.minecraft\versions\26.3\26.3.jar`. This checkout also has an ignored reference copy at `build/renderer-reference-26.3/26.3.jar` matching Mojang's client SHA-1 `e877b6a07acd633fb3bb475002175cec036e7b87`.
+- Search the extracted 26.3 render sources in `build/renderer-reference-26.3/src/` with `rg --no-ignore -n`. See [the class map and extraction setup](docs/rendering/class-map.md).
 - Commit verified parity fixes separately. Keep fixture overrides, generated profiles, screenshots and logs in ignored build or run directories.
 - When a verified result or user decision changes the next step, replace the resume paragraph and record the commit, coverage and remaining gap. Keep older evidence in the history so this file stays short.
