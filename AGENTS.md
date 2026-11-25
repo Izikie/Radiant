@@ -8,9 +8,9 @@ Keep dual rendering. OpenGL presents the full game in the main window. Add each 
 
 ## Resume on modern-renderer
 
-Next, port the textured sun and moon using 26.3's `SkyRenderer.renderSun` and `renderMoon`. Compare their orientation, additive blending and moon-phase texture coordinates against Radiant OpenGL.
-At `b6fa98c4`, both twilight gradients matched OpenGL across all four terrain configurations. See [the parity history](renderer-port/docs/terrain-parity-history.md).
-The sun, moon, stars and clouds still need Vulkan draws.
+Next, port the star field using 26.3's `SkyRenderer.renderStars` and Radiant's seeded geometry. Check star positions, brightness and rain fade across night and twilight.
+At `c59f5405`, the sun and all eight moon phases matched Radiant OpenGL across all four terrain configurations. See [the parity history](renderer-port/docs/terrain-parity-history.md).
+Stars and clouds still need Vulkan draws.
 
 ## Where to look
 

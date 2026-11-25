@@ -74,3 +74,13 @@ At `b6fa98c4` the Vulkan sky draws Radiant's 18-vertex twilight fan between the 
 On the RX 7900 XT at 854 × 480, the horizon sweep matched all 53 terrain-populated samples across display lists and VBOs with regions off and on. The fixture fixed the client time at 14,000 ticks for dusk and 22,000 for dawn and rotated the camera through both horizons. Omitting only the Vulkan fan produced 484,145 differing pixels at dusk and 435,696 at dawn. Under `renderer-port/local/parity/runs/`, see `run-ax1lk5do` for the sweep and `run-9rrlb4yc` for the control. The local fixture is `renderer-port/local/parity/fixtures/twilight-angles.init.gradle`.
 
 The ordinary production route matched all 124 populated samples across the same four configurations (`run-b55wnl8u`). Both four-mode suites reported zero differing pixels across all samples and zero Vulkan validation errors.
+
+## Textured sun and moon
+
+At `c59f5405`, Vulkan draws the sun and moon after twilight and before the lower horizon. Both backends consume the same textured quads, including Radiant's moon-phase coordinates. Vulkan uses the bound texture, the celestial transform and the rain-dependent color with source-alpha additive blending.
+
+On the RX 7900 XT at 854 × 480, all 191 samples of the rotating-camera fixture matched across display lists and VBOs with regions on and off. Each mode sampled the noon sun and all eight midnight moon phases, alternating clear sky and 0.375 rain strength. The camera then lowered to include terrain. Omitting the Vulkan bodies changed 526,811 pixels during the sun segment and 233,855 during the moon segment, with differences in every phase. The ordinary production route matched all 175 samples, including 127 with visible terrain.
+
+A VBO render-regions run replaced both textures during a resource reload with asymmetric RGBA images using linear filtering and clamped edges. The fixture verified the 32-pixel sun and its filter after reload. All 47 samples matched. All nine positive runs reported zero differing pixels and zero Vulkan validation errors.
+
+Local logs under `renderer-port/local/parity/runs/` are `run-6nxf5143` (celestial fixture), `run-ohwu3shw` (omission control), `run-4r1y_rh7` (ordinary route) and `run-1ge17_fz` (resource reload). Repeat the celestial fixture with `python renderer-port/tools/terrain_parity.py run --init-script renderer-port/local/parity/fixtures/celestial.init.gradle --seconds 6`.
