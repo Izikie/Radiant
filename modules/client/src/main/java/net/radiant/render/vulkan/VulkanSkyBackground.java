@@ -48,6 +48,16 @@ final class VulkanSkyBackground implements AutoCloseable {
         return new Matrix4f().set(matrix);
     }
 
+    record Stars(Matrix4f transform, float brightness, byte[] positions) {}
+
+    static Stars captureStars(byte[] positions, float brightness) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            FloatBuffer modelView = stack.mallocFloat(16);
+            glGetFloatv(GL_MODELVIEW_MATRIX, modelView);
+            return new Stars(projectionModelView(modelView), brightness, positions);
+        }
+    }
+
     private static final int FAN_VERTICES = 18;
     private static final int POSITION_COLOR_STRIDE = 16;
     record Twilight(Matrix4f transform, byte[] vertices) {}
@@ -106,7 +116,9 @@ final class VulkanSkyBackground implements AutoCloseable {
             """;
     private static final int STAGES = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
     private final VkDevice device;
-    private long layout, pipeline, twilightPipeline;
+    private long layout, pipeline, twilightPipeline, starPipeline;
+    private VulkanBuffer starVertices;
+    private byte[] uploadedStars;
     private VulkanBuffer twilightVertices;
 
     VulkanSkyBackground(VkDevice device) {
@@ -153,6 +165,25 @@ final class VulkanSkyBackground implements AutoCloseable {
                     layout(location=0) out vec4 result;
                     void main() { result = color; }
                     """);
+            binding.get(0).stride(3 * Float.BYTES);
+            attributes.limit(1);
+            inputs.pVertexAttributeDescriptions(attributes);
+            starPipeline = VulkanGraphics.pipeline(stack, device, layout, format, depthFormat,
+                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Blend.ADDITIVE, false, inputs, header + """
+                    layout(push_constant) uniform Stars { mat4 transform; } stars;
+                    layout(location=0) in vec3 position;
+                    void main() {
+                        vec4 clip = stars.transform * vec4(position, 1);
+                        #if !OPENGL_CLIP_DEPTH
+                        clip.z = (clip.z + clip.w) * 0.5;
+                        #endif
+                        gl_Position = clip;
+                    }
+                    """, header + """
+                    layout(push_constant) uniform Stars { layout(offset=64) float brightness; } stars;
+                    layout(location=0) out vec4 color;
+                    void main() { color = vec4(stars.brightness); }
+                    """);
         }
     }
 
@@ -180,8 +211,31 @@ final class VulkanSkyBackground implements AutoCloseable {
         vkCmdDraw(commands, FAN_VERTICES, 1, 0, 0);
     }
 
+    void prepareStars(VkPhysicalDevice gpu, Stars stars) {
+        if (uploadedStars == stars.positions) return;
+        VulkanBuffer replacement = VulkanBuffer.mapped(gpu, device, stars.positions.length, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
+        replacement.data().put(stars.positions);
+        if (starVertices != null) starVertices.close();
+        starVertices = replacement;
+        uploadedStars = stars.positions;
+    }
+
+    void drawStars(MemoryStack stack, VkCommandBuffer commands, VulkanBuffer indices, Stars stars) {
+        ByteBuffer constants = stack.malloc(68);
+        stars.transform.get(0, constants);
+        constants.putFloat(64, stars.brightness);
+        vkCmdBindPipeline(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, starPipeline);
+        vkCmdPushConstants(commands, layout, STAGES, 0, constants);
+        vkCmdBindVertexBuffers(commands, 0, stack.longs(starVertices.handle()), stack.longs(0));
+        vkCmdBindIndexBuffer(commands, indices.handle(), 0, VK_INDEX_TYPE_UINT32);
+        int quads = stars.positions.length / (4 * 3 * Float.BYTES);
+        vkCmdDrawIndexed(commands, quads * 6, 1, 0, 0, 0);
+    }
+
     @Override
     public void close() {
+        if (starVertices != null) starVertices.close();
+        if (starPipeline != 0) vkDestroyPipeline(device, starPipeline, null);
         if (twilightVertices != null) twilightVertices.close();
         if (twilightPipeline != 0) vkDestroyPipeline(device, twilightPipeline, null);
         if (pipeline != 0) vkDestroyPipeline(device, pipeline, null);

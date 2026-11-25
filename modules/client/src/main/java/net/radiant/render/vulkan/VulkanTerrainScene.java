@@ -26,6 +26,8 @@ final class VulkanTerrainScene implements VulkanScene {
     private VulkanTerrainPipeline pipeline;
     private VulkanSkyBackground skyPipeline;
     private VulkanCelestialPipeline celestial;
+    private VulkanBuffer quadIndices;
+    VulkanSkyBackground.Stars stars;
     final VulkanCelestialPipeline.Body sun = new VulkanCelestialPipeline.Body(true);
     final VulkanCelestialPipeline.Body moon = new VulkanCelestialPipeline.Body(false);
     int sourceWidth, sourceHeight;
@@ -63,6 +65,7 @@ final class VulkanTerrainScene implements VulkanScene {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             lightmap.initialize(physicalDevice, queue, commands, 16, 16, new ByteBuffer[]{stack.calloc(1024)}, VK_FILTER_LINEAR);
         }
+        quadIndices = VulkanQuadIndices.create(physicalDevice, device);
         meshes = new VulkanTerrainMeshes(physicalDevice, device);
     }
 
@@ -133,6 +136,7 @@ final class VulkanTerrainScene implements VulkanScene {
 
     @Override
     public void prepareFrame() {
+        if (stars != null) skyPipeline.prepareStars(physicalDevice, stars);
         celestial.prepare(physicalDevice, queue, commands, sun);
         celestial.prepare(physicalDevice, queue, commands, moon);
         Atlas snapshot = pendingAtlas;
@@ -157,7 +161,7 @@ final class VulkanTerrainScene implements VulkanScene {
 
     @Override
     public void draw(MemoryStack stack, VkCommandBuffer commands, int width, int height) {
-        if (frame == null && upperSky == null && lowerSky == null && twilight == null && !sun.visible && !moon.visible) return;
+        if (frame == null && upperSky == null && lowerSky == null && twilight == null && !sun.visible && !moon.visible && stars == null) return;
         float scale = Math.min((float) width / sourceWidth, (float) height / sourceHeight);
         int viewWidth = Math.clamp(Math.round(sourceWidth * scale), 1, width);
         int viewHeight = Math.clamp(Math.round(sourceHeight * scale), 1, height);
@@ -166,9 +170,10 @@ final class VulkanTerrainScene implements VulkanScene {
         if (twilight != null) skyPipeline.drawTwilight(stack, commands, twilight);
         celestial.draw(stack, commands, sun);
         celestial.draw(stack, commands, moon);
+        if (stars != null) skyPipeline.drawStars(stack, commands, quadIndices, stars);
         if (lowerSky != null) skyPipeline.draw(stack, commands, lowerSky);
         if (frame == null || atlas == null || (frame.opaque.isEmpty() && frame.translucent.isEmpty())) return;
-        pipeline.begin(stack, commands);
+        pipeline.begin(stack, commands, quadIndices);
         drawCalls = pipeline.draw(stack, commands, frame.opaque, false)
                 + pipeline.draw(stack, commands, frame.translucent, true);
         for (Draw draw : frame.opaque) {
@@ -210,6 +215,7 @@ final class VulkanTerrainScene implements VulkanScene {
         if (pipeline != null) pipeline.close();
         if (atlas != null) atlas.close();
         if (meshes != null) meshes.close();
+        if (quadIndices != null) quadIndices.close();
     }
 
     record Frame(int[] lightmap, Fog fog, List<Draw> opaque, List<Draw> translucent) {

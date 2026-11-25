@@ -204,6 +204,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.terrain.upperSky = null;
             preview.terrain.lowerSky = null;
             preview.terrain.twilight = null;
+            preview.terrain.stars = null;
             preview.terrain.sun.visible = false;
             preview.terrain.moon.visible = false;
             preview.terrain.sourceWidth = preview.sourceWidth;
@@ -225,6 +226,12 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         var plane = VulkanSkyBackground.capture(upper, radius);
         if (upper) preview.terrain.upperSky = plane;
         else preview.terrain.lowerSky = plane;
+        replaySky(drawReference);
+    }
+
+    public static void stars(byte[] positions, float brightness, Runnable drawReference) {
+        if (active == null || !active.frameStarted) return;
+        active.terrain.stars = VulkanSkyBackground.captureStars(positions, brightness);
         replaySky(drawReference);
     }
 

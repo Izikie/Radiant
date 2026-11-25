@@ -94,6 +94,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private List<ContainerLocalRenderInformation> renderInfos = new ArrayList<>(69696);
     private final Set<TileEntity> setTileEntities = new HashSet<>();
     private ViewFrustum viewFrustum;
+    private byte[] starPositions;
     private int starGLCallList = -1;
     private int glSkyList = -1;
     private int glSkyList2 = -1;
@@ -383,6 +384,11 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     worldRendererIn.pos(d5 + d25, d6 + d23, d7 + d26).endVertex();
                 }
             }
+        }
+
+        if (VulkanTerrainPreview.ENABLED) {
+            starPositions = new byte[worldRendererIn.getVertexCount() * 3 * Float.BYTES];
+            worldRendererIn.getByteBuffer().get(0, starPositions);
         }
     }
 
@@ -1287,15 +1293,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             if (f17 > 0.0F && Config.isStarsEnabled() && !CustomSky.hasSkyLayers(this.theWorld)) {
                 GlStateManager.color(f17, f17, f17, f17);
 
-                if (this.vboEnabled) {
-                    this.starVBO.bindBuffer();
-                    GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
-                    GL11.glVertexPointer(3, GL11.GL_FLOAT, 12, 0L);
-                    this.starVBO.drawArrays(7);
-                    this.starVBO.unbindBuffer();
-                    GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
-                } else {
-                    GlStateManager.callList(this.starGLCallList);
+                drawStarField();
+                if (VulkanTerrainPreview.ENABLED) {
+                    VulkanTerrainPreview.stars(starPositions, f17, this::drawStarField);
                 }
             }
 
@@ -1345,6 +1345,19 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
 
             GlStateManager.depthMask(true);
+        }
+    }
+
+    private void drawStarField() {
+        if (this.vboEnabled) {
+            this.starVBO.bindBuffer();
+            GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
+            GL11.glVertexPointer(3, GL11.GL_FLOAT, 12, 0L);
+            this.starVBO.drawArrays(GL11.GL_QUADS);
+            this.starVBO.unbindBuffer();
+            GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
+        } else {
+            GlStateManager.callList(this.starGLCallList);
         }
     }
 

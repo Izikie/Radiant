@@ -12,7 +12,6 @@ import static org.lwjgl.vulkan.VK10.*;
 
 final class VulkanTerrainPipeline implements AutoCloseable {
     private static final int FRAME_BYTES = 32 + 65 * 16;
-    private static final int QUADS_PER_DRAW = 16_384;
     private static final String FRAME_LAYOUT = """
             layout(std140, set = 0, binding = 1) uniform Frame {
                 vec4 fogColor;
@@ -90,7 +89,6 @@ final class VulkanTerrainPipeline implements AutoCloseable {
 
     private final VkDevice device;
     private VulkanBuffer frameBuffer;
-    private VulkanBuffer indices;
     private long descriptorLayout;
     private long descriptorPool;
     private long descriptorSet;
@@ -104,14 +102,6 @@ final class VulkanTerrainPipeline implements AutoCloseable {
 
     void initialize(VkPhysicalDevice physicalDevice, int colorFormat, int depthFormat) {
         frameBuffer = VulkanBuffer.mapped(physicalDevice, device, FRAME_BYTES, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT);
-        indices = VulkanBuffer.mapped(physicalDevice, device, QUADS_PER_DRAW * 6 * Integer.BYTES, VK_BUFFER_USAGE_INDEX_BUFFER_BIT);
-        var indexData = indices.data().asIntBuffer();
-        for (int quad = 0; quad < QUADS_PER_DRAW; quad++) {
-            int base = quad * 4;
-            // Match the OpenGL reference diagonal so smooth lighting interpolates across the same triangles.
-            indexData.put(base).put(base + 1).put(base + 3);
-            indexData.put(base + 1).put(base + 2).put(base + 3);
-        }
         try (MemoryStack stack = MemoryStack.stackPush()) {
             createDescriptors(stack);
             VkPushConstantRange.Buffer constants = VkPushConstantRange.calloc(1, stack);
@@ -197,7 +187,7 @@ final class VulkanTerrainPipeline implements AutoCloseable {
         data.putFloat(fog.mode()).putFloat(fog.start()).putFloat(fog.end()).putFloat(fog.density());
     }
 
-    void begin(MemoryStack stack, VkCommandBuffer commands) {
+    void begin(MemoryStack stack, VkCommandBuffer commands, VulkanBuffer indices) {
         vkCmdBindDescriptorSets(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 0, stack.longs(descriptorSet), null);
         vkCmdBindIndexBuffer(commands, indices.handle(), 0, VK_INDEX_TYPE_UINT32);
     }
@@ -218,10 +208,10 @@ final class VulkanTerrainPipeline implements AutoCloseable {
             draw.eyeZ().get(20, constants);
             vkCmdPushConstants(commands, layout, DRAW_STAGES, 0, constants);
             buffer.put(0, mesh.buffer());
-            for (int base = 0; base < mesh.quads(); base += QUADS_PER_DRAW) {
+            for (int base = 0; base < mesh.quads(); base += VulkanQuadIndices.CAPACITY) {
                 offset.put(0, mesh.offset() + (long) base * 4 * VulkanTerrainMeshes.STRIDE);
                 vkCmdBindVertexBuffers(commands, 0, buffer, offset);
-                vkCmdDrawIndexed(commands, Math.min(QUADS_PER_DRAW, mesh.quads() - base) * 6, 1, 0, 0, 0);
+                vkCmdDrawIndexed(commands, Math.min(VulkanQuadIndices.CAPACITY, mesh.quads() - base) * 6, 1, 0, 0, 0);
                 calls++;
             }
         }
@@ -235,7 +225,6 @@ final class VulkanTerrainPipeline implements AutoCloseable {
         if (layout != 0) vkDestroyPipelineLayout(device, layout, null);
         if (descriptorPool != 0) vkDestroyDescriptorPool(device, descriptorPool, null);
         if (descriptorLayout != 0) vkDestroyDescriptorSetLayout(device, descriptorLayout, null);
-        if (indices != null) indices.close();
         if (frameBuffer != null) frameBuffer.close();
     }
 }
