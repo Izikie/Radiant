@@ -8,9 +8,9 @@ Keep dual rendering. OpenGL presents the full game in the main window. Add each 
 
 ## Resume on modern-renderer
 
-Next, port the star field using 26.3's `SkyRenderer.renderStars` and Radiant's seeded geometry. Check star positions, brightness and rain fade across night and twilight.
-At `c59f5405`, the sun and all eight moon phases matched Radiant OpenGL across all four terrain configurations. See [the parity history](renderer-port/docs/terrain-parity-history.md).
-Stars and clouds still need Vulkan draws.
+Next, port fast overworld clouds using 26.3's `CloudRenderer` and Radiant's `RenderGlobal.renderClouds`. Compare views from below and above the cloud layer, where Radiant changes its draw order relative to terrain.
+At `bcb460c6`, the star field matched Radiant OpenGL across all four terrain configurations and a live display-list/VBO switch. See [the parity history](renderer-port/docs/terrain-parity-history.md).
+Fast and fancy clouds still need Vulkan draws.
 
 ## Where to look
 
