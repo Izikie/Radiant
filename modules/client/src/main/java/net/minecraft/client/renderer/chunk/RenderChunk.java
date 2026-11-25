@@ -120,7 +120,7 @@ public class RenderChunk {
         this.boundingBoxParent = null;
     }
 
-    public void resortTransparency(float x, float y, float z, ChunkCompileTaskGenerator generator) {
+    public boolean resortTransparency(float x, float y, float z, ChunkCompileTaskGenerator generator) {
         CompiledChunk compiledchunk = generator.getCompiledChunk();
 
         if (compiledchunk.getState() != null && !compiledchunk.isLayerEmpty(RenderLayer.TRANSLUCENT)) {
@@ -128,7 +128,9 @@ public class RenderChunk {
             this.preRenderBlocks(worldrenderer, this.position);
             worldrenderer.setVertexState(compiledchunk.getState());
             this.postRenderBlocks(RenderLayer.TRANSLUCENT, x, y, z, worldrenderer, compiledchunk);
+            return true;
         }
+        return false;
     }
 
     public void rebuildChunk(float x, float y, float z, ChunkCompileTaskGenerator generator) {

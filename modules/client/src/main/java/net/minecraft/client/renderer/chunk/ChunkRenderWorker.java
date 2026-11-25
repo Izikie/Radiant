@@ -73,6 +73,7 @@ public class ChunkRenderWorker implements Runnable {
             float f1 = (float) lvt_2_1_.posY + lvt_2_1_.getEyeHeight();
             float f2 = (float) lvt_2_1_.posZ;
             ChunkCompileTaskGenerator.Type chunkcompiletaskgenerator$type = generator.getType();
+            boolean resorted = false;
 
             if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.REBUILD_CHUNK) {
                 long started = ClientBenchmark.ENABLED ? ClientBenchmark.startChunkWork() : 0;
@@ -81,7 +82,7 @@ public class ChunkRenderWorker implements Runnable {
                     ClientBenchmark.recordChunkWork(started, false);
                 }
             } else if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.RESORT_TRANSPARENCY) {
-                generator.getRenderChunk().resortTransparency(f, f1, f2, generator);
+                resorted = generator.getRenderChunk().resortTransparency(f, f1, f2, generator);
             }
 
             generator.getLock().lock();
@@ -110,7 +111,7 @@ public class ChunkRenderWorker implements Runnable {
                         lvt_8_1_.add(this.chunkRenderDispatcher.uploadChunk(enumworldblocklayer, generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(enumworldblocklayer), generator.getRenderChunk(), lvt_7_1_));
                     }
                 }
-            } else if (chunkcompiletaskgenerator$type == ChunkCompileTaskGenerator.Type.RESORT_TRANSPARENCY) {
+            } else if (resorted) {
                 lvt_8_1_.add(this.chunkRenderDispatcher.uploadChunk(RenderLayer.TRANSLUCENT, generator.getRegionRenderCacheBuilder().getWorldRendererByLayer(RenderLayer.TRANSLUCENT), generator.getRenderChunk(), lvt_7_1_));
             }
 
