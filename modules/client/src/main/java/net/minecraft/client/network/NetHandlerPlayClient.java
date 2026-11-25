@@ -88,6 +88,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
     private final GuiScreen guiScreenServer;
     private Minecraft gameController;
     private WorldClient clientWorldController;
+    private boolean closed;
     private boolean doneLoadingTerrain;
     private final Map<UUID, NetworkPlayerInfo> playerInfoMap = new HashMap<>();
     public int currentServerMaxPlayers = 20;
@@ -102,7 +103,13 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
     }
 
     public void cleanup() {
+        closed = true;
         this.clientWorldController = null;
+    }
+
+    @Override
+    public boolean acceptsQueuedPackets() {
+        return !closed;
     }
 
     @Override
