@@ -11,6 +11,7 @@ Use this map to find the Radiant code that serves the same responsibility. Moder
 | `renderer.SkyRenderer.renderSunriseAndSunset` | `RenderGlobal.drawTwilight` supplies the transformed, colored fan to `VulkanSkyBackground.drawTwilight` between the sky planes. |
 | `renderer.SkyRenderer.renderSun`, `renderMoon` | `RenderGlobal.drawCelestialBody` supplies the sun or moon quad, including Radiant's moon-phase UVs. `VulkanCelestialPipeline` draws each with its bound texture and rain-dependent color. |
 | `renderer.SkyRenderer.renderStars` | `RenderGlobal.renderStars` builds Radiant's seeded star quads. `VulkanSkyBackground.drawStars` draws that mesh with the celestial transform, star brightness and shared quad indices. |
+| `renderer.CloudRenderer.prepare`, `render` (flat clouds) | `RenderGlobal.renderClouds` builds the fast-cloud mesh. `VulkanCloudPipeline` draws it with the display list's translation and Radiant's cloud projection, fog and texture. |
 | `renderer.texture.TextureAtlas` | `TextureMap`, `VulkanTerrainPreview.captureAtlas`, `VulkanAtlasUpdates` |
 | `com.mojang.blaze3d.pipeline.RenderTarget`, `platform.Window` | `Framebuffer`, `Display`, `OpenGlWindowBlit`, `VulkanRenderTarget`, `VulkanPresenter` |
 | `com.mojang.renderpearl.api.commands.CommandEncoder`, `api.pipeline.RenderPipeline`, `backend.opengl.GlDevice`, `backend.vulkan.VulkanDevice` | `OpenGlTerrainDrawSubmitter`, `VulkanTerrainDrawSubmitter`, `VulkanTerrainScene`, `VulkanTerrainPipeline`, `VulkanPresenter` |

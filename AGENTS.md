@@ -8,9 +8,9 @@ Keep dual rendering. OpenGL presents the full game in the main window. Add each 
 
 ## Resume on modern-renderer
 
-Next, port fast overworld clouds using 26.3's `CloudRenderer` and Radiant's `RenderGlobal.renderClouds`. Compare views from below and above the cloud layer, where Radiant changes its draw order relative to terrain.
-At `bcb460c6`, the star field matched Radiant OpenGL across all four terrain configurations and a live display-list/VBO switch. See [the parity history](renderer-port/docs/terrain-parity-history.md).
-Fast and fancy clouds still need Vulkan draws.
+Next, port fancy clouds using 26.3's `CloudRenderer` and Radiant's `RenderGlobal.renderCloudsFancy`. Compare the depth-only and color draws from below, inside and above the layer, including the first frame after a mesh rebuild.
+At `c23e1a0e`, fast clouds and a reloaded cloud texture matched Radiant OpenGL across all four terrain configurations. See [the parity history](renderer-port/docs/terrain-parity-history.md).
+The Vulkan preview still needs the fancy-cloud geometry and its two draws.
 
 ## Where to look
 
@@ -23,7 +23,7 @@ Fast and fancy clouds still need Vulkan draws.
 ## Working on terrain
 
 - Use the [terrain parity skill](.agents/skills/radiant-terrain-parity/SKILL.md) for background runs, fixtures, pixel differences and production rebuilds. From the root, `python renderer-port/tools/terrain_parity.py run` runs the four-mode comparison.
-- The Vulkan preview covers the overworld sky background and terrain with shader packs, antialiasing and anisotropic filtering off.
+- The Vulkan preview covers overworld sky, fast clouds and terrain with shader packs, antialiasing and anisotropic filtering off.
 - Search the extracted 26.3 render sources in `renderer-port/local/reference/src/` with `rg --no-ignore-vcs -n` so `.ignore` still excludes assets. See [the class map and extraction setup](renderer-port/docs/class-map.md).
 - Use vk-blaze3d for implementation details when helpful. Keep pass structure aligned with 26.3 and verify the image against Radiant OpenGL.
 - Commit verified parity fixes separately. Keep fixture overrides, generated profiles, screenshots and logs in ignored build or run directories.
