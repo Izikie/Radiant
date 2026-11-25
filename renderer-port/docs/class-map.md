@@ -7,7 +7,7 @@ Use this map to find the Radiant code that serves the same responsibility. Moder
 | `net.minecraft.client.renderer.GameRenderer`, `LevelRenderer` | `EntityRenderer.renderWorldPass`, `RenderGlobal` |
 | `renderer.chunk.SectionRenderDispatcher`, `SectionCompiler`, `CompiledSectionMesh` | `ChunkRenderDispatcher`, `ChunkRenderWorker`, `RenderChunk`, `CompiledChunk` |
 | `renderer.chunk.ChunkSectionsToRender`, `ChunkSectionLayer` | `RenderGlobal.renderBlockLayer`, `TerrainDrawSubmitter`, `RenderLayer` |
-| `renderer.SkyRenderer`, `renderer.state.level.SkyRenderState` | `RenderGlobal.renderSky`, `generateSky`, `generateSky2`, `generateStars` |
+| `renderer.SkyRenderer`, `renderer.state.level.SkyRenderState` | `RenderGlobal.renderSky`, `generateSky`, `generateSky2`, `generateStars`. Vulkan draws the upper and lower sky planes from `VulkanSkyBackground.State`. |
 | `renderer.texture.TextureAtlas` | `TextureMap`, `VulkanTerrainPreview.captureAtlas`, `VulkanAtlasUpdates` |
 | `com.mojang.blaze3d.pipeline.RenderTarget`, `platform.Window` | `Framebuffer`, `Display`, `OpenGlWindowBlit`, `VulkanRenderTarget`, `VulkanPresenter` |
 | `com.mojang.renderpearl.api.commands.CommandEncoder`, `api.pipeline.RenderPipeline`, `backend.opengl.GlDevice`, `backend.vulkan.VulkanDevice` | `OpenGlTerrainDrawSubmitter`, `VulkanTerrainDrawSubmitter`, `VulkanTerrainScene`, `VulkanTerrainPipeline`, `VulkanPresenter` |

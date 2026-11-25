@@ -27,6 +27,6 @@ python renderer-port/tools/terrain_parity.py summarize renderer-port/local/parit
 
 Read only the final summary from `run` or `summarize`. Never tail whole logs. Use `--json` for structured results, including maximum channel error. If a failure needs diagnosis, search the named log for the specific error or sample number and compare matching PNGs in the reported capture directory.
 
-For a transient discrepancy, sample the first frames around the event and log evidence it actually happened, such as a completed transparency re-sort or an atlas reload. Keep the same ordered submissions, camera and dimensions in both renders. The comparison reads Vulkan's presented image and an OpenGL terrain replay. The Vulkan renderer captures the legacy chunk transform and uses a vertical presentation blit.
+For a transient discrepancy, sample the first frames around the event and log evidence it actually happened, such as a completed transparency re-sort or an atlas reload. Keep the same ordered submissions, camera and dimensions in both renders. The comparison reads the Vulkan image and a same-frame OpenGL reference containing the world clear, sky planes and terrain. A populated frame has at least one terrain pixel that differs from the sky background. Sky-only differences also fail the run. The Vulkan renderer captures the legacy chunk transform and uses a vertical presentation blit.
 
 See [the diagnostic fixture instructions](references/fixture.md) when reproducing a specific terrain transition.

@@ -8,9 +8,9 @@ Keep dual rendering. OpenGL presents the full game in the main window. Add each 
 
 ## Resume on modern-renderer
 
-Next, port the overworld sky background ahead of terrain. Use 26.3's `LevelRenderer.addSkyPass` and `SkyRenderer.extractRenderState` as the architectural reference.
-Terrain checkpoint `61d0784d` passed resource reload and same-world re-entry across the four OpenGL configurations. See [the parity history](renderer-port/docs/terrain-parity-history.md).
-The comparison window still needs the sky pass and a same-frame OpenGL reference for sky plus terrain.
+Next, port the sunrise and sunset gradient between the sky planes using 26.3's `SkyRenderer.renderSunriseAndSunset` and Radiant's `RenderGlobal.renderSky`. Compare its direction and blending at dawn and dusk.
+At `dde18013`, the world clear, upper sky, lower horizon and terrain matched the same-frame OpenGL reference across all four configurations. See [the parity history](renderer-port/docs/terrain-parity-history.md).
+The twilight gradient, sun, moon, stars and clouds still need Vulkan draws.
 
 ## Where to look
 
@@ -23,7 +23,7 @@ The comparison window still needs the sky pass and a same-frame OpenGL reference
 ## Working on terrain
 
 - Use the [terrain parity skill](.agents/skills/radiant-terrain-parity/SKILL.md) for background runs, fixtures, pixel differences and production rebuilds. From the root, `python renderer-port/tools/terrain_parity.py run` runs the four-mode comparison.
-- The Vulkan preview currently covers terrain with shader packs, antialiasing and anisotropic filtering off.
+- The Vulkan preview covers the overworld sky background and terrain with shader packs, antialiasing and anisotropic filtering off.
 - Search the extracted 26.3 render sources in `renderer-port/local/reference/src/` with `rg --no-ignore-vcs -n` so `.ignore` still excludes assets. See [the class map and extraction setup](renderer-port/docs/class-map.md).
 - Use vk-blaze3d for implementation details when helpful. Keep pass structure aligned with 26.3 and verify the image against Radiant OpenGL.
 - Commit verified parity fixes separately. Keep fixture overrides, generated profiles, screenshots and logs in ignored build or run directories.
