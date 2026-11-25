@@ -168,6 +168,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.sections.clear();
             preview.atlasDirty = true;
             preview.terrain.setAtlas(null);
+            preview.terrain.sun.invalidateTexture();
+            preview.terrain.moon.invalidateTexture();
         }
     }
 
@@ -202,6 +204,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.terrain.upperSky = null;
             preview.terrain.lowerSky = null;
             preview.terrain.twilight = null;
+            preview.terrain.sun.visible = false;
+            preview.terrain.moon.visible = false;
             preview.terrain.sourceWidth = preview.sourceWidth;
             preview.terrain.sourceHeight = preview.sourceHeight;
             preview.frameStarted = true;
@@ -222,6 +226,12 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         if (upper) preview.terrain.upperSky = plane;
         else preview.terrain.lowerSky = plane;
         replaySky(drawReference);
+    }
+
+    public static void captureCelestialBody(boolean sun, ByteBuffer vertices) {
+        if (active != null && active.frameStarted) {
+            (sun ? active.terrain.sun : active.terrain.moon).capture(vertices);
+        }
     }
 
     public static void captureTwilight(ByteBuffer vertices) {

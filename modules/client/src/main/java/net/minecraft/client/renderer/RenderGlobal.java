@@ -1184,7 +1184,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
             GlStateManager.color(f, f1, f2);
             Tessellator tessellator = Tessellator.get();
-            WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             GlStateManager.depthMask(false);
             GlStateManager.enableFog();
 
@@ -1267,35 +1266,14 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 Shaders.postCelestialRotate();
             }
 
-            float f16 = 30.0F;
-
             if (Config.isSunTexture()) {
                 this.renderEngine.bindTexture(LOCATION_SUN_PNG);
-                worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-                worldrenderer.pos(-f16, 100.0D, -f16).tex(0.0D, 0.0D).endVertex();
-                worldrenderer.pos(f16, 100.0D, -f16).tex(1.0D, 0.0D).endVertex();
-                worldrenderer.pos(f16, 100.0D, f16).tex(1.0D, 1.0D).endVertex();
-                worldrenderer.pos(-f16, 100.0D, f16).tex(0.0D, 1.0D).endVertex();
-                tessellator.draw();
+                drawCelestialBody(tessellator, true, 0);
             }
-
-            f16 = 20.0F;
 
             if (Config.isMoonTexture()) {
                 this.renderEngine.bindTexture(LOCATION_MOON_PHASES_PNG);
-                int i = this.theWorld.getMoonPhase();
-                int k = i % 4;
-                int i1 = i / 4 % 2;
-                float f19 = (k) / 4.0F;
-                float f21 = (i1) / 2.0F;
-                float f23 = (k + 1) / 4.0F;
-                float f14 = (i1 + 1) / 2.0F;
-                worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-                worldrenderer.pos(-f16, -100.0D, f16).tex(f23, f14).endVertex();
-                worldrenderer.pos(f16, -100.0D, f16).tex(f19, f14).endVertex();
-                worldrenderer.pos(f16, -100.0D, -f16).tex(f19, f21).endVertex();
-                worldrenderer.pos(-f16, -100.0D, -f16).tex(f23, f21).endVertex();
-                tessellator.draw();
+                drawCelestialBody(tessellator, false, this.theWorld.getMoonPhase());
             }
 
             GlStateManager.disableTexture2D();
@@ -1368,6 +1346,33 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
             GlStateManager.depthMask(true);
         }
+    }
+
+    private static void drawCelestialBody(Tessellator tessellator, boolean sun, int phase) {
+        buildCelestialQuad(tessellator.getWorldRenderer(), sun, phase);
+        if (VulkanTerrainPreview.ENABLED) VulkanTerrainPreview.captureCelestialBody(sun, tessellator.getWorldRenderer().getByteBuffer());
+        tessellator.draw();
+        if (VulkanTerrainPreview.ENABLED) {
+            VulkanTerrainPreview.replaySky(() -> {
+                buildCelestialQuad(tessellator.getWorldRenderer(), sun, phase);
+                tessellator.draw();
+            });
+        }
+    }
+
+    private static void buildCelestialQuad(WorldRenderer vertices, boolean sun, int phase) {
+        float radius = sun ? 30 : 20;
+        float z = sun ? -radius : radius;
+        float y = sun ? 100 : -100;
+        float left = sun ? 0 : (phase % 4 + 1) / 4.0F;
+        float right = sun ? 1 : phase % 4 / 4.0F;
+        float top = sun ? 0 : (phase / 4 + 1) / 2.0F;
+        float bottom = sun ? 1 : phase / 4 / 2.0F;
+        vertices.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+        vertices.pos(-radius, y, z).tex(left, top).endVertex();
+        vertices.pos(radius, y, z).tex(right, top).endVertex();
+        vertices.pos(radius, y, -z).tex(right, bottom).endVertex();
+        vertices.pos(-radius, y, -z).tex(left, bottom).endVertex();
     }
 
     private static void drawTwilight(Tessellator tessellator, float[] color, float red, float green, float blue) {

@@ -9,10 +9,12 @@ import static org.lwjgl.util.shaderc.Shaderc.*;
 import static org.lwjgl.vulkan.VK10.*;
 
 final class VulkanGraphics {
+    enum Blend { OPAQUE, TRANSLUCENT, ADDITIVE }
+
     private VulkanGraphics() {
     }
 
-    static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology, boolean translucent, boolean depthWrite,
+    static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology, Blend blendMode, boolean depthWrite,
                          VkPipelineVertexInputStateCreateInfo vertexInput, String vertexSource, String fragmentSource) {
         long vertex = shader(stack, device, vertexSource, shaderc_glsl_vertex_shader, "scene.vert");
         long fragment = 0;
@@ -28,9 +30,10 @@ final class VulkanGraphics {
             VkPipelineRasterizationStateCreateInfo rasterization = VkPipelineRasterizationStateCreateInfo.calloc(stack)
                     .sType$Default().lineWidth(1.0f);
             rasterization.cullMode(VK_CULL_MODE_BACK_BIT).frontFace(VK_FRONT_FACE_CLOCKWISE);
-            if (translucent) {
+            if (blendMode != Blend.OPAQUE) {
                 blend.get(0).blendEnable(true)
-                        .srcColorBlendFactor(VK_BLEND_FACTOR_SRC_ALPHA).dstColorBlendFactor(VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA)
+                        .srcColorBlendFactor(VK_BLEND_FACTOR_SRC_ALPHA).dstColorBlendFactor(
+                                blendMode == Blend.ADDITIVE ? VK_BLEND_FACTOR_ONE : VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA)
                         .colorBlendOp(VK_BLEND_OP_ADD)
                         .srcAlphaBlendFactor(VK_BLEND_FACTOR_ONE).dstAlphaBlendFactor(VK_BLEND_FACTOR_ZERO)
                         .alphaBlendOp(VK_BLEND_OP_ADD);

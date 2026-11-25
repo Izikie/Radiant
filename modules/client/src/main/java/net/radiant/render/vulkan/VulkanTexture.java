@@ -22,6 +22,11 @@ final class VulkanTexture implements AutoCloseable {
 
     void initialize(VkPhysicalDevice physicalDevice, VkQueue queue, VkCommandBuffer commands,
                     int width, int height, ByteBuffer[] levels, int filter) {
+        initialize(physicalDevice, queue, commands, width, height, levels, filter, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE, VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
+    }
+
+    void initialize(VkPhysicalDevice physicalDevice, VkQueue queue, VkCommandBuffer commands,
+                    int width, int height, ByteBuffer[] levels, int filter, int wrapU, int wrapV) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             mipLevels = levels.length;
             int format = VK_FORMAT_R8G8B8A8_UNORM;
@@ -42,8 +47,8 @@ final class VulkanTexture implements AutoCloseable {
             view = VulkanMemory.createImageView(stack, device, image, format, VK_IMAGE_ASPECT_COLOR_BIT, levels.length);
             VkSamplerCreateInfo samplerInfo = VkSamplerCreateInfo.calloc(stack).sType$Default()
                     .magFilter(filter).minFilter(filter).mipmapMode(VK_SAMPLER_MIPMAP_MODE_LINEAR)
-                    .addressModeU(VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE)
-                    .addressModeV(VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE)
+                    .addressModeU(wrapU)
+                    .addressModeV(wrapV)
                     .addressModeW(VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE)
                     .maxLod(levels.length - 1);
             VulkanPresenter.check(vkCreateSampler(device, samplerInfo, null, handle), "create texture sampler");

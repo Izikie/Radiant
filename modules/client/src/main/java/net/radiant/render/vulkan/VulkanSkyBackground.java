@@ -35,7 +35,7 @@ final class VulkanSkyBackground implements AutoCloseable {
         }
     }
 
-    private static Matrix4f projectionModelView(FloatBuffer matrix) {
+    static Matrix4f projectionModelView(FloatBuffer matrix) {
         glMatrixMode(GL_PROJECTION);
         glPushMatrix();
         try {
@@ -124,7 +124,7 @@ final class VulkanSkyBackground implements AutoCloseable {
             String header = "#version 450\n#define OPENGL_CLIP_DEPTH "
                     + (device.getCapabilities().VK_EXT_depth_clip_control ? "1\n" : "0\n");
             pipeline = VulkanGraphics.pipeline(stack, device, layout, format, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
-                    false, false, VkPipelineVertexInputStateCreateInfo.calloc(stack).sType$Default(),
+                    VulkanGraphics.Blend.OPAQUE, false, VkPipelineVertexInputStateCreateInfo.calloc(stack).sType$Default(),
                     header + CONSTANTS + VERTEX, header + CONSTANTS + FRAGMENT);
             twilightVertices = VulkanBuffer.mapped(gpu, device, FAN_VERTICES * POSITION_COLOR_STRIDE, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
             var binding = VkVertexInputBindingDescription.calloc(1, stack);
@@ -135,7 +135,7 @@ final class VulkanSkyBackground implements AutoCloseable {
             var inputs = VkPipelineVertexInputStateCreateInfo.calloc(stack).sType$Default()
                     .pVertexBindingDescriptions(binding).pVertexAttributeDescriptions(attributes);
             twilightPipeline = VulkanGraphics.pipeline(stack, device, layout, format, depthFormat,
-                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN, true, false, inputs, header + """
+                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN, VulkanGraphics.Blend.TRANSLUCENT, false, inputs, header + """
                     layout(push_constant) uniform Sky { mat4 transform; } sky;
                     layout(location=0) in vec3 position;
                     layout(location=1) in vec4 vertexColor;
