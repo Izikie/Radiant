@@ -28,7 +28,7 @@ final class TerrainComparison implements AutoCloseable {
     private final int depth = glGenRenderbuffers();
     private int width, height, samples;
     private boolean active;
-    private int[] background;
+    private int[] background, beforeLateClouds;
     private boolean savedMismatch;
     private Path directory;
 
@@ -62,6 +62,7 @@ final class TerrainComparison implements AutoCloseable {
             }
             active = true;
             background = null;
+            beforeLateClouds = null;
         } finally {
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, previous);
         }
@@ -81,6 +82,11 @@ final class TerrainComparison implements AutoCloseable {
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, source);
             glBindFramebuffer(GL_READ_FRAMEBUFFER, previousRead);
         }
+    }
+
+    void drawClouds(Runnable reference, boolean afterTerrain) {
+        if (afterTerrain && background != null) beforeLateClouds = readColors();
+        drawSky(reference);
     }
 
     void drawSky(Runnable reference) {
@@ -134,6 +140,7 @@ final class TerrainComparison implements AutoCloseable {
 
     void compare(NativeImage vk) {
         int[] pixels = readColors();
+        int[] terrainPixels = beforeLateClouds == null ? pixels : beforeLateClouds;
         int mismatches = 0, maximum = 0, visible = 0;
         long absoluteError = 0;
         NativeImage gl = NativeImage.createBlankImage(width, height);
@@ -143,7 +150,7 @@ final class TerrainComparison implements AutoCloseable {
                 int expected = pixels[index];
                 int actual = vk.getPixel(x, y);
                 gl.setPixel(x, y, expected | 0xff000000);
-                if (background != null && ((expected ^ background[index]) & 0xffffff) != 0) visible++;
+                if (background != null && ((terrainPixels[index] ^ background[index]) & 0xffffff) != 0) visible++;
                 if (((expected ^ actual) & 0xffffff) == 0) continue;
                 mismatches++;
                 for (int shift = 0; shift <= 16; shift += 8) {

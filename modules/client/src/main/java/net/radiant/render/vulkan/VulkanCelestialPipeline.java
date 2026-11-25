@@ -2,7 +2,6 @@ package net.radiant.render.vulkan;
 
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
-import org.lwjgl.BufferUtils;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.vulkan.*;
 
@@ -11,8 +10,6 @@ import java.nio.FloatBuffer;
 import java.nio.LongBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL15.glBindBuffer;
-import static org.lwjgl.opengl.GL21.GL_PIXEL_PACK_BUFFER;
 import static org.lwjgl.vulkan.VK10.*;
 
 final class VulkanCelestialPipeline implements AutoCloseable {
@@ -27,7 +24,7 @@ final class VulkanCelestialPipeline implements AutoCloseable {
         private Matrix4f transform;
         private final Vector4f color = new Vector4f();
         private int textureId = -1;
-        private Image image;
+        private VulkanTextureBindings.Image image;
 
         Body(boolean sun) {
             slot = sun ? 0 : 1;
@@ -40,7 +37,7 @@ final class VulkanCelestialPipeline implements AutoCloseable {
         void capture(ByteBuffer quad) {
             int id = glGetInteger(GL_TEXTURE_BINDING_2D);
             if (id != textureId) {
-                image = Image.capture();
+                image = VulkanTextureBindings.Image.capture();
                 textureId = id;
             }
             try (MemoryStack stack = MemoryStack.stackPush()) {
@@ -58,64 +55,25 @@ final class VulkanCelestialPipeline implements AutoCloseable {
         }
     }
 
-    private record Image(int width, int height, ByteBuffer pixels, int filter, int wrapU, int wrapV) {
-        static Image capture() {
-            int width = glGetTexLevelParameteri(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH);
-            int height = glGetTexLevelParameteri(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT);
-            ByteBuffer pixels = BufferUtils.createByteBuffer(Math.multiplyExact(Math.multiplyExact(width, height), 4));
-            glPushClientAttrib(GL_CLIENT_PIXEL_STORE_BIT);
-            try {
-                glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
-                glPixelStorei(GL_PACK_ROW_LENGTH, 0);
-                glPixelStorei(GL_PACK_SKIP_ROWS, 0);
-                glPixelStorei(GL_PACK_SKIP_PIXELS, 0);
-                glPixelStorei(GL_PACK_ALIGNMENT, 4);
-                glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-            } finally {
-                glPopClientAttrib();
-            }
-            int filter = glGetTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER) == GL_LINEAR ? VK_FILTER_LINEAR : VK_FILTER_NEAREST;
-            return new Image(width, height, pixels, filter, wrap(GL_TEXTURE_WRAP_S), wrap(GL_TEXTURE_WRAP_T));
-        }
-
-        private static int wrap(int axis) {
-            return glGetTexParameteri(GL_TEXTURE_2D, axis) == GL_REPEAT ? VK_SAMPLER_ADDRESS_MODE_REPEAT : VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
-        }
-    }
-
     private final VkDevice device;
-    private final VulkanTexture[] textures = new VulkanTexture[2];
-    private final Image[] uploaded = new Image[2];
-    private final long[] sets = new long[2];
+    private final VulkanTextureBindings bindings;
     private VulkanBuffer vertices;
-    private long setLayout, pool, layout, pipeline;
+    private long layout, pipeline;
 
     VulkanCelestialPipeline(VkDevice device) {
         this.device = device;
+        bindings = new VulkanTextureBindings(device, 2);
     }
 
     void initialize(VkPhysicalDevice gpu, int format, int depthFormat) {
         vertices = VulkanBuffer.mapped(gpu, device, 2 * QUAD_BYTES, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
         try (MemoryStack stack = MemoryStack.stackPush()) {
+            bindings.initialize(stack);
             LongBuffer handle = stack.mallocLong(1);
-            var binding = VkDescriptorSetLayoutBinding.calloc(1, stack);
-            binding.get(0).descriptorType(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER).descriptorCount(1).stageFlags(VK_SHADER_STAGE_FRAGMENT_BIT);
-            VulkanPresenter.check(vkCreateDescriptorSetLayout(device, VkDescriptorSetLayoutCreateInfo.calloc(stack).sType$Default()
-                    .pBindings(binding), null, handle), "create celestial descriptor layout");
-            setLayout = handle.get(0);
-            var size = VkDescriptorPoolSize.calloc(1, stack);
-            size.get(0).type(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER).descriptorCount(2);
-            VulkanPresenter.check(vkCreateDescriptorPool(device, VkDescriptorPoolCreateInfo.calloc(stack).sType$Default()
-                    .maxSets(2).pPoolSizes(size), null, handle), "create celestial descriptor pool");
-            pool = handle.get(0);
-            LongBuffer handles = stack.mallocLong(2);
-            VulkanPresenter.check(vkAllocateDescriptorSets(device, VkDescriptorSetAllocateInfo.calloc(stack).sType$Default()
-                    .descriptorPool(pool).pSetLayouts(stack.longs(setLayout, setLayout)), handles), "allocate celestial descriptors");
-            handles.get(sets);
             var range = VkPushConstantRange.calloc(1, stack);
             range.get(0).size(80).stageFlags(STAGES);
             VulkanPresenter.check(vkCreatePipelineLayout(device, VkPipelineLayoutCreateInfo.calloc(stack).sType$Default()
-                    .pSetLayouts(stack.longs(setLayout)).pPushConstantRanges(range), null, handle), "create celestial pipeline layout");
+                    .pSetLayouts(stack.longs(bindings.layout())).pPushConstantRanges(range), null, handle), "create celestial pipeline layout");
             layout = handle.get(0);
             var stream = VkVertexInputBindingDescription.calloc(1, stack);
             stream.get(0).stride(STRIDE);
@@ -152,21 +110,7 @@ final class VulkanCelestialPipeline implements AutoCloseable {
         if (!body.visible) return;
         int slot = body.slot;
         vertices.data().put(slot * QUAD_BYTES, body.vertices);
-        Image image = body.image;
-        if (uploaded[slot] == image) return;
-        if (textures[slot] != null) textures[slot].close();
-        var texture = textures[slot] = new VulkanTexture(device);
-        texture.initialize(gpu, queue, commands, image.width, image.height, new ByteBuffer[]{image.pixels},
-                image.filter, image.wrapU, image.wrapV);
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            var info = VkDescriptorImageInfo.calloc(1, stack);
-            info.get(0).sampler(texture.sampler()).imageView(texture.view()).imageLayout(VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
-            var write = VkWriteDescriptorSet.calloc(1, stack);
-            write.get(0).sType$Default().dstSet(sets[slot]).descriptorType(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER)
-                    .descriptorCount(1).pImageInfo(info);
-            vkUpdateDescriptorSets(device, write, null);
-        }
-        uploaded[slot] = image;
+        bindings.prepare(gpu, queue, commands, slot, body.image);
     }
 
     void draw(MemoryStack stack, VkCommandBuffer commands, Body body) {
@@ -176,7 +120,7 @@ final class VulkanCelestialPipeline implements AutoCloseable {
         body.color.get(64, constants);
         vkCmdBindPipeline(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline);
         vkCmdPushConstants(commands, layout, STAGES, 0, constants);
-        vkCmdBindDescriptorSets(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 0, stack.longs(sets[body.slot]), null);
+        bindings.bind(stack, commands, layout, body.slot);
         vkCmdBindVertexBuffers(commands, 0, stack.longs(vertices.handle()), stack.longs(body.slot * QUAD_BYTES));
         vkCmdDraw(commands, 4, 1, 0, 0);
     }
@@ -185,9 +129,7 @@ final class VulkanCelestialPipeline implements AutoCloseable {
     public void close() {
         if (pipeline != 0) vkDestroyPipeline(device, pipeline, null);
         if (layout != 0) vkDestroyPipelineLayout(device, layout, null);
-        if (pool != 0) vkDestroyDescriptorPool(device, pool, null);
-        if (setLayout != 0) vkDestroyDescriptorSetLayout(device, setLayout, null);
+        bindings.close();
         if (vertices != null) vertices.close();
-        for (VulkanTexture texture : textures) if (texture != null) texture.close();
     }
 }

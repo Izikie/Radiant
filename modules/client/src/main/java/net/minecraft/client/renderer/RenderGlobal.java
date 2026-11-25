@@ -94,6 +94,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private List<ContainerLocalRenderInformation> renderInfos = new ArrayList<>(69696);
     private final Set<TileEntity> setTileEntities = new HashSet<>();
     private ViewFrustum viewFrustum;
+    private byte[] fastCloudVertices;
     private byte[] starPositions;
     private int starGLCallList = -1;
     private int glSkyList = -1;
@@ -1493,11 +1494,15 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                             }
                         }
 
+                        if (VulkanTerrainPreview.ENABLED) {
+                            fastCloudVertices = new byte[worldrenderer.getVertexCount() * worldrenderer.getVertexFormat().getNextOffset()];
+                            worldrenderer.getByteBuffer().get(0, fastCloudVertices);
+                        }
                         tessellator.draw();
                         this.cloudRenderer.endUpdateGlList();
                     }
 
-                    this.cloudRenderer.renderGlList();
+                    this.cloudRenderer.renderGlList(fastCloudVertices);
                     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                     GlStateManager.disableBlend();
                     GlStateManager.enableCull();

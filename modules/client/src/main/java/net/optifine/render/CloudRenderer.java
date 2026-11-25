@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3;
 import org.lwjgl.opengl.GL11;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 
 public class CloudRenderer {
     private final Minecraft mc;
@@ -72,6 +73,10 @@ public class CloudRenderer {
     }
 
     public void renderGlList() {
+        renderGlList(null);
+    }
+
+    public void renderGlList(byte[] fastVertices) {
         Entity entity = this.mc.getRenderViewEntity();
         double d0 = entity.prevPosX + (entity.posX - entity.prevPosX) * this.partialTicks;
         double d1 = entity.prevPosY + (entity.posY - entity.prevPosY) * this.partialTicks;
@@ -88,6 +93,9 @@ public class CloudRenderer {
             GlStateManager.translate(-f, -f1, -f2);
         }
 
+        if (fastVertices != null) {
+            VulkanTerrainPreview.fastClouds(fastVertices, () -> GlStateManager.callList(this.glListClouds));
+        }
         GlStateManager.callList(this.glListClouds);
         GlStateManager.popMatrix();
         GlStateManager.resetColor();

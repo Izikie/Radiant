@@ -168,6 +168,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.sections.clear();
             preview.atlasDirty = true;
             preview.terrain.setAtlas(null);
+            preview.terrain.clouds.invalidateTexture();
             preview.terrain.sun.invalidateTexture();
             preview.terrain.moon.invalidateTexture();
         }
@@ -205,6 +206,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.terrain.lowerSky = null;
             preview.terrain.twilight = null;
             preview.terrain.stars = null;
+            preview.terrain.clouds.visible = false;
             preview.terrain.sun.visible = false;
             preview.terrain.moon.visible = false;
             preview.terrain.sourceWidth = preview.sourceWidth;
@@ -227,6 +229,16 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         if (upper) preview.terrain.upperSky = plane;
         else preview.terrain.lowerSky = plane;
         replaySky(drawReference);
+    }
+
+    public static void fastClouds(byte[] vertices, Runnable reference) {
+        VulkanTerrainPreview preview = active;
+        if (preview == null || !preview.frameStarted) return;
+        boolean afterTerrain = preview.frame != null;
+        preview.terrain.clouds.capture(vertices, afterTerrain);
+        if (preview.comparison != null && preview.comparison.active()) {
+            preview.comparison.drawClouds(reference, afterTerrain);
+        }
     }
 
     public static void stars(byte[] positions, float brightness, Runnable drawReference) {
