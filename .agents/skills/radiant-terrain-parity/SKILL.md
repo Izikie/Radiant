@@ -29,17 +29,4 @@ Read only the final summary from `run` or `summarize`. Never tail whole logs. Us
 
 For a transient discrepancy, sample the first frames around the event and log evidence it actually happened, such as a completed transparency re-sort or an atlas reload. Keep the same ordered submissions, camera and dimensions in both renders. The comparison reads Vulkan's presented image and an OpenGL terrain replay. The Vulkan renderer captures the legacy chunk transform and uses a vertical presentation blit.
 
-## Run a diagnostic fixture
-
-For the local glass-panel fixture, refresh its instrumented source copies against current production code before running it. Its Gradle init script replaces classes during compilation. Run it with:
-
-```powershell
-python tools/terrain_parity.py run --init-script build/terrain-panel-fixture.init.gradle --warmup 4 --seconds 6
-```
-
-After using a source override, rebuild the production classes from the root and repeat the ordinary comparison. Record populated samples, errors and evidence of the exercised event in the checkpoint. The [measurement history](../../../docs/rendering/terrain-parity-history.md) identifies older fixture logs.
-
-```powershell
-java -jar gradle/wrapper/gradle-wrapper.jar --offline :client:jar :dev:classes
-python tools/terrain_parity.py run
-```
+See [the diagnostic fixture instructions](references/fixture.md) when reproducing a specific terrain transition.
