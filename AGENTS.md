@@ -8,9 +8,9 @@ Keep dual rendering. OpenGL presents the full game in the main window. Add each 
 
 ## Resume on modern-renderer
 
-Next, port fancy clouds using 26.3's `CloudRenderer` and Radiant's `RenderGlobal.renderCloudsFancy`. Compare the depth-only and color draws from below, inside and above the layer, including the first frame after a mesh rebuild.
-At `c23e1a0e`, fast clouds and a reloaded cloud texture matched Radiant OpenGL across all four terrain configurations. See [the parity history](renderer-port/docs/terrain-parity-history.md).
-The Vulkan preview still needs the fancy-cloud geometry and its two draws.
+Next, port rain and snow using 26.3's `WeatherEffectRenderer` and Radiant's `EntityRenderer.renderRainSnow`. Compare the precipitation columns against OpenGL before translucent terrain, including snow beside rain and under cover.
+At `b9825147`, fancy-cloud depth and color draws matched Radiant across all four terrain configurations, including the first frames after mesh rebuilds. See [the parity history](renderer-port/docs/terrain-parity-history.md).
+Precipitation is still missing from the Vulkan comparison window.
 
 ## Where to look
 
@@ -23,7 +23,7 @@ The Vulkan preview still needs the fancy-cloud geometry and its two draws.
 ## Working on terrain
 
 - Use the [terrain parity skill](.agents/skills/radiant-terrain-parity/SKILL.md) for background runs, fixtures, pixel differences and production rebuilds. From the root, `python renderer-port/tools/terrain_parity.py run` runs the four-mode comparison.
-- The Vulkan preview covers overworld sky, fast clouds and terrain with shader packs, antialiasing and anisotropic filtering off.
+- The Vulkan preview covers overworld sky, fast and fancy clouds, and terrain with shader packs, antialiasing and anisotropic filtering off.
 - Search the extracted 26.3 render sources in `renderer-port/local/reference/src/` with `rg --no-ignore-vcs -n` so `.ignore` still excludes assets. See [the class map and extraction setup](renderer-port/docs/class-map.md).
 - Use vk-blaze3d for implementation details when helpful. Keep pass structure aligned with 26.3 and verify the image against Radiant OpenGL.
 - Commit verified parity fixes separately. Keep fixture overrides, generated profiles, screenshots and logs in ignored build or run directories.
