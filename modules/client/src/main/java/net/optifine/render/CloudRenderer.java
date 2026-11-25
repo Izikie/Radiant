@@ -76,7 +76,11 @@ public class CloudRenderer {
         renderGlList(null);
     }
 
-    public void renderGlList(byte[] fastVertices) {
+    public void renderGlList(byte[] vertices) {
+        renderGlList(vertices, 2);
+    }
+
+    public void renderGlList(byte[] vertices, int colorPass) {
         Entity entity = this.mc.getRenderViewEntity();
         double d0 = entity.prevPosX + (entity.posX - entity.prevPosX) * this.partialTicks;
         double d1 = entity.prevPosY + (entity.posY - entity.prevPosY) * this.partialTicks;
@@ -93,8 +97,8 @@ public class CloudRenderer {
             GlStateManager.translate(-f, -f1, -f2);
         }
 
-        if (fastVertices != null) {
-            VulkanTerrainPreview.fastClouds(fastVertices, () -> GlStateManager.callList(this.glListClouds));
+        if (vertices != null) {
+            VulkanTerrainPreview.clouds(vertices, this.renderFancy, colorPass, () -> GlStateManager.callList(this.glListClouds));
         }
         GlStateManager.callList(this.glListClouds);
         GlStateManager.popMatrix();

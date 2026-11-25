@@ -76,6 +76,7 @@ import org.lwjgl.opengl.GL11;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.*;
 
@@ -94,7 +95,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
     private List<ContainerLocalRenderInformation> renderInfos = new ArrayList<>(69696);
     private final Set<TileEntity> setTileEntities = new HashSet<>();
     private ViewFrustum viewFrustum;
-    private byte[] fastCloudVertices;
+    private byte[] cloudVertices;
     private byte[] starPositions;
     private int starGLCallList = -1;
     private int glSkyList = -1;
@@ -1495,14 +1496,14 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                         }
 
                         if (VulkanTerrainPreview.ENABLED) {
-                            fastCloudVertices = new byte[worldrenderer.getVertexCount() * worldrenderer.getVertexFormat().getNextOffset()];
-                            worldrenderer.getByteBuffer().get(0, fastCloudVertices);
+                            cloudVertices = new byte[worldrenderer.getVertexCount() * worldrenderer.getVertexFormat().getNextOffset()];
+                            worldrenderer.getByteBuffer().get(0, cloudVertices);
                         }
                         tessellator.draw();
                         this.cloudRenderer.endUpdateGlList();
                     }
 
-                    this.cloudRenderer.renderGlList(fastCloudVertices);
+                    this.cloudRenderer.renderGlList(cloudVertices);
                     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
                     GlStateManager.disableBlend();
                     GlStateManager.enableCull();
@@ -1584,12 +1585,13 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 }
             }
 
-            this.cloudRenderer.renderGlList();
+            this.cloudRenderer.renderGlList(cloudVertices, i1 == 0 ? -1 : pass);
         }
 
         if (this.cloudRenderer.shouldUpdateGlList()) {
             this.cloudRenderer.startUpdateGlList();
 
+            ByteArrayOutputStream mesh = VulkanTerrainPreview.ENABLED ? new ByteArrayOutputStream() : null;
             for (int l1 = -3; l1 <= 4; ++l1) {
                 for (int j1 = -3; j1 <= 4; ++j1) {
                     worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL);
@@ -1648,11 +1650,24 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                         }
                     }
 
+                    if (mesh != null) {
+                        // The unlit cloud pipeline uses the position, UV and packed face color.
+                        int count = worldrenderer.getVertexCount();
+                        int stride = worldrenderer.getVertexFormat().getNextOffset();
+                        int packedStride = DefaultVertexFormats.POSITION_TEX_COLOR.getNextOffset();
+                        byte[] tile = new byte[count * packedStride];
+                        for (int v = 0; v < count; v++) {
+                            worldrenderer.getByteBuffer().get(v * stride, tile, v * packedStride, packedStride);
+                        }
+                        mesh.writeBytes(tile);
+                    }
                     tessellator.draw();
                 }
             }
 
             this.cloudRenderer.endUpdateGlList();
+            // Fancy clouds draw the previous list before rebuilding it for the next frame.
+            if (mesh != null) cloudVertices = mesh.toByteArray();
         }
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

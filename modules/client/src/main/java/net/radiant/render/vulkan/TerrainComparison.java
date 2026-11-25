@@ -85,7 +85,7 @@ final class TerrainComparison implements AutoCloseable {
     }
 
     void drawClouds(Runnable reference, boolean afterTerrain) {
-        if (afterTerrain && background != null) beforeLateClouds = readColors();
+        if (afterTerrain && background != null && beforeLateClouds == null) beforeLateClouds = readColors();
         drawSky(reference);
     }
 

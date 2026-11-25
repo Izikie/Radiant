@@ -9,6 +9,8 @@ import static org.lwjgl.util.shaderc.Shaderc.*;
 import static org.lwjgl.vulkan.VK10.*;
 
 final class VulkanGraphics {
+    static final int RGBA = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
+
     enum Blend { OPAQUE, TRANSLUCENT, ADDITIVE }
 
     private VulkanGraphics() {
@@ -16,11 +18,11 @@ final class VulkanGraphics {
 
     static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology, Blend blendMode, boolean depthWrite,
                          VkPipelineVertexInputStateCreateInfo vertexInput, String vertexSource, String fragmentSource) {
-        return pipeline(stack, device, layout, colorFormat, depthFormat, topology, blendMode, depthWrite, VK_CULL_MODE_BACK_BIT,
+        return pipeline(stack, device, layout, colorFormat, depthFormat, topology, blendMode, depthWrite, VK_CULL_MODE_BACK_BIT, RGBA,
                 vertexInput, vertexSource, fragmentSource);
     }
 
-    static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology, Blend blendMode, boolean depthWrite, int cullMode,
+    static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology, Blend blendMode, boolean depthWrite, int cullMode, int colorMask,
                          VkPipelineVertexInputStateCreateInfo vertexInput, String vertexSource, String fragmentSource) {
         long vertex = shader(stack, device, vertexSource, shaderc_glsl_vertex_shader, "scene.vert");
         long fragment = 0;
@@ -32,7 +34,7 @@ final class VulkanGraphics {
             VkPipelineRenderingCreateInfo rendering = VkPipelineRenderingCreateInfo.calloc(stack).sType$Default()
                     .pColorAttachmentFormats(stack.ints(colorFormat)).depthAttachmentFormat(depthFormat);
             VkPipelineColorBlendAttachmentState.Buffer blend = VkPipelineColorBlendAttachmentState.calloc(1, stack);
-            blend.get(0).colorWriteMask(VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT);
+            blend.get(0).colorWriteMask(colorMask);
             VkPipelineRasterizationStateCreateInfo rasterization = VkPipelineRasterizationStateCreateInfo.calloc(stack)
                     .sType$Default().lineWidth(1.0f);
             rasterization.cullMode(cullMode).frontFace(VK_FRONT_FACE_CLOCKWISE);

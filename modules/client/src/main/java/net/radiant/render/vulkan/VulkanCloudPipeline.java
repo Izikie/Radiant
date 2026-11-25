@@ -16,7 +16,8 @@ final class VulkanCloudPipeline implements AutoCloseable {
     private static final int STAGES = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
 
     static final class State {
-        boolean visible, afterTerrain;
+        boolean visible, afterTerrain, fancy;
+        int colorPass;
         private byte[] mesh;
         private Matrix4f transform;
         private final Vector4f eyeZ = new Vector4f(), fogColor = new Vector4f(), fog = new Vector4f();
@@ -27,7 +28,7 @@ final class VulkanCloudPipeline implements AutoCloseable {
             textureId = -1;
         }
 
-        void capture(byte[] vertices, boolean afterTerrain) {
+        void capture(byte[] vertices, boolean afterTerrain, boolean fancy, int colorPass) {
             int id = glGetInteger(GL_TEXTURE_BINDING_2D);
             if (id != textureId) {
                 image = VulkanTextureBindings.Image.capture();
@@ -44,6 +45,8 @@ final class VulkanCloudPipeline implements AutoCloseable {
                 fog.set(glIsEnabled(GL_FOG) ? glGetInteger(GL_FOG_MODE) : 0,
                         glGetFloat(GL_FOG_START), glGetFloat(GL_FOG_END), glGetFloat(GL_FOG_DENSITY));
             }
+            this.fancy = fancy;
+            this.colorPass = colorPass;
             mesh = vertices;
             this.afterTerrain = afterTerrain;
             visible = true;
@@ -54,7 +57,8 @@ final class VulkanCloudPipeline implements AutoCloseable {
     private final VulkanTextureBindings bindings;
     private VulkanBuffer vertices;
     private byte[] uploaded;
-    private long pipeline, layout;
+    private final long[] colorPipelines = new long[3];
+    private long depthPipeline, layout;
 
     VulkanCloudPipeline(VkDevice device) {
         this.device = device;
@@ -86,8 +90,7 @@ final class VulkanCloudPipeline implements AutoCloseable {
                         vec4 fog;
                     } clouds;
                     """;
-            pipeline = VulkanGraphics.pipeline(stack, device, layout, format, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
-                    VulkanGraphics.Blend.TRANSLUCENT, true, VK_CULL_MODE_NONE, inputs, header + """
+            String vertex = header + """
                     layout(location=0) in vec3 position;
                     layout(location=1) in vec2 texCoord;
                     layout(location=2) in vec4 vertexColor;
@@ -105,7 +108,8 @@ final class VulkanCloudPipeline implements AutoCloseable {
                         #endif
                         gl_Position = clip;
                     }
-                    """, header + """
+                    """;
+            String fragment = header + """
                     layout(binding=0) uniform sampler2D cloudTexture;
                     layout(location=0) in vec2 uv;
                     layout(location=1) flat in vec4 tint;
@@ -122,7 +126,14 @@ final class VulkanCloudPipeline implements AutoCloseable {
                         else f = (clouds.fog.z - d) / max(clouds.fog.z - clouds.fog.y, 0.0001);
                         color.rgb = mix(clouds.fogColorAndAlphaRef.rgb, color.rgb, clamp(f, 0.0, 1.0));
                     }
-                    """);
+                    """;
+            int[] colorMasks = {VulkanGraphics.RGBA & ~VK_COLOR_COMPONENT_R_BIT, VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_A_BIT, VulkanGraphics.RGBA};
+            for (int pass = 0; pass < colorPipelines.length; pass++) {
+                colorPipelines[pass] = VulkanGraphics.pipeline(stack, device, layout, format, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
+                        VulkanGraphics.Blend.TRANSLUCENT, true, VK_CULL_MODE_NONE, colorMasks[pass], inputs, vertex, fragment);
+            }
+            depthPipeline = VulkanGraphics.pipeline(stack, device, layout, format, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
+                    VulkanGraphics.Blend.OPAQUE, true, VK_CULL_MODE_NONE, 0, inputs, vertex, fragment);
         }
     }
 
@@ -145,17 +156,23 @@ final class VulkanCloudPipeline implements AutoCloseable {
         state.eyeZ.get(64, constants);
         state.fogColor.get(80, constants);
         state.fog.get(96, constants);
-        vkCmdBindPipeline(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline);
         vkCmdPushConstants(commands, layout, STAGES, 0, constants);
         bindings.bind(stack, commands, layout, 0);
         vkCmdBindVertexBuffers(commands, 0, stack.longs(vertices.handle()), stack.longs(0));
         vkCmdBindIndexBuffer(commands, indices.handle(), 0, VK_INDEX_TYPE_UINT32);
-        vkCmdDrawIndexed(commands, state.mesh.length / (STRIDE * 4) * 6, 1, 0, 0, 0);
+        int indexCount = state.mesh.length / (STRIDE * 4) * 6;
+        if (state.fancy) {
+            vkCmdBindPipeline(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, depthPipeline);
+            vkCmdDrawIndexed(commands, indexCount, 1, 0, 0, 0);
+        }
+        vkCmdBindPipeline(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, colorPipelines[state.colorPass]);
+        vkCmdDrawIndexed(commands, indexCount, 1, 0, 0, 0);
     }
 
     @Override
     public void close() {
-        if (pipeline != 0) vkDestroyPipeline(device, pipeline, null);
+        for (long pipeline : colorPipelines) if (pipeline != 0) vkDestroyPipeline(device, pipeline, null);
+        if (depthPipeline != 0) vkDestroyPipeline(device, depthPipeline, null);
         if (layout != 0) vkDestroyPipelineLayout(device, layout, null);
         bindings.close();
         if (vertices != null) vertices.close();

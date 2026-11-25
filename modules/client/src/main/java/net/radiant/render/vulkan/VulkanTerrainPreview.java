@@ -231,11 +231,11 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         replaySky(drawReference);
     }
 
-    public static void fastClouds(byte[] vertices, Runnable reference) {
+    public static void clouds(byte[] vertices, boolean fancy, int colorPass, Runnable reference) {
         VulkanTerrainPreview preview = active;
         if (preview == null || !preview.frameStarted) return;
         boolean afterTerrain = preview.frame != null;
-        preview.terrain.clouds.capture(vertices, afterTerrain);
+        if (colorPass >= 0) preview.terrain.clouds.capture(vertices, afterTerrain, fancy, colorPass);
         if (preview.comparison != null && preview.comparison.active()) {
             preview.comparison.drawClouds(reference, afterTerrain);
         }
