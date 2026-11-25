@@ -12,7 +12,7 @@ final class VulkanGraphics {
     private VulkanGraphics() {
     }
 
-    static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology, boolean translucent,
+    static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology, boolean translucent, boolean depthWrite,
                          VkPipelineVertexInputStateCreateInfo vertexInput, String vertexSource, String fragmentSource) {
         long vertex = shader(stack, device, vertexSource, shaderc_glsl_vertex_shader, "scene.vert");
         long fragment = 0;
@@ -54,7 +54,7 @@ final class VulkanGraphics {
                             .pDynamicStates(stack.ints(VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR)));
             if (depthFormat != VK_FORMAT_UNDEFINED) {
                 config.pDepthStencilState(VkPipelineDepthStencilStateCreateInfo.calloc(stack).sType$Default()
-                        .depthTestEnable(true).depthWriteEnable(!translucent).depthCompareOp(VK_COMPARE_OP_LESS_OR_EQUAL));
+                        .depthTestEnable(true).depthWriteEnable(depthWrite).depthCompareOp(VK_COMPARE_OP_LESS_OR_EQUAL));
             }
             LongBuffer handle = stack.mallocLong(1);
             VulkanPresenter.check(vkCreateGraphicsPipelines(device, 0, configurations, null, handle), "create graphics pipeline");

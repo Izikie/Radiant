@@ -21,8 +21,6 @@ public final class VulkanTerrainDrawSubmitter implements TerrainDrawSubmitter {
     @Override
     public void beginFrame(double x, double y, double z) {
         openGl.beginFrame(x, y, z);
-        VulkanTerrainPreview.openIfNeeded(client);
-        VulkanTerrainPreview.beginFrame();
         cameraX = x;
         cameraY = y;
         cameraZ = z;

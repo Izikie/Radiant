@@ -24,6 +24,8 @@ final class VulkanTerrainScene implements VulkanScene {
     private int depthFormat;
     private VulkanTerrainMeshes meshes;
     private VulkanTerrainPipeline pipeline;
+    private VulkanSkyBackground skyPipeline;
+    VulkanSkyBackground.State upperSky, lowerSky;
     private VulkanTexture atlas;
     private VulkanTexture lightmap;
     private final VulkanAtlasUpdates lightUpdates = new VulkanAtlasUpdates();
@@ -97,6 +99,9 @@ final class VulkanTerrainScene implements VulkanScene {
         if (pipeline != null) {
             pipeline.close();
         }
+        if (skyPipeline != null) skyPipeline.close();
+        skyPipeline = new VulkanSkyBackground(device);
+        skyPipeline.initialize(colorFormat, depthFormat());
         pipeline = new VulkanTerrainPipeline(device);
         pipeline.initialize(physicalDevice, colorFormat, depthFormat());
         if (atlas != null) {
@@ -142,13 +147,17 @@ final class VulkanTerrainScene implements VulkanScene {
 
     @Override
     public void draw(MemoryStack stack, VkCommandBuffer commands, int width, int height) {
-        if (frame == null || atlas == null || (frame.opaque.isEmpty() && frame.translucent.isEmpty())) {
-            return;
-        }
-        float scale = Math.min((float) width / frame.width, (float) height / frame.height);
-        int viewWidth = Math.clamp(Math.round(frame.width * scale), 1, width);
-        int viewHeight = Math.clamp(Math.round(frame.height * scale), 1, height);
+        VulkanSkyBackground.State sky = upperSky != null ? upperSky : lowerSky;
+        if (frame == null && sky == null) return;
+        int sourceWidth = sky == null ? frame.width : sky.width();
+        int sourceHeight = sky == null ? frame.height : sky.height();
+        float scale = Math.min((float) width / sourceWidth, (float) height / sourceHeight);
+        int viewWidth = Math.clamp(Math.round(sourceWidth * scale), 1, width);
+        int viewHeight = Math.clamp(Math.round(sourceHeight * scale), 1, height);
         VulkanGraphics.viewport(stack, commands, (width - viewWidth) / 2, (height - viewHeight) / 2, viewWidth, viewHeight);
+        if (upperSky != null) skyPipeline.draw(stack, commands, upperSky);
+        if (lowerSky != null) skyPipeline.draw(stack, commands, lowerSky);
+        if (frame == null || atlas == null || (frame.opaque.isEmpty() && frame.translucent.isEmpty())) return;
         pipeline.begin(stack, commands);
         drawCalls = pipeline.draw(stack, commands, frame.opaque, false)
                 + pipeline.draw(stack, commands, frame.translucent, true);
@@ -185,6 +194,7 @@ final class VulkanTerrainScene implements VulkanScene {
         setAtlas(null);
         lightUpdates.close();
         atlasUpdates.close();
+        if (skyPipeline != null) skyPipeline.close();
         if (lightmap != null) lightmap.close();
         if (pipeline != null) pipeline.close();
         if (atlas != null) atlas.close();

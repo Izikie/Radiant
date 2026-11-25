@@ -20,7 +20,7 @@ import static org.lwjgl.opengl.GL15.glBindBuffer;
 import static org.lwjgl.opengl.GL21.GL_PIXEL_PACK_BUFFER;
 import static org.lwjgl.opengl.GL30.*;
 
-/** Replays only terrain into an RGBA8 target so sky, entities and GUI do not enter the comparison. */
+/** Copies the OpenGL world clear and replays sky planes and terrain into the reference target. */
 final class TerrainComparison implements AutoCloseable {
     private static final Logger LOGGER = LoggerFactory.getLogger(TerrainComparison.class);
     private final int framebuffer = glGenFramebuffers();
@@ -28,6 +28,7 @@ final class TerrainComparison implements AutoCloseable {
     private final int depth = glGenRenderbuffers();
     private int width, height, samples;
     private boolean active;
+    private int[] background;
     private boolean savedMismatch;
     private Path directory;
 
@@ -55,12 +56,38 @@ final class TerrainComparison implements AutoCloseable {
                 glDisable(GL_SCISSOR_TEST);
                 glColorMask(true, true, true, true);
                 glDepthMask(true);
-                glClearBufferfv(GL_COLOR, 0, new float[]{0, 0, 0, 1});
                 glClearBufferfv(GL_DEPTH, 0, new float[]{1});
             } finally {
                 glPopAttrib();
             }
             active = true;
+            background = null;
+        } finally {
+            glBindFramebuffer(GL_DRAW_FRAMEBUFFER, previous);
+        }
+    }
+
+    void copyBackground() {
+        int source = glGetInteger(GL_DRAW_FRAMEBUFFER_BINDING);
+        int previousRead = glGetInteger(GL_READ_FRAMEBUFFER_BINDING);
+        glBindFramebuffer(GL_READ_FRAMEBUFFER, source);
+        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffer);
+        glPushAttrib(GL_SCISSOR_BIT);
+        try {
+            glDisable(GL_SCISSOR_TEST);
+            glBlitFramebuffer(0, 0, width, height, 0, 0, width, height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+        } finally {
+            glPopAttrib();
+            glBindFramebuffer(GL_DRAW_FRAMEBUFFER, source);
+            glBindFramebuffer(GL_READ_FRAMEBUFFER, previousRead);
+        }
+    }
+
+    void drawSky(Runnable reference) {
+        int previous = glGetInteger(GL_DRAW_FRAMEBUFFER_BINDING);
+        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffer);
+        try {
+            reference.run();
         } finally {
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, previous);
         }
@@ -70,6 +97,7 @@ final class TerrainComparison implements AutoCloseable {
         int previous = glGetInteger(GL_DRAW_FRAMEBUFFER_BINDING);
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffer);
         try {
+            if (background == null) background = readColors();
             reference.drawLayer(layer, sections);
         } finally {
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, previous);
@@ -84,7 +112,7 @@ final class TerrainComparison implements AutoCloseable {
         active = false;
     }
 
-    void compare(NativeImage vk) {
+    private int[] readColors() {
         int[] pixels = new int[Math.multiplyExact(width, height)];
         int previous = glGetInteger(GL_READ_FRAMEBUFFER_BINDING);
         glBindFramebuffer(GL_READ_FRAMEBUFFER, framebuffer);
@@ -101,15 +129,21 @@ final class TerrainComparison implements AutoCloseable {
             glPopClientAttrib();
             glBindFramebuffer(GL_READ_FRAMEBUFFER, previous);
         }
+        return pixels;
+    }
+
+    void compare(NativeImage vk) {
+        int[] pixels = readColors();
         int mismatches = 0, maximum = 0, visible = 0;
         long absoluteError = 0;
         NativeImage gl = NativeImage.createBlankImage(width, height);
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                int expected = pixels[(height - 1 - y) * width + x];
+                int index = (height - 1 - y) * width + x;
+                int expected = pixels[index];
                 int actual = vk.getPixel(x, y);
                 gl.setPixel(x, y, expected | 0xff000000);
-                if (((expected | actual) & 0xffffff) != 0) visible++;
+                if (background != null && ((expected ^ background[index]) & 0xffffff) != 0) visible++;
                 if (((expected ^ actual) & 0xffffff) == 0) continue;
                 mismatches++;
                 for (int shift = 0; shift <= 16; shift += 8) {
@@ -121,7 +155,7 @@ final class TerrainComparison implements AutoCloseable {
         }
         LOGGER.info("Terrain comparison {} pixels={} visible={} mismatched={} maxChannelError={} absoluteError={}",
                 ++samples, pixels.length, visible, mismatches, maximum, absoluteError);
-        if (visible > 0 && (directory == null || samples % 20 == 0 || mismatches > 0 && !savedMismatch)) {
+        if (visible > 0 && (directory == null || samples % 20 == 0) || mismatches > 0 && !savedMismatch) {
             try {
                 if (directory == null) directory = Files.createTempDirectory(Files.createDirectories(Path.of("benchmarks")), "terrain-pair-");
                 if (!gl.saveToFile(directory.resolve(samples + "-opengl.png").toFile(), NativeImage.FileFormat.PNG)

@@ -52,6 +52,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     private int sourceHeight;
     private Extraction frame;
     private boolean frameStarted;
+    private float clearRed, clearGreen, clearBlue;
     private TerrainComparison comparison;
     private long frames;
     private long drawCalls;
@@ -163,7 +164,6 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         VulkanTerrainPreview preview = active;
         if (preview != null) {
             preview.frame = null;
-            preview.frameStarted = false;
             preview.sections.values().forEach(preview::retire);
             preview.sections.clear();
             preview.atlasDirty = true;
@@ -185,23 +185,40 @@ public final class VulkanTerrainPreview implements AutoCloseable {
 
     public static void leaveWorld() {
         if (active != null) {
+            active.frameStarted = false;
             invalidateTerrain();
             glfwHideWindow(active.window);
             active.windowVisible = false;
         }
     }
 
-    static void beginFrame() {
+    public static void beginWorld(Minecraft mc) {
+        openIfNeeded(mc);
         VulkanTerrainPreview preview = active;
         if (preview != null) {
+            preview.clearRed = mc.entityRenderer.fogColorRed;
+            preview.clearGreen = mc.entityRenderer.fogColorGreen;
+            preview.clearBlue = mc.entityRenderer.fogColorBlue;
+            preview.terrain.upperSky = null;
+            preview.terrain.lowerSky = null;
             preview.frameStarted = true;
             preview.frame = null;
             if (preview.comparison != null) preview.comparison.end();
             if (COMPARE && preview.frames % 47 == 0 && OpenGlHelper.isFramebufferEnabled()) {
                 if (preview.comparison == null) preview.comparison = new TerrainComparison();
                 preview.comparison.begin(preview.sourceWidth, preview.sourceHeight);
+                preview.comparison.copyBackground();
             }
         }
+    }
+
+    public static void skyPlane(boolean upper, int radius, Runnable drawReference) {
+        VulkanTerrainPreview preview = active;
+        if (preview == null || !preview.frameStarted) return;
+        var plane = VulkanSkyBackground.capture(upper, radius);
+        if (upper) preview.terrain.upperSky = plane;
+        else preview.terrain.lowerSky = plane;
+        if (preview.comparison != null && preview.comparison.active()) preview.comparison.drawSky(drawReference);
     }
 
     static void drawLayer(Minecraft mc, double x, double y, double z, RenderLayer layer, List<RenderChunk> sections,
@@ -297,7 +314,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
                 ? new VulkanPresenter.FrameCapture(preview.sourceWidth, preview.sourceHeight, compare::compare) : null;
         preview.terrain.setFrame(frame);
         try {
-            if (preview.presenter.present(0, 0, 0, capture)) {
+            if (preview.presenter.present(preview.clearRed, preview.clearGreen, preview.clearBlue, capture)) {
                 preview.frames++;
                 preview.drawCalls += preview.terrain.drawCalls();
             }

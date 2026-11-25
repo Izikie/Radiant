@@ -72,6 +72,7 @@ import net.radiant.lwjgl.input.Keyboard;
 import net.radiant.lwjgl.input.Mouse;
 import net.radiant.lwjgl.opengl.Display;
 import net.radiant.lwjgl.opengl.GLContext;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
@@ -1154,6 +1155,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
 
         this.updateFogColor(partialTicks);
         GlStateManager.clear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+        if (VulkanTerrainPreview.ENABLED) VulkanTerrainPreview.beginWorld(this.mc);
 
         if (flag) {
             Shaders.clearRenderBuffer();

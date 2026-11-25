@@ -292,7 +292,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
 
     private void renderSky(WorldRenderer worldRendererIn, float posY, boolean reverseX) {
         worldRendererIn.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
-        int k = (this.renderDistance / 64 + 1) * 64 + 64;
+        int k = skyGridRadius() * 64;
 
         for (int l = -k; l <= k; l += 64) {
             for (int i1 = -k; i1 <= k; i1 += 64) {
@@ -1199,16 +1199,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
 
             if (Config.isSkyEnabled()) {
-                if (this.vboEnabled) {
-                    this.skyVBO.bindBuffer();
-                    GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
-                    GL11.glVertexPointer(3, GL11.GL_FLOAT, 12, 0L);
-                    this.skyVBO.drawArrays(7);
-                    this.skyVBO.unbindBuffer();
-                    GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
-                } else {
-                    GlStateManager.callList(this.glSkyList);
-                }
+                this.renderSkyPlane(true);
             }
 
             GlStateManager.disableFog();
@@ -1375,16 +1366,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             GlStateManager.translate(0.0F, -((float) (d0 - 16.0D)), 0.0F);
 
             if (Config.isSkyEnabled()) {
-                if (this.vboEnabled) {
-                    this.sky2VBO.bindBuffer();
-                    GlStateManager.glEnableClientState(32884);
-                    GlStateManager.glVertexPointer(3, 5126, 12, 0);
-                    this.sky2VBO.drawArrays(7);
-                    this.sky2VBO.unbindBuffer();
-                    GlStateManager.glDisableClientState(32884);
-                } else {
-                    GlStateManager.callList(this.glSkyList2);
-                }
+                this.renderSkyPlane(false);
             }
 
             GlStateManager.popMatrix();
@@ -1395,6 +1377,31 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
 
             GlStateManager.depthMask(true);
+        }
+    }
+
+    private void renderSkyPlane(boolean upper) {
+        drawSkyPlane(upper);
+        if (VulkanTerrainPreview.ENABLED) {
+            VulkanTerrainPreview.skyPlane(upper, skyGridRadius(), () -> drawSkyPlane(upper));
+        }
+    }
+
+    private int skyGridRadius() {
+        return this.renderDistance / 64 + 2;
+    }
+
+    private void drawSkyPlane(boolean upper) {
+        if (this.vboEnabled) {
+            VertexBuffer buffer = upper ? this.skyVBO : this.sky2VBO;
+            buffer.bindBuffer();
+            GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
+            GL11.glVertexPointer(3, GL11.GL_FLOAT, 12, 0L);
+            buffer.drawArrays(GL11.GL_QUADS);
+            buffer.unbindBuffer();
+            GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
+        } else {
+            GlStateManager.callList(upper ? this.glSkyList : this.glSkyList2);
         }
     }
 
