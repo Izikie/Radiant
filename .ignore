@@ -1,0 +1,4 @@
+/modules/*/src/main/resources/assets/**
+*.lang
+*.ogg
+*.png
