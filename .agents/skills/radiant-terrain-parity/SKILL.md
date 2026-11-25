@@ -25,7 +25,7 @@ For an interactive comparison, launch `.\gradlew.bat :dev:RunClient "-Pradiant.v
 python tools/terrain_parity.py summarize build/terrain-panel-before-vbo.log
 ```
 
-Supply one complete run per log. The summary reports exact/populated frames, total differing pixels, maximum channel error and the first differing sample. A failed build, incomplete suite, missing Vulkan shutdown summary, reported validation error, absence of populated samples or any RGB difference fails the check. Follow the capture directory in the log and compare the matching sample numbers in the OpenGL and Vulkan PNGs.
+Read only the final summary from `run` or `summarize`. Never tail whole logs. Use `--json` for structured results, including maximum channel error. If a failure needs diagnosis, search the named log for the specific error or sample number and compare matching PNGs in the reported capture directory.
 
 For a transient discrepancy, sample the first frames around the event and log evidence it actually happened, such as a completed transparency re-sort or an atlas reload. Keep the same ordered submissions, camera and dimensions in both renders. The comparison reads Vulkan's presented image and an OpenGL terrain replay. The Vulkan renderer captures the legacy chunk transform and uses a vertical presentation blit.
 

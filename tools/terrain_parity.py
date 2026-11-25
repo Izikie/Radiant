@@ -1,9 +1,11 @@
 """Run Radiant's same-frame terrain comparisons or inspect saved benchmark logs."""
 
 import argparse
+import json
 from pathlib import Path
 import re
 import subprocess
+import sys
 import tempfile
 
 
@@ -15,11 +17,11 @@ SAMPLE = re.compile(
 
 
 def summarize(path):
+    result = dict(log_path=str(path), exact_frames=0, populated_frames=0, differing_pixels=0)
     try:
         data = path.read_bytes()
     except OSError as error:
-        print(f"{path}: {error.strerror}")
-        return False
+        return dict(result, status="FAIL", problems=[error.strerror])
     encoding = "utf-16" if data.startswith((b"\xff\xfe", b"\xfe\xff")) else "utf-8"
     log = re.sub(r"\x1b\[[0-9;]*m", "", data.decode(encoding, errors="replace"))
     samples = [tuple(map(int, match)) for match in SAMPLE.findall(log)]
@@ -29,7 +31,9 @@ def summarize(path):
     maximum = max((error for _, _, _, error in samples), default=0)
     errors = re.findall(r"Vulkan terrain preview presented \d+ frames and \d+ terrain draws with (\d+) validation errors", log)
     problems = []
-    if "BUILD SUCCESSFUL" not in log or "Benchmark suite ended: complete" not in log:
+    exit_code = re.search(r"^Gradle exit code: (-?\d+)$", log, re.MULTILINE)
+    build_ok = exit_code[1] == "0" if exit_code else "BUILD SUCCESSFUL" in log
+    if not build_ok or "Benchmark suite ended: complete" not in log:
         problems.append("incomplete benchmark")
     if not populated:
         problems.append("no populated comparisons")
@@ -38,23 +42,38 @@ def summarize(path):
     if differing:
         first = next(number for number, _, pixels, _ in samples if pixels)
         problems.append(f"first difference at sample {first}")
-    print(f"{path}: {exact}/{populated} populated frames exact, "
-          f"{differing} differing pixels, max RGB error {maximum}; "
-          + (", ".join(problems) if problems else "pass"))
-    if "Vulkan validation requested: false" in log:
-        print("  Vulkan validation was disabled for this run.")
-    if differing:
-        captures = re.search(r"Terrain captures saved in ([^\r\n]+)", log)
-        if captures:
-            print(f"  Captures: {captures[1]}")
-    return not problems
+    captures = re.search(r"Terrain captures saved in ([^\r\n]+)", log) if differing else None
+    return dict(result, status="FAIL" if problems else "PASS", exact_frames=exact,
+                populated_frames=populated, differing_pixels=differing, max_rgb_error=maximum,
+                validation_enabled={"true": True, "false": False}.get(
+                    log.splitlines()[0].removeprefix("Vulkan validation requested: ") if log else ""
+                ),
+                capture_path=captures[1] if captures else None, problems=problems)
+
+
+def report(results, as_json):
+    passed = all(result["status"] == "PASS" for result in results)
+    if as_json:
+        print(json.dumps({"status": "PASS" if passed else "FAIL", "results": results}))
+    else:
+        print("PASS" if passed else "FAIL")
+        for result in results:
+            details = list(result["problems"])
+            if result.get("validation_enabled") is False:
+                details.append("validation off")
+            if result.get("capture_path"):
+                details.append(f"captures: {result['capture_path']}")
+            suffix = f" ({', '.join(details)})" if details else ""
+            print(f"{result['status']} {result['exact_frames']}/{result['populated_frames']} exact, "
+                  f"{result['differing_pixels']} differing pixels | {result['log_path']}{suffix}")
+    return 0 if passed else 1
 
 
 def run(args):
     output = ROOT / "build" / "terrain-parity"
     output.mkdir(parents=True, exist_ok=True)
     directory = Path(tempfile.mkdtemp(dir=output, prefix="run-"))
-    passed = True
+    results = []
     modes = (args.mode,) if args.mode else MODES
     validation = str(not args.no_validation).lower()
     for mode in modes:
@@ -64,7 +83,7 @@ def run(args):
         regions = "true" if mode.endswith("-regions") else "false"
         (profile / "options.txt").write_text(f"useVbo:{vbo}\nfboEnable:true\n", encoding="ascii")
         (profile / "optionsof.txt").write_text(f"ofRenderRegions:{regions}\n", encoding="ascii")
-        command = ["java", "-jar", "gradle/wrapper/gradle-wrapper.jar", "--offline", "--console=plain"]
+        command = ["java", "-jar", "gradle/wrapper/gradle-wrapper.jar", "--offline", "-q", "--console=plain"]
         for script in args.init_script:
             command.extend(["-I", str(script.resolve())])
         command.extend([
@@ -75,16 +94,21 @@ def run(args):
             f"-Pradiant.vulkan.validation={validation}",
         ])
         path = directory / f"{mode}.log"
-        print(f"Running {mode} (validation {'off' if args.no_validation else 'on'}). Log: {path}", flush=True)
+        print(f"Running {mode}. Log: {path}", file=sys.stderr, flush=True)
         with path.open("wb") as log:
             log.write(f"Vulkan validation requested: {validation}\n".encode("ascii"))
             log.flush()
-            result = subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT)
-        if not summarize(path) or result.returncode:
-            passed = False
-        if result.returncode:
-            return result.returncode
-    return 0 if passed else 1
+            try:
+                exit_code = subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT).returncode
+            except OSError as error:
+                log.write(f"{error}\n".encode("utf-8"))
+                exit_code = 1
+        with path.open("ab") as log:
+            log.write(f"\nGradle exit code: {exit_code}\n".encode("ascii"))
+        results.append(dict(summarize(path), mode=mode))
+        if exit_code:
+            break
+    return report(results, args.json)
 
 
 def main():
@@ -96,12 +120,13 @@ def main():
     launch.add_argument("--warmup", type=int, default=0)
     launch.add_argument("--no-validation", action="store_true", help="run without the Vulkan validation layer")
     launch.add_argument("--init-script", type=Path, action="append", default=[], help="Gradle fixture override")
+    launch.add_argument("--json", action="store_true", help="write the final summary as JSON")
     inspect = commands.add_parser("summarize", help="check one completed benchmark per log")
     inspect.add_argument("logs", type=Path, nargs="+")
+    inspect.add_argument("--json", action="store_true", help="write the summary as JSON")
     args = parser.parse_args()
     if args.command == "summarize":
-        results = [summarize(path) for path in args.logs]
-        return 0 if all(results) else 1
+        return report([summarize(path) for path in args.logs], args.json)
     if args.seconds < 1 or args.warmup < 0:
         parser.error("seconds must be positive and warmup must be nonnegative")
     return run(args)
