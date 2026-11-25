@@ -8,7 +8,7 @@ import tempfile
 from zipfile import ZipFile
 
 
-REFERENCE = Path(__file__).resolve().parents[1] / "build" / "renderer-reference-26.3"
+REFERENCE = Path(__file__).resolve().parents[1] / "local" / "reference"
 RENDER_PACKAGES = (
     "net/minecraft/client/renderer/",
     "com/mojang/blaze3d/buffers/",
@@ -32,13 +32,13 @@ def is_render_class(name):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--decompiler", type=Path, default=REFERENCE / "vineflower-1.12.0.jar",
+    parser.add_argument("--decompiler", type=Path, default=REFERENCE / "jars" / "vineflower-1.12.0.jar",
                         help="path to a Vineflower JAR")
     args = parser.parse_args()
-    client = REFERENCE / "26.3.jar"
+    client = REFERENCE / "jars" / "26.3.jar"
     for jar in (client, args.decompiler):
         if not jar.is_file():
-            parser.error(f"missing {jar}. See docs/rendering/class-map.md for setup.")
+            parser.error(f"missing {jar}. See renderer-port/docs/class-map.md for setup.")
 
     output = REFERENCE / "src"
     log = REFERENCE / "extract.log"

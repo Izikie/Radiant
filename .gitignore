@@ -2,6 +2,10 @@
 .gradle/
 build/
 
+### Renderer port artifacts ###
+/renderer-port/local/
+/renderer-port/tools/__pycache__/
+
 ### IntelliJ IDEA ###
 .idea/
 *.iws

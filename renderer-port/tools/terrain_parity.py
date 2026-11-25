@@ -9,7 +9,8 @@ import sys
 import tempfile
 
 
-ROOT = Path(__file__).resolve().parents[1]
+PORT = Path(__file__).resolve().parents[1]
+ROOT = PORT.parent
 MODES = ("list", "list-regions", "vbo", "vbo-regions")
 SAMPLE = re.compile(
     r"Terrain comparison (\d+) pixels=\d+ visible=(\d+) mismatched=(\d+) maxChannelError=(\d+)"
@@ -70,7 +71,7 @@ def report(results, as_json):
 
 
 def run(args):
-    output = ROOT / "build" / "terrain-parity"
+    output = PORT / "local" / "parity" / "runs"
     output.mkdir(parents=True, exist_ok=True)
     directory = Path(tempfile.mkdtemp(dir=output, prefix="run-"))
     results = []

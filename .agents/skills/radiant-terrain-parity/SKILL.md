@@ -10,10 +10,10 @@ Read the resume section of the repository's AGENTS.md for the current pass and g
 ## Run the comparison
 
 ```powershell
-python tools/terrain_parity.py run
+python renderer-port/tools/terrain_parity.py run
 ```
 
-The runner calls the offline Gradle wrapper with the benchmark in background mode. OpenGL and Vulkan both need a graphical session. The four modes use fresh game directories with framebuffers enabled, and shader, AA and AF defaults. The runner prints the log path for each mode under `build/terrain-parity/run-*`. The client writes paired captures under `run/benchmarks/terrain-pair-*`. Gradle dependencies, Minecraft assets and a Vulkan driver must already be available locally.
+The runner calls the offline Gradle wrapper with the benchmark in background mode. OpenGL and Vulkan both need a graphical session. The four modes use fresh game directories with framebuffers enabled, and shader, AA and AF defaults. The runner prints the log path for each mode under `renderer-port/local/parity/runs/run-*`. The client writes paired captures under `run/benchmarks/terrain-pair-*`. Gradle dependencies, Minecraft assets and a Vulkan driver must already be available locally.
 
 Use `--mode list-regions` (or `list`, `vbo`, `vbo-regions`) to reproduce one configuration. Validation is on by default. When running with `--no-validation`, record that choice with the result. Log summaries report the client's error counter, which also reads zero when validation is disabled.
 
@@ -22,7 +22,7 @@ For an interactive comparison, launch `.\gradlew.bat :dev:RunClient "-Pradiant.v
 ## Locate a difference
 
 ```powershell
-python tools/terrain_parity.py summarize build/terrain-panel-before-vbo.log
+python renderer-port/tools/terrain_parity.py summarize renderer-port/local/parity/archive/logs/terrain-panel-before-vbo.log
 ```
 
 Read only the final summary from `run` or `summarize`. Never tail whole logs. Use `--json` for structured results, including maximum channel error. If a failure needs diagnosis, search the named log for the specific error or sample number and compare matching PNGs in the reported capture directory.

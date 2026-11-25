@@ -1,5 +1,5 @@
 /modules/*/src/main/resources/assets/**
-/build/renderer-reference-26.3/**/assets/
+/renderer-port/local/reference/**/assets/
 *.lang
 *.ogg
 *.png
