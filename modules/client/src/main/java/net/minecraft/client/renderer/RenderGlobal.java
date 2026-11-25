@@ -1239,17 +1239,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     f8 = f11;
                 }
 
-                worldrenderer.begin(6, DefaultVertexFormats.POSITION_COLOR);
-                worldrenderer.pos(0.0D, 100.0D, 0.0D).color(f6, f7, f8, afloat[3]).endVertex();
-
-                for (int l = 0; l <= 16; ++l) {
-                    float f18 = l * (float) Math.PI * 2.0F / 16.0F;
-                    float f12 = MathHelper.sin(f18);
-                    float f13 = MathHelper.cos(f18);
-                    worldrenderer.pos(f12 * 120.0F, f13 * 120.0F, -f13 * 40.0F * afloat[3]).color(afloat[0], afloat[1], afloat[2], 0.0F).endVertex();
-                }
-
-                tessellator.draw();
+                drawTwilight(tessellator, afloat, f6, f7, f8);
                 GlStateManager.popMatrix();
                 GlStateManager.shadeModel(GL11.GL_FLAT);
             }
@@ -1377,6 +1367,29 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
 
             GlStateManager.depthMask(true);
+        }
+    }
+
+    private static void drawTwilight(Tessellator tessellator, float[] color, float red, float green, float blue) {
+        WorldRenderer vertices = tessellator.getWorldRenderer();
+        buildTwilight(vertices, color, red, green, blue);
+        if (VulkanTerrainPreview.ENABLED) VulkanTerrainPreview.captureTwilight(vertices.getByteBuffer());
+        tessellator.draw();
+        if (VulkanTerrainPreview.ENABLED) VulkanTerrainPreview.replaySky(() -> {
+            buildTwilight(vertices, color, red, green, blue);
+            tessellator.draw();
+        });
+    }
+
+    private static void buildTwilight(WorldRenderer worldrenderer, float[] color, float red, float green, float blue) {
+        worldrenderer.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
+        worldrenderer.pos(0.0D, 100.0D, 0.0D).color(red, green, blue, color[3]).endVertex();
+
+        for (int l = 0; l <= 16; ++l) {
+            float f18 = l * (float) Math.PI * 2.0F / 16.0F;
+            float f12 = MathHelper.sin(f18);
+            float f13 = MathHelper.cos(f18);
+            worldrenderer.pos(f12 * 120.0F, f13 * 120.0F, -f13 * 40.0F * color[3]).color(color[0], color[1], color[2], 0.0F).endVertex();
         }
     }
 

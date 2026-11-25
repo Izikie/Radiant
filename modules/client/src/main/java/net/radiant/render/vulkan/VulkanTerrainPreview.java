@@ -201,6 +201,9 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.clearBlue = mc.entityRenderer.fogColorBlue;
             preview.terrain.upperSky = null;
             preview.terrain.lowerSky = null;
+            preview.terrain.twilight = null;
+            preview.terrain.sourceWidth = preview.sourceWidth;
+            preview.terrain.sourceHeight = preview.sourceHeight;
             preview.frameStarted = true;
             preview.frame = null;
             if (preview.comparison != null) preview.comparison.end();
@@ -218,7 +221,17 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         var plane = VulkanSkyBackground.capture(upper, radius);
         if (upper) preview.terrain.upperSky = plane;
         else preview.terrain.lowerSky = plane;
-        if (preview.comparison != null && preview.comparison.active()) preview.comparison.drawSky(drawReference);
+        replaySky(drawReference);
+    }
+
+    public static void captureTwilight(ByteBuffer vertices) {
+        if (active != null && active.frameStarted) active.terrain.twilight = VulkanSkyBackground.captureTwilight(vertices);
+    }
+
+    public static void replaySky(Runnable drawReference) {
+        if (active != null && active.frameStarted && active.comparison != null && active.comparison.active()) {
+            active.comparison.drawSky(drawReference);
+        }
     }
 
     static void drawLayer(Minecraft mc, double x, double y, double z, RenderLayer layer, List<RenderChunk> sections,
@@ -242,7 +255,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             atlasDirty = false;
         }
         return new Extraction(this, x, y, z, mc.entityRenderer.copyTerrainLightmap(), captureFog(mc),
-                Config.isRenderRegions(), mc.displayWidth, mc.displayHeight);
+                Config.isRenderRegions());
     }
 
     private static VulkanTerrainScene.Fog captureFog(Minecraft mc) {
@@ -353,13 +366,11 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         private final int[] lightmap;
         private final VulkanTerrainScene.Fog fog;
         private final boolean renderRegions;
-        private final int width;
-        private final int height;
         private final List<VulkanTerrainScene.Draw> opaque = new ArrayList<>();
         private final List<VulkanTerrainScene.Draw> translucent = new ArrayList<>();
 
         private Extraction(VulkanTerrainPreview preview, double x, double y, double z,
-                           int[] lightmap, VulkanTerrainScene.Fog fog, boolean renderRegions, int width, int height) {
+                           int[] lightmap, VulkanTerrainScene.Fog fog, boolean renderRegions) {
             this.preview = preview;
             this.x = x;
             this.y = y;
@@ -368,8 +379,6 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             this.lightmap = lightmap;
             this.fog = fog;
             this.renderRegions = renderRegions;
-            this.width = width;
-            this.height = height;
         }
 
         void add(RenderChunk chunk, RenderLayer layer, boolean mipmapped) {
@@ -418,7 +427,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         }
 
         VulkanTerrainScene.Frame finish() {
-            return new VulkanTerrainScene.Frame(lightmap, fog, opaque, translucent, width, height);
+            return new VulkanTerrainScene.Frame(lightmap, fog, opaque, translucent);
         }
     }
 }

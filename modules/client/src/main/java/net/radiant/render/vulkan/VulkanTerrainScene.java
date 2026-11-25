@@ -25,6 +25,8 @@ final class VulkanTerrainScene implements VulkanScene {
     private VulkanTerrainMeshes meshes;
     private VulkanTerrainPipeline pipeline;
     private VulkanSkyBackground skyPipeline;
+    int sourceWidth, sourceHeight;
+    VulkanSkyBackground.Twilight twilight;
     VulkanSkyBackground.State upperSky, lowerSky;
     private VulkanTexture atlas;
     private VulkanTexture lightmap;
@@ -101,7 +103,7 @@ final class VulkanTerrainScene implements VulkanScene {
         }
         if (skyPipeline != null) skyPipeline.close();
         skyPipeline = new VulkanSkyBackground(device);
-        skyPipeline.initialize(colorFormat, depthFormat());
+        skyPipeline.initialize(physicalDevice, colorFormat, depthFormat());
         pipeline = new VulkanTerrainPipeline(device);
         pipeline.initialize(physicalDevice, colorFormat, depthFormat());
         if (atlas != null) {
@@ -147,15 +149,13 @@ final class VulkanTerrainScene implements VulkanScene {
 
     @Override
     public void draw(MemoryStack stack, VkCommandBuffer commands, int width, int height) {
-        VulkanSkyBackground.State sky = upperSky != null ? upperSky : lowerSky;
-        if (frame == null && sky == null) return;
-        int sourceWidth = sky == null ? frame.width : sky.width();
-        int sourceHeight = sky == null ? frame.height : sky.height();
+        if (frame == null && upperSky == null && lowerSky == null && twilight == null) return;
         float scale = Math.min((float) width / sourceWidth, (float) height / sourceHeight);
         int viewWidth = Math.clamp(Math.round(sourceWidth * scale), 1, width);
         int viewHeight = Math.clamp(Math.round(sourceHeight * scale), 1, height);
         VulkanGraphics.viewport(stack, commands, (width - viewWidth) / 2, (height - viewHeight) / 2, viewWidth, viewHeight);
         if (upperSky != null) skyPipeline.draw(stack, commands, upperSky);
+        if (twilight != null) skyPipeline.drawTwilight(stack, commands, twilight);
         if (lowerSky != null) skyPipeline.draw(stack, commands, lowerSky);
         if (frame == null || atlas == null || (frame.opaque.isEmpty() && frame.translucent.isEmpty())) return;
         pipeline.begin(stack, commands);
@@ -201,8 +201,7 @@ final class VulkanTerrainScene implements VulkanScene {
         if (meshes != null) meshes.close();
     }
 
-    record Frame(int[] lightmap, Fog fog, List<Draw> opaque, List<Draw> translucent,
-                 int width, int height) {
+    record Frame(int[] lightmap, Fog fog, List<Draw> opaque, List<Draw> translucent) {
     }
 
     record Fog(float red, float green, float blue, float mode, float start, float end, float density) {
