@@ -1539,6 +1539,7 @@ public class Minecraft implements IThreadListener {
         }
 
         if (worldClient == null && world != null) {
+            if (VulkanTerrainPreview.ENABLED) VulkanTerrainPreview.leaveWorld();
             mcResourcePackRepository.clearResourcePack();
             ingameGUI.resetPlayersOverlayFooterHeader();
             setServerData(null);

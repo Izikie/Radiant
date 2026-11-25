@@ -51,6 +51,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     private int sourceWidth;
     private int sourceHeight;
     private Extraction frame;
+    private boolean frameStarted;
     private TerrainComparison comparison;
     private long frames;
     private long drawCalls;
@@ -162,6 +163,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         VulkanTerrainPreview preview = active;
         if (preview != null) {
             preview.frame = null;
+            preview.frameStarted = false;
             preview.sections.values().forEach(preview::retire);
             preview.sections.clear();
             preview.atlasDirty = true;
@@ -190,9 +192,15 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     }
 
     static void beginFrame() {
-        if (active != null) {
-            active.frame = null;
-            if (active.comparison != null) active.comparison.end();
+        VulkanTerrainPreview preview = active;
+        if (preview != null) {
+            preview.frameStarted = true;
+            preview.frame = null;
+            if (preview.comparison != null) preview.comparison.end();
+            if (COMPARE && preview.frames % 47 == 0 && OpenGlHelper.isFramebufferEnabled()) {
+                if (preview.comparison == null) preview.comparison = new TerrainComparison();
+                preview.comparison.begin(preview.sourceWidth, preview.sourceHeight);
+            }
         }
     }
 
@@ -202,10 +210,6 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         if (preview == null || !preview.windowVisible) return;
         if (preview.frame == null) {
             preview.frame = preview.extract(mc, x, y, z);
-            if (COMPARE && preview.frames % 47 == 0 && OpenGlHelper.isFramebufferEnabled()) {
-                if (preview.comparison == null) preview.comparison = new TerrainComparison();
-                preview.comparison.begin(mc.displayWidth, mc.displayHeight);
-            }
         }
         int filter = glGetTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER);
         boolean mipmapped = filter != GL_NEAREST && filter != GL_LINEAR;
@@ -283,13 +287,14 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             shutdown();
             return;
         }
-        Extraction extraction = preview.frame;
+        if (!preview.frameStarted) return;
+        preview.frameStarted = false;
+        // A world frame with no submitted sections still replaces the previous terrain image.
+        VulkanTerrainScene.Frame frame = preview.frame == null ? null : preview.frame.finish();
         preview.frame = null;
-        if (extraction == null) return;
-        VulkanTerrainScene.Frame frame = extraction.finish();
         var compare = preview.comparison;
         var capture = compare != null && compare.active()
-                ? new VulkanPresenter.FrameCapture(frame.width(), frame.height(), compare::compare) : null;
+                ? new VulkanPresenter.FrameCapture(preview.sourceWidth, preview.sourceHeight, compare::compare) : null;
         preview.terrain.setFrame(frame);
         try {
             if (preview.presenter.present(0, 0, 0, capture)) {
