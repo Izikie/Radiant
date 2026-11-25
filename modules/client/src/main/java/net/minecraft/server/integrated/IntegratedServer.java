@@ -26,11 +26,13 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class IntegratedServer extends MinecraftServer {
     private static final Logger LOGGER = LoggerFactory.getLogger(IntegratedServer.class);
     private final Minecraft mc;
     private final WorldSettings theWorldSettings;
+    private final AtomicBoolean shutdownRequested = new AtomicBoolean();
     private boolean isGamePaused;
     private boolean isPublic;
     private ThreadLanServerPing lanServerPing;
@@ -309,19 +311,23 @@ public class IntegratedServer extends MinecraftServer {
 
     @Override
     public void initiateShutdown() {
-        if (this.isServerRunning()) {
-            Futures.getUnchecked(this.addScheduledTask(() -> {
-                for (EntityPlayerMP entityplayermp : new ArrayList<>(IntegratedServer.this.getConfigurationManager().getPlayerList())) {
-                    IntegratedServer.this.getConfigurationManager().playerLoggedOut(entityplayermp);
-                }
-            }));
-        }
-
-        super.initiateShutdown();
-
-        if (this.lanServerPing != null) {
-            this.lanServerPing.interrupt();
-            this.lanServerPing = null;
+        // The local disconnect and the server's logout callback can request shutdown in the same tick.
+        // Let the first caller finish the queued player saves before the server loop exits.
+        if (!shutdownRequested.compareAndSet(false, true)) return;
+        try {
+            if (this.isServerRunning()) {
+                Futures.getUnchecked(this.addScheduledTask(() -> {
+                    for (EntityPlayerMP player : new ArrayList<>(getConfigurationManager().getPlayerList())) {
+                        getConfigurationManager().playerLoggedOut(player);
+                    }
+                }));
+            }
+        } finally {
+            super.initiateShutdown();
+            if (this.lanServerPing != null) {
+                this.lanServerPing.interrupt();
+                this.lanServerPing = null;
+            }
         }
     }
 
