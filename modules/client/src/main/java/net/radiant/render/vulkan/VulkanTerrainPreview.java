@@ -169,6 +169,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.atlasDirty = true;
             preview.terrain.setAtlas(null);
             preview.terrain.clouds.invalidateTexture();
+            preview.terrain.weather.invalidateTextures();
             preview.terrain.sun.invalidateTexture();
             preview.terrain.moon.invalidateTexture();
         }
@@ -207,6 +208,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.terrain.twilight = null;
             preview.terrain.stars = null;
             preview.terrain.clouds.visible = false;
+            preview.terrain.weather.clear();
             preview.terrain.sun.visible = false;
             preview.terrain.moon.visible = false;
             preview.terrain.sourceWidth = preview.sourceWidth;
@@ -229,6 +231,14 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         if (upper) preview.terrain.upperSky = plane;
         else preview.terrain.lowerSky = plane;
         replaySky(drawReference);
+    }
+
+    public static void precipitation(int texture, WorldRenderer mesh) {
+        VulkanTerrainPreview preview = active;
+        if (preview == null || !preview.frameStarted || mesh.getVertexCount() == 0) return;
+        int[] vertices = mesh.getVertexState().getRawBuffer();
+        preview.terrain.weather.add(texture, vertices);
+        if (preview.comparison != null && preview.comparison.active()) preview.comparison.drawWeather(vertices);
     }
 
     public static void clouds(byte[] vertices, boolean fancy, int colorPass, Runnable reference) {

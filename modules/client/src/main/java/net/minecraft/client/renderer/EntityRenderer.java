@@ -1607,7 +1607,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                             if (world.getWorldChunkManager().getTemperatureAtHeight(f1, j2) >= 0.15F) {
                                 if (j1 != 0) {
                                     if (j1 >= 0) {
-                                        tessellator.draw();
+                                        drawPrecipitation(tessellator, j1);
                                     }
 
                                     j1 = 0;
@@ -1631,7 +1631,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                             } else {
                                 if (j1 != 1) {
                                     if (j1 == 0) {
-                                        tessellator.draw();
+                                        drawPrecipitation(tessellator, j1);
                                     }
 
                                     j1 = 1;
@@ -1661,7 +1661,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             }
 
             if (j1 >= 0) {
-                tessellator.draw();
+                drawPrecipitation(tessellator, j1);
             }
 
             worldrenderer.setTranslation(0.0D, 0.0D, 0.0D);
@@ -1670,6 +1670,11 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
             this.disableLightmap();
         }
+    }
+
+    private static void drawPrecipitation(Tessellator tessellator, int texture) {
+        if (VulkanTerrainPreview.ENABLED) VulkanTerrainPreview.precipitation(texture, tessellator.getWorldRenderer());
+        tessellator.draw();
     }
 
     public void setupOverlayRendering() {

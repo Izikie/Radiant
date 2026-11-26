@@ -80,6 +80,11 @@ final class VulkanTextureBindings implements AutoCloseable {
         var texture = textures[slot] = new VulkanTexture(device);
         texture.initialize(gpu, queue, commands, image.width, image.height, new ByteBuffer[]{image.pixels},
                 image.filter, image.wrapU, image.wrapV);
+        setTexture(slot, texture);
+        uploaded[slot] = image;
+    }
+
+    void setTexture(int slot, VulkanTexture texture) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             var info = VkDescriptorImageInfo.calloc(1, stack);
             info.get(0).sampler(texture.sampler()).imageView(texture.view()).imageLayout(VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
@@ -88,11 +93,14 @@ final class VulkanTextureBindings implements AutoCloseable {
                     .descriptorCount(1).pImageInfo(info);
             vkUpdateDescriptorSets(device, write, null);
         }
-        uploaded[slot] = image;
     }
 
     void bind(MemoryStack stack, VkCommandBuffer commands, long layout, int slot) {
-        vkCmdBindDescriptorSets(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 0, stack.longs(sets[slot]), null);
+        bind(stack, commands, layout, slot, 0);
+    }
+
+    void bind(MemoryStack stack, VkCommandBuffer commands, long layout, int slot, int setIndex) {
+        vkCmdBindDescriptorSets(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, setIndex, stack.longs(sets[slot]), null);
     }
 
     @Override

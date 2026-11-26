@@ -1,12 +1,7 @@
 package net.radiant.render.vulkan;
 
-import org.joml.Matrix4f;
-import org.joml.Vector4f;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.vulkan.*;
-
-import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.vulkan.VK10.*;
@@ -19,8 +14,7 @@ final class VulkanCloudPipeline implements AutoCloseable {
         boolean visible, afterTerrain, fancy;
         int colorPass;
         private byte[] mesh;
-        private Matrix4f transform;
-        private final Vector4f eyeZ = new Vector4f(), fogColor = new Vector4f(), fog = new Vector4f();
+        private final VulkanFogState draw = new VulkanFogState();
         private int textureId = -1;
         private VulkanTextureBindings.Image image;
 
@@ -34,17 +28,7 @@ final class VulkanCloudPipeline implements AutoCloseable {
                 image = VulkanTextureBindings.Image.capture();
                 textureId = id;
             }
-            try (MemoryStack stack = MemoryStack.stackPush()) {
-                FloatBuffer values = stack.mallocFloat(16);
-                glGetFloatv(GL_MODELVIEW_MATRIX, values);
-                eyeZ.set(values.get(2), values.get(6), values.get(10), values.get(14));
-                transform = VulkanSkyBackground.projectionModelView(values);
-                glGetFloatv(GL_FOG_COLOR, values);
-                fogColor.set(values);
-                fogColor.w = glIsEnabled(GL_ALPHA_TEST) ? glGetFloat(GL_ALPHA_TEST_REF) : -1;
-                fog.set(glIsEnabled(GL_FOG) ? glGetInteger(GL_FOG_MODE) : 0,
-                        glGetFloat(GL_FOG_START), glGetFloat(GL_FOG_END), glGetFloat(GL_FOG_DENSITY));
-            }
+            draw.capture();
             this.fancy = fancy;
             this.colorPass = colorPass;
             mesh = vertices;
@@ -70,7 +54,7 @@ final class VulkanCloudPipeline implements AutoCloseable {
             bindings.initialize(stack);
             var handle = stack.mallocLong(1);
             var constants = VkPushConstantRange.calloc(1, stack);
-            constants.get(0).size(112).stageFlags(STAGES);
+            constants.get(0).size(VulkanFogState.BYTES).stageFlags(STAGES);
             VulkanPresenter.check(vkCreatePipelineLayout(device, VkPipelineLayoutCreateInfo.calloc(stack).sType$Default()
                     .pSetLayouts(stack.longs(bindings.layout())).pPushConstantRanges(constants), null, handle), "create cloud pipeline layout");
             layout = handle.get(0);
@@ -82,14 +66,7 @@ final class VulkanCloudPipeline implements AutoCloseable {
             attributes.get(2).location(2).offset(20).format(VK_FORMAT_R8G8B8A8_UNORM);
             var inputs = VkPipelineVertexInputStateCreateInfo.calloc(stack).sType$Default()
                     .pVertexBindingDescriptions(stream).pVertexAttributeDescriptions(attributes);
-            String header = "#version 450\n#define OPENGL_CLIP_DEPTH " + (device.getCapabilities().VK_EXT_depth_clip_control ? "1\n" : "0\n") + """
-                    layout(push_constant) uniform Clouds {
-                        mat4 transform;
-                        vec4 eyeZ;
-                        vec4 fogColorAndAlphaRef;
-                        vec4 fog;
-                    } clouds;
-                    """;
+            String header = VulkanFogState.shaderHeader(device);
             String vertex = header + """
                     layout(location=0) in vec3 position;
                     layout(location=1) in vec2 texCoord;
@@ -101,15 +78,15 @@ final class VulkanCloudPipeline implements AutoCloseable {
                         uv = texCoord;
                         tint = vertexColor;
                         vec4 p = vec4(position, 1);
-                        eyeZ = dot(clouds.eyeZ, p);
-                        vec4 clip = clouds.transform * p;
+                        eyeZ = dot(draw.eyeZ, p);
+                        vec4 clip = draw.transform * p;
                         #if !OPENGL_CLIP_DEPTH
                         clip.z = (clip.z + clip.w) * 0.5;
                         #endif
                         gl_Position = clip;
                     }
                     """;
-            String fragment = header + """
+            String fragment = header + VulkanFogState.FRAGMENT_FOG + """
                     layout(binding=0) uniform sampler2D cloudTexture;
                     layout(location=0) in vec2 uv;
                     layout(location=1) flat in vec4 tint;
@@ -117,14 +94,8 @@ final class VulkanCloudPipeline implements AutoCloseable {
                     layout(location=0) out vec4 color;
                     void main() {
                         color = texture(cloudTexture, uv) * tint;
-                        if (color.a <= clouds.fogColorAndAlphaRef.a) discard;
-                        if (clouds.fog.x == 0) return;
-                        float d = abs(eyeZ);
-                        float f;
-                        if (clouds.fog.x == 2048) f = exp(-clouds.fog.w * d);
-                        else if (clouds.fog.x == 2049) f = exp(-pow(clouds.fog.w * d, 2.0));
-                        else f = (clouds.fog.z - d) / max(clouds.fog.z - clouds.fog.y, 0.0001);
-                        color.rgb = mix(clouds.fogColorAndAlphaRef.rgb, color.rgb, clamp(f, 0.0, 1.0));
+                        if (color.a <= draw.fogColorAndAlphaRef.a) discard;
+                        color.rgb = applyFog(color.rgb, eyeZ);
                     }
                     """;
             int[] colorMasks = {VulkanGraphics.RGBA & ~VK_COLOR_COMPONENT_R_BIT, VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_A_BIT, VulkanGraphics.RGBA};
@@ -151,12 +122,7 @@ final class VulkanCloudPipeline implements AutoCloseable {
     }
 
     void draw(MemoryStack stack, VkCommandBuffer commands, VulkanBuffer indices, State state) {
-        ByteBuffer constants = stack.malloc(112);
-        state.transform.get(0, constants);
-        state.eyeZ.get(64, constants);
-        state.fogColor.get(80, constants);
-        state.fog.get(96, constants);
-        vkCmdPushConstants(commands, layout, STAGES, 0, constants);
+        vkCmdPushConstants(commands, layout, STAGES, 0, state.draw.constants(stack));
         bindings.bind(stack, commands, layout, 0);
         vkCmdBindVertexBuffers(commands, 0, stack.longs(vertices.handle()), stack.longs(0));
         vkCmdBindIndexBuffer(commands, indices.handle(), 0, VK_INDEX_TYPE_UINT32);
