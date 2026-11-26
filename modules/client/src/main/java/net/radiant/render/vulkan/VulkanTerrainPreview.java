@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.chunk.CompiledChunk;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -170,6 +171,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.terrain.setAtlas(null);
             preview.terrain.clouds.invalidateTexture();
             preview.terrain.weather.invalidateTextures();
+            preview.terrain.border.invalidateTexture();
             preview.terrain.sun.invalidateTexture();
             preview.terrain.moon.invalidateTexture();
         }
@@ -209,6 +211,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.terrain.stars = null;
             preview.terrain.clouds.visible = false;
             preview.terrain.weather.clear();
+            preview.terrain.border.vertices = null;
             preview.terrain.sun.visible = false;
             preview.terrain.moon.visible = false;
             preview.terrain.sourceWidth = preview.sourceWidth;
@@ -233,12 +236,22 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         replaySky(drawReference);
     }
 
+    public static void worldBorder(WorldRenderer mesh) {
+        VulkanTerrainPreview preview = active;
+        if (preview == null || !preview.frameStarted || mesh.getVertexCount() == 0) return;
+        int[] vertices = mesh.getVertexState().getRawBuffer();
+        preview.terrain.border.capture(vertices);
+        if (preview.comparison != null && preview.comparison.active()) {
+            preview.comparison.drawOverlay(vertices, DefaultVertexFormats.POSITION_TEX);
+        }
+    }
+
     public static void precipitation(int texture, WorldRenderer mesh) {
         VulkanTerrainPreview preview = active;
         if (preview == null || !preview.frameStarted || mesh.getVertexCount() == 0) return;
         int[] vertices = mesh.getVertexState().getRawBuffer();
         preview.terrain.weather.add(texture, vertices);
-        if (preview.comparison != null && preview.comparison.active()) preview.comparison.drawWeather(vertices);
+        if (preview.comparison != null && preview.comparison.active()) preview.comparison.drawOverlay(vertices, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
     }
 
     public static void clouds(byte[] vertices, boolean fancy, int colorPass, Runnable reference) {

@@ -2,7 +2,7 @@ package net.radiant.render.vulkan;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.chunk.RenderChunk;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.RenderLayer;
 import net.radiant.render.terrain.TerrainDrawSubmitter;
 import net.radiant.util.NativeImage;
@@ -31,8 +31,8 @@ final class TerrainComparison implements AutoCloseable {
     private int width, height, samples;
     private boolean active;
     private int[] background, beforeLateClouds;
-    private int[] beforeWeather, afterWeather;
-    private final Tessellator weatherReference = new Tessellator(4096);
+    private int[] beforeOverlays, afterOverlays;
+    private final Tessellator overlayReference = new Tessellator(4096);
     private boolean savedMismatch;
     private Path directory;
 
@@ -67,7 +67,7 @@ final class TerrainComparison implements AutoCloseable {
             active = true;
             background = null;
             beforeLateClouds = null;
-            beforeWeather = afterWeather = null;
+            beforeOverlays = afterOverlays = null;
         } finally {
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, previous);
         }
@@ -89,13 +89,13 @@ final class TerrainComparison implements AutoCloseable {
         }
     }
 
-    void drawWeather(int[] vertices) {
-        if (background != null && beforeWeather == null) beforeWeather = readColors();
+    void drawOverlay(int[] vertices, VertexFormat format) {
+        if (background != null && beforeOverlays == null) beforeOverlays = readColors();
         drawSky(() -> {
-            var mesh = weatherReference.getWorldRenderer();
-            mesh.begin(GL_QUADS, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
+            var mesh = overlayReference.getWorldRenderer();
+            mesh.begin(GL_QUADS, format);
             mesh.addVertexData(vertices);
-            weatherReference.draw();
+            overlayReference.draw();
         });
     }
 
@@ -119,7 +119,7 @@ final class TerrainComparison implements AutoCloseable {
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffer);
         try {
             if (background == null) background = readColors();
-            if (beforeWeather != null && afterWeather == null) afterWeather = readColors();
+            if (beforeOverlays != null && afterOverlays == null) afterOverlays = readColors();
             reference.drawLayer(layer, sections);
         } finally {
             glBindFramebuffer(GL_DRAW_FRAMEBUFFER, previous);
@@ -157,7 +157,7 @@ final class TerrainComparison implements AutoCloseable {
     void compare(NativeImage vk) {
         int[] pixels = readColors();
         int[] terrainPixels = beforeLateClouds == null ? pixels : beforeLateClouds;
-        int[] opaquePixels = beforeWeather == null ? terrainPixels : beforeWeather;
+        int[] opaquePixels = beforeOverlays == null ? terrainPixels : beforeOverlays;
         int mismatches = 0, maximum = 0, visible = 0;
         long absoluteError = 0;
         NativeImage gl = NativeImage.createBlankImage(width, height);
@@ -168,7 +168,7 @@ final class TerrainComparison implements AutoCloseable {
                 int actual = vk.getPixel(x, y);
                 gl.setPixel(x, y, expected | 0xff000000);
                 if ((background != null && ((opaquePixels[index] ^ background[index]) & 0xffffff) != 0)
-                        || (afterWeather != null && ((terrainPixels[index] ^ afterWeather[index]) & 0xffffff) != 0)) visible++;
+                        || (afterOverlays != null && ((terrainPixels[index] ^ afterOverlays[index]) & 0xffffff) != 0)) visible++;
                 if (((expected ^ actual) & 0xffffff) == 0) continue;
                 mismatches++;
                 for (int shift = 0; shift <= 16; shift += 8) {

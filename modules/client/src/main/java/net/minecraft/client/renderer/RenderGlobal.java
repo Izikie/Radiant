@@ -1843,6 +1843,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 }
             }
 
+            if (VulkanTerrainPreview.ENABLED) VulkanTerrainPreview.worldBorder(worldrenderer);
             tessellator.draw();
             worldrenderer.setTranslation(0.0D, 0.0D, 0.0D);
             GlStateManager.enableCull();

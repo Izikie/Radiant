@@ -39,14 +39,17 @@ final class VulkanFogState {
     }
 
     static String shaderHeader(VkDevice device) {
+        return shaderHeader(device, "");
+    }
+
+    static String shaderHeader(VkDevice device, String extraConstants) {
         return "#version 450\n#define OPENGL_CLIP_DEPTH " + (device.getCapabilities().VK_EXT_depth_clip_control ? "1\n" : "0\n") + """
                 layout(push_constant) uniform Draw {
                     mat4 transform;
                     vec4 eyeZ;
                     vec4 fogColorAndAlphaRef;
                     vec4 fog;
-                } draw;
-                """;
+                """ + extraConstants + "} draw;\n";
     }
 
     static final String FRAGMENT_FOG = """

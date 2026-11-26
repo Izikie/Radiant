@@ -24,6 +24,13 @@ final class VulkanGraphics {
 
     static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology, Blend blendMode, boolean depthWrite, int cullMode, int colorMask,
                          VkPipelineVertexInputStateCreateInfo vertexInput, String vertexSource, String fragmentSource) {
+        return pipeline(stack, device, layout, colorFormat, depthFormat, topology, blendMode, depthWrite, cullMode,
+                colorMask, 0, 0, vertexInput, vertexSource, fragmentSource);
+    }
+
+    static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology,
+                         Blend blendMode, boolean depthWrite, int cullMode, int colorMask, float depthBiasSlope,
+                         float depthBiasConstant, VkPipelineVertexInputStateCreateInfo vertexInput, String vertexSource, String fragmentSource) {
         long vertex = shader(stack, device, vertexSource, shaderc_glsl_vertex_shader, "scene.vert");
         long fragment = 0;
         try {
@@ -37,6 +44,8 @@ final class VulkanGraphics {
             blend.get(0).colorWriteMask(colorMask);
             VkPipelineRasterizationStateCreateInfo rasterization = VkPipelineRasterizationStateCreateInfo.calloc(stack)
                     .sType$Default().lineWidth(1.0f);
+            rasterization.depthBiasEnable(depthBiasSlope != 0 || depthBiasConstant != 0)
+                    .depthBiasSlopeFactor(depthBiasSlope).depthBiasConstantFactor(depthBiasConstant);
             rasterization.cullMode(cullMode).frontFace(VK_FRONT_FACE_CLOCKWISE);
             if (blendMode != Blend.OPAQUE) {
                 blend.get(0).blendEnable(true)
