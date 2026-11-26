@@ -8,9 +8,9 @@ Keep dual rendering. OpenGL presents the full game in the main window. Add each 
 
 ## Resume on modern-renderer
 
-- **Next step.** Port the world border using 26.3's `WorldBorderRenderer.prepare` / `render` and Radiant's `RenderGlobal.renderWorldBorder`. Submit it after precipitation and before translucent terrain.
-- **Last verified renderer commit.** At `975895a7`, rain and snow matched same-frame Radiant OpenGL across all four configurations. The production build is restored. See [the parity history and next-session checks](renderer-port/docs/history/rain-and-snow.md).
-- **Remaining gap.** Verify the border's fade, scrolling texture and blending at a face and corner, then move outside its visible range.
+- **Next step.** Port the block selection outline using 26.3's `LevelRenderer.submitBlockOutline` and Radiant's `RenderGlobal.drawSelectionBox`.
+- **Last verified renderer commit.** At `7ad19f64`, the world border matched same-frame Radiant OpenGL across all four configurations. The production build is restored. See [the parity history and next-session checks](renderer-port/docs/history/world-border.md).
+- **Remaining gap.** Verify the selection outline's two-pixel coverage, occlusion and blending on a block with partial bounds, then move the crosshair off the block.
 
 ## Where to look
 
