@@ -10,12 +10,16 @@ Read the resume section of the repository's AGENTS.md for the current pass and g
 ## Run the comparison
 
 ```sh
-python renderer-port/tools/terrain_parity.py run
+python renderer-port/tools/check.py
 ```
 
-The runner calls the offline Gradle wrapper with the benchmark in background mode. OpenGL and Vulkan both need a graphical session. The four modes use fresh game directories with framebuffers enabled, and shader, AA and AF defaults. The runner prints the log path for each mode under `renderer-port/local/parity/runs/run-*`. The client writes paired captures under `run/benchmarks/terrain-pair-*`. Gradle dependencies, Minecraft assets and a Vulkan driver must already be available locally.
+The check builds production classes offline and runs all four modes with fresh game directories, framebuffers enabled, and shader, AA and AF defaults. Its summary names the run directory or failing log under `renderer-port/local/parity/runs/`. The client writes paired captures under `run/benchmarks/terrain-pair-*`. Both backends need a local graphical session, cached Gradle dependencies, Minecraft assets and a Vulkan driver.
 
-Use `--mode list-regions` (or `list`, `vbo`, `vbo-regions`) to reproduce one configuration. Validation is on by default. When running with `--no-validation`, record that choice with the result. Log summaries report the client's error counter, which also reads zero when validation is disabled.
+For a single-mode rerun use the command below. Other modes are `list`, `vbo` and `vbo-regions`. Validation is on by default. Record any use of `--no-validation` with the result.
+
+```sh
+python renderer-port/tools/terrain_parity.py run --mode list-regions
+```
 
 For an interactive comparison, run the wrapper JAR. The equivalent wrapper scripts are `./gradlew` on macOS/Linux and `gradlew.bat` on Windows.
 
