@@ -13,6 +13,7 @@ Use this map to find the Radiant code that serves the same responsibility. Moder
 | `renderer.SkyRenderer.renderStars` | `RenderGlobal.renderStars` builds Radiant's seeded star quads. `VulkanSkyBackground.drawStars` draws that mesh with the celestial transform, star brightness and shared quad indices. |
 | `renderer.CloudRenderer.prepare`, `render` | `RenderGlobal.renderClouds` and `renderCloudsFancy` build the display-list geometry. `VulkanCloudPipeline` draws fast clouds once and fancy clouds in depth and color passes, using Radiant's translation, projection, fog and texture. |
 | `renderer.WeatherEffectRenderer.prepare`, `render` | `EntityRenderer.renderRainSnow` supplies Radiant's lightmapped rain and snow column batches in draw order. `VulkanWeatherPipeline` draws them between opaque and translucent terrain. |
+| `renderer.LevelRenderer.submitBlockOutline` | `RenderGlobal.drawSelectionBox` supplies the selected bounds. `VulkanBlockOutlinePipeline` draws their edges with the world depth buffer. |
 | `renderer.WorldBorderRenderer.prepare`, `render` | `RenderGlobal.renderWorldBorder` supplies the visible sides, scroll phase and fade. `VulkanWorldBorderPipeline` draws the prepared mesh after precipitation and before translucent terrain. |
 | `renderer.texture.TextureAtlas` | `TextureMap`, `VulkanTerrainPreview.captureAtlas`, `VulkanAtlasUpdates` |
 | `com.mojang.blaze3d.pipeline.RenderTarget`, `platform.Window` | `Framebuffer`, `Display`, `OpenGlWindowBlit`, `VulkanRenderTarget`, `VulkanPresenter` |

@@ -8,9 +8,9 @@ Keep dual rendering. OpenGL presents the full game in the main window. Add each 
 
 ## Resume on modern-renderer
 
-- **Next step.** Port the block selection outline using 26.3's `LevelRenderer.submitBlockOutline` and Radiant's `RenderGlobal.drawSelectionBox`.
-- **Last verified renderer commit.** At `7ad19f64`, the world border matched same-frame Radiant OpenGL across all four configurations. The production build is restored. See [the parity history and next-session checks](renderer-port/docs/history/world-border.md).
-- **Remaining gap.** Verify the selection outline's two-pixel coverage, occlusion and blending on a block with partial bounds, then move the crosshair off the block.
+- **Next step.** Port the block damage overlay using 26.3's `LevelRenderer.submitBlockDestroyAnimation` and Radiant's `RenderGlobal.drawBlockDamageTexture`.
+- **Last verified renderer commit.** At `6bd11fbe`, the block selection outline matched same-frame Radiant OpenGL across all four configurations. The production build is restored. See [the parity history and next-session checks](renderer-port/docs/history/block-selection-outline.md).
+- **Remaining gap.** Verify the crack texture, blending and depth offset at multiple damage stages, then clear the damage and check that the overlay disappears.
 
 ## Where to look
 
