@@ -1962,7 +1962,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     axisalignedbb = BlockModelUtils.getOffsetBoundingBox(axisalignedbb, block$enumoffsettype, blockpos);
                 }
 
-                drawSelectionBoundingBox(axisalignedbb.expand(0.0020000000949949026D, 0.0020000000949949026D, 0.0020000000949949026D).offset(-d0, -d1, -d2));
+                AxisAlignedBB bounds = axisalignedbb.expand(0.0020000000949949026D, 0.0020000000949949026D, 0.0020000000949949026D).offset(-d0, -d1, -d2);
+                if (VulkanTerrainPreview.ENABLED) VulkanTerrainPreview.submitBlockOutline(bounds);
+                drawSelectionBoundingBox(bounds);
             }
 
             GlStateManager.depthMask(true);

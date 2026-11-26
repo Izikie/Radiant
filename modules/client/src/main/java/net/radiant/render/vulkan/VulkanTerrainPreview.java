@@ -3,12 +3,14 @@ package net.radiant.render.vulkan;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.chunk.CompiledChunk;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.RenderLayer;
 import net.optifine.Config;
@@ -210,6 +212,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.terrain.twilight = null;
             preview.terrain.stars = null;
             preview.terrain.clouds.visible = false;
+            preview.terrain.outline.bounds = null;
             preview.terrain.weather.clear();
             preview.terrain.border.vertices = null;
             preview.terrain.sun.visible = false;
@@ -234,6 +237,15 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         if (upper) preview.terrain.upperSky = plane;
         else preview.terrain.lowerSky = plane;
         replaySky(drawReference);
+    }
+
+    public static void submitBlockOutline(AxisAlignedBB bounds) {
+        VulkanTerrainPreview preview = active;
+        if (preview == null || !preview.frameStarted) return;
+        preview.terrain.outline.capture(bounds);
+        if (preview.comparison != null && preview.comparison.active()) {
+            preview.comparison.drawOverlay(() -> RenderGlobal.drawSelectionBoundingBox(bounds));
+        }
     }
 
     public static void worldBorder(WorldRenderer mesh) {

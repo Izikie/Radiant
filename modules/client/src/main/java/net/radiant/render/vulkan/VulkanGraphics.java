@@ -31,6 +31,17 @@ final class VulkanGraphics {
     static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology,
                          Blend blendMode, boolean depthWrite, int cullMode, int colorMask, float depthBiasSlope,
                          float depthBiasConstant, VkPipelineVertexInputStateCreateInfo vertexInput, String vertexSource, String fragmentSource) {
+        var rasterization = VkPipelineRasterizationStateCreateInfo.calloc(stack).sType$Default()
+                .cullMode(cullMode).frontFace(VK_FRONT_FACE_CLOCKWISE).lineWidth(1)
+                .depthBiasEnable(depthBiasSlope != 0 || depthBiasConstant != 0)
+                .depthBiasSlopeFactor(depthBiasSlope).depthBiasConstantFactor(depthBiasConstant);
+        return pipeline(stack, device, layout, colorFormat, depthFormat, topology, blendMode, depthWrite, colorMask,
+                rasterization, vertexInput, vertexSource, fragmentSource);
+    }
+
+    static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology,
+                         Blend blendMode, boolean depthWrite, int colorMask, VkPipelineRasterizationStateCreateInfo rasterization,
+                         VkPipelineVertexInputStateCreateInfo vertexInput, String vertexSource, String fragmentSource) {
         long vertex = shader(stack, device, vertexSource, shaderc_glsl_vertex_shader, "scene.vert");
         long fragment = 0;
         try {
@@ -42,11 +53,6 @@ final class VulkanGraphics {
                     .pColorAttachmentFormats(stack.ints(colorFormat)).depthAttachmentFormat(depthFormat);
             VkPipelineColorBlendAttachmentState.Buffer blend = VkPipelineColorBlendAttachmentState.calloc(1, stack);
             blend.get(0).colorWriteMask(colorMask);
-            VkPipelineRasterizationStateCreateInfo rasterization = VkPipelineRasterizationStateCreateInfo.calloc(stack)
-                    .sType$Default().lineWidth(1.0f);
-            rasterization.depthBiasEnable(depthBiasSlope != 0 || depthBiasConstant != 0)
-                    .depthBiasSlopeFactor(depthBiasSlope).depthBiasConstantFactor(depthBiasConstant);
-            rasterization.cullMode(cullMode).frontFace(VK_FRONT_FACE_CLOCKWISE);
             if (blendMode != Blend.OPAQUE) {
                 blend.get(0).blendEnable(true)
                         .srcColorBlendFactor(VK_BLEND_FACTOR_SRC_ALPHA).dstColorBlendFactor(

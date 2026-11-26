@@ -18,6 +18,7 @@ import static org.lwjgl.glfw.GLFW.glfwGetWindowAttrib;
 import static org.lwjgl.glfw.GLFWVulkan.*;
 import static org.lwjgl.vulkan.EXTDebugUtils.*;
 import static org.lwjgl.vulkan.EXTDepthClipControl.VK_EXT_DEPTH_CLIP_CONTROL_EXTENSION_NAME;
+import static org.lwjgl.vulkan.EXTLineRasterization.VK_EXT_LINE_RASTERIZATION_EXTENSION_NAME;
 import static org.lwjgl.vulkan.EXTValidationFeatures.*;
 import static org.lwjgl.vulkan.KHRSurface.*;
 import static org.lwjgl.vulkan.KHRSwapchain.*;
@@ -189,9 +190,9 @@ public final class VulkanPresenter implements AutoCloseable {
     private void createDevice(MemoryStack stack) {
         VkDeviceQueueCreateInfo.Buffer queues = VkDeviceQueueCreateInfo.calloc(1, stack);
         queues.get(0).sType$Default().queueFamilyIndex(queueFamily).pQueuePriorities(stack.floats(1.0f));
-        VkDeviceCreateInfo info = VkDeviceCreateInfo.calloc(stack).sType$Default()
-                .pQueueCreateInfos(queues)
-                .ppEnabledExtensionNames(stack.pointers(stack.UTF8(VK_KHR_SWAPCHAIN_EXTENSION_NAME)));
+        PointerBuffer enabledExtensions = stack.mallocPointer(3);
+        enabledExtensions.put(stack.UTF8(VK_KHR_SWAPCHAIN_EXTENSION_NAME));
+        VkDeviceCreateInfo info = VkDeviceCreateInfo.calloc(stack).sType$Default().pQueueCreateInfos(queues);
         VkPhysicalDeviceVulkan13Features renderFeatures = VkPhysicalDeviceVulkan13Features.calloc(stack).sType$Default()
                 .dynamicRendering(true);
         // Use OpenGL's native clip volume when the selected Vulkan device exposes it.
@@ -203,11 +204,25 @@ public final class VulkanPresenter implements AutoCloseable {
             VkPhysicalDeviceDepthClipControlFeaturesEXT clip = VkPhysicalDeviceDepthClipControlFeaturesEXT.calloc(stack).sType$Default();
             vkGetPhysicalDeviceFeatures2(physicalDevice, VkPhysicalDeviceFeatures2.calloc(stack).sType$Default().pNext(clip));
             if (clip.depthClipControl()) {
-                info.ppEnabledExtensionNames(stack.pointers(stack.UTF8(VK_KHR_SWAPCHAIN_EXTENSION_NAME),
-                        stack.UTF8(VK_EXT_DEPTH_CLIP_CONTROL_EXTENSION_NAME)));
+                enabledExtensions.put(stack.UTF8(VK_EXT_DEPTH_CLIP_CONTROL_EXTENSION_NAME));
                 renderFeatures.pNext(clip.address());
             }
         }
+        if (extensions.stream().anyMatch(e -> VK_EXT_LINE_RASTERIZATION_EXTENSION_NAME.equals(e.extensionNameString()))) {
+            var lines = VkPhysicalDeviceLineRasterizationFeaturesEXT.calloc(stack).sType$Default();
+            var features = VkPhysicalDeviceFeatures2.calloc(stack).sType$Default().pNext(lines.address());
+            vkGetPhysicalDeviceFeatures2(physicalDevice, features);
+            var properties = VkPhysicalDeviceProperties.malloc(stack);
+            vkGetPhysicalDeviceProperties(physicalDevice, properties);
+            if (features.features().wideLines() && lines.bresenhamLines() && properties.limits().lineWidthRange(1) >= 2) {
+                enabledExtensions.put(stack.UTF8(VK_EXT_LINE_RASTERIZATION_EXTENSION_NAME));
+                info.pEnabledFeatures(VkPhysicalDeviceFeatures.calloc(stack).wideLines(true));
+                var enableLines = VkPhysicalDeviceLineRasterizationFeaturesEXT.calloc(stack).sType$Default().bresenhamLines(true);
+                enableLines.pNext(renderFeatures.pNext());
+                renderFeatures.pNext(enableLines.address());
+            }
+        }
+        info.ppEnabledExtensionNames(enabledExtensions.flip());
         info.pNext(renderFeatures.address());
         PointerBuffer pointer = stack.mallocPointer(1);
         check(vkCreateDevice(physicalDevice, info, null, pointer), "create Vulkan device");

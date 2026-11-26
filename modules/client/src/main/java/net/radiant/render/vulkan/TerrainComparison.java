@@ -90,13 +90,17 @@ final class TerrainComparison implements AutoCloseable {
     }
 
     void drawOverlay(int[] vertices, VertexFormat format) {
-        if (background != null && beforeOverlays == null) beforeOverlays = readColors();
-        drawSky(() -> {
+        drawOverlay(() -> {
             var mesh = overlayReference.getWorldRenderer();
             mesh.begin(GL_QUADS, format);
             mesh.addVertexData(vertices);
             overlayReference.draw();
         });
+    }
+
+    void drawOverlay(Runnable reference) {
+        if (background != null && beforeOverlays == null) beforeOverlays = readColors();
+        drawSky(reference);
     }
 
     void drawClouds(Runnable reference, boolean afterTerrain) {

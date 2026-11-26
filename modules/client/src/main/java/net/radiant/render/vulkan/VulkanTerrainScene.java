@@ -27,6 +27,8 @@ final class VulkanTerrainScene implements VulkanScene {
     private VulkanSkyBackground skyPipeline;
     private VulkanCelestialPipeline celestial;
     private VulkanCloudPipeline cloudPipeline;
+    private VulkanBlockOutlinePipeline outlinePipeline;
+    final VulkanBlockOutlinePipeline.State outline = new VulkanBlockOutlinePipeline.State();
     private VulkanWorldBorderPipeline borderPipeline;
     final VulkanWorldBorderPipeline.State border = new VulkanWorldBorderPipeline.State();
     private VulkanWeatherPipeline weatherPipeline;
@@ -122,6 +124,9 @@ final class VulkanTerrainScene implements VulkanScene {
         if (cloudPipeline != null) cloudPipeline.close();
         cloudPipeline = new VulkanCloudPipeline(device);
         cloudPipeline.initialize(colorFormat, depthFormat());
+        if (outlinePipeline != null) outlinePipeline.close();
+        outlinePipeline = new VulkanBlockOutlinePipeline(device);
+        outlinePipeline.initialize(physicalDevice, colorFormat, depthFormat());
         if (weatherPipeline != null) weatherPipeline.close();
         weatherPipeline = new VulkanWeatherPipeline(device);
         weatherPipeline.initialize(colorFormat, depthFormat(), lightmap);
@@ -151,6 +156,7 @@ final class VulkanTerrainScene implements VulkanScene {
 
     @Override
     public void prepareFrame() {
+        if (outline.bounds != null) outlinePipeline.prepare(outline);
         if (border.vertices != null) borderPipeline.prepare(physicalDevice, queue, commands, border);
         if (!weather.batches.isEmpty()) weatherPipeline.prepare(physicalDevice, queue, commands, weather);
         if (clouds.visible) cloudPipeline.prepare(physicalDevice, queue, commands, clouds);
@@ -180,7 +186,7 @@ final class VulkanTerrainScene implements VulkanScene {
 
     @Override
     public void draw(MemoryStack stack, VkCommandBuffer commands, int width, int height) {
-        if (frame == null && upperSky == null && lowerSky == null && twilight == null && !sun.visible && !moon.visible && stars == null && !clouds.visible && weather.batches.isEmpty() && border.vertices == null) return;
+        if (frame == null && upperSky == null && lowerSky == null && twilight == null && !sun.visible && !moon.visible && stars == null && !clouds.visible && outline.bounds == null && weather.batches.isEmpty() && border.vertices == null) return;
         float scale = Math.min((float) width / sourceWidth, (float) height / sourceHeight);
         int viewWidth = Math.clamp(Math.round(sourceWidth * scale), 1, width);
         int viewHeight = Math.clamp(Math.round(sourceHeight * scale), 1, height);
@@ -192,16 +198,17 @@ final class VulkanTerrainScene implements VulkanScene {
         if (stars != null) skyPipeline.drawStars(stack, commands, quadIndices, stars);
         if (lowerSky != null) skyPipeline.draw(stack, commands, lowerSky);
         if (clouds.visible && !clouds.afterTerrain) cloudPipeline.draw(stack, commands, quadIndices, clouds);
-        drawTerrainAndWeather(stack, commands);
+        drawTerrainAndWeather(stack, commands, viewWidth, viewHeight);
         if (clouds.visible && clouds.afterTerrain) cloudPipeline.draw(stack, commands, quadIndices, clouds);
     }
 
-    private void drawTerrainAndWeather(MemoryStack stack, VkCommandBuffer commands) {
+    private void drawTerrainAndWeather(MemoryStack stack, VkCommandBuffer commands, int viewWidth, int viewHeight) {
         boolean terrain = frame != null && atlas != null;
         if (terrain && !frame.opaque.isEmpty()) {
             pipeline.begin(stack, commands, quadIndices);
             drawCalls = pipeline.draw(stack, commands, frame.opaque, false);
         }
+        if (outline.bounds != null) outlinePipeline.draw(stack, commands, outline, viewWidth, viewHeight);
         if (!weather.batches.isEmpty()) weatherPipeline.draw(stack, commands, quadIndices, weather);
         if (border.vertices != null) borderPipeline.draw(stack, commands, quadIndices, border);
         if (!terrain) return;
@@ -239,6 +246,7 @@ final class VulkanTerrainScene implements VulkanScene {
 
     @Override
     public void close() {
+        if (outlinePipeline != null) outlinePipeline.close();
         if (celestial != null) celestial.close();
         if (cloudPipeline != null) cloudPipeline.close();
         if (weatherPipeline != null) weatherPipeline.close();
