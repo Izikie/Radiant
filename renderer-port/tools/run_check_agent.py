@@ -19,7 +19,8 @@ def main():
         return 1
     command = [executable, "exec", "--ephemeral", "--model", "gpt-6-luna",
                "-c", "model_reasoning_effort=low", "-c", config,
-               "--sandbox", "workspace-write", "-c", "approval_policy=never"]
+               "--sandbox", "workspace-write", "-c", "approval_policy=never",
+               "-c", "shell_environment_policy.set.RADIANT_CHECK_NO_DAEMON='1'"]
     if sys.platform == "win32":
         command.extend(["-c", "features.prefer_mxc=true"])
     gradle_home = Path(os.environ.get("GRADLE_USER_HOME", Path.home() / ".gradle"))
