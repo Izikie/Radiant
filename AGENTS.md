@@ -8,9 +8,9 @@ Keep dual rendering. OpenGL presents the full game in the main window. Add each 
 
 ## Resume on modern-renderer
 
-- **Next step.** Port the block damage overlay using 26.3's `LevelRenderer.submitBlockDestroyAnimation` and Radiant's `RenderGlobal.drawBlockDamageTexture`.
-- **Last verified renderer commit.** At `6bd11fbe`, the block selection outline matched same-frame Radiant OpenGL across all four configurations. The production build is restored. See [the parity history and next-session checks](renderer-port/docs/history/block-selection-outline.md).
-- **Remaining gap.** Verify the crack texture, blending and depth offset at multiple damage stages, then clear the damage and check that the overlay disappears.
+- **Next step.** Port textured quad particle batches from `EffectRenderer.renderParticles`, using 26.3's `QuadParticleFeatureRenderer.prepareGroup` and `executeGroup`.
+- **Last verified renderer commit.** At `b6440d4b`, the block damage overlay matched same-frame Radiant OpenGL across all four configurations. The production build is restored. See [the parity history and next-session checks](renderer-port/docs/history/block-damage.md).
+- **Remaining gap.** Verify particle-sheet sprites and block-atlas fragments, their lighting and depth-write order, and disappearance when particles expire.
 
 ## Where to look
 
