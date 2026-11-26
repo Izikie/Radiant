@@ -1,5 +1,6 @@
 """Start one ephemeral local Codex runner for the checked-out commit."""
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -18,7 +19,11 @@ def main():
         return 1
     command = [executable, "exec", "--ephemeral", "--model", "gpt-6-luna",
                "-c", "model_reasoning_effort=low", "-c", config,
-               "--sandbox", "workspace-write", commit]
+               "--sandbox", "workspace-write", "-c", "approval_policy=never"]
+    if sys.platform == "win32":
+        command.extend(["-c", "features.prefer_mxc=true"])
+    gradle_home = Path(os.environ.get("GRADLE_USER_HOME", Path.home() / ".gradle"))
+    command.extend(["--add-dir", str(gradle_home.resolve()), commit])
     with tempfile.TemporaryFile(mode="w+b") as errors:
         try:
             result = subprocess.run(command, cwd=ROOT, stdout=subprocess.PIPE, stderr=errors)
