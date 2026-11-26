@@ -13,7 +13,7 @@ import static org.lwjgl.vulkan.VK10.*;
 final class VulkanGraphics {
     static final int RGBA = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
 
-    enum Blend { OPAQUE, TRANSLUCENT, ADDITIVE, BLOCK_DAMAGE }
+    enum Blend { OPAQUE, TRANSLUCENT, ADDITIVE, BLOCK_DAMAGE, PARTICLE }
 
     private VulkanGraphics() {
     }
@@ -70,7 +70,8 @@ final class VulkanGraphics {
                             default -> VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
                         })
                         .colorBlendOp(VK_BLEND_OP_ADD)
-                        .srcAlphaBlendFactor(VK_BLEND_FACTOR_ONE).dstAlphaBlendFactor(VK_BLEND_FACTOR_ZERO)
+                        .srcAlphaBlendFactor(blendMode == Blend.PARTICLE ? VK_BLEND_FACTOR_SRC_ALPHA : VK_BLEND_FACTOR_ONE)
+                        .dstAlphaBlendFactor(blendMode == Blend.PARTICLE ? VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA : VK_BLEND_FACTOR_ZERO)
                         .alphaBlendOp(VK_BLEND_OP_ADD);
 
             }

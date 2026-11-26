@@ -31,6 +31,8 @@ final class VulkanTerrainScene implements VulkanScene {
     final VulkanBlockOutlinePipeline.State outline = new VulkanBlockOutlinePipeline.State();
     private VulkanBlockDamagePipeline damagePipeline;
     final VulkanBlockDamagePipeline.State damage = new VulkanBlockDamagePipeline.State();
+    private VulkanParticlePipeline particlePipeline;
+    final VulkanParticlePipeline.State particles = new VulkanParticlePipeline.State();
     private VulkanWorldBorderPipeline borderPipeline;
     final VulkanWorldBorderPipeline.State border = new VulkanWorldBorderPipeline.State();
     private VulkanWeatherPipeline weatherPipeline;
@@ -140,10 +142,14 @@ final class VulkanTerrainScene implements VulkanScene {
         borderPipeline.initialize(colorFormat, depthFormat());
         pipeline = new VulkanTerrainPipeline(device);
         pipeline.initialize(physicalDevice, colorFormat, depthFormat());
+        if (particlePipeline != null) particlePipeline.close();
+        particlePipeline = new VulkanParticlePipeline(device);
+        particlePipeline.initialize(colorFormat, depthFormat(), pipeline.descriptorLayout());
         if (atlas != null) {
             pipeline.setMipmapFilter(mipWeights);
             pipeline.bindTextures(atlas, lightmap);
             damagePipeline.setAtlas(atlas);
+            particlePipeline.setAtlas(atlas);
         }
     }
 
@@ -164,6 +170,7 @@ final class VulkanTerrainScene implements VulkanScene {
     public void prepareFrame() {
         if (outline.bounds != null) outlinePipeline.prepare(outline);
         if (damage.vertices != null) damagePipeline.prepare(physicalDevice, damage);
+        if (!particles.isEmpty()) particlePipeline.prepare(physicalDevice, queue, commands, particles);
         if (border.vertices != null) borderPipeline.prepare(physicalDevice, queue, commands, border);
         if (!weather.batches.isEmpty()) weatherPipeline.prepare(physicalDevice, queue, commands, weather);
         if (clouds.visible) cloudPipeline.prepare(physicalDevice, queue, commands, clouds);
@@ -183,9 +190,11 @@ final class VulkanTerrainScene implements VulkanScene {
                 pipeline.setMipmapFilter(mipWeights);
                 pipeline.bindTextures(atlas, lightmap);
                 damagePipeline.setAtlas(atlas);
+                particlePipeline.setAtlas(atlas);
             }
         }
-        int[] lighting = frame == null ? weather.lightmap : frame.lightmap;
+        int[] lighting = frame != null ? frame.lightmap : particles.lightmap;
+        if (lighting == null) lighting = weather.lightmap;
         if (lighting != null) lightUpdates.update("lightmap", 0, 0, 16, 16, new int[][]{lighting});
         if (frame != null && atlas != null) {
             pipeline.updateFrame(frame.fog);
@@ -194,7 +203,7 @@ final class VulkanTerrainScene implements VulkanScene {
 
     @Override
     public void draw(MemoryStack stack, VkCommandBuffer commands, int width, int height) {
-        if (frame == null && upperSky == null && lowerSky == null && twilight == null && !sun.visible && !moon.visible && stars == null && !clouds.visible && outline.bounds == null && damage.vertices == null && weather.batches.isEmpty() && border.vertices == null) return;
+        if (frame == null && upperSky == null && lowerSky == null && twilight == null && !sun.visible && !moon.visible && stars == null && !clouds.visible && outline.bounds == null && damage.vertices == null && particles.isEmpty() && weather.batches.isEmpty() && border.vertices == null) return;
         float scale = Math.min((float) width / sourceWidth, (float) height / sourceHeight);
         int viewWidth = Math.clamp(Math.round(sourceWidth * scale), 1, width);
         int viewHeight = Math.clamp(Math.round(sourceHeight * scale), 1, height);
@@ -218,6 +227,7 @@ final class VulkanTerrainScene implements VulkanScene {
         }
         if (outline.bounds != null) outlinePipeline.draw(stack, commands, outline, viewWidth, viewHeight);
         if (damage.vertices != null && atlas != null) damagePipeline.draw(stack, commands, quadIndices, damage);
+        if (!particles.isEmpty()) particlePipeline.draw(stack, commands, pipeline, quadIndices, particles);
         if (!weather.batches.isEmpty()) weatherPipeline.draw(stack, commands, quadIndices, weather);
         if (border.vertices != null) borderPipeline.draw(stack, commands, quadIndices, border);
         if (!terrain) return;
@@ -255,6 +265,7 @@ final class VulkanTerrainScene implements VulkanScene {
 
     @Override
     public void close() {
+        if (particlePipeline != null) particlePipeline.close();
         if (damagePipeline != null) damagePipeline.close();
         if (outlinePipeline != null) outlinePipeline.close();
         if (celestial != null) celestial.close();

@@ -12,12 +12,24 @@ import static org.lwjgl.vulkan.VK10.*;
 
 final class VulkanTerrainPipeline implements AutoCloseable {
     private static final int FRAME_BYTES = 32 + 65 * 16;
-    private static final String FRAME_LAYOUT = """
+    static final String FRAME_UNIFORMS = """
             layout(std140, set = 0, binding = 1) uniform Frame {
                 vec4 fogColor;
                 vec4 fog;
                 vec4 mipWeights[65];
             } frame;
+            """;
+    static final String ATLAS_MIP_LOD = """
+            float atlasMipLod(sampler2D atlas, vec2 uv) {
+                float lod = textureQueryLod(atlas, uv).x;
+                float index = fract(lod) * 256.0;
+                int lo = int(index);
+                int hi = lo + 1;
+                float weight = mix(frame.mipWeights[lo / 4][lo % 4], frame.mipWeights[hi / 4][hi % 4], fract(index));
+                return floor(lod) + weight;
+            }
+            """;
+    private static final String FRAME_LAYOUT = FRAME_UNIFORMS + """
             layout(push_constant) uniform Draw {
                 mat4 transform;
                 vec4 parameters;
@@ -49,7 +61,7 @@ final class VulkanTerrainPipeline implements AutoCloseable {
                 lightCoord = (vec2(lightUv) + 8.0) / 256.0;
             }
             """;
-    private static final String FRAGMENT_SHADER = FRAME_LAYOUT + """
+    private static final String FRAGMENT_SHADER = FRAME_LAYOUT + ATLAS_MIP_LOD + """
             layout(set = 0, binding = 0) uniform sampler2D atlas;
             layout(location = 0) in vec4 tint;
             layout(location = 1) in vec2 uv;
@@ -60,12 +72,7 @@ final class VulkanTerrainPipeline implements AutoCloseable {
             layout(set = 0, binding = 2) uniform sampler2D lightmap;
             void main() {
                 float layer = section.parameters.x;
-                float lod = textureQueryLod(atlas, uv).x;
-                float index = fract(lod) * 256.0;
-                int lo = int(index);
-                int hi = lo + 1;
-                float weight = mix(frame.mipWeights[lo / 4][lo % 4], frame.mipWeights[hi / 4][hi % 4], fract(index));
-                vec4 texel = textureLod(atlas, uv, section.parameters.y == 0.0 ? 0.0 : floor(lod) + weight);
+                vec4 texel = textureLod(atlas, uv, section.parameters.y == 0.0 ? 0.0 : atlasMipLod(atlas, uv));
                 vec4 lit = texel * tint;
                 if (layer != 0.0 && lit.a <= 0.1) discard;
                 lit.rgb *= texture(lightmap, lightCoord).rgb;
@@ -187,8 +194,16 @@ final class VulkanTerrainPipeline implements AutoCloseable {
         data.putFloat(fog.mode()).putFloat(fog.start()).putFloat(fog.end()).putFloat(fog.density());
     }
 
+    long descriptorLayout() {
+        return descriptorLayout;
+    }
+
+    void bindFrame(MemoryStack stack, VkCommandBuffer commands, long pipelineLayout) {
+        vkCmdBindDescriptorSets(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout, 0, stack.longs(descriptorSet), null);
+    }
+
     void begin(MemoryStack stack, VkCommandBuffer commands, VulkanBuffer indices) {
-        vkCmdBindDescriptorSets(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 0, stack.longs(descriptorSet), null);
+        bindFrame(stack, commands, layout);
         vkCmdBindIndexBuffer(commands, indices.handle(), 0, VK_INDEX_TYPE_UINT32);
     }
 

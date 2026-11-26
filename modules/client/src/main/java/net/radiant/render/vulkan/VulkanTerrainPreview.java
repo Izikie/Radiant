@@ -173,6 +173,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.terrain.setAtlas(null);
             preview.terrain.clouds.invalidateTexture();
             preview.terrain.weather.invalidateTextures();
+            preview.terrain.particles.invalidateTexture();
             preview.terrain.border.invalidateTexture();
             preview.terrain.sun.invalidateTexture();
             preview.terrain.moon.invalidateTexture();
@@ -214,6 +215,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.terrain.clouds.visible = false;
             preview.terrain.outline.bounds = null;
             preview.terrain.damage.vertices = null;
+            preview.terrain.particles.clear();
             preview.terrain.weather.clear();
             preview.terrain.border.vertices = null;
             preview.terrain.sun.visible = false;
@@ -256,6 +258,17 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         preview.terrain.damage.capture(vertices);
         if (preview.comparison != null && preview.comparison.active()) {
             preview.comparison.drawOverlay(vertices, DefaultVertexFormats.BLOCK);
+        }
+    }
+
+    public static void submitParticles(boolean blockAtlas, boolean depthWrite, WorldRenderer mesh) {
+        VulkanTerrainPreview preview = active;
+        if (preview == null || !preview.frameStarted || mesh.getVertexCount() == 0) return;
+        preview.ensureAtlas(Minecraft.get());
+        int[] vertices = mesh.getVertexState().getRawBuffer();
+        preview.terrain.particles.add(blockAtlas, depthWrite, vertices);
+        if (preview.comparison != null && preview.comparison.active()) {
+            preview.comparison.drawOverlay(vertices, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
         }
     }
 
@@ -327,11 +340,15 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         }
     }
 
-    private Extraction extract(Minecraft mc, double x, double y, double z) {
+    private void ensureAtlas(Minecraft mc) {
         if (atlasDirty) {
             terrain.setAtlas(captureAtlas(mc.getTextureMapBlocks()));
             atlasDirty = false;
         }
+    }
+
+    private Extraction extract(Minecraft mc, double x, double y, double z) {
+        ensureAtlas(mc);
         return new Extraction(this, x, y, z, mc.entityRenderer.copyTerrainLightmap(), captureFog(mc),
                 Config.isRenderRegions());
     }

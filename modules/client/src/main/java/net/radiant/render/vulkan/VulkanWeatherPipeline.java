@@ -12,7 +12,6 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.vulkan.VK10.*;
 
 final class VulkanWeatherPipeline implements AutoCloseable {
-    private static final int STRIDE = 28;
     private static final int STAGES = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
     private static final int LIGHTMAP = 2;
 
@@ -72,39 +71,11 @@ final class VulkanWeatherPipeline implements AutoCloseable {
             VulkanPresenter.check(vkCreatePipelineLayout(device, VkPipelineLayoutCreateInfo.calloc(stack).sType$Default()
                     .pSetLayouts(stack.longs(textures.layout(), textures.layout())).pPushConstantRanges(range), null, handle), "create weather layout");
             layout = handle.get(0);
-            var stream = VkVertexInputBindingDescription.calloc(1, stack);
-            stream.get(0).stride(STRIDE);
-            var attrs = VkVertexInputAttributeDescription.calloc(4, stack);
-            attrs.get(0).location(0).format(VK_FORMAT_R32G32B32_SFLOAT);
-            attrs.get(1).location(1).offset(12).format(VK_FORMAT_R32G32_SFLOAT);
-            attrs.get(2).location(2).offset(20).format(VK_FORMAT_R8G8B8A8_UNORM);
-            attrs.get(3).location(3).offset(24).format(VK_FORMAT_R16G16_SINT);
-            var inputs = VkPipelineVertexInputStateCreateInfo.calloc(stack).sType$Default()
-                    .pVertexBindingDescriptions(stream).pVertexAttributeDescriptions(attrs);
+            var inputs = VulkanParticleVertices.input(stack);
             String header = VulkanFogState.shaderHeader(device);
             pipeline = VulkanGraphics.pipeline(stack, device, layout, format, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
-                    VulkanGraphics.Blend.TRANSLUCENT, false, VK_CULL_MODE_NONE, VulkanGraphics.RGBA, inputs, header + """
-                    layout(location=0) in vec3 position;
-                    layout(location=1) in vec2 texCoord;
-                    layout(location=2) in vec4 vertexColor;
-                    layout(location=3) in ivec2 lightUv;
-                    layout(location=0) out vec2 uv;
-                    layout(location=1) flat out vec4 tint;
-                    layout(location=2) out float eyeZ;
-                    layout(location=3) out vec2 lightCoord;
-                    void main() {
-                        uv = texCoord;
-                        tint = vertexColor;
-                        lightCoord = (vec2(lightUv) + 8.0) / 256.0;
-                        vec4 p = vec4(position, 1);
-                        eyeZ = dot(draw.eyeZ, p);
-                        vec4 clip = draw.transform * p;
-                        #if !OPENGL_CLIP_DEPTH
-                        clip.z = (clip.z + clip.w) * 0.5;
-                        #endif
-                        gl_Position = clip;
-                    }
-                    """, header + VulkanFogState.FRAGMENT_FOG + """
+                    VulkanGraphics.Blend.TRANSLUCENT, false, VK_CULL_MODE_NONE, VulkanGraphics.RGBA, inputs,
+                    header + VulkanParticleVertices.SHADER, header + VulkanFogState.FRAGMENT_FOG + """
                     layout(set=0,binding=0) uniform sampler2D weatherTexture;
                     layout(set=1,binding=0) uniform sampler2D lightmap;
                     layout(location=0) in vec2 uv;
@@ -143,7 +114,7 @@ final class VulkanWeatherPipeline implements AutoCloseable {
         vkCmdBindVertexBuffers(commands, 0, stack.longs(vertices.handle()), stack.longs(0));
         int firstVertex = 0;
         for (Batch batch : weather.batches) {
-            int count = batch.vertices.length * Integer.BYTES / STRIDE;
+            int count = batch.vertices.length * Integer.BYTES / VulkanParticleVertices.STRIDE;
             textures.bind(stack, commands, layout, batch.texture);
             vkCmdDrawIndexed(commands, count / 4 * 6, 1, 0, firstVertex, 0);
             firstVertex += count;

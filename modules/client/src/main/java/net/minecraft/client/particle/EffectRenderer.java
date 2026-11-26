@@ -22,6 +22,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.ParticleTypes;
 import net.minecraft.world.World;
 import net.optifine.Config;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -275,6 +276,7 @@ public class EffectRenderer {
                         }
                     }
 
+                    if (VulkanTerrainPreview.ENABLED) VulkanTerrainPreview.submitParticles(i == 1, j == 1, worldrenderer);
                     tessellator.draw();
                 }
             }
