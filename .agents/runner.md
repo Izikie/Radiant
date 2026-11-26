@@ -2,7 +2,7 @@
 
 The caller starts a fresh local Codex process from the repository root and supplies the checked-out commit hash. Use the local graphical session and Vulkan driver for the check.
 
-Run exactly once:
+On Windows select `cmd.exe` as the shell for the tool call so the check starts without PowerShell initialization. Run exactly once:
 
 ```sh
 python renderer-port/tools/check.py --json
