@@ -18,11 +18,11 @@ Verify the border's fade, scrolling texture and blending at a face and corner, t
 - Backends live in `net/radiant/render/{opengl,vulkan}/*`.
 - Never read `Shaders.java`, `RenderGlobal.java` or `EntityRenderer.java` whole. Find the symbol with `rg -n`, then read that range with an offset and limit.
 - Skip `net/optifine` and `net/minecraft/world/gen/structure` unless the task names them.
-- Run Gradle with `-q --console=plain`, redirect output to a file, and use `rg -i 'error|FAILED' <log>`. Never paste full logs.
+- Run Gradle with `-q --console=plain`, capture output to a file and search it for errors or FAILED lines. Never paste full logs.
 
 ## Working on terrain
 
-- Use the [terrain parity skill](.agents/skills/radiant-terrain-parity/SKILL.md) for background runs, fixtures, pixel differences and production rebuilds. From the root, `python renderer-port/tools/terrain_parity.py run` runs the four-mode comparison.
+- Use the [terrain parity skill](.agents/skills/radiant-terrain-parity/SKILL.md) for background runs, fixtures, pixel differences and production rebuilds.
 - The Vulkan preview covers overworld sky, fast and fancy clouds, precipitation, and terrain with shader packs, antialiasing and anisotropic filtering off.
 - Search the extracted 26.3 render sources in `renderer-port/local/reference/src/` with `rg --no-ignore-vcs -n` so `.ignore` still excludes assets. See [the class map and extraction setup](renderer-port/docs/class-map.md).
 - Use the older [vk-blaze3d port](https://github.com/Izikie/Radiant/tree/vk-blaze3d) for ideas only. Its implementation may be outdated or inaccurate. Check ideas against `renderer-port/local/reference/src/` and Radiant OpenGL output before using them.

@@ -9,7 +9,7 @@ Read the resume section of the repository's AGENTS.md for the current pass and g
 
 ## Run the comparison
 
-```powershell
+```sh
 python renderer-port/tools/terrain_parity.py run
 ```
 
@@ -17,11 +17,17 @@ The runner calls the offline Gradle wrapper with the benchmark in background mod
 
 Use `--mode list-regions` (or `list`, `vbo`, `vbo-regions`) to reproduce one configuration. Validation is on by default. When running with `--no-validation`, record that choice with the result. Log summaries report the client's error counter, which also reads zero when validation is disabled.
 
-For an interactive comparison, launch `.\gradlew.bat :dev:RunClient "-Pradiant.vulkan.terrain=true" "-Pradiant.vulkan.compareTerrain=true"`. For a custom benchmark launch, `-PbenchmarkGameDir=<path>` selects an isolated game directory. The ordinary benchmark defaults to `run/benchmark-game`.
+For an interactive comparison, run the wrapper JAR. The equivalent wrapper scripts are `./gradlew` on macOS/Linux and `gradlew.bat` on Windows.
+
+```sh
+java -jar gradle/wrapper/gradle-wrapper.jar :dev:RunClient "-Pradiant.vulkan.terrain=true" "-Pradiant.vulkan.compareTerrain=true"
+```
+
+For a custom benchmark launch, `-PbenchmarkGameDir=<path>` selects an isolated game directory. The ordinary benchmark defaults to `run/benchmark-game`.
 
 ## Locate a difference
 
-```powershell
+```sh
 python renderer-port/tools/terrain_parity.py summarize renderer-port/local/parity/archive/logs/terrain-panel-before-vbo.log
 ```
 

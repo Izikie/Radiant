@@ -10,11 +10,6 @@
 | `local/parity/runs/` | Benchmark profiles and logs |
 | `local/parity/archive/` | Earlier logs, probes, and diagnostic scripts |
 
-Run these commands from the repository root.
-
-```powershell
-python renderer-port/tools/extract_reference.py
-python renderer-port/tools/terrain_parity.py run
-```
+See the [terrain parity skill](../.agents/skills/radiant-terrain-parity/SKILL.md) for comparison commands and the [class map](docs/class-map.md) for reference extraction.
 
 Git ignores `local/`. The client writes paired screenshots to `run/benchmarks/`. Archived logs retain their original capture paths, and archived scripts may contain paths from earlier runs.
