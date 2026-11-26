@@ -6,8 +6,6 @@ import org.lwjgl.vulkan.*;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.vulkan.VK10.*;
-import static org.lwjgl.vulkan.VK11.vkGetPhysicalDeviceProperties2;
-import static org.lwjgl.vulkan.VK12.VK_DRIVER_ID_AMD_PROPRIETARY;
 
 final class VulkanWorldBorderPipeline implements AutoCloseable {
     private static final int STRIDE = 5 * Float.BYTES;
@@ -51,17 +49,6 @@ final class VulkanWorldBorderPipeline implements AutoCloseable {
         texture = new VulkanTextureBindings(device, 1);
     }
 
-    private float constantDepthBias(MemoryStack stack, int depthFormat) {
-        if (depthFormat == VK_FORMAT_X8_D24_UNORM_PACK32 && "ATI Technologies Inc.".equals(glGetString(GL_VENDOR))) {
-            var driver = VkPhysicalDeviceDriverProperties.calloc(stack).sType$Default();
-            var properties = VkPhysicalDeviceProperties2.calloc(stack).sType$Default().pNext(driver.address());
-            vkGetPhysicalDeviceProperties2(device.getPhysicalDevice(), properties);
-            // On AMD's proprietary drivers one OpenGL polygon-offset unit spans four Vulkan D24 units.
-            if (driver.driverID() == VK_DRIVER_ID_AMD_PROPRIETARY) return -12;
-        }
-        return -3;
-    }
-
     void initialize(int format, int depthFormat) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             texture.initialize(stack);
@@ -79,8 +66,12 @@ final class VulkanWorldBorderPipeline implements AutoCloseable {
             var inputs = VkPipelineVertexInputStateCreateInfo.calloc(stack).sType$Default()
                     .pVertexBindingDescriptions(stream).pVertexAttributeDescriptions(attrs);
             String header = VulkanFogState.shaderHeader(device, "vec4 tint;");
+            // The AMD OpenGL reference offsets a D24 attachment by four fixed depth steps per unit.
+            // Native D32 bias scales with the depth exponent, so apply the constant term in window depth.
+            boolean emulateD24 = depthFormat == VK_FORMAT_D32_SFLOAT && "ATI Technologies Inc.".equals(glGetString(GL_VENDOR));
+            String depthOffset = emulateD24 ? "gl_FragDepth = clamp(gl_FragCoord.z - 12.0 / 16777215.0, 0.0, 1.0);" : "";
             pipeline = VulkanGraphics.pipeline(stack, device, layout, format, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
-                    VulkanGraphics.Blend.ADDITIVE, false, VK_CULL_MODE_NONE, VulkanGraphics.RGBA, -3, constantDepthBias(stack, depthFormat), inputs, header + """
+                    VulkanGraphics.Blend.ADDITIVE, false, VK_CULL_MODE_NONE, VulkanGraphics.RGBA, -3, emulateD24 ? 0 : -3, inputs, header + """
                     layout(location=0) in vec3 position;
                     layout(location=1) in vec2 texCoord;
                     layout(location=0) out vec2 uv;
@@ -104,8 +95,9 @@ final class VulkanWorldBorderPipeline implements AutoCloseable {
                         color = texture(forcefield, uv) * clamp(draw.tint, 0.0, 1.0);
                         if (color.a <= draw.fogColorAndAlphaRef.a) discard;
                         color.rgb = applyFog(color.rgb, eyeZ);
+                        %s
                     }
-                    """);
+                    """.formatted(depthOffset));
         }
     }
 
