@@ -213,6 +213,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.terrain.stars = null;
             preview.terrain.clouds.visible = false;
             preview.terrain.outline.bounds = null;
+            preview.terrain.damage.vertices = null;
             preview.terrain.weather.clear();
             preview.terrain.border.vertices = null;
             preview.terrain.sun.visible = false;
@@ -245,6 +246,16 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         preview.terrain.outline.capture(bounds);
         if (preview.comparison != null && preview.comparison.active()) {
             preview.comparison.drawOverlay(() -> RenderGlobal.drawSelectionBoundingBox(bounds));
+        }
+    }
+
+    public static void submitBlockDamage(WorldRenderer mesh) {
+        VulkanTerrainPreview preview = active;
+        if (preview == null || !preview.frameStarted || mesh.getVertexCount() == 0) return;
+        int[] vertices = mesh.getVertexState().getRawBuffer();
+        preview.terrain.damage.capture(vertices);
+        if (preview.comparison != null && preview.comparison.active()) {
+            preview.comparison.drawOverlay(vertices, DefaultVertexFormats.BLOCK);
         }
     }
 

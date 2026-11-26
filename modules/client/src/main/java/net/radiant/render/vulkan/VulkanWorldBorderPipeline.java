@@ -66,9 +66,7 @@ final class VulkanWorldBorderPipeline implements AutoCloseable {
             var inputs = VkPipelineVertexInputStateCreateInfo.calloc(stack).sType$Default()
                     .pVertexBindingDescriptions(stream).pVertexAttributeDescriptions(attrs);
             String header = VulkanFogState.shaderHeader(device, "vec4 tint;");
-            // The AMD OpenGL reference offsets a D24 attachment by four fixed depth steps per unit.
-            // Native D32 bias scales with the depth exponent, so apply the constant term in window depth.
-            boolean emulateD24 = depthFormat == VK_FORMAT_D32_SFLOAT && "ATI Technologies Inc.".equals(glGetString(GL_VENDOR));
+            boolean emulateD24 = VulkanGraphics.emulateD24Bias(depthFormat);
             String depthOffset = emulateD24 ? "gl_FragDepth = clamp(gl_FragCoord.z - 12.0 / 16777215.0, 0.0, 1.0);" : "";
             pipeline = VulkanGraphics.pipeline(stack, device, layout, format, depthFormat, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
                     VulkanGraphics.Blend.ADDITIVE, false, VK_CULL_MODE_NONE, VulkanGraphics.RGBA, -3, emulateD24 ? 0 : -3, inputs, header + """

@@ -1928,6 +1928,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 }
             }
 
+            if (VulkanTerrainPreview.ENABLED) VulkanTerrainPreview.submitBlockDamage(worldRendererIn);
             tessellatorIn.draw();
             worldRendererIn.setTranslation(0.0D, 0.0D, 0.0D);
             this.postRenderDamagedBlocks();

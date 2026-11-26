@@ -5,15 +5,23 @@ import org.lwjgl.vulkan.*;
 
 import java.nio.LongBuffer;
 
+import static org.lwjgl.opengl.GL11.GL_VENDOR;
+import static org.lwjgl.opengl.GL11.glGetString;
 import static org.lwjgl.util.shaderc.Shaderc.*;
 import static org.lwjgl.vulkan.VK10.*;
 
 final class VulkanGraphics {
     static final int RGBA = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
 
-    enum Blend { OPAQUE, TRANSLUCENT, ADDITIVE }
+    enum Blend { OPAQUE, TRANSLUCENT, ADDITIVE, BLOCK_DAMAGE }
 
     private VulkanGraphics() {
+    }
+
+    // AMD OpenGL offsets the reference D24 attachment by four fixed depth steps per unit.
+    // On a D32 Vulkan target apply that constant in window depth, independent of the exponent.
+    static boolean emulateD24Bias(int depthFormat) {
+        return depthFormat == VK_FORMAT_D32_SFLOAT && "ATI Technologies Inc.".equals(glGetString(GL_VENDOR));
     }
 
     static long pipeline(MemoryStack stack, VkDevice device, long layout, int colorFormat, int depthFormat, int topology, Blend blendMode, boolean depthWrite,
@@ -55,8 +63,12 @@ final class VulkanGraphics {
             blend.get(0).colorWriteMask(colorMask);
             if (blendMode != Blend.OPAQUE) {
                 blend.get(0).blendEnable(true)
-                        .srcColorBlendFactor(VK_BLEND_FACTOR_SRC_ALPHA).dstColorBlendFactor(
-                                blendMode == Blend.ADDITIVE ? VK_BLEND_FACTOR_ONE : VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA)
+                        .srcColorBlendFactor(blendMode == Blend.BLOCK_DAMAGE ? VK_BLEND_FACTOR_DST_COLOR : VK_BLEND_FACTOR_SRC_ALPHA)
+                        .dstColorBlendFactor(switch (blendMode) {
+                            case BLOCK_DAMAGE -> VK_BLEND_FACTOR_SRC_COLOR;
+                            case ADDITIVE -> VK_BLEND_FACTOR_ONE;
+                            default -> VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
+                        })
                         .colorBlendOp(VK_BLEND_OP_ADD)
                         .srcAlphaBlendFactor(VK_BLEND_FACTOR_ONE).dstAlphaBlendFactor(VK_BLEND_FACTOR_ZERO)
                         .alphaBlendOp(VK_BLEND_OP_ADD);
