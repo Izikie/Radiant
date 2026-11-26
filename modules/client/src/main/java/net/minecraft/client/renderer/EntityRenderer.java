@@ -1231,7 +1231,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         GlStateManager.shadeModel(GL11.GL_SMOOTH);
 
         if (entity.posY + entity.getEyeHeight() < 128.0D + (this.mc.gameSettings.ofCloudsHeight * 128.0F)) {
-            this.renderCloudsCheck(renderglobal, partialTicks, pass);
+            this.renderCloudsCheck(renderglobal, partialTicks, pass, false);
         }
 
         this.setupFog(0, partialTicks);
@@ -1412,7 +1412,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         GlStateManager.disableFog();
 
         if (entity.posY + entity.getEyeHeight() >= 128.0D + (this.mc.gameSettings.ofCloudsHeight * 128.0F)) {
-            this.renderCloudsCheck(renderglobal, partialTicks, pass);
+            this.renderCloudsCheck(renderglobal, partialTicks, pass, true);
         }
 
         if (this.renderHand && !Shaders.isShadowPass) {
@@ -1437,7 +1437,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         }
     }
 
-    private void renderCloudsCheck(RenderGlobal renderGlobalIn, float partialTicks, int pass) {
+    private void renderCloudsCheck(RenderGlobal renderGlobalIn, float partialTicks, int pass, boolean afterTerrain) {
         if (this.mc.gameSettings.renderDistanceChunks >= 4 && !Config.isCloudsOff() && Shaders.shouldRenderClouds(this.mc.gameSettings)) {
             GlStateManager.matrixMode(GL11.GL_PROJECTION);
             GlStateManager.loadIdentity();
@@ -1455,6 +1455,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GlStateManager.matrixMode(GL11.GL_MODELVIEW);
             GlStateManager.pushMatrix();
             this.setupFog(0, partialTicks);
+            if (VulkanTerrainPreview.ENABLED) VulkanTerrainPreview.beginClouds(afterTerrain);
             renderGlobalIn.renderClouds(partialTicks, pass);
             GlStateManager.disableFog();
             GlStateManager.popMatrix();

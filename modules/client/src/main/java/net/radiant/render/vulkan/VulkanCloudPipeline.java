@@ -22,7 +22,7 @@ final class VulkanCloudPipeline implements AutoCloseable {
             textureId = -1;
         }
 
-        void capture(byte[] vertices, boolean afterTerrain, boolean fancy, int colorPass) {
+        void capture(byte[] vertices, boolean fancy, int colorPass) {
             int id = glGetInteger(GL_TEXTURE_BINDING_2D);
             if (id != textureId) {
                 image = VulkanTextureBindings.Image.capture();
@@ -32,7 +32,6 @@ final class VulkanCloudPipeline implements AutoCloseable {
             this.fancy = fancy;
             this.colorPass = colorPass;
             mesh = vertices;
-            this.afterTerrain = afterTerrain;
             visible = true;
         }
     }

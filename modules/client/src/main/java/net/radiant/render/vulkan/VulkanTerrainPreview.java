@@ -254,13 +254,16 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         if (preview.comparison != null && preview.comparison.active()) preview.comparison.drawOverlay(vertices, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
     }
 
+    public static void beginClouds(boolean afterTerrain) {
+        if (active != null) active.terrain.clouds.afterTerrain = afterTerrain;
+    }
+
     public static void clouds(byte[] vertices, boolean fancy, int colorPass, Runnable reference) {
         VulkanTerrainPreview preview = active;
         if (preview == null || !preview.frameStarted) return;
-        boolean afterTerrain = preview.frame != null;
-        if (colorPass >= 0) preview.terrain.clouds.capture(vertices, afterTerrain, fancy, colorPass);
+        if (colorPass >= 0) preview.terrain.clouds.capture(vertices, fancy, colorPass);
         if (preview.comparison != null && preview.comparison.active()) {
-            preview.comparison.drawClouds(reference, afterTerrain);
+            preview.comparison.drawClouds(reference, preview.terrain.clouds.afterTerrain);
         }
     }
 
