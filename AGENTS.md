@@ -9,7 +9,7 @@ Keep dual rendering. OpenGL presents the full game in the main window. Add each 
 ## Resume on modern-renderer
 
 Next, port the world border using 26.3's `WorldBorderRenderer.prepare` / `render` and Radiant's `RenderGlobal.renderWorldBorder`. Submit it after precipitation and before translucent terrain.
-At `975895a7`, rain and snow matched same-frame Radiant OpenGL across all four configurations. The production build is restored. See [the parity history and next-session checks](renderer-port/docs/terrain-parity-history.md#rain-and-snow).
+At `975895a7`, rain and snow matched same-frame Radiant OpenGL across all four configurations. The production build is restored. See [the parity history and next-session checks](renderer-port/docs/history/rain-and-snow.md).
 Verify the border's fade, scrolling texture and blending at a face and corner, then move outside its visible range.
 
 ## Where to look
