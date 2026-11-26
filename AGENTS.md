@@ -10,7 +10,7 @@ Keep dual rendering. OpenGL presents the full game in the main window. Add each 
 
 Next, port the world border using 26.3's `WorldBorderRenderer.prepare` / `render` and Radiant's `RenderGlobal.renderWorldBorder`. Submit it after precipitation and before translucent terrain.
 At `975895a7`, rain and snow matched same-frame Radiant OpenGL across all four configurations. The production build is restored. See [the parity history and next-session checks](renderer-port/docs/terrain-parity-history.md#rain-and-snow).
-The border is still missing from the Vulkan window. Verify its fade, scrolling texture and blending at a face and corner, then move outside its visible range.
+Verify the border's fade, scrolling texture and blending at a face and corner, then move outside its visible range.
 
 ## Where to look
 
@@ -25,6 +25,7 @@ The border is still missing from the Vulkan window. Verify its fade, scrolling t
 - Use the [terrain parity skill](.agents/skills/radiant-terrain-parity/SKILL.md) for background runs, fixtures, pixel differences and production rebuilds. From the root, `python renderer-port/tools/terrain_parity.py run` runs the four-mode comparison.
 - The Vulkan preview covers overworld sky, fast and fancy clouds, precipitation, and terrain with shader packs, antialiasing and anisotropic filtering off.
 - Search the extracted 26.3 render sources in `renderer-port/local/reference/src/` with `rg --no-ignore-vcs -n` so `.ignore` still excludes assets. See [the class map and extraction setup](renderer-port/docs/class-map.md).
-- Use vk-blaze3d for implementation details when helpful. Keep pass structure aligned with 26.3 and verify the image against Radiant OpenGL.
+- Use the older [vk-blaze3d port](https://github.com/Izikie/Radiant/tree/vk-blaze3d) for ideas only. Its implementation may be outdated or inaccurate. Check ideas against `renderer-port/local/reference/src/` and Radiant OpenGL output before using them.
 - Commit verified parity fixes separately. Keep fixture overrides, generated profiles, screenshots and logs in ignored build or run directories.
-- When a verified result or user decision changes the next step, replace the resume paragraph and record the commit, coverage and remaining gap. Keep older evidence in the history so this file stays short.
+- When a verified result or user decision changes the next step, update only the next step, commit under test and remaining gap in the resume block.
+- Read only the history index and the relevant pass file. Append results to that file and update its index entry.
