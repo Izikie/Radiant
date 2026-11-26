@@ -15,7 +15,9 @@ ROOT = PORT.parent
 MODES = ("list", "list-regions", "vbo", "vbo-regions")
 GRADLE = ("java", "-jar", "gradle/wrapper/gradle-wrapper.jar", "--offline", "-q", "--console=plain")
 if os.environ.get("RADIANT_CHECK_NO_DAEMON") == "1":
-    GRADLE = ("java", "-Xmx4G", "-Dorg.gradle.daemon=false", *GRADLE[1:], "--no-daemon")
+    wrapper_java = os.environ.get("RADIANT_CHECK_JAVA", "java")
+    GRADLE = (wrapper_java, "-Xmx4G", "-Dorg.gradle.internal.instrumentation.agent=false",
+              *GRADLE[1:], "--no-daemon")
 SAMPLE = re.compile(
     r"Terrain comparison (\d+) pixels=\d+ visible=(\d+) mismatched=(\d+) maxChannelError=(\d+)"
 )
