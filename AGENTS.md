@@ -34,6 +34,6 @@ Verify the border's fade, scrolling texture and blending at a face and corner, t
 
 - Handle tiny edits directly. For delegated work use the task, model and effort in [agent routing](renderer-port/agent-routing.md).
 - Start a fresh session without chat history. Supply the goal, commit hash, paths and symbols, done condition and expected short result. Reuse a session only for dependent steps in the same port or diagnosis.
-- After a build, renderer or parity code change, commit and run `python renderer-port/tools/check.py` directly in the current session. Run it in the background when other work can proceed. Read only its summary (at most 10 lines).
-- On parity FAIL the lead searches the named log for the specific error or sample and compares matching PNGs.
+- After a build, renderer or parity code change, commit and run `python renderer-port/tools/run_check_agent.py` locally. It starts a fresh runner with the current hash. Read only its summary.
+- On parity FAIL the lead searches the named log for the specific error or sample and compares matching PNGs. The check runner never diagnoses.
 - For other lower-tier failures or unexpected replies, escalate one tier once. Return the outcome without retrying the same tier.
