@@ -114,3 +114,15 @@ On the RX 7900 XT at 854 × 480, all 283 samples matched across display lists an
 A VBO render-regions run reloaded a 128-pixel-wide, linearly filtered cloud texture with partial alpha. All 61 samples matched. After rebuilding production classes, all 175 ordinary-route samples matched in the four configurations. All nine positive runs completed with zero Vulkan validation errors.
 
 Local logs under `renderer-port/local/parity/runs/` are `run-rfil0usk` (four-mode sweep), `run-mh8s9p_8` (depth omitted), `run-6br42dej` (both draws omitted), `run-hdhi_8ak` (texture reload) and `run-etf4uy3b` (production). Repeat the sweep with `python renderer-port/tools/terrain_parity.py run --init-script renderer-port/local/parity/fixtures/fancy-clouds.init.gradle --seconds 8`.
+
+## Rain and snow
+
+At `975895a7` the Vulkan window draws Radiant's ordered, lightmapped precipitation batches between opaque and translucent terrain. OpenGL still presents the full game. On the RX 7900 XT at 854 × 480, all 201 mixed-weather samples and all 170 ordinary-route samples matched across display lists and VBOs with render regions off and on. The mixed fixture includes dry frames, daytime drizzle, nighttime heavy precipitation, adjacent Ice Plains and Plains, a roof and stained glass. The client confirmed precipitation heights of 193 in the open and 198 under cover. A VBO render-regions run reloaded filtered rain and snow textures during precipitation and matched all 47 samples. All nine positive runs reported zero Vulkan validation errors.
+
+Omitting rain changed 420,076 pixels. Omitting snow changed 151,803. Both controls stayed exact during dry samples. Drawing precipitation after translucent terrain changed 322,672 pixels. Local logs under `renderer-port/local/parity/runs/` are `run-icvtwei4` (four-mode mixed weather), `run-oc3puc5v` (production), `run-gkccpvhr` (reload), `run-h3f2swqf` (rain omitted), `run-rjmhdb35` (snow omitted) and `run-jiv5ck2n` (reversed order). To reproduce the mixed fixture in this checkout, run `python renderer-port/tools/terrain_parity.py run --seconds 12 --init-script renderer-port/local/parity/fixtures/weather.init.gradle`. Fixture sources and logs are local and ignored.
+
+### Next-session checks
+
+1. Start at the call to `RenderGlobal.renderWorldBorder` in `EntityRenderer.renderWorldPass`. Compare the extracted 26.3 `WorldBorderRenderer` with Radiant's texture coordinates, distance fade, color, blend and depth state. Capture the OpenGL reference at that call.
+2. Insert the Vulkan border draw after weather and before translucent terrain in `VulkanTerrainScene.drawTerrainAndWeather`. Add a local fixture with a nearby border face, a corner, translucent geometry and a view outside the fade range. Make the border visible when sampling and verify that omitting it causes differences.
+3. Run all four terrain modes, restore production classes, run the ordinary route, and record exact RGB and validation results before advancing. Continue dual rendering and defer optimizations.
