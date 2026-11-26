@@ -1,6 +1,9 @@
 # Terrain parity measurements
 
-- <a id="initial-port"></a><a id="initial-surface-comparisons"></a><a id="terrain-fog-and-chunk-rebuilds"></a><a id="resource-reload-and-same-world-re-entry"></a>[Terrain and world transitions](history/terrain-and-world-transitions.md) · `96cafec5`
+- <a id="initial-port"></a>[Initial port](history/initial-port.md) · `9c37f53c`
+- <a id="initial-surface-comparisons"></a>[Initial surface comparisons](history/initial-surface-comparisons.md)
+- <a id="terrain-fog-and-chunk-rebuilds"></a>[Terrain fog and chunk rebuilds](history/terrain-fog-and-chunk-rebuilds.md)
+- <a id="resource-reload-and-same-world-re-entry"></a>[Resource reload and same-world re-entry](history/resource-reload-and-same-world-re-entry.md) · `96cafec5`
 - <a id="overworld-sky-background"></a>[Overworld sky background](history/overworld-sky-background.md) · `dde18013`
 - <a id="sunrise-and-sunset"></a>[Sunrise and sunset](history/sunrise-and-sunset.md) · `b6fa98c4`
 - <a id="textured-sun-and-moon"></a>[Textured sun and moon](history/textured-sun-and-moon.md) · `c59f5405`
