@@ -1,6 +1,6 @@
 package net.radiant.render.vulkan;
 
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.vulkan.*;
 
