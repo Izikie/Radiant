@@ -13,13 +13,12 @@ ordered section submissions, including translucent order.
 
 ## Resume on modern-renderer
 
-- **Next step.** Port arrows through `RenderArrow`, including pickups submitted by `EntityPickupFX`. Compare
-  the texture, orientation, shake animation and terrain occlusion.
-- **Last verified renderer commit.** At `3f87954d`, experience orbs and orb pickup effects matched same-frame
-  Radiant OpenGL across all four configurations. The production build is restored.
-  See [the parity history and next-session checks](renderer-port/docs/history/experience-orbs.md).
-- **Remaining gap.** Arrow pickups, other layer 3 effects, and the shadows and fire of other entities still
-  need parity.
+- **Next step.** Port the layer 3 explosion billboards from `EntityLargeExplodeFX`. Compare texture frames,
+  tint, lightmap and terrain occlusion through the effect's lifetime.
+- **Last verified renderer commit.** At `17eea5b9`, arrows and arrow pickups matched same-frame Radiant OpenGL
+  across all four configurations. The production build is restored.
+  See [the parity history and next-session checks](renderer-port/docs/history/arrows.md).
+- **Remaining gap.** The remaining layer 3 effects and the shadows and fire of other entities still need parity.
 
 ## Where to look
 
