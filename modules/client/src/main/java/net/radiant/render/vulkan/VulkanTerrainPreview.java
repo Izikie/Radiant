@@ -57,6 +57,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     private boolean frameStarted;
     private ItemFeatureRenderer.Batch itemBatch;
     private boolean specialItem;
+    private boolean mobAppearance;
     private float clearRed, clearGreen, clearBlue;
     private TerrainComparison comparison;
     private long frames;
@@ -295,18 +296,37 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         }
     }
 
-    public static boolean capturingSpecialItem() {
-        return active != null && active.specialItem;
+    public static void withMobAppearance(Runnable render) {
+        VulkanTerrainPreview preview = active;
+        if (preview == null || preview.itemBatch != preview.terrain.items.litParticles) {
+            render.run();
+            return;
+        }
+        boolean previous = preview.mobAppearance;
+        preview.mobAppearance = true;
+        try {
+            render.run();
+        } finally {
+            preview.mobAppearance = previous;
+        }
     }
 
-    public static void submitSpecialItemModel(int[] vertices, int displayList) {
+    public static boolean capturingModel() {
+        return active != null && (active.specialItem || active.mobAppearance);
+    }
+
+    public static void submitModelPart(int[] vertices, int displayList) {
         VulkanTerrainPreview preview = active;
-        if (preview == null || !preview.specialItem || vertices.length == 0) return;
+        if (!capturingModel() || vertices.length == 0) return;
         preview.ensureAtlas(Minecraft.get());
         if (preview.comparison != null && preview.comparison.active()) {
             preview.comparison.drawOverlay(() -> GlStateManager.callList(displayList));
         }
-        preview.terrain.items.submitSpecial(preview.itemBatch, vertices.clone());
+        if (preview.mobAppearance) {
+            preview.terrain.items.submitMobAppearance(preview.itemBatch, vertices.clone());
+        } else {
+            preview.terrain.items.submitSpecial(preview.itemBatch, vertices.clone());
+        }
     }
 
     public static void itemTextureDeleted(int texture) {

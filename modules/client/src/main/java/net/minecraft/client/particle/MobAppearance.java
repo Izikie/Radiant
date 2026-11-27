@@ -10,6 +10,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 import org.lwjgl.opengl.GL11;
 
 public class MobAppearance extends EntityFX {
@@ -62,7 +63,8 @@ public class MobAppearance extends EntityFX {
             GlStateManager.scale(f, f, f);
             this.entity.rotationYaw = this.entity.prevRotationYaw = 0.0F;
             this.entity.rotationYawHead = this.entity.prevRotationYawHead = 0.0F;
-            rendermanager.renderEntityWithPosYaw(this.entity, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks);
+            VulkanTerrainPreview.withMobAppearance(() ->
+                    rendermanager.renderEntityWithPosYaw(this.entity, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks));
             GlStateManager.popMatrix();
             GlStateManager.enableDepth();
         }

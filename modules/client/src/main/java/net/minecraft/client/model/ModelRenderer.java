@@ -312,15 +312,16 @@ public class ModelRenderer {
     }
 
     private void drawDisplayList() {
-        if (VulkanTerrainPreview.capturingSpecialItem() && this.spriteList.isEmpty()) {
+        if (VulkanTerrainPreview.capturingModel() && this.spriteList.isEmpty()) {
             if (this.itemVertices == null) {
-                WorldRenderer mesh = new WorldRenderer(256);
+                int maxVertices = this.cubeList.size() * 6 * 4;
+                WorldRenderer mesh = new WorldRenderer((maxVertices + 1) * DefaultVertexFormats.ITEM.getIntegerSize());
                 mesh.begin(GL11.GL_QUADS, DefaultVertexFormats.ITEM);
                 for (ModelBox box : this.cubeList) box.appendItemVertices(mesh, this.compiledScale);
                 this.itemVertices = mesh.getVertexState().getRawBuffer();
                 mesh.finishDrawing();
             }
-            VulkanTerrainPreview.submitSpecialItemModel(this.itemVertices, this.displayList);
+            VulkanTerrainPreview.submitModelPart(this.itemVertices, this.displayList);
         }
         GlStateManager.callList(this.displayList);
     }
