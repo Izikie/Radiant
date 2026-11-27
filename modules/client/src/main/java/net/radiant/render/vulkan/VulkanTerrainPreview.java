@@ -494,7 +494,9 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         var compare = preview.comparison;
         var capture = compare != null && compare.active()
                 ? new VulkanPresenter.FrameCapture(preview.sourceWidth, preview.sourceHeight, compare::compare) : null;
-        preview.terrain.setFrame(frame);
+        int[] itemLightmap = frame == null && !preview.terrain.items.isEmpty()
+                ? Minecraft.get().entityRenderer.copyTerrainLightmap() : null;
+        preview.terrain.setFrame(frame, itemLightmap);
         try {
             if (preview.presenter.present(preview.clearRed, preview.clearGreen, preview.clearBlue, capture)) {
                 preview.frames++;
@@ -502,7 +504,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             }
         } finally {
             if (compare != null) compare.end();
-            preview.terrain.setFrame(null);
+            preview.terrain.setFrame(null, null);
         }
     }
 

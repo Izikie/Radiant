@@ -53,6 +53,7 @@ final class VulkanTerrainScene implements VulkanScene {
     private Atlas pendingAtlas;
     private float[] mipWeights;
     private Frame frame;
+    private int[] itemLightmap;
     private int drawCalls;
     private int quads;
     private int cutoutQuads;
@@ -157,8 +158,9 @@ final class VulkanTerrainScene implements VulkanScene {
         }
     }
 
-    void setFrame(Frame frame) {
+    void setFrame(Frame frame, int[] itemLightmap) {
         this.frame = frame;
+        this.itemLightmap = itemLightmap;
         drawCalls = 0;
         quads = 0;
         cutoutQuads = 0;
@@ -198,7 +200,8 @@ final class VulkanTerrainScene implements VulkanScene {
                 particlePipeline.setAtlas(atlas);
             }
         }
-        int[] lighting = frame != null ? frame.lightmap : particles.lightmap;
+        int[] lighting = frame != null ? frame.lightmap : itemLightmap;
+        if (lighting == null) lighting = particles.lightmap;
         if (lighting == null) lighting = weather.lightmap;
         if (lighting != null) lightUpdates.update("lightmap", 0, 0, 16, 16, new int[][]{lighting});
         if (frame != null && atlas != null) {
