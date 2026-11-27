@@ -14,4 +14,5 @@
 - <a id="world-border"></a>[World border](history/world-border.md) · `7ad19f64`
 - <a id="block-selection-outline"></a>[Block selection outline](history/block-selection-outline.md) · `6bd11fbe`
 - <a id="block-damage"></a>[Block damage overlay](history/block-damage.md) · `b6440d4b`
-- <a id="quad-particles"></a><a id="next-session-checks"></a>[Textured quad particles](history/quad-particles.md) · `ce99e35e`
+- <a id="quad-particles"></a>[Textured quad particles](history/quad-particles.md) · `ce99e35e`
+- <a id="dropped-items"></a><a id="next-session-checks"></a>[Dropped items and pickup particles](history/dropped-items.md) · `ef20df06`

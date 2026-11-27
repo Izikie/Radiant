@@ -13,13 +13,13 @@ ordered section submissions, including translucent order.
 
 ## Resume on modern-renderer
 
-- **Next step.** Port dropped-item rendering from `RenderEntityItem`, using 26.3's `ItemFeatureRenderer` for
-  model submission and execution. Reuse the item rendering path for pickup particles once it has parity.
-- **Last verified renderer commit.** At `ce99e35e`, textured quad particles matched same-frame Radiant OpenGL across
-  all four configurations. The production build is restored.
-  See [the parity history and next-session checks](renderer-port/docs/history/quad-particles.md).
-- **Remaining gap.** Verify dropped-item model transforms, atlas lighting and terrain occlusion. Layer 3 particles
-  submit entity draws through `RenderManager` and still need parity.
+- **Next step.** Port built-in dropped-item models from `TileEntityItemStackRenderer` and verify their textures,
+  lighting and terrain occlusion.
+- **Last verified renderer commit.** At `ef20df06`, baked dropped-item models, enchantment glint and baked item
+  pickup particles matched same-frame Radiant OpenGL across all four configurations. The production build is restored.
+  See [the parity history and next-session checks](renderer-port/docs/history/dropped-items.md).
+- **Remaining gap.** Built-in item models, entity shadows and fire, and layer 3 pickups rendered by other entity
+  renderers still need parity.
 
 ## Where to look
 
