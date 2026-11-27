@@ -7,6 +7,7 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.culling.ICamera;
@@ -142,7 +143,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
             ++i;
         }
 
-        if (!flag && entity instanceof EntityItem) VulkanTerrainPreview.submitItemFire(worldrenderer);
+        if (!flag && (entity instanceof EntityItem || entity instanceof EntityXPOrb)) VulkanTerrainPreview.submitItemFire(worldrenderer);
         tessellator.draw();
 
         if (flag) {
@@ -195,7 +196,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
                 }
             }
 
-            if (entityIn instanceof EntityItem) VulkanTerrainPreview.submitItemShadow(worldrenderer);
+            if (entityIn instanceof EntityItem || entityIn instanceof EntityXPOrb) VulkanTerrainPreview.submitItemShadow(worldrenderer);
             tessellator.draw();
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             GlStateManager.disableBlend();

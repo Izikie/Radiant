@@ -10,6 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.optifine.Config;
 import net.optifine.CustomColors;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 import org.lwjgl.opengl.GL11;
 
 public class RenderXPOrb extends Render<EntityXPOrb> {
@@ -74,6 +75,7 @@ public class RenderXPOrb extends Render<EntityXPOrb> {
         worldrenderer.pos((f4 - f5), (0.0F - f6), 0.0D).tex(f1, f3).color(k1, l1, i2, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
         worldrenderer.pos((f4 - f5), (1.0F - f6), 0.0D).tex(f1, f2).color(k1, l1, i2, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
         worldrenderer.pos((0.0F - f5), (1.0F - f6), 0.0D).tex(f, f2).color(k1, l1, i2, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
+        VulkanTerrainPreview.submitExperienceOrb(worldrenderer);
         tessellator.draw();
         GlStateManager.disableBlend();
         GlStateManager.disableRescaleNormal();
