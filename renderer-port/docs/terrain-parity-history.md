@@ -19,4 +19,5 @@
 - <a id="experience-orbs"></a>[Experience orbs and pickups](history/experience-orbs.md) · `3f87954d`
 - <a id="arrows"></a>[Arrows and pickups](history/arrows.md) · `17eea5b9`
 - <a id="large-explosions"></a>[Layer 3 explosion billboards](history/large-explosions.md) · `e1199593`
-- <a id="footprints"></a><a id="next-session-checks"></a>[Layer 3 footprints](history/footprints.md) · `530fdfb4`
+- <a id="footprints"></a>[Layer 3 footprints](history/footprints.md) · `530fdfb4`
+- <a id="mob-appearance"></a><a id="next-session-checks"></a>[Guardian apparition](history/mob-appearance.md) · `25104d0d`

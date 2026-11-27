@@ -13,12 +13,12 @@ ordered section submissions, including translucent order.
 
 ## Resume on modern-renderer
 
-- **Next step.** Port the guardian apparition from `MobAppearance`. Compare the model, camera-relative
-  transform, translucency and fade through expiry.
-- **Last verified renderer commit.** At `530fdfb4`, layer 3 footprints matched same-frame Radiant OpenGL
-  across all four configurations. The production build is restored.
-  See [the parity history and next-session checks](renderer-port/docs/history/footprints.md).
-- **Remaining gap.** Mob appearance and the shadows and fire of other entities still need parity.
+- **Next step.** Extend parity to remaining entity shadows and fire. Compare shadows against the supporting
+  blocks and flame layers through animation and occlusion.
+- **Last verified renderer commit.** At `25104d0d`, the guardian apparition matched same-frame Radiant OpenGL
+  across all four configurations through expiry. The production build is restored.
+  See [the parity history and next-session checks](renderer-port/docs/history/mob-appearance.md).
+- **Remaining gap.** The shadows and fire of other entities still need parity.
 
 ## Where to look
 
