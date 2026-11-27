@@ -26,7 +26,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
     private static final int STAGES = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
     private static final int CONSTANTS = VulkanFogState.BYTES + 2 * Float.BYTES + Integer.BYTES;
 
-    private enum Material { ATLAS, GLINT, SPECIAL, SPECIAL_UNCULLED, SHADOW, FIRE, TEXTURED_OPAQUE }
+    private enum Material { ATLAS, GLINT, SPECIAL, SPECIAL_UNCULLED, SHADOW, FIRE, TEXTURED_OPAQUE, FOOTPRINT }
 
     private record Submit(VulkanFogState pose, float blockLight, float skyLight, int[] quads,
                           Material material, VulkanTextureBindings.Image texture, boolean mipmapped) {}
@@ -111,7 +111,15 @@ final class ItemFeatureRenderer implements AutoCloseable {
             submit(batch, quads, material, boundTexture(), false, false, blockLight, skyLight);
         }
 
+        void submitFootprint(Batch batch, int[] vertices) {
+            submit(batch, expandPositionTexColor(vertices), Material.FOOTPRINT, boundTexture(), false);
+        }
+
         void submitShadow(Batch batch, int[] vertices) {
+            submit(batch, expandPositionTexColor(vertices), Material.SHADOW, boundTexture(), false);
+        }
+
+        private static int[] expandPositionTexColor(int[] vertices) {
             // POSITION_TEX_COLOR and ITEM have the same position, with color before UV in ITEM.
             int[] quads = new int[vertices.length / 6 * WORDS_PER_VERTEX];
             for (int src = 0, dst = 0; src < vertices.length; src += 6, dst += WORDS_PER_VERTEX) {
@@ -120,7 +128,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
                 quads[dst + 4] = vertices[src + 3];
                 quads[dst + 5] = vertices[src + 4];
             }
-            submit(batch, quads, Material.SHADOW, boundTexture(), false);
+            return quads;
         }
 
         void submitArrow(Batch batch, int[] vertices) {
@@ -182,7 +190,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
     }
 
     private final VkDevice device;
-    private final long layout, pipeline, glintPipeline, specialPipeline, specialUnculledPipeline, shadowPipeline, firePipeline, texturedOpaquePipeline;
+    private final long layout, pipeline, glintPipeline, specialPipeline, specialUnculledPipeline, shadowPipeline, firePipeline, texturedOpaquePipeline, footprintPipeline;
     private final VulkanTextureBindings textures;
     private final Map<VulkanTextureBindings.Image, VulkanTextureBindings> modelTextures = new IdentityHashMap<>();
     private VulkanBuffer vertices;
@@ -260,6 +268,8 @@ final class ItemFeatureRenderer implements AutoCloseable {
                     VK_CULL_MODE_NONE, VulkanGraphics.RGBA, inputs, vertex, separateTextureFragment);
             texturedOpaquePipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
                     VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Blend.OPAQUE, true, inputs, vertex, separateTextureFragment);
+            footprintPipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
+                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Blend.PARTICLE, true, inputs, vertex, separateTextureFragment);
             shadowPipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
                     VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Blend.PARTICLE, false, inputs, vertex, separateTextureFragment);
         }
@@ -375,6 +385,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
                 case SPECIAL_UNCULLED -> specialUnculledPipeline;
                 case SHADOW -> shadowPipeline;
                 case FIRE -> firePipeline;
+                case FOOTPRINT -> footprintPipeline;
                 case TEXTURED_OPAQUE -> texturedOpaquePipeline;
             };
             // Bound per-model stack use even when a frame contains many dropped stacks.
@@ -404,6 +415,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
         if (vertices != null) vertices.close();
         vkDestroyPipeline(device, texturedOpaquePipeline, null);
         vkDestroyPipeline(device, firePipeline, null);
+        vkDestroyPipeline(device, footprintPipeline, null);
         vkDestroyPipeline(device, shadowPipeline, null);
         vkDestroyPipeline(device, specialUnculledPipeline, null);
         vkDestroyPipeline(device, specialPipeline, null);

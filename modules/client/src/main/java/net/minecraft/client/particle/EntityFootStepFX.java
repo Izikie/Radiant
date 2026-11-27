@@ -10,6 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 import org.lwjgl.opengl.GL11;
 
 public class EntityFootStepFX extends EntityFX {
@@ -50,6 +51,7 @@ public class EntityFootStepFX extends EntityFX {
         worldRendererIn.pos((f3 + 0.125F), f4, (f5 + 0.125F)).tex(1.0D, 1.0D).color(f6, f6, f6, f1).endVertex();
         worldRendererIn.pos((f3 + 0.125F), f4, (f5 - 0.125F)).tex(1.0D, 0.0D).color(f6, f6, f6, f1).endVertex();
         worldRendererIn.pos((f3 - 0.125F), f4, (f5 - 0.125F)).tex(0.0D, 0.0D).color(f6, f6, f6, f1).endVertex();
+        VulkanTerrainPreview.submitFootprint(worldRendererIn);
         Tessellator.get().draw();
         GlStateManager.disableBlend();
         GlStateManager.enableLighting();

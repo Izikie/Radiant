@@ -313,6 +313,17 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         if (active != null) active.terrain.items.textureDeleted(texture);
     }
 
+    public static void submitFootprint(WorldRenderer mesh) {
+        VulkanTerrainPreview preview = active;
+        if (preview == null || preview.itemBatch != preview.terrain.items.litParticles || mesh.getVertexCount() == 0) return;
+        preview.ensureAtlas(Minecraft.get());
+        int[] vertices = mesh.getVertexState().getRawBuffer();
+        if (preview.comparison != null && preview.comparison.active()) {
+            preview.comparison.drawOverlay(vertices, mesh.getVertexFormat());
+        }
+        preview.terrain.items.submitFootprint(preview.itemBatch, vertices);
+    }
+
     public static void submitExplosion(WorldRenderer mesh) {
         VulkanTerrainPreview preview = active;
         if (preview == null || preview.itemBatch != preview.terrain.items.litParticles || mesh.getVertexCount() == 0) return;
