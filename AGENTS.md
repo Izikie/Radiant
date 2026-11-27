@@ -13,12 +13,13 @@ ordered section submissions, including translucent order.
 
 ## Resume on modern-renderer
 
-- **Next step.** Extend parity to remaining entity shadows and fire. Compare shadows against the supporting
-  blocks and flame layers through animation and occlusion.
-- **Last verified renderer commit.** At `25104d0d`, the guardian apparition matched same-frame Radiant OpenGL
-  across all four configurations through expiry. The production build is restored.
-  See [the parity history and next-session checks](renderer-port/docs/history/mob-appearance.md).
-- **Remaining gap.** The shadows and fire of other entities still need parity.
+- **Next step.** Port base living-entity models from `RendererLivingEntity.renderModel`. Compare posed adult
+  and child geometry, lightmap, and cutouts.
+- **Last verified renderer commit.** At `3c115be1`, world entity shadows and fire matched same-frame Radiant
+  OpenGL across all four configurations. The production build is restored.
+  See [the parity history and next-session checks](renderer-port/docs/history/entity-effects.md).
+- **Remaining gap.** Ordinary entity and block-entity draws, render layers, first-person rendering, and the
+  remaining frame composition passes need parity.
 
 ## Where to look
 
