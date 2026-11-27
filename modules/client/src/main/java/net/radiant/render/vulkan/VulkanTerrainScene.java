@@ -236,8 +236,8 @@ final class VulkanTerrainScene implements VulkanScene {
         if (!items.drops.isEmpty() && atlas != null) itemRenderer.draw(stack, commands, pipeline, quadIndices, items.drops, 0);
         if (outline.bounds != null) outlinePipeline.draw(stack, commands, outline, viewWidth, viewHeight);
         if (damage.vertices != null && atlas != null) damagePipeline.draw(stack, commands, quadIndices, damage);
-        if (!items.pickups.isEmpty() && atlas != null) {
-            itemRenderer.draw(stack, commands, pipeline, quadIndices, items.pickups, items.drops.vertexCount());
+        if (!items.litParticles.isEmpty() && atlas != null) {
+            itemRenderer.draw(stack, commands, pipeline, quadIndices, items.litParticles, items.drops.vertexCount());
         }
         if (!particles.isEmpty()) particlePipeline.draw(stack, commands, pipeline, quadIndices, particles);
         if (!weather.batches.isEmpty()) weatherPipeline.draw(stack, commands, quadIndices, weather);

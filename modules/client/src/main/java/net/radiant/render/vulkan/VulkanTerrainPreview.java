@@ -265,14 +265,14 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         }
     }
 
-    public static void withItemSubmissions(boolean pickup, Runnable render) {
+    public static void withItemSubmissions(boolean litParticles, Runnable render) {
         VulkanTerrainPreview preview = active;
         if (preview == null || !preview.frameStarted) {
             render.run();
             return;
         }
         var previous = preview.itemBatch;
-        preview.itemBatch = pickup ? preview.terrain.items.pickups : preview.terrain.items.drops;
+        preview.itemBatch = litParticles ? preview.terrain.items.litParticles : preview.terrain.items.drops;
         try {
             render.run();
         } finally {
@@ -311,6 +311,17 @@ public final class VulkanTerrainPreview implements AutoCloseable {
 
     public static void itemTextureDeleted(int texture) {
         if (active != null) active.terrain.items.textureDeleted(texture);
+    }
+
+    public static void submitExplosion(WorldRenderer mesh) {
+        VulkanTerrainPreview preview = active;
+        if (preview == null || preview.itemBatch != preview.terrain.items.litParticles || mesh.getVertexCount() == 0) return;
+        preview.ensureAtlas(Minecraft.get());
+        int[] vertices = mesh.getVertexState().getRawBuffer();
+        if (preview.comparison != null && preview.comparison.active()) {
+            preview.comparison.drawOverlay(vertices, mesh.getVertexFormat());
+        }
+        preview.terrain.items.submitExplosion(preview.itemBatch, vertices);
     }
 
     public static void submitExperienceOrb(WorldRenderer mesh) {

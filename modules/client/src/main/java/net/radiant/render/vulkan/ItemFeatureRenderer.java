@@ -51,18 +51,18 @@ final class ItemFeatureRenderer implements AutoCloseable {
 
     static final class Submissions {
         final Batch drops = new Batch();
-        final Batch pickups = new Batch();
+        final Batch litParticles = new Batch();
         private VulkanTextureBindings.Image glintTexture;
         private int glintId = -1;
         private final Map<Integer, VulkanTextureBindings.Image> textureImages = new HashMap<>();
 
         boolean isEmpty() {
-            return drops.isEmpty() && pickups.isEmpty();
+            return drops.isEmpty() && litParticles.isEmpty();
         }
 
         void clear() {
             drops.clear();
-            pickups.clear();
+            litParticles.clear();
         }
 
         void invalidateTextures() {
@@ -93,6 +93,22 @@ final class ItemFeatureRenderer implements AutoCloseable {
                 vertices[i + 3] = color;
             }
             submit(batch, vertices, glIsEnabled(GL_BLEND) ? Material.SPECIAL : Material.TEXTURED_OPAQUE, boundTexture(), false);
+        }
+
+        void submitExplosion(Batch batch, int[] vertices) {
+            // The explosion stream places UV, color, lightmap and normal after position.
+            int[] quads = new int[vertices.length / 8 * WORDS_PER_VERTEX];
+            for (int src = 0, dst = 0; src < vertices.length; src += 8, dst += WORDS_PER_VERTEX) {
+                System.arraycopy(vertices, src, quads, dst, 3);
+                quads[dst + 3] = vertices[src + 5];
+                quads[dst + 4] = vertices[src + 3];
+                quads[dst + 5] = vertices[src + 4];
+                quads[dst + 6] = vertices[src + 7];
+            }
+            Material material = glIsEnabled(GL_BLEND) ? Material.SPECIAL : Material.TEXTURED_OPAQUE;
+            int blockLight = vertices[6] & 0xffff;
+            int skyLight = vertices[6] >>> 16;
+            submit(batch, quads, material, boundTexture(), false, false, blockLight, skyLight);
         }
 
         void submitShadow(Batch batch, int[] vertices) {
@@ -151,10 +167,16 @@ final class ItemFeatureRenderer implements AutoCloseable {
 
         private void submit(Batch batch, int[] quads, Material material, VulkanTextureBindings.Image texture,
                             boolean mipmapped, boolean useCurrentNormal) {
+            submit(batch, quads, material, texture, mipmapped, useCurrentNormal,
+                    OpenGlHelper.lastBrightnessX, OpenGlHelper.lastBrightnessY);
+        }
+
+        private void submit(Batch batch, int[] quads, Material material, VulkanTextureBindings.Image texture,
+                            boolean mipmapped, boolean useCurrentNormal, float blockLight, float skyLight) {
             prepareLighting(quads, useCurrentNormal);
             var pose = new VulkanFogState();
             pose.capture();
-            batch.models.add(new Submit(pose, OpenGlHelper.lastBrightnessX, OpenGlHelper.lastBrightnessY, quads, material, texture, mipmapped));
+            batch.models.add(new Submit(pose, blockLight, skyLight, quads, material, texture, mipmapped));
             batch.bytes += quads.length * Integer.BYTES;
         }
     }
@@ -308,7 +330,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
         for (Submit model : submissions.drops.models) {
             if (model.texture != null) images.add(model.texture);
         }
-        for (Submit model : submissions.pickups.models) {
+        for (Submit model : submissions.litParticles.models) {
             if (model.texture != null) images.add(model.texture);
         }
         modelTextures.entrySet().removeIf(entry -> {
@@ -316,7 +338,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
             entry.getValue().close();
             return true;
         });
-        int bytes = submissions.drops.bytes + submissions.pickups.bytes;
+        int bytes = submissions.drops.bytes + submissions.litParticles.bytes;
         if (bytes == 0) return;
         if (capacity < bytes) {
             var replacement = VulkanBuffer.mapped(gpu, device, bytes, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
@@ -325,7 +347,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
             capacity = bytes;
         }
         var target = vertices.data().asIntBuffer();
-        for (Batch batch : List.of(submissions.drops, submissions.pickups)) {
+        for (Batch batch : List.of(submissions.drops, submissions.litParticles)) {
             for (Submit model : batch.models) {
                 target.put(model.quads);
                 if (model.texture != null && !modelTextures.containsKey(model.texture)) {
