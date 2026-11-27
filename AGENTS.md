@@ -13,13 +13,13 @@ ordered section submissions, including translucent order.
 
 ## Resume on modern-renderer
 
-- **Next step.** Port experience orb rendering through `RenderXPOrb`, including orb pickups submitted by
-  `EntityPickupFX`. Compare billboard geometry, lightmap, color animation and terrain occlusion.
-- **Last verified renderer commit.** At `8c16a9b0`, dropped-item and pickup flames matched same-frame Radiant
-  OpenGL across all four configurations. The production build is restored.
-  See [the parity history and next-session checks](renderer-port/docs/history/dropped-items.md).
-- **Remaining gap.** Experience orb and arrow pickups, other layer 3 effects, and other entities' shadows and
-  fire still need parity.
+- **Next step.** Port arrows through `RenderArrow`, including pickups submitted by `EntityPickupFX`. Compare
+  the texture, orientation, shake animation and terrain occlusion.
+- **Last verified renderer commit.** At `3f87954d`, experience orbs and orb pickup effects matched same-frame
+  Radiant OpenGL across all four configurations. The production build is restored.
+  See [the parity history and next-session checks](renderer-port/docs/history/experience-orbs.md).
+- **Remaining gap.** Arrow pickups, other layer 3 effects, and the shadows and fire of other entities still
+  need parity.
 
 ## Where to look
 

@@ -15,4 +15,5 @@
 - <a id="block-selection-outline"></a>[Block selection outline](history/block-selection-outline.md) · `6bd11fbe`
 - <a id="block-damage"></a>[Block damage overlay](history/block-damage.md) · `b6440d4b`
 - <a id="quad-particles"></a>[Textured quad particles](history/quad-particles.md) · `ce99e35e`
-- <a id="dropped-items"></a><a id="next-session-checks"></a>[Dropped items and pickup particles](history/dropped-items.md) · `ef20df06`, `4c49c25d`, `174638b0`, `891d2c81`, `8c16a9b0`
+- <a id="dropped-items"></a>[Dropped items and pickup particles](history/dropped-items.md) · `ef20df06`, `4c49c25d`, `174638b0`, `891d2c81`, `8c16a9b0`
+- <a id="experience-orbs"></a><a id="next-session-checks"></a>[Experience orbs and pickups](history/experience-orbs.md) · `3f87954d`
