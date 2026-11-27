@@ -174,7 +174,7 @@ final class VulkanTerrainScene implements VulkanScene {
     public void prepareFrame() {
         if (outline.bounds != null) outlinePipeline.prepare(outline);
         if (damage.vertices != null) damagePipeline.prepare(physicalDevice, damage);
-        if (!items.isEmpty()) itemRenderer.prepare(physicalDevice, queue, commands, items);
+        itemRenderer.prepare(physicalDevice, queue, commands, items);
         if (!particles.isEmpty()) particlePipeline.prepare(physicalDevice, queue, commands, particles);
         if (border.vertices != null) borderPipeline.prepare(physicalDevice, queue, commands, border);
         if (!weather.batches.isEmpty()) weatherPipeline.prepare(physicalDevice, queue, commands, weather);

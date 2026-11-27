@@ -7,6 +7,7 @@ import net.optifine.render.GlBlendState;
 import net.optifine.shaders.Shaders;
 import net.optifine.util.LockCounter;
 import net.radiant.benchmark.ClientBenchmark;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
 
@@ -328,6 +329,7 @@ public class GlStateManager {
 
     public static void deleteTexture(int texture) {
         if (texture != 0) {
+            VulkanTerrainPreview.itemTextureDeleted(texture);
             GL11.glDeleteTextures(texture);
 
             for (TextureState glstatemanager$texturestate : textureState) {

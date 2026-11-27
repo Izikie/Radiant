@@ -1,6 +1,8 @@
 package net.minecraft.client.model;
 
 import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.minecraft.util.ResourceLocation;
 import net.optifine.Config;
 import net.optifine.entity.model.anim.ModelUpdater;
@@ -24,6 +26,8 @@ public class ModelRenderer {
     public float rotateAngleZ;
     private boolean compiled;
     private int displayList;
+    private float compiledScale;
+    private int[] itemVertices;
     public boolean mirror;
     public boolean showModel;
     public boolean isHidden;
@@ -147,7 +151,7 @@ public class ModelRenderer {
                         GlStateManager.scale(this.scaleX, this.scaleY, this.scaleZ);
                     }
 
-                    GlStateManager.callList(this.displayList);
+                    this.drawDisplayList();
 
                     if (this.childModels != null) {
                         for (ModelRenderer childModel : this.childModels) {
@@ -165,7 +169,7 @@ public class ModelRenderer {
                         GlStateManager.scale(this.scaleX, this.scaleY, this.scaleZ);
                     }
 
-                    GlStateManager.callList(this.displayList);
+                    this.drawDisplayList();
 
                     if (this.childModels != null) {
                         for (ModelRenderer childModel : this.childModels) {
@@ -199,7 +203,7 @@ public class ModelRenderer {
                     GlStateManager.scale(this.scaleX, this.scaleY, this.scaleZ);
                 }
 
-                GlStateManager.callList(this.displayList);
+                this.drawDisplayList();
 
                 if (this.childModels != null) {
                     for (ModelRenderer childModel : this.childModels) {
@@ -261,7 +265,7 @@ public class ModelRenderer {
                 GlStateManager.scale(this.scaleX, this.scaleY, this.scaleZ);
             }
 
-            GlStateManager.callList(this.displayList);
+            this.drawDisplayList();
 
             if (this.childModels != null) {
                 for (ModelRenderer childModel : this.childModels) {
@@ -307,7 +311,23 @@ public class ModelRenderer {
         }
     }
 
+    private void drawDisplayList() {
+        if (VulkanTerrainPreview.capturingSpecialItem() && this.spriteList.isEmpty()) {
+            if (this.itemVertices == null) {
+                WorldRenderer mesh = new WorldRenderer(256);
+                mesh.begin(GL11.GL_QUADS, DefaultVertexFormats.ITEM);
+                for (ModelBox box : this.cubeList) box.appendItemVertices(mesh, this.compiledScale);
+                this.itemVertices = mesh.getVertexState().getRawBuffer();
+                mesh.finishDrawing();
+            }
+            VulkanTerrainPreview.submitSpecialItemModel(this.itemVertices, this.displayList);
+        }
+        GlStateManager.callList(this.displayList);
+    }
+
     private void compileDisplayList(float scale) {
+        this.compiledScale = scale;
+        this.itemVertices = null;
         if (this.displayList == 0) {
             this.displayList = GLAllocation.generateDisplayLists(1);
         }

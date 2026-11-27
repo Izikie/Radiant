@@ -10,19 +10,24 @@ import org.lwjgl.vulkan.*;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL12.GL_RESCALE_NORMAL;
 import static org.lwjgl.vulkan.VK10.*;
 
-/** Executes ordered baked item model submissions using Radiant's legacy item lighting. */
+/** Executes ordered item model submissions using Radiant's legacy item lighting. */
 final class ItemFeatureRenderer implements AutoCloseable {
     private static final int WORDS_PER_VERTEX = 7;
     private static final int STAGES = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
     private static final int CONSTANTS = VulkanFogState.BYTES + 2 * Float.BYTES;
 
-    private record Submit(VulkanFogState pose, float blockLight, float skyLight, int[] quads, boolean glint) {}
+    private record Submit(VulkanFogState pose, float blockLight, float skyLight, int[] quads, boolean glint,
+                          VulkanTextureBindings.Image specialTexture, boolean cull) {}
 
     static final class Batch {
         private final List<Submit> models = new ArrayList<>();
@@ -40,7 +45,6 @@ final class ItemFeatureRenderer implements AutoCloseable {
             models.clear();
             bytes = 0;
         }
-
     }
 
     static final class Submissions {
@@ -48,6 +52,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
         final Batch pickups = new Batch();
         private VulkanTextureBindings.Image glintTexture;
         private int glintId = -1;
+        private final Map<Integer, VulkanTextureBindings.Image> specialImages = new HashMap<>();
 
         boolean isEmpty() {
             return drops.isEmpty() && pickups.isEmpty();
@@ -58,9 +63,24 @@ final class ItemFeatureRenderer implements AutoCloseable {
             pickups.clear();
         }
 
-        void invalidateGlint() {
+        void invalidateTextures() {
             glintId = -1;
             glintTexture = null;
+            specialImages.clear();
+        }
+
+        void textureDeleted(int id) {
+            specialImages.remove(id);
+            if (glintId == id) {
+                glintId = -1;
+                glintTexture = null;
+            }
+        }
+
+        void submitSpecial(Batch batch, int[] quads) {
+            int id = glGetInteger(GL_TEXTURE_BINDING_2D);
+            var texture = specialImages.computeIfAbsent(id, ignored -> VulkanTextureBindings.Image.capture());
+            submit(batch, quads, false, texture, glIsEnabled(GL_CULL_FACE));
         }
 
         void submit(Batch batch, int[] quads, boolean glint) {
@@ -72,17 +92,22 @@ final class ItemFeatureRenderer implements AutoCloseable {
                 }
                 transformGlintUv(quads);
             }
+            submit(batch, quads, glint, null, true);
+        }
+
+        private void submit(Batch batch, int[] quads, boolean glint, VulkanTextureBindings.Image specialTexture, boolean cull) {
             prepareLighting(quads);
             var pose = new VulkanFogState();
             pose.capture();
-            batch.models.add(new Submit(pose, OpenGlHelper.lastBrightnessX, OpenGlHelper.lastBrightnessY, quads, glint));
+            batch.models.add(new Submit(pose, OpenGlHelper.lastBrightnessX, OpenGlHelper.lastBrightnessY, quads, glint, specialTexture, cull));
             batch.bytes += quads.length * Integer.BYTES;
         }
     }
 
     private final VkDevice device;
-    private final long layout, pipeline, glintPipeline;
+    private final long layout, pipeline, glintPipeline, specialPipeline, specialUnculledPipeline;
     private final VulkanTextureBindings textures;
+    private final Map<VulkanTextureBindings.Image, VulkanTextureBindings> specialTextures = new IdentityHashMap<>();
     private VulkanBuffer vertices;
     private int capacity;
 
@@ -144,9 +169,14 @@ final class ItemFeatureRenderer implements AutoCloseable {
             pipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
                     VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Blend.TRANSLUCENT, true, inputs, vertex,
                     header + "layout(set=0,binding=0) uniform sampler2D itemTexture;\n" + fragment);
+            String separateTextureFragment = header + "layout(set=1,binding=0) uniform sampler2D itemTexture;\n" + fragment;
             glintPipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
-                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Blend.ITEM_GLINT, false, inputs, vertex,
-                    header + "layout(set=1,binding=0) uniform sampler2D itemTexture;\n" + fragment);
+                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Blend.ITEM_GLINT, false, inputs, vertex, separateTextureFragment);
+            specialPipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
+                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Blend.TRANSLUCENT, true, inputs, vertex, separateTextureFragment);
+            specialUnculledPipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
+                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Blend.TRANSLUCENT, true,
+                    VK_CULL_MODE_NONE, VulkanGraphics.RGBA, inputs, vertex, separateTextureFragment);
         }
     }
 
@@ -198,8 +228,24 @@ final class ItemFeatureRenderer implements AutoCloseable {
     }
 
     void prepare(VkPhysicalDevice gpu, VkQueue queue, VkCommandBuffer commands, Submissions submissions) {
+        if (submissions.isEmpty() && specialTextures.isEmpty()) return;
         if (submissions.glintTexture != null) textures.prepare(gpu, queue, commands, 0, submissions.glintTexture);
+        // Keep textures referenced by an already submitted draw until that frame finishes.
+        var images = Collections.newSetFromMap(new IdentityHashMap<VulkanTextureBindings.Image, Boolean>());
+        images.addAll(submissions.specialImages.values());
+        for (Submit model : submissions.drops.models) {
+            if (model.specialTexture != null) images.add(model.specialTexture);
+        }
+        for (Submit model : submissions.pickups.models) {
+            if (model.specialTexture != null) images.add(model.specialTexture);
+        }
+        specialTextures.entrySet().removeIf(entry -> {
+            if (images.contains(entry.getKey())) return false;
+            entry.getValue().close();
+            return true;
+        });
         int bytes = submissions.drops.bytes + submissions.pickups.bytes;
+        if (bytes == 0) return;
         if (capacity < bytes) {
             var replacement = VulkanBuffer.mapped(gpu, device, bytes, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
             if (vertices != null) vertices.close();
@@ -207,8 +253,19 @@ final class ItemFeatureRenderer implements AutoCloseable {
             capacity = bytes;
         }
         var target = vertices.data().asIntBuffer();
-        for (Submit model : submissions.drops.models) target.put(model.quads);
-        for (Submit model : submissions.pickups.models) target.put(model.quads);
+        for (Batch batch : List.of(submissions.drops, submissions.pickups)) {
+            for (Submit model : batch.models) {
+                target.put(model.quads);
+                if (model.specialTexture != null && !specialTextures.containsKey(model.specialTexture)) {
+                    try (MemoryStack stack = MemoryStack.stackPush()) {
+                        var texture = new VulkanTextureBindings(device, 1);
+                        specialTextures.put(model.specialTexture, texture);
+                        texture.initialize(stack);
+                        texture.prepare(gpu, queue, commands, 0, model.specialTexture);
+                    }
+                }
+            }
+        }
     }
 
     void draw(MemoryStack stack, VkCommandBuffer commands, VulkanTerrainPipeline terrain, VulkanBuffer indices, Batch batch, int firstVertex) {
@@ -217,10 +274,17 @@ final class ItemFeatureRenderer implements AutoCloseable {
         vkCmdBindVertexBuffers(commands, 0, stack.longs(vertices.handle()), stack.longs(0));
         ByteBuffer light = stack.malloc(2 * Float.BYTES);
         for (Submit model : batch.models) {
-            vkCmdBindPipeline(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, model.glint ? glintPipeline : pipeline);
+            long modelPipeline = pipeline;
             // Bound per-model stack use even when a frame contains many dropped stacks.
             try (MemoryStack modelStack = MemoryStack.stackPush()) {
-                if (model.glint) textures.bind(modelStack, commands, layout, 0, 1);
+                if (model.specialTexture != null) {
+                    modelPipeline = model.cull ? specialPipeline : specialUnculledPipeline;
+                    specialTextures.get(model.specialTexture).bind(modelStack, commands, layout, 0, 1);
+                } else if (model.glint) {
+                    modelPipeline = glintPipeline;
+                    textures.bind(modelStack, commands, layout, 0, 1);
+                }
+                vkCmdBindPipeline(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, modelPipeline);
                 vkCmdPushConstants(commands, layout, STAGES, 0, model.pose.constants(modelStack));
             }
             light.putFloat(0, model.blockLight).putFloat(Float.BYTES, model.skyLight);
@@ -237,9 +301,12 @@ final class ItemFeatureRenderer implements AutoCloseable {
     @Override
     public void close() {
         if (vertices != null) vertices.close();
+        vkDestroyPipeline(device, specialUnculledPipeline, null);
+        vkDestroyPipeline(device, specialPipeline, null);
         vkDestroyPipeline(device, glintPipeline, null);
         vkDestroyPipeline(device, pipeline, null);
         vkDestroyPipelineLayout(device, layout, null);
         textures.close();
+        specialTextures.values().forEach(VulkanTextureBindings::close);
     }
 }

@@ -139,6 +139,12 @@ public class ModelBox {
         }
     }
 
+    void appendItemVertices(WorldRenderer renderer, float scale) {
+        for (TexturedQuad quad : this.quadList) {
+            if (quad != null) quad.appendVertices(renderer, scale, true);
+        }
+    }
+
     public ModelBox setBoxName(String name) {
         this.boxName = name;
         return this;

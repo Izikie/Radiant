@@ -56,6 +56,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     private Extraction frame;
     private boolean frameStarted;
     private ItemFeatureRenderer.Batch itemBatch;
+    private boolean specialItem;
     private float clearRed, clearGreen, clearBlue;
     private TerrainComparison comparison;
     private long frames;
@@ -175,7 +176,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.terrain.clouds.invalidateTexture();
             preview.terrain.weather.invalidateTextures();
             preview.terrain.particles.invalidateTexture();
-            preview.terrain.items.invalidateGlint();
+            preview.terrain.items.invalidateTextures();
             preview.terrain.border.invalidateTexture();
             preview.terrain.sun.invalidateTexture();
             preview.terrain.moon.invalidateTexture();
@@ -277,6 +278,39 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         } finally {
             preview.itemBatch = previous;
         }
+    }
+
+    public static void withSpecialItem(Runnable render) {
+        VulkanTerrainPreview preview = active;
+        if (preview == null || preview.itemBatch == null) {
+            render.run();
+            return;
+        }
+        boolean previous = preview.specialItem;
+        preview.specialItem = true;
+        try {
+            render.run();
+        } finally {
+            preview.specialItem = previous;
+        }
+    }
+
+    public static boolean capturingSpecialItem() {
+        return active != null && active.specialItem;
+    }
+
+    public static void submitSpecialItemModel(int[] vertices, int displayList) {
+        VulkanTerrainPreview preview = active;
+        if (preview == null || !preview.specialItem || vertices.length == 0) return;
+        preview.ensureAtlas(Minecraft.get());
+        if (preview.comparison != null && preview.comparison.active()) {
+            preview.comparison.drawOverlay(() -> GlStateManager.callList(displayList));
+        }
+        preview.terrain.items.submitSpecial(preview.itemBatch, vertices.clone());
+    }
+
+    public static void itemTextureDeleted(int texture) {
+        if (active != null) active.terrain.items.textureDeleted(texture);
     }
 
     public static void submitItemModel(WorldRenderer mesh, boolean glint) {

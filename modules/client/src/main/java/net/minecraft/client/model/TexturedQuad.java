@@ -39,6 +39,16 @@ public class TexturedQuad {
     }
 
     public void draw(WorldRenderer renderer, float scale) {
+        if (Config.isShaders()) {
+            renderer.begin(GL11.GL_QUADS, SVertexFormat.DEF_VERTEX_FORMAT_TEXTURED);
+        } else {
+            renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.OLDMODEL_POSITION_TEX_NORMAL);
+        }
+        this.appendVertices(renderer, scale, false);
+        Tessellator.get().draw();
+    }
+
+    void appendVertices(WorldRenderer renderer, float scale, boolean itemColor) {
         Vec3 vec3 = this.vertexPositions[1].vector3D().subtractReverse(this.vertexPositions[0].vector3D());
         Vec3 vec31 = this.vertexPositions[1].vector3D().subtractReverse(this.vertexPositions[2].vector3D());
         Vec3 vec32 = vec31.crossProduct(vec3).normalize();
@@ -52,22 +62,15 @@ public class TexturedQuad {
             f2 = -f2;
         }
 
-        if (Config.isShaders()) {
-            renderer.begin(GL11.GL_QUADS, SVertexFormat.DEF_VERTEX_FORMAT_TEXTURED);
-        } else {
-            renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.OLDMODEL_POSITION_TEX_NORMAL);
-        }
-
         for (int i = 0; i < 4; ++i) {
             PositionTextureVertex positiontexturevertex = this.vertexPositions[i];
             renderer.pos(positiontexturevertex.vector3D().xCoord() * scale,
-                            positiontexturevertex.vector3D().yCoord() * scale,
-                            positiontexturevertex.vector3D().zCoord() * scale)
-                    .tex(positiontexturevertex.texturePositionX(), positiontexturevertex.texturePositionY())
+                    positiontexturevertex.vector3D().yCoord() * scale,
+                    positiontexturevertex.vector3D().zCoord() * scale);
+            if (itemColor) renderer.color(255, 255, 255, 255);
+            renderer.tex(positiontexturevertex.texturePositionX(), positiontexturevertex.texturePositionY())
                     .normal(f, f1, f2)
                     .endVertex();
         }
-
-        Tessellator.get().draw();
     }
 }
