@@ -324,7 +324,15 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         preview.terrain.items.submitOrb(preview.itemBatch, vertices);
     }
 
+    public static void submitArrow(WorldRenderer mesh) {
+        submitPositionTex(mesh, false);
+    }
+
     public static void submitItemFire(WorldRenderer mesh) {
+        submitPositionTex(mesh, true);
+    }
+
+    private static void submitPositionTex(WorldRenderer mesh, boolean flame) {
         VulkanTerrainPreview preview = active;
         if (preview == null || preview.itemBatch == null || mesh.getVertexCount() == 0) return;
         preview.ensureAtlas(Minecraft.get());
@@ -332,7 +340,11 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         if (preview.comparison != null && preview.comparison.active()) {
             preview.comparison.drawOverlay(vertices, DefaultVertexFormats.POSITION_TEX);
         }
-        preview.terrain.items.submitFire(preview.itemBatch, vertices);
+        if (flame) {
+            preview.terrain.items.submitFire(preview.itemBatch, vertices);
+        } else {
+            preview.terrain.items.submitArrow(preview.itemBatch, vertices);
+        }
     }
 
     public static void submitItemShadow(WorldRenderer mesh) {

@@ -26,7 +26,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
     private static final int STAGES = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
     private static final int CONSTANTS = VulkanFogState.BYTES + 2 * Float.BYTES + Integer.BYTES;
 
-    private enum Material { ATLAS, GLINT, SPECIAL, SPECIAL_UNCULLED, SHADOW, FIRE, ORB }
+    private enum Material { ATLAS, GLINT, SPECIAL, SPECIAL_UNCULLED, SHADOW, FIRE, TEXTURED_OPAQUE }
 
     private record Submit(VulkanFogState pose, float blockLight, float skyLight, int[] quads,
                           Material material, VulkanTextureBindings.Image texture, boolean mipmapped) {}
@@ -92,7 +92,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
                 vertices[i + 4] = vertices[i + 3];
                 vertices[i + 3] = color;
             }
-            submit(batch, vertices, glIsEnabled(GL_BLEND) ? Material.SPECIAL : Material.ORB, boundTexture(), false);
+            submit(batch, vertices, glIsEnabled(GL_BLEND) ? Material.SPECIAL : Material.TEXTURED_OPAQUE, boundTexture(), false);
         }
 
         void submitShadow(Batch batch, int[] vertices) {
@@ -107,7 +107,17 @@ final class ItemFeatureRenderer implements AutoCloseable {
             submit(batch, quads, Material.SHADOW, boundTexture(), false);
         }
 
+        void submitArrow(Batch batch, int[] vertices) {
+            Material material = glIsEnabled(GL_BLEND) ? Material.SPECIAL : Material.TEXTURED_OPAQUE;
+            submit(batch, expandPositionTex(vertices), material, boundTexture(), false, true);
+        }
+
         void submitFire(Batch batch, int[] vertices) {
+            int minFilter = glGetTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER);
+            submit(batch, expandPositionTex(vertices), Material.FIRE, null, minFilter != GL_NEAREST && minFilter != GL_LINEAR);
+        }
+
+        private static int[] expandPositionTex(int[] vertices) {
             int[] quads = new int[vertices.length / 5 * WORDS_PER_VERTEX];
             for (int src = 0, dst = 0; src < vertices.length; src += 5, dst += WORDS_PER_VERTEX) {
                 System.arraycopy(vertices, src, quads, dst, 3);
@@ -115,8 +125,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
                 quads[dst + 4] = vertices[src + 3];
                 quads[dst + 5] = vertices[src + 4];
             }
-            int minFilter = glGetTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER);
-            submit(batch, quads, Material.FIRE, null, minFilter != GL_NEAREST && minFilter != GL_LINEAR);
+            return quads;
         }
 
         private VulkanTextureBindings.Image boundTexture() {
@@ -137,7 +146,12 @@ final class ItemFeatureRenderer implements AutoCloseable {
         }
 
         private void submit(Batch batch, int[] quads, Material material, VulkanTextureBindings.Image texture, boolean mipmapped) {
-            prepareLighting(quads, material == Material.SHADOW);
+            submit(batch, quads, material, texture, mipmapped, material == Material.SHADOW);
+        }
+
+        private void submit(Batch batch, int[] quads, Material material, VulkanTextureBindings.Image texture,
+                            boolean mipmapped, boolean useCurrentNormal) {
+            prepareLighting(quads, useCurrentNormal);
             var pose = new VulkanFogState();
             pose.capture();
             batch.models.add(new Submit(pose, OpenGlHelper.lastBrightnessX, OpenGlHelper.lastBrightnessY, quads, material, texture, mipmapped));
@@ -146,7 +160,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
     }
 
     private final VkDevice device;
-    private final long layout, pipeline, glintPipeline, specialPipeline, specialUnculledPipeline, shadowPipeline, firePipeline, orbPipeline;
+    private final long layout, pipeline, glintPipeline, specialPipeline, specialUnculledPipeline, shadowPipeline, firePipeline, texturedOpaquePipeline;
     private final VulkanTextureBindings textures;
     private final Map<VulkanTextureBindings.Image, VulkanTextureBindings> modelTextures = new IdentityHashMap<>();
     private VulkanBuffer vertices;
@@ -222,7 +236,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
             specialUnculledPipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
                     VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Blend.TRANSLUCENT, true,
                     VK_CULL_MODE_NONE, VulkanGraphics.RGBA, inputs, vertex, separateTextureFragment);
-            orbPipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
+            texturedOpaquePipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
                     VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Blend.OPAQUE, true, inputs, vertex, separateTextureFragment);
             shadowPipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
                     VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Blend.PARTICLE, false, inputs, vertex, separateTextureFragment);
@@ -339,7 +353,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
                 case SPECIAL_UNCULLED -> specialUnculledPipeline;
                 case SHADOW -> shadowPipeline;
                 case FIRE -> firePipeline;
-                case ORB -> orbPipeline;
+                case TEXTURED_OPAQUE -> texturedOpaquePipeline;
             };
             // Bound per-model stack use even when a frame contains many dropped stacks.
             try (MemoryStack modelStack = MemoryStack.stackPush()) {
@@ -366,7 +380,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
     @Override
     public void close() {
         if (vertices != null) vertices.close();
-        vkDestroyPipeline(device, orbPipeline, null);
+        vkDestroyPipeline(device, texturedOpaquePipeline, null);
         vkDestroyPipeline(device, firePipeline, null);
         vkDestroyPipeline(device, shadowPipeline, null);
         vkDestroyPipeline(device, specialUnculledPipeline, null);

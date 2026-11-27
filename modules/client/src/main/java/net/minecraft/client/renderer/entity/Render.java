@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.culling.ICamera;
@@ -143,7 +144,9 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
             ++i;
         }
 
-        if (!flag && (entity instanceof EntityItem || entity instanceof EntityXPOrb)) VulkanTerrainPreview.submitItemFire(worldrenderer);
+        if (!flag && (entity instanceof EntityItem || entity instanceof EntityXPOrb || entity instanceof EntityArrow)) {
+            VulkanTerrainPreview.submitItemFire(worldrenderer);
+        }
         tessellator.draw();
 
         if (flag) {
