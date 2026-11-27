@@ -6,6 +6,8 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.entity.item.EntityItem;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -192,6 +194,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
                 }
             }
 
+            if (entityIn instanceof EntityItem) VulkanTerrainPreview.submitItemShadow(worldrenderer);
             tessellator.draw();
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             GlStateManager.disableBlend();
