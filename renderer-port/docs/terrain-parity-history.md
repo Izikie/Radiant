@@ -21,4 +21,5 @@
 - <a id="large-explosions"></a>[Layer 3 explosion billboards](history/large-explosions.md) · `e1199593`
 - <a id="footprints"></a>[Layer 3 footprints](history/footprints.md) · `530fdfb4`
 - <a id="mob-appearance"></a>[Guardian apparition](history/mob-appearance.md) · `25104d0d`
-- <a id="entity-effects"></a><a id="next-session-checks"></a>[Entity shadows and fire](history/entity-effects.md) · `3c115be1`
+- <a id="entity-effects"></a>[Entity shadows and fire](history/entity-effects.md) · `3c115be1`
+- <a id="living-models"></a><a id="next-session-checks"></a>[Base living-entity models](history/living-models.md) · `6fd23fc7`

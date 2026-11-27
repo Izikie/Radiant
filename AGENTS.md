@@ -13,13 +13,13 @@ ordered section submissions, including translucent order.
 
 ## Resume on modern-renderer
 
-- **Next step.** Port base living-entity models from `RendererLivingEntity.renderModel`. Compare posed adult
-  and child geometry, lightmap, and cutouts.
-- **Last verified renderer commit.** At `3c115be1`, world entity shadows and fire matched same-frame Radiant
-  OpenGL across all four configurations. The production build is restored.
-  See [the parity history and next-session checks](renderer-port/docs/history/entity-effects.md).
-- **Remaining gap.** Ordinary entity and block-entity draws, render layers, first-person rendering, and the
-  remaining frame composition passes need parity.
+- **Next step.** Port living-entity damage tint and textured model layers. Compare the hurt and recovered
+  poses, a saddle cutout, and dyed sheep wool.
+- **Last verified renderer commit.** At `6fd23fc7`, standard base living-entity models matched same-frame
+  Radiant OpenGL across all four configurations. The production build is restored.
+  See [the parity history and next-session checks](renderer-port/docs/history/living-models.md).
+- **Remaining gap.** Living-entity overlays and render layers, other entity and block-entity draws,
+  first-person rendering, and the remaining frame composition passes need parity.
 
 ## Where to look
 
