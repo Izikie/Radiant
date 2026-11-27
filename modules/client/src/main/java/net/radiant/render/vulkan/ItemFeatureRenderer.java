@@ -24,12 +24,12 @@ import static org.lwjgl.vulkan.VK10.*;
 final class ItemFeatureRenderer implements AutoCloseable {
     private static final int WORDS_PER_VERTEX = 7;
     private static final int STAGES = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
-    private static final int CONSTANTS = VulkanFogState.BYTES + 2 * Float.BYTES;
+    private static final int CONSTANTS = VulkanFogState.BYTES + 2 * Float.BYTES + Integer.BYTES;
 
-    private enum Material { ATLAS, GLINT, SPECIAL, SPECIAL_UNCULLED, SHADOW }
+    private enum Material { ATLAS, GLINT, SPECIAL, SPECIAL_UNCULLED, SHADOW, FIRE }
 
     private record Submit(VulkanFogState pose, float blockLight, float skyLight, int[] quads,
-                          Material material, VulkanTextureBindings.Image texture) {}
+                          Material material, VulkanTextureBindings.Image texture, boolean mipmapped) {}
 
     static final class Batch {
         private final List<Submit> models = new ArrayList<>();
@@ -81,7 +81,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
 
         void submitSpecial(Batch batch, int[] quads) {
             Material material = glIsEnabled(GL_CULL_FACE) ? Material.SPECIAL : Material.SPECIAL_UNCULLED;
-            submit(batch, quads, material, boundTexture());
+            submit(batch, quads, material, boundTexture(), false);
         }
 
         void submitShadow(Batch batch, int[] vertices) {
@@ -93,7 +93,19 @@ final class ItemFeatureRenderer implements AutoCloseable {
                 quads[dst + 4] = vertices[src + 3];
                 quads[dst + 5] = vertices[src + 4];
             }
-            submit(batch, quads, Material.SHADOW, boundTexture());
+            submit(batch, quads, Material.SHADOW, boundTexture(), false);
+        }
+
+        void submitFire(Batch batch, int[] vertices) {
+            int[] quads = new int[vertices.length / 5 * WORDS_PER_VERTEX];
+            for (int src = 0, dst = 0; src < vertices.length; src += 5, dst += WORDS_PER_VERTEX) {
+                System.arraycopy(vertices, src, quads, dst, 3);
+                quads[dst + 3] = -1;
+                quads[dst + 4] = vertices[src + 3];
+                quads[dst + 5] = vertices[src + 4];
+            }
+            int minFilter = glGetTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER);
+            submit(batch, quads, Material.FIRE, null, minFilter != GL_NEAREST && minFilter != GL_LINEAR);
         }
 
         private VulkanTextureBindings.Image boundTexture() {
@@ -110,20 +122,20 @@ final class ItemFeatureRenderer implements AutoCloseable {
                 }
                 transformGlintUv(quads);
             }
-            submit(batch, quads, glint ? Material.GLINT : Material.ATLAS, null);
+            submit(batch, quads, glint ? Material.GLINT : Material.ATLAS, null, false);
         }
 
-        private void submit(Batch batch, int[] quads, Material material, VulkanTextureBindings.Image texture) {
+        private void submit(Batch batch, int[] quads, Material material, VulkanTextureBindings.Image texture, boolean mipmapped) {
             prepareLighting(quads, material == Material.SHADOW);
             var pose = new VulkanFogState();
             pose.capture();
-            batch.models.add(new Submit(pose, OpenGlHelper.lastBrightnessX, OpenGlHelper.lastBrightnessY, quads, material, texture));
+            batch.models.add(new Submit(pose, OpenGlHelper.lastBrightnessX, OpenGlHelper.lastBrightnessY, quads, material, texture, mipmapped));
             batch.bytes += quads.length * Integer.BYTES;
         }
     }
 
     private final VkDevice device;
-    private final long layout, pipeline, glintPipeline, specialPipeline, specialUnculledPipeline, shadowPipeline;
+    private final long layout, pipeline, glintPipeline, specialPipeline, specialUnculledPipeline, shadowPipeline, firePipeline;
     private final VulkanTextureBindings textures;
     private final Map<VulkanTextureBindings.Image, VulkanTextureBindings> modelTextures = new IdentityHashMap<>();
     private VulkanBuffer vertices;
@@ -150,7 +162,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
             attrs.get(3).location(3).offset(24).format(VK_FORMAT_R32_SFLOAT);
             var inputs = VkPipelineVertexInputStateCreateInfo.calloc(stack).sType$Default()
                     .pVertexBindingDescriptions(stream).pVertexAttributeDescriptions(attrs);
-            String header = VulkanFogState.shaderHeader(device, "vec2 lightUv;\n");
+            String header = VulkanFogState.shaderHeader(device, "vec2 lightUv; int mipmapped;\n");
             String vertex = header + """
                     layout(location=0) in vec3 position;
                     layout(location=1) in vec4 vertexColor;
@@ -171,22 +183,26 @@ final class ItemFeatureRenderer implements AutoCloseable {
                         gl_Position = clip;
                     }
                     """;
-            String fragment = VulkanFogState.FRAGMENT_FOG + """
+            String fragment = VulkanFogState.FRAGMENT_FOG + VulkanTerrainPipeline.FRAME_UNIFORMS
+                    + VulkanTerrainPipeline.ATLAS_MIP_LOD + """
                     layout(set=0,binding=2) uniform sampler2D lightmap;
                     layout(location=0) in vec2 uv;
                     layout(location=1) flat in vec4 tint;
                     layout(location=2) in float eyeZ;
                     layout(location=0) out vec4 color;
                     void main() {
-                        color = textureLod(itemTexture, uv, 0.0) * tint;
+                        float lod = draw.mipmapped != 0 ? atlasMipLod(itemTexture, uv) : 0.0;
+                        color = textureLod(itemTexture, uv, lod) * tint;
                         if (color.a <= draw.fogColorAndAlphaRef.a) discard;
                         color.rgb *= texture(lightmap, (draw.lightUv + 8.0) / 256.0).rgb;
                         color.rgb = applyFog(color.rgb, eyeZ);
                     }
                     """;
+            String atlasFragment = header + "layout(set=0,binding=0) uniform sampler2D itemTexture;\n" + fragment;
             pipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
-                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Blend.TRANSLUCENT, true, inputs, vertex,
-                    header + "layout(set=0,binding=0) uniform sampler2D itemTexture;\n" + fragment);
+                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Blend.TRANSLUCENT, true, inputs, vertex, atlasFragment);
+            firePipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
+                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Blend.OPAQUE, true, inputs, vertex, atlasFragment);
             String separateTextureFragment = header + "layout(set=1,binding=0) uniform sampler2D itemTexture;\n" + fragment;
             glintPipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
                     VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Blend.ITEM_GLINT, false, inputs, vertex, separateTextureFragment);
@@ -301,7 +317,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
         terrain.bindFrame(stack, commands, layout);
         vkCmdBindIndexBuffer(commands, indices.handle(), 0, VK_INDEX_TYPE_UINT32);
         vkCmdBindVertexBuffers(commands, 0, stack.longs(vertices.handle()), stack.longs(0));
-        ByteBuffer light = stack.malloc(2 * Float.BYTES);
+        ByteBuffer parameters = stack.malloc(CONSTANTS - VulkanFogState.BYTES);
         for (Submit model : batch.models) {
             long modelPipeline = switch (model.material) {
                 case ATLAS -> pipeline;
@@ -309,6 +325,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
                 case SPECIAL -> specialPipeline;
                 case SPECIAL_UNCULLED -> specialUnculledPipeline;
                 case SHADOW -> shadowPipeline;
+                case FIRE -> firePipeline;
             };
             // Bound per-model stack use even when a frame contains many dropped stacks.
             try (MemoryStack modelStack = MemoryStack.stackPush()) {
@@ -320,8 +337,9 @@ final class ItemFeatureRenderer implements AutoCloseable {
                 vkCmdBindPipeline(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, modelPipeline);
                 vkCmdPushConstants(commands, layout, STAGES, 0, model.pose.constants(modelStack));
             }
-            light.putFloat(0, model.blockLight).putFloat(Float.BYTES, model.skyLight);
-            vkCmdPushConstants(commands, layout, STAGES, VulkanFogState.BYTES, light);
+            parameters.putFloat(0, model.blockLight).putFloat(Float.BYTES, model.skyLight);
+            parameters.putInt(2 * Float.BYTES, model.mipmapped ? 1 : 0);
+            vkCmdPushConstants(commands, layout, STAGES, VulkanFogState.BYTES, parameters);
             int quads = model.quads.length / (4 * WORDS_PER_VERTEX);
             for (int first = 0; first < quads; first += VulkanQuadIndices.CAPACITY) {
                 int count = Math.min(quads - first, VulkanQuadIndices.CAPACITY);
@@ -334,6 +352,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
     @Override
     public void close() {
         if (vertices != null) vertices.close();
+        vkDestroyPipeline(device, firePipeline, null);
         vkDestroyPipeline(device, shadowPipeline, null);
         vkDestroyPipeline(device, specialUnculledPipeline, null);
         vkDestroyPipeline(device, specialPipeline, null);

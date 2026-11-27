@@ -142,6 +142,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
             ++i;
         }
 
+        if (!flag && entity instanceof EntityItem) VulkanTerrainPreview.submitItemFire(worldrenderer);
         tessellator.draw();
 
         if (flag) {
