@@ -13,4 +13,5 @@
 - <a id="rain-and-snow"></a>[Rain and snow](history/rain-and-snow.md) · `975895a7`
 - <a id="world-border"></a>[World border](history/world-border.md) · `7ad19f64`
 - <a id="block-selection-outline"></a>[Block selection outline](history/block-selection-outline.md) · `6bd11fbe`
-- <a id="block-damage"></a><a id="next-session-checks"></a>[Block damage overlay](history/block-damage.md) · `b6440d4b`
+- <a id="block-damage"></a>[Block damage overlay](history/block-damage.md) · `b6440d4b`
+- <a id="quad-particles"></a><a id="next-session-checks"></a>[Textured quad particles](history/quad-particles.md) · `ce99e35e`

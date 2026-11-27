@@ -13,13 +13,13 @@ ordered section submissions, including translucent order.
 
 ## Resume on modern-renderer
 
-- **Next step.** Port textured quad particle batches from `EffectRenderer.renderParticles`, using 26.3's
-  `QuadParticleFeatureRenderer.prepareGroup` and `executeGroup`.
-- **Last verified renderer commit.** At `b6440d4b`, the block damage overlay matched same-frame Radiant OpenGL across
+- **Next step.** Port dropped-item rendering from `RenderEntityItem`, using 26.3's `ItemFeatureRenderer` for
+  model submission and execution. Reuse the item rendering path for pickup particles once it has parity.
+- **Last verified renderer commit.** At `ce99e35e`, textured quad particles matched same-frame Radiant OpenGL across
   all four configurations. The production build is restored.
-  See [the parity history and next-session checks](renderer-port/docs/history/block-damage.md).
-- **Remaining gap.** Verify particle-sheet sprites and block-atlas fragments, their lighting and depth-write order, and
-  disappearance when particles expire.
+  See [the parity history and next-session checks](renderer-port/docs/history/quad-particles.md).
+- **Remaining gap.** Verify dropped-item model transforms, atlas lighting and terrain occlusion. Layer 3 particles
+  submit entity draws through `RenderManager` and still need parity.
 
 ## Where to look
 
