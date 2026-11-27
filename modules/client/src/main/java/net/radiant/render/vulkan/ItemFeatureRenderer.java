@@ -26,7 +26,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
     private static final int STAGES = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
     private static final int CONSTANTS = VulkanFogState.BYTES + 3 * Float.BYTES + Integer.BYTES;
 
-    private enum Material { ATLAS, GLINT, SPECIAL, SPECIAL_UNCULLED, SHADOW, FIRE, TEXTURED_OPAQUE, FOOTPRINT, MOB_APPEARANCE }
+    private enum Material { ATLAS, GLINT, SPECIAL, SPECIAL_UNCULLED, SHADOW, FIRE, TEXTURED_OPAQUE, FOOTPRINT, MODEL_BLEND, LIVING_OPAQUE, LIVING_TRANSLUCENT }
 
     private record Submit(VulkanFogState pose, float blockLight, float skyLight, int[] quads,
                           Material material, VulkanTextureBindings.Image texture, boolean mipmapped, float opacity) {}
@@ -85,10 +85,20 @@ final class ItemFeatureRenderer implements AutoCloseable {
         }
 
         void submitMobAppearance(Batch batch, int[] quads) {
+            submitModel(batch, quads, Material.MODEL_BLEND);
+        }
+
+        void submitLivingModel(Batch batch, int[] quads) {
+            Material material = !glGetBoolean(GL_DEPTH_WRITEMASK) ? Material.LIVING_TRANSLUCENT
+                    : glIsEnabled(GL_BLEND) ? Material.MODEL_BLEND : Material.LIVING_OPAQUE;
+            submitModel(batch, quads, material);
+        }
+
+        private void submitModel(Batch batch, int[] quads, Material material) {
             try (MemoryStack stack = MemoryStack.stackPush()) {
                 FloatBuffer color = stack.mallocFloat(4);
                 glGetFloatv(GL_CURRENT_COLOR, color);
-                submit(batch, quads, Material.MOB_APPEARANCE, boundTexture(), false, false,
+                submit(batch, quads, material, boundTexture(), false, false,
                         OpenGlHelper.lastBrightnessX, OpenGlHelper.lastBrightnessY, color.get(3));
             }
         }
@@ -205,7 +215,7 @@ final class ItemFeatureRenderer implements AutoCloseable {
 
     private final VkDevice device;
     private final long layout, pipeline, glintPipeline, specialPipeline, specialUnculledPipeline, shadowPipeline, firePipeline, texturedOpaquePipeline, footprintPipeline;
-    private final long mobAppearancePipeline;
+    private final long modelBlendPipeline, livingOpaquePipeline, livingTranslucentPipeline;
     private final VulkanTextureBindings textures;
     private final Map<VulkanTextureBindings.Image, VulkanTextureBindings> modelTextures = new IdentityHashMap<>();
     private VulkanBuffer vertices;
@@ -283,8 +293,14 @@ final class ItemFeatureRenderer implements AutoCloseable {
                     VK_CULL_MODE_NONE, VulkanGraphics.RGBA, inputs, vertex, separateTextureFragment);
             texturedOpaquePipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
                     VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Blend.OPAQUE, true, inputs, vertex, separateTextureFragment);
-            mobAppearancePipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
+            modelBlendPipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
                     VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Blend.PARTICLE, true,
+                    VK_CULL_MODE_NONE, VulkanGraphics.RGBA, inputs, vertex, separateTextureFragment);
+            livingOpaquePipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
+                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Blend.OPAQUE, true,
+                    VK_CULL_MODE_NONE, VulkanGraphics.RGBA, inputs, vertex, separateTextureFragment);
+            livingTranslucentPipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
+                    VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Blend.PARTICLE, false,
                     VK_CULL_MODE_NONE, VulkanGraphics.RGBA, inputs, vertex, separateTextureFragment);
             footprintPipeline = VulkanGraphics.pipeline(stack, device, layout, colorFormat, depthFormat,
                     VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, VulkanGraphics.Blend.PARTICLE, true, inputs, vertex, separateTextureFragment);
@@ -403,7 +419,9 @@ final class ItemFeatureRenderer implements AutoCloseable {
                 case SPECIAL_UNCULLED -> specialUnculledPipeline;
                 case SHADOW -> shadowPipeline;
                 case FIRE -> firePipeline;
-                case MOB_APPEARANCE -> mobAppearancePipeline;
+                case MODEL_BLEND -> modelBlendPipeline;
+                case LIVING_OPAQUE -> livingOpaquePipeline;
+                case LIVING_TRANSLUCENT -> livingTranslucentPipeline;
                 case FOOTPRINT -> footprintPipeline;
                 case TEXTURED_OPAQUE -> texturedOpaquePipeline;
             };
@@ -435,7 +453,9 @@ final class ItemFeatureRenderer implements AutoCloseable {
         if (vertices != null) vertices.close();
         vkDestroyPipeline(device, texturedOpaquePipeline, null);
         vkDestroyPipeline(device, firePipeline, null);
-        vkDestroyPipeline(device, mobAppearancePipeline, null);
+        vkDestroyPipeline(device, livingTranslucentPipeline, null);
+        vkDestroyPipeline(device, livingOpaquePipeline, null);
+        vkDestroyPipeline(device, modelBlendPipeline, null);
         vkDestroyPipeline(device, footprintPipeline, null);
         vkDestroyPipeline(device, shadowPipeline, null);
         vkDestroyPipeline(device, specialUnculledPipeline, null);

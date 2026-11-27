@@ -56,8 +56,8 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     private Extraction frame;
     private boolean frameStarted;
     private ItemFeatureRenderer.Batch itemBatch;
-    private boolean specialItem;
-    private boolean mobAppearance;
+    private enum ModelCapture { SPECIAL_ITEM, MOB_APPEARANCE, LIVING }
+    private ModelCapture modelCapture;
     private float clearRed, clearGreen, clearBlue;
     private TerrainComparison comparison;
     private long frames;
@@ -282,37 +282,36 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     }
 
     public static void withSpecialItem(Runnable render) {
-        VulkanTerrainPreview preview = active;
-        if (preview == null || preview.itemBatch == null) {
-            render.run();
-            return;
-        }
-        boolean previous = preview.specialItem;
-        preview.specialItem = true;
-        try {
-            render.run();
-        } finally {
-            preview.specialItem = previous;
-        }
+        withModelCapture(ModelCapture.SPECIAL_ITEM, render);
     }
 
     public static void withMobAppearance(Runnable render) {
+        withModelCapture(ModelCapture.MOB_APPEARANCE, render);
+    }
+
+    public static void withLivingModel(Runnable render) {
+        withModelCapture(ModelCapture.LIVING, render);
+    }
+
+    private static void withModelCapture(ModelCapture capture, Runnable render) {
         VulkanTerrainPreview preview = active;
-        if (preview == null || preview.itemBatch != preview.terrain.items.litParticles) {
+        if (preview == null || preview.itemBatch == null
+                || (capture == ModelCapture.MOB_APPEARANCE && preview.itemBatch != preview.terrain.items.litParticles)
+                || (capture == ModelCapture.LIVING && preview.modelCapture != null)) {
             render.run();
             return;
         }
-        boolean previous = preview.mobAppearance;
-        preview.mobAppearance = true;
+        ModelCapture previous = preview.modelCapture;
+        preview.modelCapture = capture;
         try {
             render.run();
         } finally {
-            preview.mobAppearance = previous;
+            preview.modelCapture = previous;
         }
     }
 
     public static boolean capturingModel() {
-        return active != null && (active.specialItem || active.mobAppearance);
+        return active != null && active.modelCapture != null;
     }
 
     public static void submitModelPart(int[] vertices, int displayList) {
@@ -322,10 +321,12 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         if (preview.comparison != null && preview.comparison.active()) {
             preview.comparison.drawOverlay(() -> GlStateManager.callList(displayList));
         }
-        if (preview.mobAppearance) {
-            preview.terrain.items.submitMobAppearance(preview.itemBatch, vertices.clone());
-        } else {
-            preview.terrain.items.submitSpecial(preview.itemBatch, vertices.clone());
+        var items = preview.terrain.items;
+        int[] quads = vertices.clone();
+        switch (preview.modelCapture) {
+            case SPECIAL_ITEM -> items.submitSpecial(preview.itemBatch, quads);
+            case MOB_APPEARANCE -> items.submitMobAppearance(preview.itemBatch, quads);
+            case LIVING -> items.submitLivingModel(preview.itemBatch, quads);
         }
     }
 
