@@ -18,4 +18,5 @@
 - <a id="dropped-items"></a>[Dropped items and pickup particles](history/dropped-items.md) · `ef20df06`, `4c49c25d`, `174638b0`, `891d2c81`, `8c16a9b0`
 - <a id="experience-orbs"></a>[Experience orbs and pickups](history/experience-orbs.md) · `3f87954d`
 - <a id="arrows"></a>[Arrows and pickups](history/arrows.md) · `17eea5b9`
-- <a id="large-explosions"></a><a id="next-session-checks"></a>[Layer 3 explosion billboards](history/large-explosions.md) · `e1199593`
+- <a id="large-explosions"></a>[Layer 3 explosion billboards](history/large-explosions.md) · `e1199593`
+- <a id="footprints"></a><a id="next-session-checks"></a>[Layer 3 footprints](history/footprints.md) · `530fdfb4`

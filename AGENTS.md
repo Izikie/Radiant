@@ -13,12 +13,12 @@ ordered section submissions, including translucent order.
 
 ## Resume on modern-renderer
 
-- **Next step.** Port layer 3 footprints from `EntityFootStepFX`. Compare ground placement, texture, lighting,
-  blend and fade through expiry.
-- **Last verified renderer commit.** At `e1199593`, layer 3 explosion billboards matched same-frame Radiant
-  OpenGL across all four configurations. The production build is restored.
-  See [the parity history and next-session checks](renderer-port/docs/history/large-explosions.md).
-- **Remaining gap.** Footprints, mob appearance and the shadows and fire of other entities still need parity.
+- **Next step.** Port the guardian apparition from `MobAppearance`. Compare the model, camera-relative
+  transform, translucency and fade through expiry.
+- **Last verified renderer commit.** At `530fdfb4`, layer 3 footprints matched same-frame Radiant OpenGL
+  across all four configurations. The production build is restored.
+  See [the parity history and next-session checks](renderer-port/docs/history/footprints.md).
+- **Remaining gap.** Mob appearance and the shadows and fire of other entities still need parity.
 
 ## Where to look
 
