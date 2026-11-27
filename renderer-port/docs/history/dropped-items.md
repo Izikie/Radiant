@@ -8,6 +8,16 @@ Reproduce the fixture in this checkout with `python renderer-port/tools/terrain_
 
 After restoring production classes with `python renderer-port/tools/check.py`, run `run-w5fzxnz_` matched all 121 populated frames with zero validation errors.
 
+## Built-in item models
+
+At `4c49c25d`, stock built-in item renders through `TileEntityItemStackRenderer` submit textured model parts with their resolved transforms, lightmap coordinates and culling state. The OpenGL comparison replays each original display list. Baked and built-in models share the item submission order for dropped items and layer 3 item pickups.
+
+All 148 populated frames in `run-bk77c48o` matched with zero differing RGB pixels and zero Vulkan validation errors. Display lists and VBOs each matched with render regions off and on. The fixture included normal, trapped and ender chests at different light levels, a patterned banner, a player head and a creeper skull pickup. An opaque sandstone post partly occluded the trapped chest. Removing the items and expiring the pickup restored the fixture area to the baseline in all four modes.
+
+Reproduce the fixture in this checkout with `python renderer-port/tools/terrain_parity.py run --init-script renderer-port/local/parity/fixtures/special-items-visible.init.gradle --warmup 1 --seconds 2`.
+
+After restoring production classes with `python renderer-port/tools/check.py`, run `run-fz628byy` matched all 119 populated frames with zero validation errors.
+
 ### Next-session checks
 
-Port built-in dropped-item models through `TileEntityItemStackRenderer`. Compare textures, lighting and opaque terrain occlusion for chest, banner and skull items. Entity shadows, fire and layer 3 pickups that use other entity renderers still need parity.
+Port dropped-item shadows through `Render.renderShadow`. Compare shadow placement, opacity falloff and occlusion for dropped items and pickups. Entity fire and layer 3 pickups that use other entity renderers still need parity.

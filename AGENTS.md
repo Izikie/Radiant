@@ -13,13 +13,13 @@ ordered section submissions, including translucent order.
 
 ## Resume on modern-renderer
 
-- **Next step.** Port built-in dropped-item models from `TileEntityItemStackRenderer` and verify their textures,
-  lighting and terrain occlusion.
-- **Last verified renderer commit.** At `ef20df06`, baked dropped-item models, enchantment glint and baked item
-  pickup particles matched same-frame Radiant OpenGL across all four configurations. The production build is restored.
+- **Next step.** Port dropped-item shadows through `Render.renderShadow`. Compare their placement on block
+  surfaces, opacity falloff and terrain depth, including shadows drawn during item pickups.
+- **Last verified renderer commit.** At `4c49c25d`, built-in dropped-item models and skull pickups matched
+  same-frame Radiant OpenGL across all four configurations. The production build is restored.
   See [the parity history and next-session checks](renderer-port/docs/history/dropped-items.md).
-- **Remaining gap.** Built-in item models, entity shadows and fire, and layer 3 pickups rendered by other entity
-  renderers still need parity.
+- **Remaining gap.** Entity shadows and fire, and layer 3 pickups rendered by other entity renderers still need
+  parity.
 
 ## Where to look
 
