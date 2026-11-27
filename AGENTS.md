@@ -13,13 +13,13 @@ ordered section submissions, including translucent order.
 
 ## Resume on modern-renderer
 
-- **Next step.** Port dropped-item shadows through `Render.renderShadow`. Compare their placement on block
-  surfaces, opacity falloff and terrain depth, including shadows drawn during item pickups.
-- **Last verified renderer commit.** At `4c49c25d`, built-in dropped-item models and skull pickups matched
-  same-frame Radiant OpenGL across all four configurations. The production build is restored.
+- **Next step.** Port dropped-item fire through `Render.renderEntityOnFire`. Compare its atlas animation,
+  billboard geometry and terrain occlusion for burning drops and item pickups.
+- **Last verified renderer commit.** At `174638b0`, dropped-item and pickup shadows matched same-frame Radiant
+  OpenGL across all four configurations. The production build is restored.
   See [the parity history and next-session checks](renderer-port/docs/history/dropped-items.md).
-- **Remaining gap.** Entity shadows and fire, and layer 3 pickups rendered by other entity renderers still need
-  parity.
+- **Remaining gap.** Dropped-item fire, other entities' shadows and fire, and layer 3 pickups rendered by other
+  entity renderers still need parity.
 
 ## Where to look
 

@@ -18,6 +18,16 @@ Reproduce the fixture in this checkout with `python renderer-port/tools/terrain_
 
 After restoring production classes with `python renderer-port/tools/check.py`, run `run-fz628byy` matched all 119 populated frames with zero validation errors.
 
+## Dropped-item shadows
+
+At `174638b0`, `Render.renderShadow` submits its textured shadow quads immediately after each dropped-item or item pickup draw. Vulkan preserves the OpenGL draw order, alpha blend, depth test and disabled depth writes.
+
+All 149 populated frames in `run-bukoi1pa` matched with zero differing RGB pixels and zero Vulkan validation errors. The fixture toggled entity shadows with the same items present, then kept only the pickup and finally removed it. OpenGL darkened 385 pixels near the floor seam, 504 beneath the gold stack, 104 beneath the raised chest and 203 to 207 under the isolated pickup. The area behind the sandstone post showed no darkening.
+
+Reproduce the fixture in this checkout with `python renderer-port/tools/terrain_parity.py run --init-script renderer-port/local/parity/fixtures/item-shadows.init.gradle --warmup 1 --seconds 2`. In the exploratory run `run-ugfu7okg`, sample 18 differed by one blue level on 61 pixels inside the baked apple model. The shadow fixture uses brick blocks at those locations to isolate the shadow comparison.
+
+After restoring production classes with `python renderer-port/tools/check.py`, run `run-6hkyvs6w` matched all 128 populated frames with zero validation errors.
+
 ### Next-session checks
 
-Port dropped-item shadows through `Render.renderShadow`. Compare shadow placement, opacity falloff and occlusion for dropped items and pickups. Entity fire and layer 3 pickups that use other entity renderers still need parity.
+Port dropped-item fire through `Render.renderEntityOnFire`. Compare atlas animation, billboard geometry and terrain occlusion for burning drops and item pickups. Other entities' shadows and fire and layer 3 pickups that use other entity renderers still need parity.
