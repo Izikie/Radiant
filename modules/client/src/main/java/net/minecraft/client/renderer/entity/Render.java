@@ -6,9 +6,6 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.item.EntityXPOrb;
-import net.minecraft.entity.projectile.EntityArrow;
 import net.radiant.render.vulkan.VulkanTerrainPreview;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.culling.ICamera;
@@ -144,8 +141,8 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
             ++i;
         }
 
-        if (!flag && (entity instanceof EntityItem || entity instanceof EntityXPOrb || entity instanceof EntityArrow)) {
-            VulkanTerrainPreview.submitItemFire(worldrenderer);
+        if (!flag) {
+            VulkanTerrainPreview.submitEntityFire(worldrenderer);
         }
         tessellator.draw();
 
@@ -199,7 +196,7 @@ public abstract class Render<T extends Entity> implements IEntityRenderer {
                 }
             }
 
-            if (entityIn instanceof EntityItem || entityIn instanceof EntityXPOrb) VulkanTerrainPreview.submitItemShadow(worldrenderer);
+            VulkanTerrainPreview.submitEntityShadow(worldrenderer);
             tessellator.draw();
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             GlStateManager.disableBlend();

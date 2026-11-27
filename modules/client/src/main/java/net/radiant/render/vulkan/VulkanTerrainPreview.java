@@ -370,7 +370,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         submitPositionTex(mesh, false);
     }
 
-    public static void submitItemFire(WorldRenderer mesh) {
+    public static void submitEntityFire(WorldRenderer mesh) {
         submitPositionTex(mesh, true);
     }
 
@@ -389,7 +389,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         }
     }
 
-    public static void submitItemShadow(WorldRenderer mesh) {
+    public static void submitEntityShadow(WorldRenderer mesh) {
         VulkanTerrainPreview preview = active;
         if (preview == null || preview.itemBatch == null || mesh.getVertexCount() == 0) return;
         preview.ensureAtlas(Minecraft.get());
