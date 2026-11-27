@@ -13,12 +13,12 @@ ordered section submissions, including translucent order.
 
 ## Resume on modern-renderer
 
-- **Next step.** Port the layer 3 explosion billboards from `EntityLargeExplodeFX`. Compare texture frames,
-  tint, lightmap and terrain occlusion through the effect's lifetime.
-- **Last verified renderer commit.** At `17eea5b9`, arrows and arrow pickups matched same-frame Radiant OpenGL
-  across all four configurations. The production build is restored.
-  See [the parity history and next-session checks](renderer-port/docs/history/arrows.md).
-- **Remaining gap.** The remaining layer 3 effects and the shadows and fire of other entities still need parity.
+- **Next step.** Port layer 3 footprints from `EntityFootStepFX`. Compare ground placement, texture, lighting,
+  blend and fade through expiry.
+- **Last verified renderer commit.** At `e1199593`, layer 3 explosion billboards matched same-frame Radiant
+  OpenGL across all four configurations. The production build is restored.
+  See [the parity history and next-session checks](renderer-port/docs/history/large-explosions.md).
+- **Remaining gap.** Footprints, mob appearance and the shadows and fire of other entities still need parity.
 
 ## Where to look
 
