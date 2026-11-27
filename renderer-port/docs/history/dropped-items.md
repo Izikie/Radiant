@@ -28,6 +28,18 @@ Reproduce the fixture in this checkout with `python renderer-port/tools/terrain_
 
 After restoring production classes with `python renderer-port/tools/check.py`, run `run-6hkyvs6w` matched all 128 populated frames with zero validation errors.
 
+## Dropped-item fire
+
+At `8c16a9b0`, `Render.renderEntityOnFire` submits the posed flame quads in item draw order. Vulkan uses the animated block atlas and its captured mipmap setting, with alpha testing and depth writes matching OpenGL.
+
+All 148 populated frames in `run-r4cwwvyr` matched with zero differing RGB pixels and zero Vulkan validation errors across display lists and VBOs with render regions off and on. The stationary flame below the gold stack showed three distinct animation crops in every mode. The fixture also showed a flame partly occluded by the sandstone post and a flame on an isolated pickup.
+
+At `891d2c81`, the item pass gained a lightmap fallback for frames without terrain submissions. In `run-59xbsxjh`, VBO sample 6 showed black items while terrain was still loading. The final fixture withheld terrain submissions for one frame with visible items and verified an exact match in every mode.
+
+Reproduce the fixture in this checkout with `python renderer-port/tools/terrain_parity.py run --init-script renderer-port/local/parity/fixtures/item-fire.init.gradle --warmup 1 --seconds 2`.
+
+After restoring production classes with `python renderer-port/tools/check.py`, run `run-qaaciq9q` matched all 125 populated frames with zero validation errors.
+
 ### Next-session checks
 
-Port dropped-item fire through `Render.renderEntityOnFire`. Compare atlas animation, billboard geometry and terrain occlusion for burning drops and item pickups. Other entities' shadows and fire and layer 3 pickups that use other entity renderers still need parity.
+Port `RenderXPOrb` for experience orbs and their pickups through `EntityPickupFX`. Compare the billboard, animated color, lightmap and terrain occlusion before moving on to arrow pickups and the remaining layer 3 effects.
