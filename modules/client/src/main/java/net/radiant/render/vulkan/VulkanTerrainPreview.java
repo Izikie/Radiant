@@ -55,6 +55,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
     private int sourceHeight;
     private Extraction frame;
     private boolean frameStarted;
+    private ItemFeatureRenderer.Batch itemBatch;
     private float clearRed, clearGreen, clearBlue;
     private TerrainComparison comparison;
     private long frames;
@@ -174,6 +175,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.terrain.clouds.invalidateTexture();
             preview.terrain.weather.invalidateTextures();
             preview.terrain.particles.invalidateTexture();
+            preview.terrain.items.invalidateGlint();
             preview.terrain.border.invalidateTexture();
             preview.terrain.sun.invalidateTexture();
             preview.terrain.moon.invalidateTexture();
@@ -216,6 +218,7 @@ public final class VulkanTerrainPreview implements AutoCloseable {
             preview.terrain.outline.bounds = null;
             preview.terrain.damage.vertices = null;
             preview.terrain.particles.clear();
+            preview.terrain.items.clear();
             preview.terrain.weather.clear();
             preview.terrain.border.vertices = null;
             preview.terrain.sun.visible = false;
@@ -259,6 +262,32 @@ public final class VulkanTerrainPreview implements AutoCloseable {
         if (preview.comparison != null && preview.comparison.active()) {
             preview.comparison.drawOverlay(vertices, DefaultVertexFormats.BLOCK);
         }
+    }
+
+    public static void withItemSubmissions(boolean pickup, Runnable render) {
+        VulkanTerrainPreview preview = active;
+        if (preview == null || !preview.frameStarted) {
+            render.run();
+            return;
+        }
+        var previous = preview.itemBatch;
+        preview.itemBatch = pickup ? preview.terrain.items.pickups : preview.terrain.items.drops;
+        try {
+            render.run();
+        } finally {
+            preview.itemBatch = previous;
+        }
+    }
+
+    public static void submitItemModel(WorldRenderer mesh, boolean glint) {
+        VulkanTerrainPreview preview = active;
+        if (preview == null || preview.itemBatch == null || mesh.getVertexCount() == 0) return;
+        preview.ensureAtlas(Minecraft.get());
+        int[] vertices = mesh.getVertexState().getRawBuffer();
+        if (preview.comparison != null && preview.comparison.active()) {
+            preview.comparison.drawOverlay(vertices, DefaultVertexFormats.ITEM);
+        }
+        preview.terrain.items.submit(preview.itemBatch, vertices, glint);
     }
 
     public static void submitParticles(boolean blockAtlas, boolean depthWrite, WorldRenderer mesh) {

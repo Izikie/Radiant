@@ -34,6 +34,7 @@ import net.optifine.CustomColors;
 import net.optifine.CustomItems;
 import net.optifine.shaders.Shaders;
 import net.optifine.shaders.ShadersRender;
+import net.radiant.render.vulkan.VulkanTerrainPreview;
 import org.lwjgl.opengl.GL11;
 
 import java.util.List;
@@ -82,15 +83,11 @@ public class RenderItem implements IResourceManagerReloadListener {
         this.registerItem(itm, 0, identifier);
     }
 
-    private void renderModel(IBakedModel model, ItemStack stack) {
-        this.renderModel(model, -1, stack);
-    }
-
     public void renderModel(IBakedModel model, int color) {
-        this.renderModel(model, color, null);
+        this.renderModel(model, color, null, false, false);
     }
 
-    private void renderModel(IBakedModel model, int color, ItemStack stack) {
+    private void renderModel(IBakedModel model, int color, ItemStack stack, boolean dropped, boolean glint) {
         Tessellator tessellator = Tessellator.get();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         boolean flag = Minecraft.get().getTextureMapBlocks().isTextureBound();
@@ -107,6 +104,7 @@ public class RenderItem implements IResourceManagerReloadListener {
         }
 
         this.renderQuads(worldrenderer, model.getGeneralQuads(), color, stack);
+        if (dropped && !flag1 && (flag || glint)) VulkanTerrainPreview.submitItemModel(worldrenderer, glint);
         tessellator.draw();
 
         if (flag1) {
@@ -116,6 +114,14 @@ public class RenderItem implements IResourceManagerReloadListener {
     }
 
     public void renderItem(ItemStack stack, IBakedModel model) {
+        this.renderItem(stack, model, false);
+    }
+
+    void renderDroppedItem(ItemStack stack, IBakedModel model) {
+        this.renderItem(stack, model, true);
+    }
+
+    private void renderItem(ItemStack stack, IBakedModel model, boolean dropped) {
         if (stack != null) {
             GlStateManager.pushMatrix();
             GlStateManager.scale(0.5F, 0.5F, 0.5F);
@@ -134,20 +140,20 @@ public class RenderItem implements IResourceManagerReloadListener {
                 }
 
                 this.renderModelHasEmissive = false;
-                this.renderModel(model, stack);
+                this.renderModel(model, -1, stack, dropped, false);
 
                 if (this.renderModelHasEmissive) {
                     float f = OpenGlHelper.lastBrightnessX;
                     float f1 = OpenGlHelper.lastBrightnessY;
                     OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, f1);
                     this.renderModelEmissive = true;
-                    this.renderModel(model, stack);
+                    this.renderModel(model, -1, stack, dropped, false);
                     this.renderModelEmissive = false;
                     OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, f, f1);
                 }
 
                 if (stack.hasEffect() && (!Config.isCustomItems() || !CustomItems.renderCustomEffect(this, stack, model))) {
-                    this.renderEffect(model);
+                    this.renderEffect(model, dropped);
                 }
             }
 
@@ -155,7 +161,7 @@ public class RenderItem implements IResourceManagerReloadListener {
         }
     }
 
-    private void renderEffect(IBakedModel model) {
+    private void renderEffect(IBakedModel model, boolean dropped) {
         if (!Config.isCustomItems() || CustomItems.isUseGlint()) {
             if (!Config.isShaders() || !Shaders.isShadowPass) {
                 GlStateManager.depthMask(false);
@@ -174,14 +180,14 @@ public class RenderItem implements IResourceManagerReloadListener {
                 float f = (Minecraft.getSystemTime() % 3000L) / 3000.0F / 8.0F;
                 GlStateManager.translate(f, 0.0F, 0.0F);
                 GlStateManager.rotate(-50.0F, 0.0F, 0.0F, 1.0F);
-                this.renderModel(model, -8372020);
+                this.renderModel(model, -8372020, null, dropped, true);
                 GlStateManager.popMatrix();
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(8.0F, 8.0F, 8.0F);
                 float f1 = (Minecraft.getSystemTime() % 4873L) / 4873.0F / 8.0F;
                 GlStateManager.translate(-f1, 0.0F, 0.0F);
                 GlStateManager.rotate(10.0F, 0.0F, 0.0F, 1.0F);
-                this.renderModel(model, -8372020);
+                this.renderModel(model, -8372020, null, dropped, true);
                 GlStateManager.popMatrix();
                 GlStateManager.matrixMode(GL11.GL_MODELVIEW);
                 GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

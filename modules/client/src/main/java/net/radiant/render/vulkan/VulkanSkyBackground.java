@@ -36,6 +36,7 @@ final class VulkanSkyBackground implements AutoCloseable {
     }
 
     static Matrix4f projectionModelView(FloatBuffer matrix) {
+        int previousMode = glGetInteger(GL_MATRIX_MODE);
         glMatrixMode(GL_PROJECTION);
         glPushMatrix();
         try {
@@ -43,7 +44,7 @@ final class VulkanSkyBackground implements AutoCloseable {
             glGetFloatv(GL_PROJECTION_MATRIX, matrix);
         } finally {
             glPopMatrix();
-            glMatrixMode(GL_MODELVIEW);
+            glMatrixMode(previousMode);
         }
         return new Matrix4f().set(matrix);
     }

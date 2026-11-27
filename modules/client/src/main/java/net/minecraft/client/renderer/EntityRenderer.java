@@ -1293,7 +1293,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
             GlStateManager.pushMatrix();
             RenderHelper.enableStandardItemLighting();
 
-            renderglobal.renderEntities(entity, icamera, partialTicks);
+            VulkanTerrainPreview.withItemSubmissions(false, () -> renderglobal.renderEntities(entity, icamera, partialTicks));
 
             RenderHelper.disableStandardItemLighting();
             this.disableLightmap();
@@ -1342,7 +1342,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                 Shaders.beginLitParticles();
             }
 
-            effectrenderer.renderLitParticles(entity, partialTicks);
+            VulkanTerrainPreview.withItemSubmissions(true, () -> effectrenderer.renderLitParticles(entity, partialTicks));
             RenderHelper.disableStandardItemLighting();
             this.setupFog(0, partialTicks);
 

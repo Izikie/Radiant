@@ -13,7 +13,7 @@ import static org.lwjgl.vulkan.VK10.*;
 final class VulkanGraphics {
     static final int RGBA = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
 
-    enum Blend { OPAQUE, TRANSLUCENT, ADDITIVE, BLOCK_DAMAGE, PARTICLE }
+    enum Blend { OPAQUE, TRANSLUCENT, ADDITIVE, BLOCK_DAMAGE, PARTICLE, ITEM_GLINT }
 
     private VulkanGraphics() {
     }
@@ -63,15 +63,26 @@ final class VulkanGraphics {
             blend.get(0).colorWriteMask(colorMask);
             if (blendMode != Blend.OPAQUE) {
                 blend.get(0).blendEnable(true)
-                        .srcColorBlendFactor(blendMode == Blend.BLOCK_DAMAGE ? VK_BLEND_FACTOR_DST_COLOR : VK_BLEND_FACTOR_SRC_ALPHA)
+                        .srcColorBlendFactor(switch (blendMode) {
+                            case BLOCK_DAMAGE -> VK_BLEND_FACTOR_DST_COLOR;
+                            case ITEM_GLINT -> VK_BLEND_FACTOR_SRC_COLOR;
+                            default -> VK_BLEND_FACTOR_SRC_ALPHA;
+                        })
                         .dstColorBlendFactor(switch (blendMode) {
                             case BLOCK_DAMAGE -> VK_BLEND_FACTOR_SRC_COLOR;
-                            case ADDITIVE -> VK_BLEND_FACTOR_ONE;
+                            case ADDITIVE, ITEM_GLINT -> VK_BLEND_FACTOR_ONE;
                             default -> VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
                         })
                         .colorBlendOp(VK_BLEND_OP_ADD)
-                        .srcAlphaBlendFactor(blendMode == Blend.PARTICLE ? VK_BLEND_FACTOR_SRC_ALPHA : VK_BLEND_FACTOR_ONE)
-                        .dstAlphaBlendFactor(blendMode == Blend.PARTICLE ? VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA : VK_BLEND_FACTOR_ZERO)
+                        .srcAlphaBlendFactor(switch (blendMode) {
+                            case PARTICLE, ITEM_GLINT -> VK_BLEND_FACTOR_SRC_ALPHA;
+                            default -> VK_BLEND_FACTOR_ONE;
+                        })
+                        .dstAlphaBlendFactor(switch (blendMode) {
+                            case PARTICLE -> VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
+                            case ITEM_GLINT -> VK_BLEND_FACTOR_ONE;
+                            default -> VK_BLEND_FACTOR_ZERO;
+                        })
                         .alphaBlendOp(VK_BLEND_OP_ADD);
 
             }
@@ -93,7 +104,7 @@ final class VulkanGraphics {
                             .pDynamicStates(stack.ints(VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR)));
             if (depthFormat != VK_FORMAT_UNDEFINED) {
                 config.pDepthStencilState(VkPipelineDepthStencilStateCreateInfo.calloc(stack).sType$Default()
-                        .depthTestEnable(true).depthWriteEnable(depthWrite).depthCompareOp(VK_COMPARE_OP_LESS_OR_EQUAL));
+                        .depthTestEnable(true).depthWriteEnable(depthWrite).depthCompareOp(blendMode == Blend.ITEM_GLINT ? VK_COMPARE_OP_EQUAL : VK_COMPARE_OP_LESS_OR_EQUAL));
             }
             LongBuffer handle = stack.mallocLong(1);
             VulkanPresenter.check(vkCreateGraphicsPipelines(device, 0, configurations, null, handle), "create graphics pipeline");

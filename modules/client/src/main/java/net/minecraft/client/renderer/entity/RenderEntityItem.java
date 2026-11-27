@@ -103,12 +103,12 @@ public class RenderEntityItem extends Render<EntityItem> {
 
                 GlStateManager.scale(0.5F, 0.5F, 0.5F);
                 ibakedmodel.getItemCameraTransforms().applyTransform(ItemCameraTransforms.TransformType.GROUND);
-                this.itemRenderer.renderItem(itemstack, ibakedmodel);
+                this.itemRenderer.renderDroppedItem(itemstack, ibakedmodel);
                 GlStateManager.popMatrix();
             } else {
                 GlStateManager.pushMatrix();
                 ibakedmodel.getItemCameraTransforms().applyTransform(ItemCameraTransforms.TransformType.GROUND);
-                this.itemRenderer.renderItem(itemstack, ibakedmodel);
+                this.itemRenderer.renderDroppedItem(itemstack, ibakedmodel);
                 GlStateManager.popMatrix();
                 float f3 = ibakedmodel.getItemCameraTransforms().ground.scale().x;
                 float f4 = ibakedmodel.getItemCameraTransforms().ground.scale().y;
